@@ -1,0 +1,19 @@
+{
+  "name": "algo-game",
+  "version": "1.0.0",
+  "description": "Recreation of the japanese game called Algo Basic as a webapp.",
+  "main": "index.js",
+  "scripts": {
+    "devstart": "nodemon server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
