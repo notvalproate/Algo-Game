@@ -1,14 +1,9 @@
-const PORT = 31415;
-const HOST = 'localhost';
-
 $(document).ready(function() {
 
-   
 $('#playButton').click(function(event) {
-    console.log(event);
     event.preventDefault();
 
-    const socket = io(`https://${HOST}:${PORT}`, {
+    var socket = io({
         query: {
             roomKey: $('#roomKey').val(),
             username: $('#username').val()
@@ -23,6 +18,5 @@ $('#playButton').click(function(event) {
         alert(message);
     });
 });
-
 
 });
