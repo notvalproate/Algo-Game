@@ -1,11 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALGO Game</title>
-</head>
-<body>
-    <h1><%= locals.test %></h1>
-</body>
-</html>
+<%- include('./partials/_header'); %>
+
+<header>
+    <h1 class="title">ALGO</h1>
+</header>
+
+<div class="login-box">
+    <div class="login">
+        <h2 class="title">Login</h2>
+        <form>
+            <div class="box">
+                <label>Username</label>
+                <input type="text" name="username" id="username" required>
+            </div>
+            <div class="box">
+                <label>Key</label>
+                <input type="text" name="roomKey" id="roomKey" required>
+            </div>
+            <button class="button" id="playButton">PLAY!</button>
+        </form>
+        <% if (message !== undefined) { %>
+            <h2 class="alert-box"><%= message %></h2>
+        <% } %>
+    </div>
+</div>
+
+<footer>
+    <h3>&copy; 2023 - ALGO</h3>
+</footer>
+
+<!-- Scripts -->
+<script src="js/index.js" type="text/javascript"></script>
+
+<%- include('./partials/_footer'); %>
