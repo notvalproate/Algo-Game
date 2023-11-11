@@ -28,12 +28,9 @@ app.get('/', (req, res) => {
     res.render('index');
 });
 
-app.get('/wait', (req, res) => {
-    res.render('wait');
-});
-
-app.get('/:roomKey/play', (req, res) => {
-    res.render('play', { roomKey: req.params.roomKey });
+// POST routes
+app.post('/:roomKey/play', (req, res) => {
+    res.render('play', { roomKey: req.data.roomKey, username: req.data.username });
 });
 
 
@@ -42,45 +39,43 @@ const socket_server = require('http').Server(app);
 const io = require('socket.io')(socket_server);
 
 io.on('connection', (socket) => {
-    const roomKey = socket.handshake.query.roomKey;
-    const username = socket.handshake.query.username;
+    console.log('User connected');
 
-    socket.join(roomKey);
+    const roomKey = data.roomKey;
+    const username = data.username;
 
-    // Currently this returns 1 everytime, hence even though two people input same room key, it returns count as 1, 
-    // hence not executing line 61 onwards as we'd expect
-    const users = io.sockets.adapter.rooms.get(roomKey).size;
-    console.log('Total users in room ' + roomKey + ': ' + users);
+    users = 0;
 
-    // Lmao idk i find this formatting for if blocks more cleaner and readable idk if u wanna change it back change it, I'll just go with it lol.
-    if (users === 1) {
-        console.log('Pushed new room')
+    if (io.sockets.adapter.rooms.get(roomKey) === undefined) {
+        console.log('Pushed new room');
 
+        socket.join(roomKey);
         roomsList.push({
             roomKey: roomKey,
             users: [username],
         });
-        socket.emit('redirect', '/wait');
-    } 
-    else if (users === 2) {
+        users = io.sockets.adapter.rooms.get(roomKey).size;
+            
+        socket.emit('joinLobby', roomKey);
+    } else if (io.sockets.adapter.rooms.get(roomKey).size === 1) {
         console.log('Trying to join existing room')
-
+    
+        socket.join(roomKey);
         const roomToJoin = roomsList.find((room) => room.roomKey === roomKey);
         roomToJoin.users.push(username);
-        socket.emit('redirect', `/${roomKey}/play`);
-    }
-    else {
+
+        users = io.sockets.adapter.rooms.get(roomKey).size;
+        console.log(roomToJoin);
+
+        socket.emit('joinLobby', roomKey);
+    } else {
         console.log('Trying to join a full room')
-
-        socket.emit('error', 'The room is already full');
+    
+        socket.emit('lobbyFull', roomKey);
     }
-});
 
-
-// POST routes (not in use at the moment)
-app.post('/register', (req, res) => {
-    console.log(req.body)
-    res.redirect('/');
+    //io.sockets.in(roomKey).emit('test', users);
+    console.log('Total users in room ' + roomKey + ': ' + users);
 });
 
 

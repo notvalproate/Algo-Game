@@ -1,22 +1,16 @@
-$(document).ready(function() {
-
-$('#playButton').click(function(event) {
+$("#playButton").click((event) => {
     event.preventDefault();
 
-    var socket = io({
-        query: {
-            roomKey: $('#roomKey').val(),
-            username: $('#username').val()
+    const roomKey = $("#roomKey").val();
+    const username = $("#username").val();
+
+    $.ajax({
+        url: `/${roomKey}/play`,
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify({roomKey: roomKey, username: username}),
+        success: (res) => {
+            console.log("ajax success");
         }
-    });
-
-    socket.on('redirect', (url) => {
-        window.location.href = url;
-    });
-
-    socket.on('error', (message) => {
-        alert(message);
-    });
-});
-
-});
+    })
+})
