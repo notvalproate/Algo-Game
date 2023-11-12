@@ -6,7 +6,6 @@ require('dotenv').config();
 
 // If you dont have the .env file (since it is in .gitignore), create a .env file and set port and host to what you wish.
 const PORT = process.env.PORT;
-const HOST = process.env.HOST;
 
 const app = express();
 
@@ -105,6 +104,6 @@ io.on('connection', (socket) => {
 
 
 // Run Server using the http socket server created (previous mistake was doing app.listen(), thats why it didn't work)
-socket_server.listen(PORT, HOST, () => {
+socket_server.listen(PORT, () => {
     console.log(`Server running at https://${HOST}:${PORT}`);
 });
