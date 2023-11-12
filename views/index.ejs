@@ -7,7 +7,7 @@
 <div class="login-box">
     <div class="login">
         <h2 class="title">Login</h2>
-        <form>
+        <form action="/" method="POST">
             <div class="box">
                 <label>Username</label>
                 <input type="text" name="username" id="username" required>
@@ -18,17 +18,11 @@
             </div>
             <button class="button" id="playButton">PLAY!</button>
         </form>
-        <% if (message !== undefined) { %>
-            <h2 class="alert-box"><%= message %></h2>
-        <% } %>
     </div>
 </div>
 
 <footer>
     <h3>&copy; 2023 - ALGO</h3>
 </footer>
-
-<!-- Scripts -->
-<script src="js/index.js" type="text/javascript"></script>
 
 <%- include('./partials/_footer'); %>
