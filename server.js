@@ -44,7 +44,7 @@ const io = require('socket.io')(socket_server);
 io.on('connection', (socket) => {
     const roomKey = socket.handshake.query.roomKey;
     const username = socket.handshake.query.username;
-
+    console.log(typeof roomKey);
     socket.join(roomKey);
 
     // Currently this returns 1 everytime, hence even though two people input same room key, it returns count as 1, 
@@ -60,6 +60,9 @@ io.on('connection', (socket) => {
             roomKey: roomKey,
             users: [username],
         });
+        console.log('All Rooms List:', roomsList);
+        const allRoomKeys = Array.from(io.sockets.adapter.rooms.keys());
+        console.log('All Room Keys:', allRoomKeys);
         socket.emit('redirect', '/wait');
     } 
     else if (users === 2) {
