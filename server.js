@@ -29,8 +29,8 @@ app.get('/', (req, res) => {
 });
 
 // POST routes
-app.post('/:roomKey/play', (req, res) => {
-    res.render('play', { roomKey: req.data.roomKey, username: req.data.username });
+app.post('/', (req, res) => {
+    res.render('play', { roomKey: req.body.roomKey, username: req.body.username });
 });
 
 
@@ -39,43 +39,32 @@ const socket_server = require('http').Server(app);
 const io = require('socket.io')(socket_server);
 
 io.on('connection', (socket) => {
-    console.log('User connected');
+    const username = socket.handshake.query.username;
+    const roomKey = socket.handshake.query.roomKey;
 
-    const roomKey = data.roomKey;
-    const username = data.username;
-
-    users = 0;
+    console.log(`-User [${username}] connected to lobby [${roomKey}]`);
 
     if (io.sockets.adapter.rooms.get(roomKey) === undefined) {
-        console.log('Pushed new room');
-
         socket.join(roomKey);
         roomsList.push({
             roomKey: roomKey,
             users: [username],
         });
-        users = io.sockets.adapter.rooms.get(roomKey).size;
             
         socket.emit('joinLobby', roomKey);
     } else if (io.sockets.adapter.rooms.get(roomKey).size === 1) {
-        console.log('Trying to join existing room')
-    
         socket.join(roomKey);
         const roomToJoin = roomsList.find((room) => room.roomKey === roomKey);
         roomToJoin.users.push(username);
 
-        users = io.sockets.adapter.rooms.get(roomKey).size;
         console.log(roomToJoin);
 
         socket.emit('joinLobby', roomKey);
     } else {
-        console.log('Trying to join a full room')
-    
         socket.emit('lobbyFull', roomKey);
     }
 
     //io.sockets.in(roomKey).emit('test', users);
-    console.log('Total users in room ' + roomKey + ': ' + users);
 });
 
 

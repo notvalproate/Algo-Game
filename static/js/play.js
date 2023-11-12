@@ -1,7 +1,10 @@
 $(document).ready(function() {
 
 var socket = io({
-    roomKey: $("#roomkey").html
+    query: {
+        username: username,
+        roomKey: roomKey
+    }
 });
 
 socket.on('joinLobby', (data) => {
