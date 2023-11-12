@@ -1,5 +1,7 @@
 $(document).ready(function() {
 
+window.history.pushState(null, '', `/${roomKey}/play`);
+
 var socket = io({
     query: {
         username: username,
@@ -9,10 +11,6 @@ var socket = io({
 
 socket.on('joinLobby', (data) => {
     console.log('joined lobby ' + data);
-});
-
-socket.on('lobbyFull', (data) => {
-    console.log('the room ' + data + ' is full!');
 });
 
 });
