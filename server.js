@@ -24,20 +24,18 @@ app.set('views', path.join(__dirname, '/views'));
 // GET routes to render appropriate screen. Redirected to wait and play through the socket.io room.
 // Need to not allow the user to directly put http://localhost:58617/wait or http://localhost:58617/roomkey/play and access the page.
 app.get('/', (req, res) => {
-    res.render('index');
+    res.render('index', { roomKey: undefined, full: false });
 });
 
 app.get('/:roomKey/play', (req, res) => {
     const roomKey = req.params.roomKey;
-    const username = 'test';
+    const username = 'nice you joined lobby using link';
     const roomToJoin = roomsList.find((room) => room.roomKey === roomKey)
 
-    if(roomToJoin === undefined) {
-        res.redirect('/');
-    } else if (roomToJoin.users.length != 2) {
-        res.render('play', { roomKey: roomKey, username: username });
+    if(roomToJoin === undefined || roomToJoin.users.length < 2) {
+        res.render('index', { roomKey: roomKey, full: false });
     } else {
-        res.redirect('/');
+        res.render('index', { roomKey: undefined, full: true });
     }
 });
 
@@ -50,7 +48,7 @@ app.post('/', (req, res) => {
     if(roomToJoin === undefined || roomToJoin.users.length == 1) {
         res.render('play', { roomKey: roomKey, username: username });
     } else {
-        res.redirect('/');
+        res.render('index', { roomKey: undefined, full: true });
     }
 });
 
@@ -73,8 +71,6 @@ io.on('connection', (socket) => {
     } else if (io.sockets.adapter.rooms.get(roomKey).size === 1) {
         const roomToJoin = roomsList.find((room) => room.roomKey === roomKey);
         roomToJoin.users.push(username);
-    } else {
-        return;
     }
     
     socket.join(roomKey);
@@ -84,6 +80,8 @@ io.on('connection', (socket) => {
         console.log(`[-] User [${username}] disconnected from lobby [${roomKey}]`);
 
         const roomIndex = roomsList.findIndex(room => room.roomKey === roomKey);
+
+        console.log(roomsList[roomIndex]);
 
         if(roomsList[roomIndex].users.length === 1) {
             console.log(`[-] Room [${roomKey}] was destroyed!`)
@@ -95,7 +93,6 @@ io.on('connection', (socket) => {
             roomsList[roomIndex].users.splice(userIndex, 1);
         }
         
-        console.log(roomsList[roomIndex]);
     });
 
     socket.emit('joinLobby', roomKey);
@@ -105,5 +102,5 @@ io.on('connection', (socket) => {
 
 // Run Server using the http socket server created (previous mistake was doing app.listen(), thats why it didn't work)
 socket_server.listen(PORT, () => {
-    console.log(`Server running at https://${HOST}:${PORT}`);
+    console.log(`Server running at http://localhost:${PORT}`);
 });

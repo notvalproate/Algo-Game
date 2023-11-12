@@ -1,12 +1,12 @@
 <%- include('./partials/_header'); %>
 
-<h1 id="roomkey">Username: <%= locals.username %></h1>
-<h1 id="roomkey">Room Key: <%= locals.roomKey %></h1>
+<h1 id="roomkey">Username: <%= username %></h1>
+<h1 id="roomkey">Room Key: <%= roomKey %></h1>
 
 <!-- Scripts -->
 <script>
-    const username = '<%= locals.username %>';
-    const roomKey = '<%= locals.roomKey %>';
+    const username = '<%= username %>';
+    const roomKey = '<%= roomKey %>';
 </script>
 
 <script src="/js/play.js" type="text/javascript"></script>
