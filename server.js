@@ -28,9 +28,31 @@ app.get('/', (req, res) => {
     res.render('index');
 });
 
+app.get('/:roomKey/play', (req, res) => {
+    const roomKey = req.params.roomKey;
+    const username = 'test';
+    const roomToJoin = roomsList.find((room) => room.roomKey === roomKey)
+
+    if(roomToJoin === undefined) {
+        res.redirect('/');
+    } else if (roomToJoin.users.length != 2) {
+        res.render('play', { roomKey: roomKey, username: username });
+    } else {
+        res.redirect('/');
+    }
+});
+
 // POST routes
 app.post('/', (req, res) => {
-    res.render('play', { roomKey: req.body.roomKey, username: req.body.username });
+    const roomKey = req.body.roomKey;
+    const username = req.body.username;
+    const roomToJoin = roomsList.find((room) => room.roomKey === roomKey);
+
+    if(roomToJoin === undefined || roomToJoin.users.length == 1) {
+        res.render('play', { roomKey: roomKey, username: username });
+    } else {
+        res.redirect('/');
+    }
 });
 
 
@@ -42,28 +64,42 @@ io.on('connection', (socket) => {
     const username = socket.handshake.query.username;
     const roomKey = socket.handshake.query.roomKey;
 
-    console.log(`-User [${username}] connected to lobby [${roomKey}]`);
-
     if (io.sockets.adapter.rooms.get(roomKey) === undefined) {
-        socket.join(roomKey);
+        console.log(`[+] Room [${roomKey}] was created!`);
+
         roomsList.push({
             roomKey: roomKey,
             users: [username],
         });
-            
-        socket.emit('joinLobby', roomKey);
     } else if (io.sockets.adapter.rooms.get(roomKey).size === 1) {
-        socket.join(roomKey);
         const roomToJoin = roomsList.find((room) => room.roomKey === roomKey);
         roomToJoin.users.push(username);
-
-        console.log(roomToJoin);
-
-        socket.emit('joinLobby', roomKey);
     } else {
-        socket.emit('lobbyFull', roomKey);
+        return;
     }
+    
+    socket.join(roomKey);
+    console.log(`[+] User [${username}] connected to lobby [${roomKey}]`);
 
+    socket.on('disconnect', () => {
+        console.log(`[-] User [${username}] disconnected from lobby [${roomKey}]`);
+
+        const roomIndex = roomsList.findIndex(room => room.roomKey === roomKey);
+
+        if(roomsList[roomIndex].users.length === 1) {
+            console.log(`[-] Room [${roomKey}] was destroyed!`)
+            roomsList.splice(roomIndex, 1);
+        } else {
+            var userIndex = 0;
+            if(roomsList[roomIndex].users[0] != username) { userIndex = 1; }
+
+            roomsList[roomIndex].users.splice(userIndex, 1);
+        }
+        
+        console.log(roomsList[roomIndex]);
+    });
+
+    socket.emit('joinLobby', roomKey);
     //io.sockets.in(roomKey).emit('test', users);
 });
 
