@@ -7,27 +7,24 @@
             <h1 id="roomkey"> <%= roomKey %></h1>
         </div>
         <div class="player-display">
-            <div class="players"><h1 class="player1" id="player1"><%= username %></h1></div>
+            <div class="players"><h1 class="player1" id="you"><%= username %></h1></div>
             <div class="versus">
                 <h1 class="vvv">V</h1>
                 <div class="versus-block"></div>
                 <h1 class="sss">S</h1>
             </div>
-            <div class="players"><h1 class="player2" id="roomkey1">jfhbrgbf rghoerhg l</h1></div>
+            <div class="players"><h1 class="player2" id="enemy"><%= enemyUsername %></h1></div>
         </div>
-        <button class="ready-button" id="ready-button" onclick="updateReadyCount()">READY 0/2</button>
+        <button class="ready-button" id="ready-button" onclick="updateReadyCount()">READY <span id="ready-count">0</span>/2</button>
     </section>
 </section>
 
 
 <!-- Scripts -->
 <script>
+    const enemyUsername = '<%= enemyUsername %>'
     const username = '<%= username %>';
     const roomKey = '<%= roomKey %>';
-
-    function updateReadyCount() {
-        document.getElementById('ready-button').textContent = `READY 1/2`;
-    }
 </script>
 
 <script src="/js/play.js" type="text/javascript"></script>
