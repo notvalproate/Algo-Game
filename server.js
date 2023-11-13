@@ -45,7 +45,6 @@ app.post('/', (req, res) => {
     const roomKey = req.body.roomKey;
     const username = req.body.username;
     const roomToJoin = roomsList.find((room) => room.roomKey === roomKey);
-    var disError = 0;
 
     if(roomToJoin === undefined || roomToJoin.users.length == 1) {
         res.render('play', { roomKey: roomKey, username: username });
