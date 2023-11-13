@@ -8,6 +8,8 @@ require('dotenv').config();
 const PORT = process.env.PORT;
 
 const app = express();
+const socket_server = require('http').Server(app);
+const io = require('socket.io')(socket_server);
 
 var roomsList = [];
 
@@ -55,9 +57,6 @@ app.post('/', (req, res) => {
 
 
 // Socket routes
-const socket_server = require('http').Server(app);
-const io = require('socket.io')(socket_server);
-
 io.on('connection', (socket) => {
     const username = socket.handshake.query.username;
     const roomKey = socket.handshake.query.roomKey;
