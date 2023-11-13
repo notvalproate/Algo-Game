@@ -14,10 +14,20 @@
             </div>
             <div class="box">
                 <label>Key</label>
-                <input type="text" name="roomKey" id="roomKey" required>
+                <% if(roomKey === undefined) {%>
+                    <input type="text" name="roomKey" id="roomKey" required>
+                <% } else { %>
+                    <input value="<%= roomKey %>" type="text" name="roomKey" id="roomKey" required>
+                <% } %>
             </div>
             <button class="button" id="playButton">PLAY!</button>
-        </form>
+        </form> 
+        <!-- APPLY APPROPRIATE CSS TO THE ALERT TEXT  -->
+        <% if(full) {%>
+        <div class="full-alert">
+            <p class="alert-message">The lobby you tried to join was full!</p>
+        </div>
+        <% } %>
     </div>
 </div>
 
