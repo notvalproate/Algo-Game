@@ -1,7 +1,16 @@
 <%- include('./partials/_header'); %>
 
-<h1 id="roomkey">Username: <%= locals.username %></h1>
-<h1 id="roomkey">Room Key: <%= locals.roomKey %></h1>
+
+<div>
+    <h1 class="player1" id="roomkey">Username: <%= locals.username %></h1>
+    <div class="v/s">
+
+    </div>
+    <h1 class="player2" id="roomkey">Room Key: <%= locals.roomKey %></h1>
+</div>
+
+<button class="ready-button">Ready</button>
+
 
 <!-- Scripts -->
 <script>

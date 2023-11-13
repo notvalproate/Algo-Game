@@ -127,3 +127,10 @@ footer {
     align-items: center;
 }
 
+.fullRoom{
+    display: none;
+}
+
+.noRoom{
+    display: none;
+}

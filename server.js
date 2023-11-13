@@ -6,6 +6,7 @@ require('dotenv').config();
 
 // If you dont have the .env file (since it is in .gitignore), create a .env file and set port and host to what you wish.
 const PORT = process.env.PORT;
+const HOST = process.env.HOST;
 
 const app = express();
 
@@ -32,12 +33,16 @@ app.get('/:roomKey/play', (req, res) => {
     const username = 'test';
     const roomToJoin = roomsList.find((room) => room.roomKey === roomKey)
 
+    var disError = 0;
+
     if(roomToJoin === undefined) {
-        res.redirect('/');
+        disError = 2;
+        res.redirect(`/?disError=${disError}`);
     } else if (roomToJoin.users.length != 2) {
         res.render('play', { roomKey: roomKey, username: username });
     } else {
-        res.redirect('/');
+        disError = 1;
+        res.redirect(`/?disError=${disError}`);
     }
 });
 
@@ -46,11 +51,13 @@ app.post('/', (req, res) => {
     const roomKey = req.body.roomKey;
     const username = req.body.username;
     const roomToJoin = roomsList.find((room) => room.roomKey === roomKey);
+    var disError = 0;
 
     if(roomToJoin === undefined || roomToJoin.users.length == 1) {
         res.render('play', { roomKey: roomKey, username: username });
     } else {
-        res.redirect('/');
+        disError = 1;
+        res.redirect(`/?disError=${disError}`);
     }
 });
 
