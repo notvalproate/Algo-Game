@@ -28,7 +28,6 @@ app.get('/', (req, res) => {
 
 app.get('/:roomKey/play', (req, res) => {
     const roomKey = req.params.roomKey;
-    const username = 'nice you joined lobby using link';
     const roomToJoin = roomsList.find((room) => room.roomKey === roomKey)
 
     if(roomToJoin === undefined || roomToJoin.users.length < 2) {
