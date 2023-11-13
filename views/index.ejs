@@ -35,25 +35,4 @@
     <h3>&copy; 2023 - ALGO</h3>
 </footer>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function(){
-
-        const urlParams = new URLSearchParams(window.location.search);
-        const disError = urlParams.get('disError');
-        console.log('disError on the client:', disError);
-
-        var noRoom = document.getElementById('noRoom');
-        var fullRoom = document.getElementById('fullRoom');
-
-        if (disError === '1') {
-            fullRoom.style.display = "block";
-        } else if (disError === '2') {
-            noRoom.style.display = "block";
-        }
-
-
-    });
-
-</script>
-
 <%- include('./partials/_footer'); %>

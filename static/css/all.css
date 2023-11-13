@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Gruppo&display=swap'); /* Using this currently */
 
 /* Urbanist Font */
-@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100;0,200;0,300;0,600;0,700;1,100;1,200;1,300;1,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100;0,200;0,300;0,600;0,700;1,100;1,200;1,300;1,600;1,900&display=swap');
 
 /* MuseoModerno Font */
 @import url('https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100;0,200;0,300;0,400;0,600;1,100;1,200;1,300;1,400;1,600&display=swap');
@@ -127,10 +127,118 @@ footer {
     align-items: center;
 }
 
-.fullRoom{
-    display: none;
+/*play page stuff */
+
+.board{
+    width: 100vw;
+    height: 100vh;
+    background-color: #000000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
-.noRoom{
-    display: none;
+.inner-board{
+    width: 60vw;
+    height: 100vh;
+    background-color: #000000;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
 }
+
+.key{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.key h1{
+    font-size: 100px;
+}
+
+.key img{
+    position: relative;
+    height: 80px;
+    width: 80px;
+    transform: translateY(10%);
+}
+
+.player-display{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.players{
+    max-height: 200px;
+    min-width: 1%;
+    max-width:20% ;
+}
+
+.players h1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    font-size: 60px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.versus{
+    width: 180px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: yellow;
+}
+
+.versus-block{
+    background-color: yellow;
+    width: 100px;
+    height: 8px;
+    transform: rotate(-55deg);
+    
+}
+
+.vvv{
+    transform: translate(-30px,15px);
+    font-family: 'Urbanist', sans-serif;
+    font-weight: 900;
+    font-size: 70px;
+}
+
+.sss{
+    transform: translate(30px,-15px);
+    font-family: 'Urbanist', sans-serif;
+    font-weight: 900;
+    font-size: 70px;
+}
+
+.ready-button{
+    font-family: 'Urbanist', sans-serif;
+    font-weight: 600;
+    background-color: rgb(176,176,176);
+    width: 200px;
+    height: 80px;
+    border-radius: 40px;
+    color: #ffffff;
+    font-size: 30px;
+    border: none;
+    transition: transform 0.3s ease;
+}
+
+.ready-button:hover {
+    transform: scale(1.1);
+}
+
+
