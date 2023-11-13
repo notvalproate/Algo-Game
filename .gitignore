@@ -128,3 +128,6 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# One of the devs gets this file created for no reason on npm run devstart.
+localhost
