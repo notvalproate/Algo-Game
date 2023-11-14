@@ -29,33 +29,13 @@ $(document).ready(function() {
 
     readyButton.click(() => {
         if(!ready) {
-            $('#ready-count').html('1');
-
-            you.css({
-                "color": "yellow",
-                "transform": "scale(1.2)"
-            });
-    
-            readyButton.css({
-                "background-color": "#ffffff",
-                "color": "#b0b0b0"
-            });
-
+            you.addClass('player-ready');
+            readyButton.addClass('ready-status');
             ready = true;
         }
         else {
-            $('#ready-count').html('0');
-
-            you.css({
-                "color": "#b0b0b0",
-                "transform": "scale(1)"
-            });
-
-            readyButton.css({
-                "background-color": "#b0b0b0",
-                "color": "#ffffff"
-            });
-
+            you.removeClass('player-ready');
+            readyButton.removeClass('ready-status')
             ready = false;
         }
     });

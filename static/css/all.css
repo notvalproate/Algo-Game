@@ -140,7 +140,7 @@ footer {
 }
 
 .inner-board{
-    width: 60vw;
+    width: 90vw;
     height: 100vh;
     background-color: #000000;
     display: flex;
@@ -153,6 +153,7 @@ footer {
     display: flex;
     flex-direction: row;
     align-items: center;
+    column-gap: 10px;
     justify-content: space-between;
 }
 
@@ -169,37 +170,35 @@ footer {
 
 .player-display{
     width: 100%;
-    height: auto;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
 }
 
 .players{
-    max-height: 200px;
-    min-width: 1%;
-    max-width:20% ;
+    font-size: 3.8rem;
+    width: 30%;
+    transition: 0.8s cubic-bezier(.42,0,.04,.99);
+    text-align: center;
+    word-wrap: break-word;
 }
 
-.players h1{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    white-space: pre-wrap;
-    font-size: 60px;
-    transition: transform 0.3s ease-in-out;
+.player-ready {
+    color: yellow;
+    transform: scale(1.15);
+    text-shadow: yellow 0px 0px 30px;
 }
 
 .versus{
+    transform: scale(0.65);
     width: 180px;
     height: 200px;
     display: flex;
     flex-direction: column;
     align-items: center;
     color: yellow;
+    text-shadow: yellow 0px 0px 10px;
 }
 
 .versus-block{
@@ -230,15 +229,34 @@ footer {
     background-color: rgb(176,176,176);
     width: 200px;
     height: 80px;
-    border-radius: 15px;
+    border-radius: 10px;
     color: #ffffff;
+    box-shadow: #ffffff 3px 3px;
     font-size: 30px;
     border: none;
-    transition: transform 0.3s ease;
+    transition: 0.6s cubic-bezier(.36,-0.23,.1,1.01);
 }
 
 .ready-button:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
+    background-color: rgb(221, 221, 221) !important;
+    box-shadow: none;
+    cursor: pointer;
 }
 
+.ready-status {
+    background-color: #ffffff;
+    color: #b0b0b0;
+    box-shadow: none;
+}
 
+@media only screen and (max-width: 768px) {
+    .player-display {
+        flex-direction: column;
+    }
+
+    .players {
+        width: 100%;
+        display: block;
+    }
+}

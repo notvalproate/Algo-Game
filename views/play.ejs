@@ -3,19 +3,19 @@
 <section class="board">
     <section class="inner-board">
         <div class="key">
-            <img src="\icons\key_logo.png" alt="Description of the image">
-            <h1 id="roomkey"> <%= roomKey %></h1>
+            <img src="/icons/key_logo.png" alt="Key Icon">
+            <h2 id="roomkey"><%= roomKey %></h2>
         </div>
         <div class="player-display">
-            <div class="players"><h1 class="player1" id="you"><%= username %></h1></div>
+            <div class="players" id="you"><%= username %></div>
             <div class="versus">
                 <h1 class="vvv">V</h1>
                 <div class="versus-block"></div>
                 <h1 class="sss">S</h1>
             </div>
-            <div class="players"><h1 class="player2" id="enemy"><%= enemyUsername %></h1></div>
+            <div class="players" id="enemy"><%= enemyUsername %></div>
         </div>
-        <button class="ready-button" id="ready-button" onclick="updateReadyCount()">READY <span id="ready-count">0</span>/2</button>
+        <button class="ready-button" id="ready-button">READY <span id="ready-count">0</span>/2</button>
     </section>
 </section>
 
