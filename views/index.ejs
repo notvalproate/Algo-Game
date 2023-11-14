@@ -20,13 +20,16 @@
                     <input value="<%= roomKey %>" type="text" name="roomKey" id="roomKey" required>
                 <% } %>
             </div>
-            <button class="button" id="playButton">PLAY!</button>
+            <button class="button" id="playButton">PLAY</button>
         </form> 
-        <!-- APPLY APPROPRIATE CSS TO THE ALERT TEXT  -->
+
         <% if(full) {%>
-        <div class="full-alert">
-            <p class="alert-message">The lobby you tried to join was full!</p>
-        </div>
+            <div class="full-alert">
+                <h4>
+                    <span><i class="fa-solid fa-triangle-exclamation" style="color: #090909;"></i></span>
+                    &nbsp;&nbsp;The lobby you tried to join is already FULL !
+                </h4>
+            </div>
         <% } %>
     </div>
 </div>
