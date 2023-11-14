@@ -55,12 +55,6 @@ app.post('/', (req, res) => {
     }
 });
 
-function logWithTime(string) {
-    const date = new Date();
-    const dd = [date.getHours(), date.getMinutes(), date.getSeconds()].map((a)=>(a < 10 ? '0' + a : a));
-    console.log(`[${dd.join(':')}]${string}`);
-}
-
 // Socket routes
 io.on('connection', (socket) => {
     const username = socket.handshake.query.username;
@@ -128,3 +122,11 @@ io.on('connection', (socket) => {
 socket_server.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });
+
+
+// Helper functions
+function logWithTime(string) {
+    const date = new Date();
+    const dd = [date.getHours(), date.getMinutes(), date.getSeconds()].map((a)=>(a < 10 ? '0' + a : a));
+    console.log(`[${dd.join(':')}]${string}`);
+}
