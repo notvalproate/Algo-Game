@@ -22,6 +22,10 @@ $(document).ready(function() {
         }
     });
 
+    socket.on('startGame', (roomData) => {
+        console.log(roomData.numberOfPlayersReady);
+    });
+
     const readyButton = $('#ready-button');
     const you = $('#you');
     const enemy = $('#enemy');
@@ -38,6 +42,12 @@ $(document).ready(function() {
             readyButton.removeClass('ready-status')
             ready = false;
         }
+
+        socket.emit('playerReadyStatus', {
+            roomKey: roomKey,
+            username: username,
+            ready: ready
+        });
     });
     
 });

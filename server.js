@@ -47,9 +47,9 @@ app.post('/', (req, res) => {
     const roomToJoin = roomsList.find((room) => room.roomKey === roomKey);
 
     if(roomToJoin === undefined) {
-        res.render('play', { roomKey: roomKey, username: username, enemyUsername: '...' });
+        res.render('play', { roomKey: roomKey, username: username, enemyUsername: '...' , numberOfPlayersReady: 0});
     } else if(roomToJoin.users.length == 1) {
-        res.render('play', { roomKey: roomKey, username: username, enemyUsername: roomToJoin.users[0] });
+        res.render('play', { roomKey: roomKey, username: username, enemyUsername: roomToJoin.users[0] , numberOfPlayersReady: 0});
     } else {
         res.render('index', { roomKey: undefined, full: true });
     }
@@ -67,6 +67,7 @@ io.on('connection', (socket) => {
         roomsList.push({
             roomKey: roomKey,
             users: [username],
+            numberOfPlayersReady: 0
         });
 
         console.log(roomsList[roomsList.length - 1]);
@@ -98,6 +99,28 @@ io.on('connection', (socket) => {
         }
         
         io.sockets.in(roomKey).emit('lobbyUpdate', roomsList.find((room) => room.roomKey === roomKey));
+    });
+
+    socket.on('playerReadyStatus', (data) => {
+        console.log('playerReadyStatus');
+        console.log(data);
+        const roomKey = data.roomKey;
+        const username = data.username;
+        const isPlayerReady = data.ready;
+        const roomIndex = roomsList.findIndex(room => room.roomKey === roomKey);
+        const userIndex = roomsList[roomIndex].users.findIndex(user => user === username);
+
+        if(isPlayerReady) {
+            roomsList[roomIndex].numberOfPlayersReady++;
+        }
+        else {
+            roomsList[roomIndex].numberOfPlayersReady--;
+        }
+
+        if (roomsList[roomIndex].numberOfPlayersReady === 2) {
+            console.log(roomsList.find((room) => room.roomKey === roomKey));
+            io.sockets.in(roomKey).emit('startGame', roomsList.find((room) => room.roomKey === roomKey));
+        }
     });
 
     io.sockets.in(roomKey).emit('lobbyUpdate', roomsList.find((room) => room.roomKey === roomKey));
