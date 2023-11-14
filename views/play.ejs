@@ -20,7 +20,7 @@
     </div>
     <button class="button ready-button" id="ready-button">
         READY 
-        <span id="ready-count" id="numberOfPlayersReady"><%= numberOfPlayersReady %></span>
+        <span id="ready-count"><%= numberOfPlayersReady %></span>
         /2
     </button>
 </section>
@@ -32,6 +32,7 @@
 
 <!-- Scripts -->
 <script>
+    const numberOfPlayersReady = '<%= numberOfPlayersReady %>'
     const enemyUsername = '<%= enemyUsername %>'
     const username = '<%= username %>';
     const roomKey = '<%= roomKey %>';

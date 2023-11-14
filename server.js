@@ -55,6 +55,11 @@ app.post('/', (req, res) => {
     }
 });
 
+function logWithTime(string) {
+    const date = new Date();
+    const dd = [date.getHours(), date.getMinutes(), date.getSeconds()].map((a)=>(a < 10 ? '0' + a : a));
+    console.log(`[${dd.join(':')}]${string}`);
+}
 
 // Socket routes
 io.on('connection', (socket) => {
@@ -62,64 +67,56 @@ io.on('connection', (socket) => {
     const roomKey = socket.handshake.query.roomKey;
 
     if (io.sockets.adapter.rooms.get(roomKey) === undefined) {
-        console.log(`[+] Room [${roomKey}] was created!`);
+        logWithTime(`[+] Room [${roomKey}] was created!`);
 
         roomsList.push({
             roomKey: roomKey,
-            users: [username],
+            users: [{ username: username, ready: false }],
             numberOfPlayersReady: 0
         });
 
         console.log(roomsList[roomsList.length - 1]);
     } else if (io.sockets.adapter.rooms.get(roomKey).size === 1) {
         const roomToJoin = roomsList.find((room) => room.roomKey === roomKey);
-        roomToJoin.users.push(username);
+        roomToJoin.users.push({ username: username, ready: false });
         
         console.log(roomToJoin);
     }
     
     socket.join(roomKey);
-    console.log(`[+] User [${username}] connected to lobby [${roomKey}]`);
+    logWithTime(`[+] User [${username}] connected to lobby [${roomKey}]`);
+
+    const roomIndex = roomsList.findIndex(room => room.roomKey === roomKey);
+    const userIndex = roomsList[roomIndex].users.findIndex(user => user.username === username);
 
     socket.on('disconnect', () => {
-        console.log(`[-] User [${username}] disconnected from lobby [${roomKey}]`);
-
-        const roomIndex = roomsList.findIndex(room => room.roomKey === roomKey);
+        logWithTime(`[-] User [${username}] disconnected from lobby [${roomKey}]`);
 
         if(roomsList[roomIndex].users.length === 1) {
-            console.log(`[-] Room [${roomKey}] was destroyed!`)
+            logWithTime(`[-] Room [${roomKey}] was destroyed!`)
             roomsList.splice(roomIndex, 1);
         } else {
-            var userIndex = 0;
-            if(roomsList[roomIndex].users[0] != username) { userIndex = 1; }
-
             roomsList[roomIndex].users.splice(userIndex, 1);
-            
-            console.log(roomsList[roomIndex]);
         }
         
         io.sockets.in(roomKey).emit('lobbyUpdate', roomsList.find((room) => room.roomKey === roomKey));
     });
 
-    socket.on('playerReadyStatus', (data) => {
-        console.log('playerReadyStatus');
-        console.log(data);
-        const roomKey = data.roomKey;
-        const username = data.username;
+    socket.on('readyConfirmation', (data) => {
         const isPlayerReady = data.ready;
-        const roomIndex = roomsList.findIndex(room => room.roomKey === roomKey);
-        const userIndex = roomsList[roomIndex].users.findIndex(user => user === username);
+
+        roomsList[roomIndex].users[userIndex].ready = isPlayerReady;
 
         if(isPlayerReady) {
             roomsList[roomIndex].numberOfPlayersReady++;
-        }
-        else {
+        } else {
             roomsList[roomIndex].numberOfPlayersReady--;
         }
 
+        io.sockets.in(roomKey).emit('readyUpdate', { userList: roomsList[roomIndex].users, readyCount: roomsList[roomIndex].numberOfPlayersReady });
+
         if (roomsList[roomIndex].numberOfPlayersReady === 2) {
-            console.log(roomsList.find((room) => room.roomKey === roomKey));
-            io.sockets.in(roomKey).emit('startGame', roomsList.find((room) => room.roomKey === roomKey));
+            io.sockets.in(roomKey).emit('startGame');
         }
     });
 

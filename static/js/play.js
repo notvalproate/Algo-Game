@@ -1,5 +1,14 @@
 $(document).ready(function() {
 
+    const readyButton = $('#ready-button');
+    const you = $('#you');
+    const enemy = $('#enemy');
+    var ready = false;
+
+    if(numberOfPlayersReady == 1) {
+        enemy.addClass('player-ready');
+    }
+
     window.history.pushState(null, '', `/${roomKey}/play`);
     
     var socket = io({
@@ -11,9 +20,9 @@ $(document).ready(function() {
 
     socket.on('lobbyUpdate', (roomData) => {
         if(roomData.users.length === 2) {
-            var enemyuser = roomData.users[0];
+            var enemyuser = roomData.users[0].username;
             if(enemyuser === username) {
-                enemyuser = roomData.users[1];
+                enemyuser = roomData.users[1].username;
             }
             $('#enemy').html(enemyuser);
         }
@@ -22,33 +31,48 @@ $(document).ready(function() {
         }
     });
 
-    socket.on('startGame', (roomData) => {
-        console.log(roomData.numberOfPlayersReady);
-    });
+    socket.on('readyUpdate', (data) => {
+        $('#ready-count').html(data.readyCount);
 
-    const readyButton = $('#ready-button');
-    const you = $('#you');
-    const enemy = $('#enemy');
-    var ready = false;
+        var youUser = data.userList[0];
 
-    readyButton.click(() => {
-        if(!ready) {
+        if(data.userList.length != 1) {
+            var enemyUser = data.userList[1];
+
+            if(youUser.username != username) {
+                [youUser, enemyUser] = [enemyUser, youUser];
+            }
+
+            if(enemyUser.ready) {
+                enemy.addClass('player-ready');
+            }
+            else {
+                enemy.removeClass('player-ready');
+            }
+        }
+
+        if(youUser.ready) {
             you.addClass('player-ready');
             readyButton.addClass('ready-status');
-            ready = true;
         }
         else {
             you.removeClass('player-ready');
-            readyButton.removeClass('ready-status')
+            readyButton.removeClass('ready-status');
+        }
+    })
+
+    readyButton.click(() => {
+        if(!ready) {
+            ready = true;
+        } else {
             ready = false;
         }
-
-        socket.emit('playerReadyStatus', {
-            roomKey: roomKey,
-            username: username,
-            ready: ready
-        });
+        socket.emit('readyConfirmation', { ready: ready });
     });
     
+    socket.on('startGame', () => {
+        console.log('Game started');
+    });
+
 });
     
