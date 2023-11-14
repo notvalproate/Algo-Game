@@ -63,10 +63,15 @@ header {
     height: auto;
     background-color: #2f2f2f;
     padding: 20px 4px;
+    text-align: center;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
+
+
+/* index.ejs page stuff */
 
 .login-box {
     width: 100%;
@@ -104,14 +109,25 @@ header {
 }
 
 .button {
+    font-family: 'Urbanist', sans-serif;
+    font-weight: 600;
     width: 40%;
     height: 3rem;
-    background-color: #5f5f5f;
+    background-color: #00ffaabb;
     border: none;
     font-size: 130%;
-    border-radius: 5px;
+    border-radius: 10px;
     outline: none;
     margin: 4rem 0;
+    cursor: pointer;
+    box-shadow: #cccccc 3px 3px;
+    transition: 0.6s cubic-bezier(.36,-0.23,.1,1.01);
+}
+
+.button:hover {
+    transform: scale(1.05);
+    background-color: rgb(200, 200, 200) !important;
+    box-shadow: none;
     cursor: pointer;
 }
 
@@ -144,22 +160,12 @@ footer {
     align-items: center;
 }
 
-/*play page stuff */
+
+/*play.ejs page stuff */
 
 .board{
     width: 100vw;
-    height: 100vh;
-    background-color: #000000;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.inner-board{
-    width: 90vw;
-    height: 100vh;
-    background-color: #000000;
+    height: 77vh;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -174,15 +180,11 @@ footer {
     justify-content: space-between;
 }
 
-.key h1{
-    font-size: 100px;
-}
-
 .key img{
     position: relative;
-    height: 80px;
-    width: 80px;
-    transform: translateY(10%);
+    height: 50px;
+    width: 50px;
+    transform: translateY(15%);
 }
 
 .player-display{
@@ -194,7 +196,7 @@ footer {
 }
 
 .players{
-    font-size: 3.8rem;
+    font-size: 4.2rem;
     width: 30%;
     transition: 0.8s cubic-bezier(.42,0,.04,.99);
     text-align: center;
@@ -205,7 +207,7 @@ footer {
     color: yellow;
     transform: scale(1.15);
     text-shadow: yellow 0px 0px 30px;
-}
+} /* JS controlled Class */
 
 .versus{
     transform: scale(0.65);
@@ -222,8 +224,7 @@ footer {
     background-color: yellow;
     width: 100px;
     height: 8px;
-    transform: rotate(-55deg);
-    
+    transform: rotate(-55deg); 
 }
 
 .vvv{
@@ -241,31 +242,16 @@ footer {
 }
 
 .ready-button{
-    font-family: 'Urbanist', sans-serif;
-    font-weight: 600;
-    background-color: rgb(176,176,176);
     width: 200px;
     height: 80px;
-    border-radius: 10px;
-    color: #ffffff;
-    box-shadow: #ffffff 3px 3px;
-    font-size: 30px;
-    border: none;
-    transition: 0.6s cubic-bezier(.36,-0.23,.1,1.01);
-}
-
-.ready-button:hover {
-    transform: scale(1.05);
-    background-color: rgb(221, 221, 221) !important;
-    box-shadow: none;
-    cursor: pointer;
+    margin: 1rem 0;
 }
 
 .ready-status {
     background-color: #ffffff;
-    color: #b0b0b0;
+    color: #000000;
     box-shadow: none;
-}
+} /* JS controlled Class */
 
 @media only screen and (max-width: 768px) {
     .player-display {

@@ -1,23 +1,29 @@
 <%- include('./partials/_header'); %>
 
+<header>
+    <h1 class="title">Game Lobby</h1>
+</header>
+
 <section class="board">
-    <section class="inner-board">
-        <div class="key">
-            <img src="/icons/key_logo.png" alt="Key Icon">
-            <h2 id="roomkey"><%= roomKey %></h2>
+    <div class="key">
+        <img src="icons/key_logo.png" alt="Key:">
+        <h2 id="roomkey"><%= roomKey %></h2>
+    </div>
+    <div class="player-display">
+        <div class="players" id="you"><%= username %></div>
+        <div class="versus">
+            <h1 class="vvv">V</h1>
+            <div class="versus-block"></div>
+            <h1 class="sss">S</h1>
         </div>
-        <div class="player-display">
-            <div class="players" id="you"><%= username %></div>
-            <div class="versus">
-                <h1 class="vvv">V</h1>
-                <div class="versus-block"></div>
-                <h1 class="sss">S</h1>
-            </div>
-            <div class="players" id="enemy"><%= enemyUsername %></div>
-        </div>
-        <button class="ready-button" id="ready-button">READY <span id="ready-count">0</span>/2</button>
-    </section>
+        <div class="players" id="enemy"><%= enemyUsername %></div>
+    </div>
+    <button class="button ready-button" id="ready-button">READY <span id="ready-count">0</span>/2</button>
 </section>
+
+<footer>
+    <h3>&copy; 2023 - ALGO</h3>
+</footer>
 
 
 <!-- Scripts -->
