@@ -49,7 +49,7 @@ app.post('/', (req, res) => {
     if(roomToJoin === undefined) {
         res.render('play', { roomKey: roomKey, username: username, enemyUsername: '...' , numberOfPlayersReady: 0});
     } else if(roomToJoin.users.length == 1) {
-        res.render('play', { roomKey: roomKey, username: username, enemyUsername: roomToJoin.users[0] , numberOfPlayersReady: 0});
+        res.render('play', { roomKey: roomKey, username: username, enemyUsername: roomToJoin.users[0] , numberOfPlayersReady: roomToJoin.numberOfPlayersReady });
     } else {
         res.render('index', { roomKey: undefined, full: true });
     }
