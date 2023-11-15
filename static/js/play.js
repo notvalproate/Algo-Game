@@ -49,6 +49,8 @@ $(document).ready(function() {
             else {
                 enemy.removeClass('player-ready');
             }
+        } else {
+            enemy.removeClass('player-ready');
         }
 
         if(youUser.ready) {

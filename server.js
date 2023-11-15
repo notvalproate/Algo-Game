@@ -80,32 +80,30 @@ io.on('connection', (socket) => {
     socket.join(roomKey);
     logWithTime(`[+] User [${username}] connected to lobby [${roomKey}]`);
 
-    const roomIndex = roomsList.findIndex(room => room.roomKey === roomKey);
-    const userIndex = roomsList[roomIndex].users.findIndex(user => user.username === username);
-
     socket.on('disconnect', () => {
+        const roomIndex = getRoomIndex(roomKey);
+
         logWithTime(`[-] User [${username}] disconnected from lobby [${roomKey}]`);
 
         if(roomsList[roomIndex].users.length === 1) {
             logWithTime(`[-] Room [${roomKey}] was destroyed!`)
             roomsList.splice(roomIndex, 1);
         } else {
-            roomsList[roomIndex].users.splice(userIndex, 1);
+            roomsList[roomIndex].users.splice(getUserIndex(roomsList[roomIndex], username), 1);
+            roomsList[roomIndex].numberOfPlayersReady = roomsList[roomIndex].users[0].ready + 0;
+            io.sockets.in(roomKey).emit('readyUpdate', { userList: roomsList[roomIndex].users, readyCount: roomsList[roomIndex].numberOfPlayersReady });
         }
         
         io.sockets.in(roomKey).emit('lobbyUpdate', roomsList.find((room) => room.roomKey === roomKey));
     });
 
     socket.on('readyConfirmation', (data) => {
-        const isPlayerReady = data.ready;
+        const roomIndex = getRoomIndex(roomKey);
 
-        roomsList[roomIndex].users[userIndex].ready = isPlayerReady;
+        roomsList[roomIndex].users[getUserIndex(roomsList[roomIndex],  username)].ready = data.ready;
 
-        if(isPlayerReady) {
-            roomsList[roomIndex].numberOfPlayersReady++;
-        } else {
-            roomsList[roomIndex].numberOfPlayersReady--;
-        }
+        roomsList[roomIndex].numberOfPlayersReady = roomsList[roomIndex].users[0].ready + 0;
+        if(roomsList[roomIndex].users.length === 2) { roomsList[roomIndex].numberOfPlayersReady += roomsList[roomIndex].users[1].ready; }
 
         io.sockets.in(roomKey).emit('readyUpdate', { userList: roomsList[roomIndex].users, readyCount: roomsList[roomIndex].numberOfPlayersReady });
 
@@ -129,4 +127,12 @@ function logWithTime(string) {
     const date = new Date();
     const dd = [date.getHours(), date.getMinutes(), date.getSeconds()].map((a)=>(a < 10 ? '0' + a : a));
     console.log(`[${dd.join(':')}]${string}`);
+}
+
+function getRoomIndex(roomKey) {
+    return roomsList.findIndex(room => room.roomKey === roomKey);
+}
+
+function getUserIndex(room, username) {
+    return room.users.findIndex(user => user.username === username);
 }
