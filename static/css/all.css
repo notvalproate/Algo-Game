@@ -137,13 +137,13 @@ footer {
     outline: none;
     margin: 4rem 0;
     cursor: pointer;
-    box-shadow: #cccccc 3px 3px;
+    box-shadow: yellow 3px 3px;
     transition: 0.6s cubic-bezier(.36,-0.23,.1,1.01);
 }
 
 .button:hover {
     transform: scale(1.05);
-    background-color: rgb(215, 196, 29) !important;
+    background-color: yellow !important;
     box-shadow: none;
     cursor: pointer;
 }
