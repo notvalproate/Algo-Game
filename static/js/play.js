@@ -1,3 +1,6 @@
+const getShuffledDeck = require('algoCard').getShuffledDeck;
+const AlgoCard = require('algoCard').AlgoCard;
+
 $(document).ready(function() {
 
     const readyButton = $('#ready-button');
@@ -77,6 +80,9 @@ $(document).ready(function() {
         $("header").addClass("font-small");
         $("footer").addClass("font-small");
         $(".board").addClass("display-none");
+
+        var deck = getShuffledDeck(24);
+        console.log(deck);
     });
 
 });

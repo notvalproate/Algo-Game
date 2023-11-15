@@ -1,0 +1,12 @@
+BROWSERIFY:
+browserify enables useage of CommonJS entities [ like require() ] on the client side Javascript:
+    Eg: Check line 1 and 2 of /static/js/play.js
+
+To bundle your custom Javascript module from src to destination:
+    -> browserify -r [src]:[module_name] > [destination]
+    -> browserify -r ./modules/algoCard.js:algoCard > ./static/js/browserifyBundles/algoCardBundle.js
+    (
+    NOTE:
+    Here `-r` enables requirement to the bundled module in subsequent scripts,
+    ie. /static/js/browserifyBundles/algoCardBundle.js enables requirement of algoCard in /static/js/play.js
+    )
