@@ -14,7 +14,7 @@ $(document).ready(function() {
     var socket = io({
         query: {
             username: username,
-            roomKey: roomKey
+            roomKey: roomKey,
         }
     });
 
@@ -50,6 +50,9 @@ $(document).ready(function() {
                 enemy.removeClass('player-ready');
             }
         }
+        else {
+            enemy.removeClass("player-ready");
+        }
 
         if(youUser.ready) {
             you.addClass('player-ready');
@@ -72,6 +75,9 @@ $(document).ready(function() {
     
     socket.on('startGame', () => {
         console.log('Game started');
+        $("header").addClass("font-small");
+        $("footer").addClass("font-small");
+        $(".board").addClass("display-none");
     });
 
 });

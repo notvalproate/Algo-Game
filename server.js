@@ -80,32 +80,30 @@ io.on('connection', (socket) => {
     socket.join(roomKey);
     logWithTime(`[+] User [${username}] connected to lobby [${roomKey}]`);
 
-    const roomIndex = roomsList.findIndex(room => room.roomKey === roomKey);
-    const userIndex = roomsList[roomIndex].users.findIndex(user => user.username === username);
+    const roomIndex = Number(roomsList.findIndex(room => room.roomKey === roomKey));
+    const userIndex = Number(roomsList[roomIndex].users.findIndex(user => user.username === username));
 
     socket.on('disconnect', () => {
         logWithTime(`[-] User [${username}] disconnected from lobby [${roomKey}]`);
-
+        
+        
         if(roomsList[roomIndex].users.length === 1) {
             logWithTime(`[-] Room [${roomKey}] was destroyed!`)
             roomsList.splice(roomIndex, 1);
         } else {
+            roomsList[roomIndex].users[userIndex].ready = false;
             roomsList[roomIndex].users.splice(userIndex, 1);
+            roomsList[roomIndex].numberOfPlayersReady = Number(roomsList[roomIndex].users[0].ready);
+            io.sockets.in(roomKey).emit('readyUpdate', { userList: roomsList[roomIndex].users, readyCount: roomsList[roomIndex].numberOfPlayersReady });
         }
-        
+
         io.sockets.in(roomKey).emit('lobbyUpdate', roomsList.find((room) => room.roomKey === roomKey));
     });
 
     socket.on('readyConfirmation', (data) => {
-        const isPlayerReady = data.ready;
+        roomsList[roomIndex].users[userIndex].ready = data.ready;
 
-        roomsList[roomIndex].users[userIndex].ready = isPlayerReady;
-
-        if(isPlayerReady) {
-            roomsList[roomIndex].numberOfPlayersReady++;
-        } else {
-            roomsList[roomIndex].numberOfPlayersReady--;
-        }
+        roomsList[roomIndex].numberOfPlayersReady = roomsList[roomIndex].users[0].ready + (roomsList[roomIndex].users[1] !== undefined ? 1 : 0);
 
         io.sockets.in(roomKey).emit('readyUpdate', { userList: roomsList[roomIndex].users, readyCount: roomsList[roomIndex].numberOfPlayersReady });
 
@@ -129,4 +127,4 @@ function logWithTime(string) {
     const date = new Date();
     const dd = [date.getHours(), date.getMinutes(), date.getSeconds()].map((a)=>(a < 10 ? '0' + a : a));
     console.log(`[${dd.join(':')}]${string}`);
-}
+} 
