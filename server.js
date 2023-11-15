@@ -55,6 +55,7 @@ app.post('/', (req, res) => {
     }
 });
 
+
 // Socket routes
 io.on('connection', (socket) => {
     const username = socket.handshake.query.username;
@@ -84,7 +85,7 @@ io.on('connection', (socket) => {
         const roomIndex = getRoomIndex(roomKey);
 
         logWithTime(`[-] User [${username}] disconnected from lobby [${roomKey}]`);
-
+        
         if(roomsList[roomIndex].users.length === 1) {
             logWithTime(`[-] Room [${roomKey}] was destroyed!`)
             roomsList.splice(roomIndex, 1);
@@ -93,7 +94,7 @@ io.on('connection', (socket) => {
             roomsList[roomIndex].numberOfPlayersReady = roomsList[roomIndex].users[0].ready + 0;
             io.sockets.in(roomKey).emit('readyUpdate', { userList: roomsList[roomIndex].users, readyCount: roomsList[roomIndex].numberOfPlayersReady });
         }
-        
+
         io.sockets.in(roomKey).emit('lobbyUpdate', roomsList.find((room) => room.roomKey === roomKey));
     });
 

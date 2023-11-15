@@ -14,7 +14,7 @@ $(document).ready(function() {
     var socket = io({
         query: {
             username: username,
-            roomKey: roomKey
+            roomKey: roomKey,
         }
     });
 
@@ -74,6 +74,9 @@ $(document).ready(function() {
     
     socket.on('startGame', () => {
         console.log('Game started');
+        $("header").addClass("font-small");
+        $("footer").addClass("font-small");
+        $(".board").addClass("display-none");
     });
 
 });
