@@ -1,3 +1,15 @@
+{
+
+CHAT:
+
+[Manoj] - [17-11-23 ; 0322Hrs]
+1. Kunal's commit alters  `window.history.pushState(null, '', `/${roomKey}/play`);` and hence the lobby interactions fail.
+   Hence I have commented those changes out.
+2. My commit deals cards of both players correctly. But for accurate deal for both players Async-Await have to be added.
+
+}
+
+
 BROWSERIFY:
 browserify enables useage of CommonJS entities [ like require() ] on the client side Javascript:
     Eg: Check line 1 and 2 of /static/js/play.js

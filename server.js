@@ -118,10 +118,21 @@ io.on('connection', (socket) => {
         }
     });
 
-    socket.on('getDeck', () => {
+    socket.on('getPlayerCards', () => {
         var deck = getShuffledDeck(24);
         var dealSet = dealCards(deck, 4);
-        socket.emit('sentDeck', { playerCards: dealSet });
+
+        // When emitting, AlgoCard Array (dealSet) is converted to Object Array for some reason
+        // Weird Javascript Moment Lol!!!
+        socket.emit('sentPlayerCards', { playerCards: dealSet});
+    });
+
+    socket.on('getEnemyCards', () => {
+        socket.broadcast.to(roomKey).emit('getCardsFromEnemy');
+    });
+
+    socket.on('sentCardsToServer', (data) => {
+        socket.broadcast.to(roomKey).emit('sentEnemyCards', data);
     });
 
     io.to(roomKey).emit('lobbyUpdate', roomsList.find((room) => room.roomKey === roomKey));

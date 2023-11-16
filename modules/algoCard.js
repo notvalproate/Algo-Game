@@ -1,8 +1,14 @@
 class AlgoCard {
-    constructor (color) {
-        this.number = this.generateRandomNumber(0, 12);
-        this.color = color;
-        // color = "black" or "white"
+    constructor (color_arg) {
+        if(color_arg instanceof AlgoCard || color_arg instanceof Object) {
+            const [obj] = [color_arg];
+            this.number = obj.number;
+            this.color = obj.color;
+        } else {
+            this.number = this.generateRandomNumber(0, 12);
+            this.color = color_arg;
+            // color = "black" or "white"
+        }
     }
 
     getColor () {

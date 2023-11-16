@@ -1,9 +1,15 @@
 require=(function(){function r(e,n,t){function o(i,f){if(!n[i]){if(!e[i]){var c="function"==typeof require&&require;if(!f&&c)return c(i,!0);if(u)return u(i,!0);var a=new Error("Cannot find module '"+i+"'");throw a.code="MODULE_NOT_FOUND",a}var p=n[i]={exports:{}};e[i][0].call(p.exports,function(r){var n=e[i][1][r];return o(n||r)},p,p.exports,r,e,n,t)}return n[i].exports}for(var u="function"==typeof require&&require,i=0;i<t.length;i++)o(t[i]);return o}return r})()({"algoCard":[function(require,module,exports){
 class AlgoCard {
-    constructor (color) {
-        this.number = this.generateRandomNumber(0, 12);
-        this.color = color;
-        // color = "black" or "white"
+    constructor (color_arg) {
+        if(color_arg instanceof AlgoCard || color_arg instanceof Object) {
+            const [obj] = [color_arg];
+            this.number = obj.number;
+            this.color = obj.color;
+        } else {
+            this.number = this.generateRandomNumber(0, 12);
+            this.color = color_arg;
+            // color = "black" or "white"
+        }
     }
 
     getColor () {
