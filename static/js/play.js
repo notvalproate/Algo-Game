@@ -77,9 +77,9 @@ $(document).ready(function() {
     
     socket.on('startGame', () => {
         console.log('Game started');
-        $("header").addClass("font-small");
-        $("footer").addClass("font-small");
-        $(".board").addClass("display-none");
+        $("header").addClass("header-out");
+        $("footer").addClass("footer-out");
+        $(".board").addClass("fade-out");
 
         var deck = getShuffledDeck(24);
         console.log(deck);
