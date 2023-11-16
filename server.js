@@ -1,7 +1,12 @@
+// Imports
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 require('dotenv').config();
+
+// Custom Module Imports
+const getShuffledDeck = require('./modules/algoCard.js').getShuffledDeck;
+const dealCards = require('./modules/algoCard.js').dealCards;
 
 
 // If you dont have the .env file (since it is in .gitignore), create a .env file and set port to what you wish.
@@ -111,6 +116,12 @@ io.on('connection', (socket) => {
         if (roomsList[roomIndex].numberOfPlayersReady === 2) {
             io.sockets.in(roomKey).emit('startGame');
         }
+    });
+
+    socket.on('getDeck', () => {
+        var deck = getShuffledDeck(24);
+        var dealSet = dealCards(deck, 4);
+        socket.emit('sentDeck', { playerCards: dealSet });
     });
 
     io.sockets.in(roomKey).emit('lobbyUpdate', roomsList.find((room) => room.roomKey === roomKey));
