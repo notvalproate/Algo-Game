@@ -86,4 +86,157 @@ $(document).ready(function() {
     });
 
 });
+
+
+function generateCards() {
+    const cards = [];
+
+    function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+    for (let set = 0; set < 2; set++) {
+        for (let number = 0; number < 12; number++) {
+            const cardNumber = number;
+            const cardColor = set === 0 ? 'black' : 'white';
+            const position = null;
+            const playertype = '';
+
+            cards.push({
+                number: cardNumber,
+                color: cardColor,
+                pos: position,
+                playerType: playertype
+            });
+        }
+    }
+
+    shuffleArray(cards);
+
+    return cards;
+}
+
+
+const generatedCards = generateCards();
+
+const yourCards = [];
+const enemyCards = []; 
+
+ function testsum() {
+    cardAllocator({number: null, color: '#ffffff', pos: 0, playerType: 'enemy'});
+    cardAllocator({number: null, color: '#000000', pos: 1, playerType: 'enemy'});
+    cardAllocator({number: null, color: '#ffffff', pos: 2, playerType: 'enemy'});
+    cardAllocator({number: null, color: '#000000', pos: 3, playerType: 'enemy'});
+    cardAllocator({number: null, color: '#ffffff', pos: 2, playerType: 'enemy'});
+    cardAllocator({number: '1', color: '#000000', pos: 0, playerType: 'you'});
+    cardAllocator({number: '2', color: '#ffffff', pos: 1, playerType: 'you'});
+    cardAllocator({number: '4', color: '#000000', pos: 2, playerType: 'you'});
+    cardAllocator({number: '6', color: '#ffffff', pos: 3, playerType: 'you'});
+    cardAllocator({number: '3', color: '#000000', pos: 2, playerType: 'you'});
+};
+
+testsum();
+
+function cardAllocator(card){
+    if (card.playerType == 'enemy'){
+        enemyCards.splice(card.pos, 0, card);
+        var i = card.pos + 1;
+        while(i < enemyCards.length){
+            enemyCards[i].pos++;
+            i++;
+        }
+    }
+    if (card.playerType == 'you'){
+        yourCards.splice( card.pos, 0, card);
+        var i = card.pos + 1;
+        while(i < yourCards.length){
+            yourCards[i].pos++;
+            i++;
+        }
+    }
+    addCardDiv(card);
+}
+
+function oppColor(color){
+    if(color == '#ffffff'){
+        return '#000000';
+    }
+    return '#ffffff';
+}
+
+
+function addCardDiv (card) {
+
+    if(card.playerType === 'enemy'){
+
+        var parentDiv = $("#enemyDeck");
+
+        var newDiv = creatDiv(card, enemyCards.length);
+        
+        newDiv.css({
+            "background-color": card.color,
+            "color": oppColor(card.color)
+        });
+
+        newDiv.html(card.number);
+
+        if(card.pos == enemyCards.length-1){
+            parentDiv.append(newDiv);
+        }else{
+             $("#divenemy" + (card.pos+1)).before(newDiv);
+        }
+        
+    }else{
+        var parentDiv = $("#youDeck");
+
+        var newDiv = creatDiv(card, yourCards.length);
+
+        newDiv.css({
+            "background-color": card.color,
+            "color": oppColor(card.color)
+        });
+
+        newDiv.html(card.number);
+
+        if(card.pos == yourCards.length-1){
+            parentDiv.append(newDiv);
+        }else{
+             $("#divyou" + (card.pos+1)).before(newDiv);
+        }
+    }
+
+    newDiv.css({
+        'height': '80%',
+        'width': '70px',
+        'borderRadius': '10px',
+        'font-size': '40px',
+        'display': 'flex',
+        'justify-content': 'space-around',
+        'align-items': 'center'
+    });
+
+}
+
+
+
+
+function creatDiv(card, n){
+    var i = card.pos;
+    if(i != n-1){
+        for(var j=n-1; j>=i ; j--){
+            $("#div"+ card.playerType + j).attr('id', "div" + card.playerType +(j+1));
+        }
+
+    }
+    
+    var newDiv = jQuery("<div>");
+    newDiv.attr('id', "div" + card.playerType + i); 
+    newDiv.attr('class', "divCard"); 
+    return newDiv;       
+}
+
+
     

@@ -282,3 +282,67 @@ footer {
         display: block;
     }
 }
+
+
+/* cards desk */
+:root{
+    --backgroundColour: #2f2f2f;
+}
+
+.desk{
+    height: calc(100vh - 5rem);
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--backgroundColour);
+}
+
+.inner-desk{
+    background-color: var(--backgroundColour);
+    height: calc(100vh - 5rem);
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    font-family: 'Urbanist', sans-serif;
+    
+}
+
+.enemy-deck{
+    height: calc(100%/5);
+    width: auto;
+    max-width: 100%;
+    gap: 20px;
+    background-color: var(--backgroundColour);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.pick-deck{
+    height: calc(100%/5);
+    min-width: 70px;
+    width: 10%;
+    background-color: var(--backgroundColour);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.you-deck{
+    height: calc(100%/5);
+    width: auto;
+    max-width: 100%;
+    gap: 20px;
+    background-color: var(--backgroundColour);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.card{
+    background-color: #ffffff;
+    height: 80%;
+    width: 70px;
+    border-radius: 10px;
+}
