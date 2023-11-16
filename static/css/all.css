@@ -87,17 +87,17 @@ footer {
 
 .header-out {
     transform: translateY(-100%);
-}
+} /* JS Controlled Class*/
 
 .footer-out {
     transform: translateY(100%);
-}
+} /* JS Controlled Class*/
 
 .fade-out {
     opacity: 0%;
     display: none;
     transform: scale(50%);
-}
+} /* JS Controlled Class*/
 
 /* index.ejs page stuff */
 

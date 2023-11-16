@@ -87,34 +87,34 @@ io.on('connection', (socket) => {
     logWithTime(`[+] User [${username}] connected to lobby [${roomKey}]`);
 
     socket.on('disconnect', () => {
-        const roomIndex = getRoomIndex(roomKey);
+        const room = getRoom(roomKey);
 
         logWithTime(`[-] User [${username}] disconnected from lobby [${roomKey}]`);
         
-        if(roomsList[roomIndex].users.length === 1) {
+        if(room.users.length === 1) {
             logWithTime(`[-] Room [${roomKey}] was destroyed!`)
-            roomsList.splice(roomIndex, 1);
+            roomsList.splice(getRoomIndex(roomKey), 1);
         } else {
-            roomsList[roomIndex].users.splice(getUserIndex(roomsList[roomIndex], username), 1);
-            roomsList[roomIndex].numberOfPlayersReady = roomsList[roomIndex].users[0].ready + 0;
-            io.sockets.in(roomKey).emit('readyUpdate', { userList: roomsList[roomIndex].users, readyCount: roomsList[roomIndex].numberOfPlayersReady });
+            room.users.splice(getUserIndex(room, username), 1);
+            room.numberOfPlayersReady = room.users[0].ready + 0;
+            io.to(roomKey).emit('readyUpdate', { userList: room.users, readyCount: room.numberOfPlayersReady });
         }
 
-        io.sockets.in(roomKey).emit('lobbyUpdate', roomsList.find((room) => room.roomKey === roomKey));
+        io.to(roomKey).emit('lobbyUpdate', roomsList.find((room) => room.roomKey === roomKey));
     });
 
     socket.on('readyConfirmation', (data) => {
-        const roomIndex = getRoomIndex(roomKey);
+        const room = getRoom(roomKey);
 
-        roomsList[roomIndex].users[getUserIndex(roomsList[roomIndex],  username)].ready = data.ready;
+        room.users[getUserIndex(room,  username)].ready = data.ready;
 
-        roomsList[roomIndex].numberOfPlayersReady = roomsList[roomIndex].users[0].ready + 0;
-        if(roomsList[roomIndex].users.length === 2) { roomsList[roomIndex].numberOfPlayersReady += roomsList[roomIndex].users[1].ready; }
+        room.numberOfPlayersReady = room.users[0].ready + 0;
+        if(room.users.length === 2) { room.numberOfPlayersReady += room.users[1].ready; }
 
-        io.sockets.in(roomKey).emit('readyUpdate', { userList: roomsList[roomIndex].users, readyCount: roomsList[roomIndex].numberOfPlayersReady });
+        io.to(roomKey).emit('readyUpdate', { userList: room.users, readyCount: room.numberOfPlayersReady });
 
-        if (roomsList[roomIndex].numberOfPlayersReady === 2) {
-            io.sockets.in(roomKey).emit('startGame');
+        if (room.numberOfPlayersReady === 2) {
+            io.to(roomKey).emit('startGame');
         }
     });
 
@@ -124,7 +124,7 @@ io.on('connection', (socket) => {
         socket.emit('sentDeck', { playerCards: dealSet });
     });
 
-    io.sockets.in(roomKey).emit('lobbyUpdate', roomsList.find((room) => room.roomKey === roomKey));
+    io.to(roomKey).emit('lobbyUpdate', roomsList.find((room) => room.roomKey === roomKey));
 });
 
 
@@ -139,6 +139,10 @@ function logWithTime(string) {
     const date = new Date();
     const dd = [date.getHours(), date.getMinutes(), date.getSeconds()].map((a)=>(a < 10 ? '0' + a : a));
     console.log(`[${dd.join(':')}]${string}`);
+}
+
+function getRoom(roomKey) {
+    return roomsList[roomsList.findIndex(room => room.roomKey === roomKey)];
 }
 
 function getRoomIndex(roomKey) {
