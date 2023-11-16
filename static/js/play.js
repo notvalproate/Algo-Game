@@ -1,6 +1,3 @@
-const getShuffledDeck = require('algoCard').getShuffledDeck;
-const AlgoCard = require('algoCard').AlgoCard;
-
 $(document).ready(function() {
 
     const readyButton = $('#ready-button');
@@ -74,15 +71,18 @@ $(document).ready(function() {
         }
         socket.emit('readyConfirmation', { ready: ready });
     });
-    
+
     socket.on('startGame', () => {
         console.log('Game started');
         $("header").addClass("font-small");
         $("footer").addClass("font-small");
         $(".board").addClass("display-none");
 
-        var deck = getShuffledDeck(24);
-        console.log(deck);
+        socket.emit('getDeck');
+    });
+
+    socket.on('sentDeck', (data) => {
+        console.log(data.playerCards);
     });
 
 });

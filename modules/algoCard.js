@@ -1,6 +1,6 @@
 class AlgoCard {
     constructor (color) {
-        this.number = this.generateRandomNumber(0, 11);
+        this.number = this.generateRandomNumber(0, 12);
         this.color = color;
         // color = "black" or "white"
     }
