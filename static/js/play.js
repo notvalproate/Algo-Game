@@ -100,15 +100,15 @@ $(document).ready(function() {
         myCards = convert_ObjectArray_to_AlgoCardArray(myCards);
         console.log(myCards);
 
-        // // Render on play.ejs
-        // var template =
-        //     `<% for(var i = 0; i < yourCards.length; i++) { %>
-        //         <li class="card">yourCards[i]</li>
-        //     <% } %>`
-        // ;
-        // var insideIdYourDeck = ejs.render(template,  { yourCards: yourCards});
-        // $("#yourDeck").html(insideIdYourDeck);
-        // window.history.pushState(null, '', `/${roomKey}/play`);
+        // Render on play.ejs
+        var template =
+            `<% for(var i = 0; i < yourCards.length; i++) { %>
+                <li class="card">yourCards[i]</li>
+            <% } %>`
+        ;
+        var insideIdYourDeck = ejs.render(template,  { yourCards: yourCards});
+        console.log(insideIdYourDeck);
+        $("#yourDeck").html(insideIdYourDeck);
 
         socket.emit('getEnemyCards');
     });
@@ -129,14 +129,14 @@ $(document).ready(function() {
         console.log(enemyCards);
 
         // Render on play.ejs
-        // var template =
-        //     `<% for(var i = 0; i < enemyCards.length; i++) { %>
-        //         <li class="card">enemyCards[i]</li>
-        //     <% } %>`
-        // ;
-        // var insideIdEnemyDeck = ejs.render(template,  { enemyCards: enemyCards});
-        // $("#enemyDeck").html(insideIdEnemyDeck);
-        // window.history.pushState(null, '', `/${roomKey}/play`);
+        var template =
+            `<% for(var i = 0; i < enemyCards.length; i++) { %>
+                <li class="card">enemyCards[i]</li>
+            <% } %>`
+        ;
+        var insideIdEnemyDeck = ejs.render(template,  { enemyCards: enemyCards});
+        console.log(insideIdEnemyDeck);
+        $("#enemyDeck").html(insideIdEnemyDeck);
     });
 
 });
