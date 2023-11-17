@@ -5,8 +5,11 @@ const path = require('path');
 require('dotenv').config();
 
 // Custom Module Imports
+const { AlgoCard } = require('./modules/algoCard.js');
 const { getShuffledDeck } = require('./modules/algoCard.js');
 const { removeNums } = require('./modules/algoCard.js');
+const { sortPlayerHand } = require('./modules/algoCard.js');
+const { ObjectArray_to_AlgoCardArray } = require('./modules/algoCard.js');
 
 
 // If you dont have the .env file (since it is in .gitignore), create a .env file and set port to what you wish.
@@ -126,8 +129,8 @@ io.on('connection', (socket) => {
     socket.on('getHands', () => {
         const room = getRoom(roomKey);
         
-        var yourHand = deepCopy(room.users[0].hand);
-        var enemyHand = deepCopy(room.users[1].hand);
+        var yourHand = sortPlayerHand( ObjectArray_to_AlgoCardArray( deepCopy(room.users[0].hand) ) );
+        var enemyHand = sortPlayerHand( ObjectArray_to_AlgoCardArray( deepCopy(room.users[1].hand) ) );
 
         if(room.users[0].username !== username) {
             [yourHand, enemyHand] = [enemyHand, yourHand];

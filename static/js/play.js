@@ -1,4 +1,5 @@
-const AlgoCard = require("algoCard").AlgoCard;
+const { AlgoCard } = require("algoCard");
+const { ObjectArray_to_AlgoCardArray } = require("algoCard");
 const ejs = require('ejs');
 
 var myHand = [];
@@ -96,8 +97,8 @@ $(document).ready(function() {
     });
 
     socket.on('setHands', (data) => {
-        myHand = convert_ObjectArray_to_AlgoCardArray(data.yourHand);
-        enemyHand = convert_ObjectArray_to_AlgoCardArray(data.enemyHand);
+        myHand = ObjectArray_to_AlgoCardArray(data.yourHand);
+        enemyHand = ObjectArray_to_AlgoCardArray(data.enemyHand);
 
         for(var i = 0; i < myHand.length; i++) {
             addCardDiv(myHand[i], i, 'you');
@@ -111,14 +112,7 @@ $(document).ready(function() {
 });
 
 
-//Utility Functions
-
-function convert_ObjectArray_to_AlgoCardArray(arr) {
-    for(var i = 0; i < arr.length; i++) {
-        arr[i] = new AlgoCard(arr[i]);
-    }
-    return arr;
-}
+// Utility Functions
 
 function deepCopy(arr) {
     return JSON.parse(JSON.stringify(arr));

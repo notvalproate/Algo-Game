@@ -49,7 +49,6 @@ function shuffle(deck) {
 
 // Get Shuffled Deck of said number of AlgoCards
 function getShuffledDeck(numberOfCards) {
-
     deck = [];
 
     for(var i = 0; i < numberOfCards/2; i++) {
@@ -65,31 +64,43 @@ function getShuffledDeck(numberOfCards) {
     return shuffle(deck);
 }
 
-// Deal a said number of AlgoCards from the Deck
-function dealCards(deck, numberOfCards) {
-	indices = [];
-	for(var i = 0; i < numberOfCards; i++) {
-		j = Math.floor(Math.random() * numberOfCards);
-		
-		while (indices.includes(j)) {
-			j = Math.floor(Math.random() * numberOfCards);
-		}
-		
-		indices[i] = j;
-	}
-	
-	dealtSet = []
-	for(var i = 0; i < numberOfCards; i++) {
-		dealtSet.push(deck[indices[i]]);
-	}
-	
-	return dealtSet;
+function sortPlayerHand(hand) {
+    hand.sort((a, b) => {
+        if (a.getColor() !== b.getColor() && a.getNumber() === b.getNumber()) {
+            if (a.getColor() === 'black') {
+                // a < b according to algo rules
+                return -1;
+            }
+            // a > b according to algo rules
+            return 1;
+        }
+
+        return a.getNumber() - b.getNumber();
+    });
+    return hand;
+}
+
+function removeNums(cards) {
+    var retval = cards;
+    for(i = 0; i < retval.length; i++) {
+        retval[i].number = null;
+    }
+    return retval;
+}
+
+function ObjectArray_to_AlgoCardArray(arr) {
+    for(var i = 0; i < arr.length; i++) {
+        arr[i] = new AlgoCard(arr[i]);
+    }
+    return arr;
 }
 
 module.exports = {
     AlgoCard: AlgoCard,
-    dealCards: dealCards,
     shuffle: shuffle,
-    getShuffledDeck: getShuffledDeck
+    getShuffledDeck: getShuffledDeck,
+    removeNums: removeNums,
+    sortPlayerHand: sortPlayerHand,
+    ObjectArray_to_AlgoCardArray: ObjectArray_to_AlgoCardArray
 }
 },{}]},{},[]);

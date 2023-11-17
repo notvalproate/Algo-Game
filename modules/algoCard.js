@@ -63,6 +63,22 @@ function getShuffledDeck(numberOfCards) {
     return shuffle(deck);
 }
 
+function sortPlayerHand(hand) {
+    hand.sort((a, b) => {
+        if (a.getColor() !== b.getColor() && a.getNumber() === b.getNumber()) {
+            if (a.getColor() === 'black') {
+                // a < b according to algo rules
+                return -1;
+            }
+            // a > b according to algo rules
+            return 1;
+        }
+
+        return a.getNumber() - b.getNumber();
+    });
+    return hand;
+}
+
 function removeNums(cards) {
     var retval = cards;
     for(i = 0; i < retval.length; i++) {
@@ -71,9 +87,18 @@ function removeNums(cards) {
     return retval;
 }
 
+function ObjectArray_to_AlgoCardArray(arr) {
+    for(var i = 0; i < arr.length; i++) {
+        arr[i] = new AlgoCard(arr[i]);
+    }
+    return arr;
+}
+
 module.exports = {
     AlgoCard: AlgoCard,
     shuffle: shuffle,
     getShuffledDeck: getShuffledDeck,
-    removeNums: removeNums
+    removeNums: removeNums,
+    sortPlayerHand: sortPlayerHand,
+    ObjectArray_to_AlgoCardArray: ObjectArray_to_AlgoCardArray
 }
