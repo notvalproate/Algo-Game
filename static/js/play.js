@@ -1,8 +1,8 @@
 const AlgoCard = require("algoCard").AlgoCard;
 const ejs = require('ejs');
 
-var myCards = [];
-var enemyCards = [];
+var myHand = [];
+var enemyHand = [];
 
 $(document).ready(function() {
 
@@ -92,53 +92,14 @@ $(document).ready(function() {
             $(".desk").addClass("fade-in");
         }, 1400);
 
-        socket.emit('getPlayerCards');
+        socket.emit('getHands');
     });
 
-    socket.on('sentPlayerCards', (data) => {
-        myCards = data.playerCards;
-        myCards = convert_ObjectArray_to_AlgoCardArray(myCards);
-        console.log(myCards);
-
-        // Render on play.ejs
-        var template =
-            `<% for(var i = 0; i < yourCards.length; i++) { %>
-                <li class="card">yourCards[i]</li>
-            <% } %>`
-        ;
-        var insideIdYourDeck = ejs.render(template,  { yourCards: yourCards});
-        console.log(insideIdYourDeck);
-        $("#yourDeck").html(insideIdYourDeck);
-
-        socket.emit('getEnemyCards');
+    socket.on('setHands', (data) => {
+        myHand = convert_ObjectArray_to_AlgoCardArray(data.yourHand);
+        enemyHand = convert_ObjectArray_to_AlgoCardArray(data.enemyHand);
     });
-
-    socket.on('getCardsFromEnemy', () => {
-        var maskedCards = deepCopy(myCards);
-        maskedCards = convert_ObjectArray_to_AlgoCardArray(maskedCards);
-        maskedCards.forEach(card => {
-            card.setNumber(null);
-        });
-
-        socket.emit('sentCardsToServer', { enemyCards: maskedCards })
-    });
-
-    socket.on('sentEnemyCards', (data) => {
-        enemyCards = data.enemyCards;
-        enemyCards = convert_ObjectArray_to_AlgoCardArray(enemyCards);
-        console.log(enemyCards);
-
-        // Render on play.ejs
-        var template =
-            `<% for(var i = 0; i < enemyCards.length; i++) { %>
-                <li class="card">enemyCards[i]</li>
-            <% } %>`
-        ;
-        var insideIdEnemyDeck = ejs.render(template,  { enemyCards: enemyCards});
-        console.log(insideIdEnemyDeck);
-        $("#enemyDeck").html(insideIdEnemyDeck);
-    });
-
+    
 });
 
 

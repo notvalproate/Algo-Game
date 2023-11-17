@@ -2,6 +2,7 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+const { removeNums } = require('./modules/algoCard.js');
 require('dotenv').config();
 
 // Custom Module Imports
@@ -71,14 +72,15 @@ io.on('connection', (socket) => {
 
         roomsList.push({
             roomKey: roomKey,
-            users: [{ username: username, ready: false }],
-            numberOfPlayersReady: 0
+            users: [{ username: username, ready: false, hand: [] }],
+            numberOfPlayersReady: 0,
+            deck: undefined
         });
 
         console.log(roomsList[roomsList.length - 1]);
     } else if (io.sockets.adapter.rooms.get(roomKey).size === 1) {
         const roomToJoin = roomsList.find((room) => room.roomKey === roomKey);
-        roomToJoin.users.push({ username: username, ready: false });
+        roomToJoin.users.push({ username: username, ready: false, hand: [] });
         
         console.log(roomToJoin);
     }
@@ -114,25 +116,30 @@ io.on('connection', (socket) => {
         io.to(roomKey).emit('readyUpdate', { userList: room.users, readyCount: room.numberOfPlayersReady });
 
         if (room.numberOfPlayersReady === 2) {
+            room.deck = getShuffledDeck(24);
+            room.users[0].hand.push(...room.deck.splice(0,4));
+            room.users[1].hand.push(...room.deck.splice(0,4));
+
             io.to(roomKey).emit('startGame');
         }
     });
 
-    socket.on('getPlayerCards', () => {
-        var deck = getShuffledDeck(24);
-        var dealSet = dealCards(deck, 4);
+    socket.on('getHands', () => {
+        const room = getRoom(roomKey);
 
-        // When emitting, AlgoCard Array (dealSet) is converted to Object Array for some reason
-        // Weird Javascript Moment Lol!!!
-        socket.emit('sentPlayerCards', { playerCards: dealSet});
-    });
+        var yourHand = [];
+        var enemyHand = [];
 
-    socket.on('getEnemyCards', () => {
-        socket.broadcast.to(roomKey).emit('getCardsFromEnemy');
-    });
+        for(i = 0; i < 4; i++) {
+            yourHand.push({ number: room.users[0].hand[i].getNumber(), color: room.users[0].hand[i].getColor()});
+            enemyHand.push({ number: room.users[1].hand[i].getNumber(), color: room.users[1].hand[i].getColor()});
+        }
 
-    socket.on('sentCardsToServer', (data) => {
-        socket.broadcast.to(roomKey).emit('sentEnemyCards', data);
+        if(room.users[0].username !== username) {
+            [yourHand, enemyHand] = [enemyHand, yourHand];
+        }
+
+        socket.emit('setHands', { yourHand: yourHand, enemyHand: removeNums(enemyHand) });
     });
 
     io.to(roomKey).emit('lobbyUpdate', roomsList.find((room) => room.roomKey === roomKey));

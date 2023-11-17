@@ -48,7 +48,6 @@ function shuffle(deck) {
 
 // Get Shuffled Deck of said number of AlgoCards
 function getShuffledDeck(numberOfCards) {
-
     deck = [];
 
     for(var i = 0; i < numberOfCards/2; i++) {
@@ -64,30 +63,17 @@ function getShuffledDeck(numberOfCards) {
     return shuffle(deck);
 }
 
-// Deal a said number of AlgoCards from the Deck
-function dealCards(deck, numberOfCards) {
-	indices = [];
-	for(var i = 0; i < numberOfCards; i++) {
-		j = Math.floor(Math.random() * numberOfCards);
-		
-		while (indices.includes(j)) {
-			j = Math.floor(Math.random() * numberOfCards);
-		}
-		
-		indices[i] = j;
-	}
-	
-	dealtSet = []
-	for(var i = 0; i < numberOfCards; i++) {
-		dealtSet.push(deck[indices[i]]);
-	}
-	
-	return dealtSet;
+function removeNums(cards) {
+    var retval = cards;
+    for(i = 0; i < retval.length; i++) {
+        retval[i].number = null;
+    }
+    return retval;
 }
 
 module.exports = {
     AlgoCard: AlgoCard,
-    dealCards: dealCards,
     shuffle: shuffle,
-    getShuffledDeck: getShuffledDeck
+    getShuffledDeck: getShuffledDeck,
+    removeNums: removeNums
 }
