@@ -1,4 +1,5 @@
 const AlgoCard = require("algoCard").AlgoCard;
+const ejs = require('ejs');
 
 var myCards = [];
 var enemyCards = [];
