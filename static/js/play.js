@@ -146,7 +146,7 @@ function addCardDiv (card, pos, playerType) {
 }
 
 
-function createDiv(card, pos, playerType, n){
+function createDiv(pos, playerType){
     var newDiv = $("<div>");
     newDiv.attr('id', "div" + playerType + pos); 
     newDiv.attr('class', "served-card"); 

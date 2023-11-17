@@ -2,12 +2,11 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const { removeNums } = require('./modules/algoCard.js');
 require('dotenv').config();
 
 // Custom Module Imports
-const getShuffledDeck = require('./modules/algoCard.js').getShuffledDeck;
-const dealCards = require('./modules/algoCard.js').dealCards;
+const { getShuffledDeck } = require('./modules/algoCard.js');
+const { removeNums } = require('./modules/algoCard.js');
 
 
 // If you dont have the .env file (since it is in .gitignore), create a .env file and set port to what you wish.
@@ -126,14 +125,9 @@ io.on('connection', (socket) => {
 
     socket.on('getHands', () => {
         const room = getRoom(roomKey);
-
-        var yourHand = [];
-        var enemyHand = [];
-
-        for(i = 0; i < 4; i++) {
-            yourHand.push({ number: room.users[0].hand[i].getNumber(), color: room.users[0].hand[i].getColor()});
-            enemyHand.push({ number: room.users[1].hand[i].getNumber(), color: room.users[1].hand[i].getColor()});
-        }
+        
+        var yourHand = deepCopy(room.users[0].hand);
+        var enemyHand = deepCopy(room.users[1].hand);
 
         if(room.users[0].username !== username) {
             [yourHand, enemyHand] = [enemyHand, yourHand];
@@ -169,4 +163,8 @@ function getRoomIndex(roomKey) {
 
 function getUserIndex(room, username) {
     return room.users.findIndex(user => user.username === username);
+}
+
+function deepCopy(obj) {
+    return JSON.parse(JSON.stringify(obj));
 }
