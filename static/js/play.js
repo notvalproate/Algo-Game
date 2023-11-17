@@ -98,6 +98,14 @@ $(document).ready(function() {
     socket.on('setHands', (data) => {
         myHand = convert_ObjectArray_to_AlgoCardArray(data.yourHand);
         enemyHand = convert_ObjectArray_to_AlgoCardArray(data.enemyHand);
+
+        for(var i = 0; i < myHand.length; i++) {
+            addCardDiv(myHand[i], i, 'you');
+        }
+
+        for(var i = 0; i < enemyHand.length; i++) {
+            addCardDiv(enemyHand[i], i, 'enemy');
+        }
     });
     
 });
@@ -120,13 +128,13 @@ function addCardDiv (card, pos, playerType) {
 
     if(playerType === 'enemy'){
         var parentDiv = $("#enemyDeck");
-        var newDiv = createDiv(card, pos, playerType, enemyCards.length);
+        var newDiv = createDiv(card, pos, playerType, enemyHand.length);
         newDiv.html(card.getNumber());
         parentDiv.append(newDiv);
         
     } else {
         var parentDiv = $("#yourDeck");
-        var newDiv = createDiv(card, pos, playerType, yourCards.length);
+        var newDiv = createDiv(card, pos, playerType, myHand.length);
         newDiv.html(card.getNumber());
         parentDiv.append(newDiv);
     }
@@ -188,8 +196,8 @@ function invertColor(color){
 
 // const generatedCards = generateCards();
 
-// var yourCardsTemp = [];
-// var enemyCardsTemp = []; 
+// var myHandTemp = [];
+// var enemyHandTemp = []; 
 
 // function testsum() {
 //     cardAllocator({number: null, color: '#ffffff', pos: 0, playerType: 'enemy'});
@@ -208,18 +216,18 @@ function invertColor(color){
 
 // function cardAllocator(card){
 //     if (card.playerType == 'enemy'){
-//         enemyCardsTemp.splice(card.pos, 0, card);
+//         enemyHandTemp.splice(card.pos, 0, card);
 //         var i = card.pos + 1;
-//         while(i < enemyCardsTemp.length){
-//             enemyCardsTemp[i].pos++;
+//         while(i < enemyHandTemp.length){
+//             enemyHandTemp[i].pos++;
 //             i++;
 //         }
 //     }
 //     if (card.playerType == 'you'){
-//         yourCardsTemp.splice( card.pos, 0, card);
+//         myHandTemp.splice( card.pos, 0, card);
 //         var i = card.pos + 1;
-//         while(i < yourCardsTemp.length){
-//             yourCardsTemp[i].pos++;
+//         while(i < myHandTemp.length){
+//             myHandTemp[i].pos++;
 //             i++;
 //         }
 //     }
@@ -233,7 +241,7 @@ function invertColor(color){
 
 //         var parentDiv = $("#enemyDeck");
 
-//         var newDiv = creatDiv(card, enemyCardsTemp.length);
+//         var newDiv = creatDiv(card, enemyHandTemp.length);
         
 //         newDiv.css({
 //             "background-color": card.color,
@@ -242,7 +250,7 @@ function invertColor(color){
 
 //         newDiv.html(card.number);
 
-//         if(card.pos == enemyCardsTemp.length-1){
+//         if(card.pos == enemyHandTemp.length-1){
 //             parentDiv.append(newDiv);
 //         }else{
 //              $("#divenemy" + (card.pos+1)).before(newDiv);
@@ -251,7 +259,7 @@ function invertColor(color){
 //     }else{
 //         var parentDiv = $("#youDeck");
 
-//         var newDiv = creatDiv(card, yourCardsTemp.length);
+//         var newDiv = creatDiv(card, myHandTemp.length);
 
 //         newDiv.css({
 //             "background-color": card.color,
@@ -260,7 +268,7 @@ function invertColor(color){
 
 //         newDiv.html(card.number);
 
-//         if(card.pos == yourCardsTemp.length-1){
+//         if(card.pos == myHandTemp.length-1){
 //             parentDiv.append(newDiv);
 //         }else{
 //              $("#divyou" + (card.pos+1)).before(newDiv);
