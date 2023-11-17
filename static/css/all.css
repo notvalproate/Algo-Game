@@ -87,17 +87,14 @@ footer {
 
 .header-out {
     transform: translateY(-100%);
+    display: none;
 } /* JS Controlled Class*/
 
 .footer-out {
     transform: translateY(100%);
+    display: none;
 } /* JS Controlled Class*/
 
-.fade-out {
-    opacity: 0%;
-    display: none;
-    transform: scale(50%);
-} /* JS Controlled Class*/
 
 /* index.ejs page stuff */
 
@@ -190,6 +187,12 @@ footer {
     align-items: center;
     transition: 0.8s cubic-bezier(.36,-0.23,.1,1.01) 0.6s;
 }
+
+.fade-out {
+    opacity: 0%;
+    display: none !important;
+    transform: scale(50%);
+} /* JS Controlled Class*/
 
 .key{
     display: flex;
