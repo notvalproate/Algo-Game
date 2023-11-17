@@ -83,6 +83,14 @@ $(document).ready(function() {
         $("footer").addClass("footer-out");
         $(".board").addClass("fade-out");
 
+        setInterval(() => {
+            $("header").addClass("display-none");
+            $("footer").addClass("display-none");
+            $(".board").addClass("display-none");
+
+            $(".desk").addClass("fade-in");
+        }, 1400);
+
         socket.emit('getPlayerCards');
     });
 
