@@ -3,12 +3,17 @@
 CHAT:
 
 [Manoj] - [17-11-23 ; 1303Hrs]
-1. Rendering EJS through client-side js alters `window.history.pushState(null, '', `/${roomKey}/play`);`, hence it is commented out
+1. Rendering EJS through client-side js alters `window.history.pushState(null, '', `/${roomKey}/play`);`, hence it is commented out.
+
 [Ian] - [17-11-23 ; 1750Hrs]
-2. In server.js in socket.on('getHands'), if var yourHand and enemyHand are assigned the hands normally, they are deep copied. Hence
+1. In server.js in socket.on('getHands'), if var yourHand and enemyHand are assigned the hands normally, they are deep copied. Hence
    when I pass enemyHand to the removeNums() function, it makes the values null even in the ACTUAL room object, thats why I have used
    a raw loop to create a non algocard object, and pass it through. if there's any fix for this to shallow copy an array of objects please
    change that.
+
+[Manoj] - [17-11-23 ; 1919Hrs]
+1. Fixed the deepcopy issue.
+2. I'm now focusing on modularising the server.js script.
 
 }
 
