@@ -116,6 +116,42 @@ function deepCopy(arr) {
     return JSON.parse(JSON.stringify(arr));
 }
 
+function addCardDiv (card, pos, playerType) {
+
+    if(playerType === 'enemy'){
+        var parentDiv = $("#enemyDeck");
+        var newDiv = createDiv(card, pos, playerType, enemyCards.length);
+        newDiv.html(card.getNumber());
+        parentDiv.append(newDiv);
+        
+    } else {
+        var parentDiv = $("#yourDeck");
+        var newDiv = createDiv(card, pos, playerType, yourCards.length);
+        newDiv.html(card.getNumber());
+        parentDiv.append(newDiv);
+    }
+
+    newDiv.css({
+        "background-color": card.getColor(),
+        "color": invertColor(card.getColor())
+    });
+}
+
+
+function createDiv(card, pos, playerType, n){
+    var newDiv = $("<div>");
+    newDiv.attr('id', "div" + playerType + pos); 
+    newDiv.attr('class', "served-card"); 
+    return newDiv;       
+}
+
+function invertColor(color){
+    if(color == 'black'){
+        return 'white';
+    }
+    return 'black';
+}
+
 
 // Kunal's FrontEnd
 // function generateCards() {
@@ -155,7 +191,7 @@ function deepCopy(arr) {
 // var yourCardsTemp = [];
 // var enemyCardsTemp = []; 
 
-//  function testsum() {
+// function testsum() {
 //     cardAllocator({number: null, color: '#ffffff', pos: 0, playerType: 'enemy'});
 //     cardAllocator({number: null, color: '#000000', pos: 1, playerType: 'enemy'});
 //     cardAllocator({number: null, color: '#ffffff', pos: 2, playerType: 'enemy'});
@@ -188,13 +224,6 @@ function deepCopy(arr) {
 //         }
 //     }
 //     addCardDiv(card);
-// }
-
-// function oppColor(color){
-//     if(color == 'black'){
-//         return 'white';
-//     }
-//     return 'black';
 // }
 
 
