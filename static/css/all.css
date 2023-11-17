@@ -326,7 +326,7 @@ footer {
 
 .deck{
     height: 25%;
-    width: 130px;
+    width: auto;
     gap: 15px;
     background-color: var(--backgroundColor);
     display: flex;
@@ -349,3 +349,13 @@ footer {
     width: 130px;
     border-radius: 10px;
 }
+
+.served-card {
+    height: 90%;
+    width: 130px;
+    border-radius: 10px;
+    font-size: 40px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+} /*JS Controlled Class*/

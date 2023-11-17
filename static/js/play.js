@@ -1,7 +1,7 @@
 const AlgoCard = require("algoCard").AlgoCard;
 const ejs = require('ejs');
 
-var myCards = [];
+var yourCards = [];
 var enemyCards = [];
 
 $(document).ready(function() {
@@ -95,26 +95,20 @@ $(document).ready(function() {
         socket.emit('getPlayerCards');
     });
 
-    socket.on('sentPlayerCards', (data) => {
-        myCards = data.playerCards;
-        myCards = convert_ObjectArray_to_AlgoCardArray(myCards);
-        console.log(myCards);
+    socket.on('sentPlayerCards', async (data) => {
+        yourCards = data.playerCards;
+        yourCards = convert_ObjectArray_to_AlgoCardArray(yourCards);
+        console.log(yourCards);
 
-        // Render on play.ejs
-        var template =
-            `<% for(var i = 0; i < yourCards.length; i++) { %>
-                <li class="card">yourCards[i]</li>
-            <% } %>`
-        ;
-        var insideIdYourDeck = ejs.render(template,  { yourCards: yourCards});
-        console.log(insideIdYourDeck);
-        $("#yourDeck").html(insideIdYourDeck);
+        for(var i = 0; i < yourCards.length; i++) {
+            addCardDiv(yourCards[i], i, 'you');
+        }
 
         socket.emit('getEnemyCards');
     });
 
     socket.on('getCardsFromEnemy', () => {
-        var maskedCards = deepCopy(myCards);
+        var maskedCards = deepCopy(yourCards);
         maskedCards = convert_ObjectArray_to_AlgoCardArray(maskedCards);
         maskedCards.forEach(card => {
             card.setNumber(null);
@@ -128,15 +122,10 @@ $(document).ready(function() {
         enemyCards = convert_ObjectArray_to_AlgoCardArray(enemyCards);
         console.log(enemyCards);
 
-        // Render on play.ejs
-        var template =
-            `<% for(var i = 0; i < enemyCards.length; i++) { %>
-                <li class="card">enemyCards[i]</li>
-            <% } %>`
-        ;
-        var insideIdEnemyDeck = ejs.render(template,  { enemyCards: enemyCards});
-        console.log(insideIdEnemyDeck);
-        $("#enemyDeck").html(insideIdEnemyDeck);
+        for(var i = 0; i < enemyCards.length; i++) {
+            addCardDiv(enemyCards[i], i, 'enemy');
+        }
+
     });
 
 });
@@ -153,6 +142,42 @@ function convert_ObjectArray_to_AlgoCardArray(arr) {
 
 function deepCopy(arr) {
     return JSON.parse(JSON.stringify(arr));
+}
+
+function addCardDiv (card, pos, playerType) {
+
+    if(playerType === 'enemy'){
+        var parentDiv = $("#enemyDeck");
+        var newDiv = createDiv(card, pos, playerType, enemyCards.length);
+        newDiv.html(card.getNumber());
+        parentDiv.append(newDiv);
+        
+    } else {
+        var parentDiv = $("#yourDeck");
+        var newDiv = createDiv(card, pos, playerType, yourCards.length);
+        newDiv.html(card.getNumber());
+        parentDiv.append(newDiv);
+    }
+
+    newDiv.css({
+        "background-color": card.getColor(),
+        "color": invertColor(card.getColor())
+    });
+}
+
+
+function createDiv(card, pos, playerType, n){
+    var newDiv = $("<div>");
+    newDiv.attr('id', "div" + playerType + pos); 
+    newDiv.attr('class', "served-card"); 
+    return newDiv;       
+}
+
+function invertColor(color){
+    if(color == 'black'){
+        return 'white';
+    }
+    return 'black';
 }
 
 
@@ -194,7 +219,7 @@ function deepCopy(arr) {
 // var yourCardsTemp = [];
 // var enemyCardsTemp = []; 
 
-//  function testsum() {
+// function testsum() {
 //     cardAllocator({number: null, color: '#ffffff', pos: 0, playerType: 'enemy'});
 //     cardAllocator({number: null, color: '#000000', pos: 1, playerType: 'enemy'});
 //     cardAllocator({number: null, color: '#ffffff', pos: 2, playerType: 'enemy'});
@@ -227,13 +252,6 @@ function deepCopy(arr) {
 //         }
 //     }
 //     addCardDiv(card);
-// }
-
-// function oppColor(color){
-//     if(color == 'black'){
-//         return 'white';
-//     }
-//     return 'black';
 // }
 
 
