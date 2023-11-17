@@ -10,10 +10,15 @@
 /* Gotu Font */
 @import url('https://fonts.googleapis.com/css2?family=Gotu&display=swap');
 
+:root{
+    --backgroundColour: #1f1f1f;
+    --headerFooterColor: #2f2f2f;
+}
+
 body {
     margin: 0;
     padding: 0;
-    background-color: #1f1f1f;
+    background-color: var(--backgroundColour);
     color: #b0b0b0;
     overflow-x: hidden;
     font-family: 'Gruppo', sans-serif;
@@ -64,7 +69,7 @@ header {
     width: 100%;
     height: 10vh;
     padding: 1vh;
-    background-color: #2f2f2f;
+    background-color: var(--headerFooterColor);
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -78,7 +83,7 @@ footer {
     bottom: 0;
     width: 100%;
     height: 10vh;
-    background-color: #2f2f2f;
+    background-color: var(--headerFooterColor);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -91,11 +96,6 @@ footer {
 
 .footer-out {
     transform: translateY(100%);
-} /* JS Controlled Class*/
-
-.fade-out {
-    opacity: 0%;
-    transform: scale(50%);
 } /* JS Controlled Class*/
 
 .display-none {
@@ -118,7 +118,7 @@ footer {
     max-width: 40rem;
     width: 60%;
     height: 50%;
-    background-color: #2f2f2f;
+    background-color: var(--headerFooterColor);
     padding: 4rem 3rem;
     border-radius: 10px;
     text-align: center;
@@ -164,7 +164,7 @@ footer {
 .alert-box {
     width: 100%;
     height: 2rem;
-    background-color: #2f2f2f;
+    background-color: var(--headerFooterColor);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -184,6 +184,7 @@ footer {
 
 /*play.ejs page stuff */
 
+/* Waiting Lobby */
 .board{
     margin-top: 10vh;
     width: 100vw;
@@ -194,6 +195,11 @@ footer {
     align-items: center;
     transition: 0.8s cubic-bezier(.36,-0.23,.1,1.01) 0.6s;
 }
+
+.fade-out {
+    opacity: 0%;
+    transform: scale(50%);
+} /* JS Controlled Class*/
 
 .key{
     display: flex;
@@ -288,19 +294,15 @@ footer {
 }
 
 
-/* cards desk */
-:root{
-    --backgroundColour: #2f2f2f;
-}
-
+/* Cards Desk */
 .desk{
-    height: calc(100vh - 5rem);
+    height: 100vh;
     width: 100vw;
     display: flex;
-    transform: scale(50%);
-    opacity: 0%;
     justify-content: center;
     align-items: center;
+    transform: scale(50%);
+    opacity: 0%;
     background-color: var(--backgroundColour);
     transition: 0.8s cubic-bezier(.36,-0.23,.1,1.01);
 }
@@ -308,12 +310,12 @@ footer {
 .fade-in {
     opacity: 100%;
     transform: scale(100%);
-}
+} /* JS Controlled Class*/
 
 .inner-desk{
-    background-color: var(--backgroundColour);
-    height: calc(100vh - 5rem);
-    width: 70%;
+    background-color: var(--backgroundColor);
+    height: 100vh;
+    width: 80%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -322,31 +324,20 @@ footer {
     
 }
 
-.enemy-deck{
-    height: calc(100%/5);
-    width: auto;
-    max-width: 100%;
-    gap: 20px;
-    background-color: var(--backgroundColour);
+.deck{
+    height: 25%;
+    width: 130px;
+    gap: 15px;
+    background-color: var(--backgroundColor);
     display: flex;
     justify-content: space-around;
     align-items: center;
 }
+
 .pick-deck{
-    height: calc(100%/5);
-    min-width: 70px;
-    width: 10%;
-    background-color: var(--backgroundColour);
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-}
-.you-deck{
-    height: calc(100%/5);
-    width: auto;
-    max-width: 100%;
-    gap: 20px;
-    background-color: var(--backgroundColour);
+    height: 25%;
+    width: 130px;
+    background-color: var(--backgroundColor);
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -354,7 +345,7 @@ footer {
 
 .card{
     background-color: #ffffff;
-    height: 80%;
-    width: 70px;
+    height: 90%;
+    width: 130px;
     border-radius: 10px;
 }
