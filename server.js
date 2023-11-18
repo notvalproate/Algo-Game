@@ -77,18 +77,18 @@ io.on('connection', (socket) => {
     socketHandler.connectToGameRoom();
     
     socket.on('disconnect', () => {
-        socketHandler.disconnect();
+        socketHandler.disconnectSocket();
     });
 
     socket.on('readyConfirmation', (data) => {
-        socketHandler.readyConfirmation(data.ready);
+        socketHandler.confirmReady(data.ready);
     });
 
     socket.on('getHands', () => {
-        socketHandler.getHands();
+        socketHandler.setHands();
     });
 
-    socketHandler.updateLobby();
+    socketHandler.emitLobbyUpdate();
 });
 
 

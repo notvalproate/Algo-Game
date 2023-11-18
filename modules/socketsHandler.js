@@ -14,17 +14,18 @@ class SocketHandler {
 
 
     connectToGameRoom() {
+
         const roomWasCreated = SocketHandler.roomsHandler.connectToRoom(this.roomKey, this.username);
         if(roomWasCreated) {
             logWithTime(`[+] Room [${this.roomKey}] was created!`);
         }
+
         this.socket.join(this.roomKey);
         logWithTime(`[+] User [${this.username}] connected to lobby [${this.roomKey}]`);
     }
 
 
-    disconnect() {
-        const room = SocketHandler.roomsHandler.getRoom(this.roomKey);
+    disconnectSocket() {
         const destroyed = SocketHandler.roomsHandler.disconnectFromRoom(this.username, this.roomKey);
 
         logWithTime(`[-] User [${this.username}] disconnected from lobby [${this.roomKey}]`);
@@ -32,36 +33,47 @@ class SocketHandler {
         if(destroyed) {
             logWithTime(`[-] Room [${this.roomKey}] was destroyed!`);
         } else {
-            SocketHandler.io.to(this.roomKey).emit('readyUpdate', { userList: room.getUsers(), readyCount: room.getReadyCount() });
+            this.emitReadyUpdate()
         }
 
-        SocketHandler.io.to(this.roomKey).emit('lobbyUpdate', room);
+        this.emitLobbyUpdate()
     }
 
 
-    readyConfirmation(ready) {
+    confirmReady(ready) {
         const room = SocketHandler.roomsHandler.getRoom(this.roomKey);
         const startGame = room.setReady(this.username, ready);
 
-        SocketHandler.io.to(this.roomKey).emit('readyUpdate', { userList: room.getUsers(), readyCount: room.getReadyCount() });
+        this.emitReadyUpdate()
 
         if (startGame) {
             logWithTime(`[-] Game started in room [${this.roomKey}]!!!`);
-            SocketHandler.io.to(this.roomKey).emit('startGame');
+            this.emitStartGame();
         }
     }
 
 
-    getHands() {
+    setHands() {
         const room = SocketHandler.roomsHandler.getRoom(this.roomKey);
         const [yourHand, enemyHand] = room.getHands(this.username);
 
         this.socket.emit('setHands', { yourHand: yourHand, enemyHand: enemyHand });
     }
 
+    
+    // io Emits
+    emitLobbyUpdate() {
+        const room = SocketHandler.roomsHandler.getRoom(this.roomKey);
+        SocketHandler.io.to(this.roomKey).emit('lobbyUpdate', room);
+    }
 
-    updateLobby() {
-        SocketHandler.io.to(this.roomKey).emit('lobbyUpdate', SocketHandler.roomsHandler.getRoom(this.roomKey));
+    emitReadyUpdate() {
+        const room = SocketHandler.roomsHandler.getRoom(this.roomKey);
+        SocketHandler.io.to(this.roomKey).emit('readyUpdate', { userList: room.getUsers(), readyCount: room.getReadyCount() });
+    }
+
+    emitStartGame() {
+        SocketHandler.io.to(this.roomKey).emit('startGame');
     }
 
 }
