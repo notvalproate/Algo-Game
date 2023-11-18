@@ -10,7 +10,6 @@ $(document).ready(function() {
     const readyButton = $('#ready-button');
     const you = $('#you');
     const enemy = $('#enemy');
-    const dealer = $('#dealer');
     var ready = false;
     var myTurn = undefined;
     var deckTop = undefined;
@@ -127,17 +126,8 @@ function stubDealer(){
     var cardThatCame = new AlgoCard(5, 'black');
     var indexThatCame = 1;
 
-    addCardDiv(cardThatCame, indexThatCame, 'you');
-    console.log('fire');
+    addCardDiv(cardThatCame, indexThatCame, 'you', 0);
 }
-
-setTimeout(() => {
-    stubDealer();
-    
-    setTimeout(() => {
-        anime('you' , 1);
-    }, 1000);
-}, 4000);
 
 
 // Utility Functions
@@ -147,13 +137,14 @@ function deepCopy(arr) {
 }
 
 function setDeckTop(card) {
+    dealer = $('#dealer');
     if(card.getNumber() !== null) {
         dealer.html(card.getNumber());
-    }
+    }   
 
     dealer.css({
-        "background-color": deckTop.getColor(),
-        "color": invertColor(deckTop.getColor()),
+        "background-color": card.getColor(),
+        "color": invertColor(card.getColor()),
     });
 }
 
@@ -167,6 +158,9 @@ function addCardDiv (card, pos, playerType, flag) {
             parentDiv.append(newDiv);
             console.log("card appended");
         }else{
+            newDiv.css({
+                "visibility": "hidden",
+            });
             $("#divenemy" + (pos+1)).before(newDiv);
         }
         
@@ -179,6 +173,9 @@ function addCardDiv (card, pos, playerType, flag) {
             parentDiv.append(newDiv);
             console.log("card appended");
         }else{
+            newDiv.css({
+                "visibility": "hidden",
+            });
             $("#divyou" + (pos+1)).before(newDiv);
         }
     }
@@ -200,8 +197,9 @@ function createDiv(pos, playerType, n){
     
     var newDiv = $("<div>");
     newDiv.attr('id', "div" + playerType + pos); 
-    newDiv.addClass("served-card"); 
-    return newDiv; 
+    newDiv.addClass("card");
+    newDiv.addClass("closed");
+    return newDiv;
 }
 
 function invertColor(color){
@@ -227,22 +225,20 @@ function anime(playerType, pos){
     $.keyframe.define([{
         name: 'serve' + playerType + pos,
         '0%': {
-                
+            'visibility': 'visible',
         },
         '100%': {
             'transform': `translate(${translateDir.X}px, ${translateDir.Y}px ) rotateY(180deg)`,
         }
     }]);
     
-    setInterval(() => {
-        $("#div" + playerType + pos).playKeyframe({
-            name: 'serve' + playerType + pos,
-            duration: '0.4s',
-            timingFunction: 'ease',
-            delay: '0s',
-            direction: 'reverse',
-            // fillMode: 'forwards',
-            complete: function() {}
-        });
-    }, 3000);
+    $("#div" + playerType + pos).playKeyframe({
+        name: 'serve' + playerType + pos,
+        duration: '0.4s',
+        timingFunction: 'ease',
+        delay: '0s',
+        direction: 'reverse',
+        // fillMode: 'forwards',
+        complete: function() {}
+    });
 }
