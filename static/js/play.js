@@ -154,6 +154,8 @@ $(document).ready(function() {
 });
 
 
+// Utility Functions
+
 async function showHandsOnPage(playerType) {
     if(playerType === 'you') {
         for(var i = 0; i < myHand.length; i++) {
@@ -166,6 +168,7 @@ async function showHandsOnPage(playerType) {
         }
     }
 }
+
 
 function getCurrentDeckTop() {
 
@@ -186,17 +189,6 @@ function getCurrentDeckTop() {
 }
 
 
-// function stubDealer(){
-//     // Get new cards from server here;
-//     var cardThatCame = new AlgoCard(5, 'black');
-//     var indexThatCame = 1;
-
-//     addCardDiv(cardThatCame, indexThatCame, 'you', 0);
-// }
-
-
-// Utility Functions
-
 function setDeckTop(card) {
     dealer = $('#dealer');
     if(card.getNumber() !== null) {
@@ -209,6 +201,7 @@ function setDeckTop(card) {
     });
 }
 
+
 function removeDivs(playerType) {
     if(playerType === 'enemy') {
         $("#enemyDeck").empty();
@@ -217,6 +210,7 @@ function removeDivs(playerType) {
         $("#yourDeck").empty();
     }
 }
+
 
 async function addCardDiv (card, pos, playerType) {
 
@@ -246,6 +240,7 @@ function createDiv(pos, playerType, n){
     newDiv.addClass("closed");
     return newDiv;
 }
+
 
 function invertColor(color){
     if(color == 'black'){
