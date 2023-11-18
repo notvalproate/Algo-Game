@@ -84,7 +84,7 @@ io.on('connection', (socket) => {
     });
 
     socket.on('getGameSetup', () => {
-        socketHandler.getGameSetup();
+        socketHandler.setupGame();
     });
 
     socketHandler.emitLobbyUpdate();

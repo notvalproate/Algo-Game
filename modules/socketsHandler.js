@@ -53,7 +53,7 @@ class SocketHandler {
     }
 
 
-    getGameSetup() {
+    setupGame() {
         const room = SocketHandler.roomsHandler.getRoom(this.roomKey);
         const [yourHand, enemyHand, yourTurn, deckTop] = room.getGameSetup(this.username);
 
