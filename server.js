@@ -4,21 +4,24 @@ const bodyParser = require('body-parser');
 const path = require('path');
 require('dotenv').config();
 
-// Custom Module Imports
-const { getShuffledDeck } = require('./modules/algoCard.js');
-const { removeNums } = require('./modules/algoCard.js');
-const { sortPlayerHand } = require('./modules/algoCard.js');
-const { ObjectArray_to_AlgoCardArray } = require('./modules/algoCard.js');
+
+// Rooms modules
+const RoomListHandler = require('./modules/roomListHandler.js');
+const Room = require('./modules/room.js');
 
 
 // If you dont have the .env file (since it is in .gitignore), create a .env file and set port to what you wish.
 const PORT = process.env.PORT;
 
+
+// Server Setup
 const app = express();
 const socket_server = require('http').Server(app);
 const io = require('socket.io')(socket_server);
+const { start } = require('repl');
 
-var roomsList = [];
+
+var roomsHandler = new RoomListHandler();
 
 
 // Middleware
@@ -37,9 +40,9 @@ app.get('/', (req, res) => {
 
 app.get('/:roomKey/play', (req, res) => {
     const roomKey = req.params.roomKey;
-    const roomToJoin = roomsList.find((room) => room.roomKey === roomKey)
+    const roomToJoin = roomsHandler.getRoom(roomKey);
 
-    if(roomToJoin === undefined || roomToJoin.users.length < 2) {
+    if(roomToJoin === undefined || roomToJoin.getUsers().length < 2) {
         res.render('index', { roomKey: roomKey, full: false });
     } else {
         res.render('index', { roomKey: undefined, full: true });
@@ -51,12 +54,12 @@ app.get('/:roomKey/play', (req, res) => {
 app.post('/', (req, res) => {
     const roomKey = req.body.roomKey;
     const username = req.body.username;
-    const roomToJoin = roomsList.find((room) => room.roomKey === roomKey);
+    const roomToJoin = roomsHandler.getRoom(roomKey);
 
     if(roomToJoin === undefined) {
         res.render('play', { roomKey: roomKey, username: username, enemyUsername: '...' , numberOfPlayersReady: 0});
     } else if(roomToJoin.users.length == 1) {
-        res.render('play', { roomKey: roomKey, username: username, enemyUsername: roomToJoin.users[0] , numberOfPlayersReady: roomToJoin.numberOfPlayersReady });
+        res.render('play', { roomKey: roomKey, username: username, enemyUsername: roomToJoin.getUsers()[0] , numberOfPlayersReady: roomToJoin.getReadyCount() });
     } else {
         res.render('index', { roomKey: undefined, full: true });
     }
@@ -67,78 +70,50 @@ app.post('/', (req, res) => {
 io.on('connection', (socket) => {
     const username = socket.handshake.query.username;
     const roomKey = socket.handshake.query.roomKey;
+    const roomWasCreated = roomsHandler.connectToRoom(roomKey, username);
 
-    if (io.sockets.adapter.rooms.get(roomKey) === undefined) {
+    if(roomWasCreated) {
         logWithTime(`[+] Room [${roomKey}] was created!`);
-
-        roomsList.push({
-            roomKey: roomKey,
-            users: [{ username: username, ready: false, hand: [] }],
-            numberOfPlayersReady: 0,
-            deck: undefined
-        });
-
-        console.log(roomsList[roomsList.length - 1]);
-    } else if (io.sockets.adapter.rooms.get(roomKey).size === 1) {
-        const roomToJoin = roomsList.find((room) => room.roomKey === roomKey);
-        roomToJoin.users.push({ username: username, ready: false, hand: [] });
-        
-        console.log(roomToJoin);
     }
-    
     socket.join(roomKey);
+
     logWithTime(`[+] User [${username}] connected to lobby [${roomKey}]`);
 
     socket.on('disconnect', () => {
-        const room = getRoom(roomKey);
+        const room = roomsHandler.getRoom(roomKey);
+        const destroyed = roomsHandler.disconnectFromRoom(username, roomKey);
 
         logWithTime(`[-] User [${username}] disconnected from lobby [${roomKey}]`);
         
-        if(room.users.length === 1) {
-            logWithTime(`[-] Room [${roomKey}] was destroyed!`)
-            roomsList.splice(getRoomIndex(roomKey), 1);
+        if(destroyed) {
+            logWithTime(`[-] Room [${roomKey}] was destroyed!`);
         } else {
-            room.users.splice(getUserIndex(room, username), 1);
-            room.numberOfPlayersReady = room.users[0].ready + 0;
-            io.to(roomKey).emit('readyUpdate', { userList: room.users, readyCount: room.numberOfPlayersReady });
+            io.to(roomKey).emit('readyUpdate', { userList: room.getUsers(), readyCount: room.getReadyCount() });
         }
 
-        io.to(roomKey).emit('lobbyUpdate', roomsList.find((room) => room.roomKey === roomKey));
+        io.to(roomKey).emit('lobbyUpdate', room);
     });
 
     socket.on('readyConfirmation', (data) => {
-        const room = getRoom(roomKey);
+        const room = roomsHandler.getRoom(roomKey);
+        const startGame = room.setReady(username, data.ready);
 
-        room.users[getUserIndex(room,  username)].ready = data.ready;
+        io.to(roomKey).emit('readyUpdate', { userList: room.getUsers(), readyCount: room.getReadyCount() });
 
-        room.numberOfPlayersReady = room.users[0].ready + 0;
-        if(room.users.length === 2) { room.numberOfPlayersReady += room.users[1].ready; }
-
-        io.to(roomKey).emit('readyUpdate', { userList: room.users, readyCount: room.numberOfPlayersReady });
-
-        if (room.numberOfPlayersReady === 2) {
-            room.deck = getShuffledDeck(24);
-            room.users[0].hand.push(...room.deck.splice(0,4));
-            room.users[1].hand.push(...room.deck.splice(0,4));
-
+        if (startGame) {
+            logWithTime(`[-] Game started in room [${roomKey}]!!!`);
             io.to(roomKey).emit('startGame');
         }
     });
 
     socket.on('getHands', () => {
-        const room = getRoom(roomKey);
-        
-        var yourHand = sortPlayerHand( ObjectArray_to_AlgoCardArray( deepCopy(room.users[0].hand) ) );
-        var enemyHand = sortPlayerHand( ObjectArray_to_AlgoCardArray( deepCopy(room.users[1].hand) ) );
+        const room = roomsHandler.getRoom(roomKey);
+        const [yourHand, enemyHand] = room.getHands(username);
 
-        if(room.users[0].username !== username) {
-            [yourHand, enemyHand] = [enemyHand, yourHand];
-        }
-
-        socket.emit('setHands', { yourHand: yourHand, enemyHand: removeNums(enemyHand) });
+        socket.emit('setHands', { yourHand: yourHand, enemyHand: enemyHand });
     });
 
-    io.to(roomKey).emit('lobbyUpdate', roomsList.find((room) => room.roomKey === roomKey));
+    io.to(roomKey).emit('lobbyUpdate', roomsHandler.getRoom(roomKey));
 });
 
 
@@ -153,20 +128,4 @@ function logWithTime(string) {
     const date = new Date();
     const dd = [date.getHours(), date.getMinutes(), date.getSeconds()].map((a)=>(a < 10 ? '0' + a : a));
     console.log(`[${dd.join(':')}]${string}`);
-}
-
-function getRoom(roomKey) {
-    return roomsList[roomsList.findIndex(room => room.roomKey === roomKey)];
-}
-
-function getRoomIndex(roomKey) {
-    return roomsList.findIndex(room => room.roomKey === roomKey);
-}
-
-function getUserIndex(room, username) {
-    return room.users.findIndex(user => user.username === username);
-}
-
-function deepCopy(obj) {
-    return JSON.parse(JSON.stringify(obj));
 }

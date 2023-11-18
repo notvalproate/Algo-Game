@@ -1,14 +1,7 @@
 class AlgoCard {
-    constructor (color_arg) {
-        if(color_arg instanceof AlgoCard || color_arg instanceof Object) {
-            const [obj] = [color_arg];
-            this.number = obj.number;
-            this.color = obj.color;
-        } else {
-            this.number = this.generateRandomNumber(0, 12);
-            this.color = color_arg;
-            // color = "black" or "white"
-        }
+    constructor (num_arg, color_arg) {
+        this.number = num_arg
+        this.color = color_arg
     }
 
     getColor () {
@@ -51,12 +44,12 @@ function getShuffledDeck(numberOfCards) {
     deck = [];
 
     for(var i = 0; i < numberOfCards/2; i++) {
-        var card = new AlgoCard("black");
+        var card = new AlgoCard(i, "black");
         deck.push(card);
     }
 
     for(var i = 0; i < numberOfCards/2; i++) {
-        var card = new AlgoCard("white");
+        var card = new AlgoCard(i, "white");
         deck.push(card);
     }
 
@@ -82,14 +75,14 @@ function sortPlayerHand(hand) {
 function removeNums(cards) {
     var retval = cards;
     for(i = 0; i < retval.length; i++) {
-        retval[i].number = null;
+        retval[i].setNumber(null);
     }
     return retval;
 }
 
 function ObjectArray_to_AlgoCardArray(arr) {
     for(var i = 0; i < arr.length; i++) {
-        arr[i] = new AlgoCard(arr[i]);
+        arr[i] = new AlgoCard(arr[i].number, arr[i].color);
     }
     return arr;
 }

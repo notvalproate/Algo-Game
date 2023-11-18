@@ -122,7 +122,7 @@ function addCardDiv (card, pos, playerType) {
 
     if(playerType === 'enemy'){
         var parentDiv = $("#enemyDeck");
-        var newDiv = createDiv(card, pos, playerType, enemyHand.length);
+        var newDiv = createDiv(pos, playerType);
         newDiv.html(card.getNumber());
         parentDiv.append(newDiv);
         
