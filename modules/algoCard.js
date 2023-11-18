@@ -87,11 +87,31 @@ function ObjectArray_to_AlgoCardArray(arr) {
     return arr;
 }
 
+function insertCardToHand(card, hand) {
+    for(var i = 0; i < hand.length; i++) {
+        if (hand[i].getNumber() < card.getNumber()) {
+            continue;
+        }
+
+        if (hand[i].getNumber() === card.getNumber()) {
+            if (hand[i].getColor() !== card.getColor() && card.getColor() === 'white') {
+                hand.splice(i+1, 0, card);
+                return i+1;
+            }
+        }
+
+        hand.splice(i, 0, card);
+        return i;
+    }
+    return hand.length;
+}
+
 module.exports = {
     AlgoCard: AlgoCard,
     shuffle: shuffle,
     getShuffledDeck: getShuffledDeck,
     removeNums: removeNums,
     sortPlayerHand: sortPlayerHand,
-    ObjectArray_to_AlgoCardArray: ObjectArray_to_AlgoCardArray
+    ObjectArray_to_AlgoCardArray: ObjectArray_to_AlgoCardArray,
+    insertCardToHand: insertCardToHand
 }

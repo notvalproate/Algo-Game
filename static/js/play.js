@@ -98,43 +98,104 @@ $(document).ready(function() {
         socket.emit('getGameSetup');
     });
 
-    socket.on('setupGame', (data) => {
+    socket.on('setupGame', async (data) => {
         myTurn = data.yourTurn;
         deckTop = new AlgoCard(data.deckTop.number, data.deckTop.color);
 
         myHand = ObjectArray_to_AlgoCardArray(data.yourHand);
         enemyHand = ObjectArray_to_AlgoCardArray(data.enemyHand);
 
-        console.log(myHand , enemyHand);
+        await showHandsOnPage('enemy');
+        await showHandsOnPage('you');
 
-        for(var i = 0; i < myHand.length; i++) {
-            addCardDiv(myHand[i], i, 'you' , 1);
-        }
-
-        for(var i = 0; i < enemyHand.length; i++) {
-            addCardDiv(enemyHand[i], i, 'enemy' , 1);
+        if(myTurn) {
+            $("#yourDeck").addClass('toggle-on-player-turn');
+            $("#enemyDeck").removeClass('toggle-on-player-turn');
+        } else {
+            $("#yourDeck").removeClass('toggle-on-player-turn');
+            $("#enemyDeck").addClass('toggle-on-player-turn');
         }
 
         setDeckTop(deckTop);
+        
+        $("#enemyDeck").children().click((event) => {
+            var clickedCardId = $(event.target).attr('id');
+            var cardPosition = Number(clickedCardId[clickedCardId.length - 1]);
+
+            deckTopCard = getCurrentDeckTop();
+
+            // guessedValue Stub -> replace later
+            var guessedValue = 1;
+            socket.emit('makeGuess', { clickedCardPosition: cardPosition, guessedValue: guessedValue, deckTop: deckTopCard });
+
+        });
+    });
+
+    socket.on("revealEnemyCard", (data) => {
+        const guessedCard = $(`#divenemy${data.cardPosition}`);
+        guessedCard.html(data.guessedNumber);
+        guessedCard.addClass("open");
+        guessedCard.removeClass("closed");
+    });
+
+    socket.on("pickDeckTop", async (data) => {
+        var deckTop = new AlgoCard(data.deckTop.number, data.deckTop.color);
+        var insertedCard = new AlgoCard(data.insertedCard.number, data.insertedCard.color);
+        const index = data.insertedCardPosition;
+
+        myHand.splice(index, 0, insertedCard);
+
+        setDeckTop(deckTop);
+        await removeDivs('you');
+        await showHandsOnPage('you');
+
     });
 
 });
 
 
-function stubDealer(){
-    // Get new cards from server here;
-    var cardThatCame = new AlgoCard(5, 'black');
-    var indexThatCame = 1;
-
-    addCardDiv(cardThatCame, indexThatCame, 'you', 0);
+async function showHandsOnPage(playerType) {
+    if(playerType === 'you') {
+        for(var i = 0; i < myHand.length; i++) {
+            await addCardDiv(myHand[i], i, 'you', true);
+        }
+    }
+    else {
+        for(var i = 0; i < enemyHand.length; i++) {
+            await addCardDiv(enemyHand[i], i, 'enemy', true);
+        }
+    }
 }
+
+function getCurrentDeckTop() {
+
+    var color =  $("#dealer").css('backgroundColor');
+    if(color === 'rgb(255, 255, 255)') {
+        color = 'white';
+    }
+    else {
+        color = 'black';
+    }
+
+    var number = null;
+    if ($("#dealer").html() !== '') {
+        number = Number($("#dealer").html());
+    }
+
+    return {number: number, color: color};
+}
+
+
+// function stubDealer(){
+//     // Get new cards from server here;
+//     var cardThatCame = new AlgoCard(5, 'black');
+//     var indexThatCame = 1;
+
+//     addCardDiv(cardThatCame, indexThatCame, 'you', 0);
+// }
 
 
 // Utility Functions
-
-function deepCopy(arr) {
-    return JSON.parse(JSON.stringify(arr));
-}
 
 function setDeckTop(card) {
     dealer = $('#dealer');
@@ -148,37 +209,28 @@ function setDeckTop(card) {
     });
 }
 
-function addCardDiv (card, pos, playerType, flag) {
+function removeDivs(playerType) {
+    if(playerType === 'enemy') {
+        $("#enemyDeck").empty();
+    }
+    else {
+        $("#yourDeck").empty();
+    }
+}
+
+async function addCardDiv (card, pos, playerType) {
+
     if(playerType === 'enemy'){
-        var parentDiv = $("#enemyDeck");
         var newDiv = createDiv(pos, playerType, enemyHand.length);
         newDiv.html(card.getNumber());
-        // parentDiv.append(newDiv);
-        if(flag == 1){
-            parentDiv.append(newDiv);
-            console.log("card appended");
-        }else{
-            newDiv.css({
-                "visibility": "hidden",
-            });
-            $("#divenemy" + (pos+1)).before(newDiv);
-        }
-        
+        var parentDiv = $("#enemyDeck");
     } else {
-        var parentDiv = $("#yourDeck");
         var newDiv = createDiv(pos, playerType, myHand.length);
         newDiv.html(card.getNumber());
-        // parentDiv.append(newDiv);
-        if(flag == 1){
-            parentDiv.append(newDiv);
-            console.log("card appended");
-        }else{
-            newDiv.css({
-                "visibility": "hidden",
-            });
-            $("#divyou" + (pos+1)).before(newDiv);
-        }
+        var parentDiv = $("#yourDeck");
     }
+
+    parentDiv.append(newDiv);
 
     newDiv.css({
         "background-color": card.getColor(),
@@ -188,13 +240,6 @@ function addCardDiv (card, pos, playerType, flag) {
 
 
 function createDiv(pos, playerType, n){
-    var i = pos;
-    if(i != n-1){
-        for(var j=n-1; j>=i ; j--){
-            $("#div"+ playerType + j).attr('id', "div" + playerType +(j+1));
-        }
-    }
-    
     var newDiv = $("<div>");
     newDiv.attr('id', "div" + playerType + pos); 
     newDiv.addClass("card");
@@ -211,34 +256,34 @@ function invertColor(color){
 
 
 // Kunal's FrontEnd
-function anime(playerType, pos){
-    const dealerPos = $('#dealer').offset();
-    const victimPos = $("#div" + playerType + pos).offset();
+// function anime(playerType, pos){
+//     const dealerPos = $('#dealer').offset();
+//     const victimPos = $("#div" + playerType + pos).offset();
 
-    const translateDir = {
-        Y: dealerPos.top - victimPos.top,
-        X: dealerPos.left - victimPos.left
-    };
+//     const translateDir = {
+//         Y: dealerPos.top - victimPos.top,
+//         X: dealerPos.left - victimPos.left
+//     };
 
-    console.log(victimPos);
+//     console.log(victimPos);
 
-    $.keyframe.define([{
-        name: 'serve' + playerType + pos,
-        '0%': {
-            'visibility': 'visible',
-        },
-        '100%': {
-            'transform': `translate(${translateDir.X}px, ${translateDir.Y}px ) rotateY(180deg)`,
-        }
-    }]);
+//     $.keyframe.define([{
+//         name: 'serve' + playerType + pos,
+//         '0%': {
+//             'visibility': 'visible',
+//         },
+//         '100%': {
+//             'transform': `translate(${translateDir.X}px, ${translateDir.Y}px ) rotateY(180deg)`,
+//         }
+//     }]);
     
-    $("#div" + playerType + pos).playKeyframe({
-        name: 'serve' + playerType + pos,
-        duration: '0.4s',
-        timingFunction: 'ease',
-        delay: '0s',
-        direction: 'reverse',
-        // fillMode: 'forwards',
-        complete: function() {}
-    });
-}
+//     $("#div" + playerType + pos).playKeyframe({
+//         name: 'serve' + playerType + pos,
+//         duration: '0.4s',
+//         timingFunction: 'ease',
+//         delay: '0s',
+//         direction: 'reverse',
+//         // fillMode: 'forwards',
+//         complete: function() {}
+//     });
+// }

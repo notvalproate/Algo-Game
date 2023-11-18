@@ -1,3 +1,6 @@
+const { insertCardToHand } = require('./algoCard.js');
+const { AlgoCard } = require('./algoCard.js');
+
 class SocketHandler {
 
     static init(io, roomsHandler) {
@@ -58,6 +61,25 @@ class SocketHandler {
         const [yourHand, enemyHand, yourTurn, deckTop] = room.getGameSetup(this.username);
 
         this.socket.emit('setupGame', { yourHand: yourHand, enemyHand: enemyHand, yourTurn: yourTurn, deckTop: deckTop });
+    }
+
+
+    evaluateGuess(cardPosition, guess, deckTop) {
+        const room = SocketHandler.roomsHandler.getRoom(this.roomKey);
+        const guessedCard = room.getUsers().find((user) => user.username !== this.username).hand[cardPosition];
+
+        var insertableCard = new AlgoCard(deckTop.number, deckTop.color);
+        const userHand = room.getUsers().find((user) => user.username === this.username).hand;
+        const index = insertCardToHand(insertableCard, userHand);
+        const newDeckTop = room.getDeck().splice(0, 1)[0];
+
+        if(guessedCard.number === guess) {
+            SocketHandler.io.to(this.roomKey).emit('revealEnemyCard', { guessedNumber: guessedCard.number, cardPosition: cardPosition });
+            SocketHandler.io.to(this.roomKey).emit('pickDeckTop', { deckTop: newDeckTop, insertedCardPosition: index, insertedCard: insertableCard });
+        }
+        else {
+            SocketHandler.io.to(this.roomKey).emit('pickDeckTop', { deckTop: newDeckTop, insertedCardPosition: index, insertedCard: insertableCard });
+        }
     }
 
     

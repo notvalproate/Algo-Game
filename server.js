@@ -87,6 +87,10 @@ io.on('connection', (socket) => {
         socketHandler.setupGame();
     });
 
+    socket.on('makeGuess', (data) => {
+        socketHandler.evaluateGuess(data.clickedCardPosition, data.guessedValue, data.deckTop);
+    });
+
     socketHandler.emitLobbyUpdate();
 });
 

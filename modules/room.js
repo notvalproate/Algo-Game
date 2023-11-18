@@ -55,6 +55,10 @@ class Room {
         return this.users;
     }
 
+    getDeck() {
+        return this.deck;
+    }
+
     getReadyCount() {
         return this.numberOfPlayersReady;
     }
@@ -70,7 +74,7 @@ class Room {
         var yourHand = sortPlayerHand( ObjectArray_to_AlgoCardArray( deepCopy(this.users[0].hand) ) );
         var enemyHand = sortPlayerHand( ObjectArray_to_AlgoCardArray( deepCopy(this.users[1].hand) ) );
         var yourTurn = this.getActiveTurn(username);
-        var deckTop = deepCopy(this.deck[0]);
+        var deckTop = this.deck.splice(0, 1)[0];
 
         if(this.users[0].username !== username) {
             [yourHand, enemyHand] = [enemyHand, yourHand];
