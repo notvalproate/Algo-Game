@@ -1,4 +1,3 @@
-const { AlgoCard } = require('./algoCard.js');
 const { getShuffledDeck } = require('./algoCard.js');
 const { removeNums } = require('./algoCard.js');
 const { sortPlayerHand } = require('./algoCard.js');

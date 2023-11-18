@@ -7,6 +7,7 @@ require('dotenv').config();
 
 // Rooms modules
 const RoomListHandler = require('./modules/roomListHandler.js');
+const SocketHandler = require('./modules/socketsHandler.js');
 
 
 // If you dont have the .env file (since it is in .gitignore), create a .env file and set port to what you wish.
@@ -26,12 +27,13 @@ var roomsHandler = new RoomListHandler();
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, '/static')));
 
+
 // View engine and views path
 app.set('view engine','ejs');
 app.set('views', path.join(__dirname, '/views'));
 
 
-// GET routes to render index.ejs
+// GET routes
 app.get('/', (req, res) => {
     res.render('index', { roomKey: undefined, full: false });
 });
@@ -68,62 +70,29 @@ app.post('/', (req, res) => {
 io.on('connection', (socket) => {
     const username = socket.handshake.query.username;
     const roomKey = socket.handshake.query.roomKey;
-    const roomWasCreated = roomsHandler.connectToRoom(roomKey, username);
-
-    if(roomWasCreated) {
-        logWithTime(`[+] Room [${roomKey}] was created!`);
-    }
-    socket.join(roomKey);
-
-    logWithTime(`[+] User [${username}] connected to lobby [${roomKey}]`);
-
+    
+    SocketHandler.init(io, roomsHandler);
+    var socketHandler = new SocketHandler(socket, username, roomKey);
+    
+    socketHandler.connectToGameRoom();
+    
     socket.on('disconnect', () => {
-        const room = roomsHandler.getRoom(roomKey);
-        const destroyed = roomsHandler.disconnectFromRoom(username, roomKey);
-
-        logWithTime(`[-] User [${username}] disconnected from lobby [${roomKey}]`);
-        
-        if(destroyed) {
-            logWithTime(`[-] Room [${roomKey}] was destroyed!`);
-        } else {
-            io.to(roomKey).emit('readyUpdate', { userList: room.getUsers(), readyCount: room.getReadyCount() });
-        }
-
-        io.to(roomKey).emit('lobbyUpdate', room);
+        socketHandler.disconnectSocket();
     });
 
     socket.on('readyConfirmation', (data) => {
-        const room = roomsHandler.getRoom(roomKey);
-        const startGame = room.setReady(username, data.ready);
-
-        io.to(roomKey).emit('readyUpdate', { userList: room.getUsers(), readyCount: room.getReadyCount() });
-
-        if (startGame) {
-            logWithTime(`[-] Game started in room [${roomKey}]!!!`);
-            io.to(roomKey).emit('startGame');
-        }
+        socketHandler.confirmReady(data.ready);
     });
 
     socket.on('getHands', () => {
-        const room = roomsHandler.getRoom(roomKey);
-        const [yourHand, enemyHand] = room.getHands(username);
-
-        socket.emit('setHands', { yourHand: yourHand, enemyHand: enemyHand });
+        socketHandler.setHands();
     });
 
-    io.to(roomKey).emit('lobbyUpdate', roomsHandler.getRoom(roomKey));
+    socketHandler.emitLobbyUpdate();
 });
 
 
-// Run Server using the http socket server created (previous mistake was doing app.listen(), thats why it didn't work)
+// Run Server using the http socket server created.
 socket_server.listen(PORT, () => {
     console.log(`Server running at http://localhost:${PORT}`);
 });
-
-
-// Helper functions
-function logWithTime(string) {
-    const date = new Date();
-    const dd = [date.getHours(), date.getMinutes(), date.getSeconds()].map((a)=>(a < 10 ? '0' + a : a));
-    console.log(`[${dd.join(':')}]${string}`);
-}
