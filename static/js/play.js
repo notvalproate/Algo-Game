@@ -96,12 +96,13 @@ $(document).ready(function() {
             $(".desk").addClass("fade-in");
         }, 1400);
 
-        socket.emit('getHands');
+        socket.emit('getGameSetup');
     });
 
-    socket.on('setHands', (data) => {
+    socket.on('setupGame', (data) => {
         myTurn = data.yourTurn;
-        deckTop = data.deckTop;
+        deckTop = new AlgoCard(data.deckTop.number, data.deckTop.color);
+
         myHand = ObjectArray_to_AlgoCardArray(data.yourHand);
         enemyHand = ObjectArray_to_AlgoCardArray(data.enemyHand);
 
@@ -113,14 +114,7 @@ $(document).ready(function() {
             addCardDiv(enemyHand[i], i, 'enemy');
         }
 
-        if(deckTop.number !== null) {
-            dealer.html(deckTop.number);
-        }
-
-        dealer.css({
-            "background-color": deckTop.color,
-            "color": invertColor(deckTop.color)
-        });
+        setDeckTop(deckTop);
     });
 
 });
@@ -129,6 +123,17 @@ $(document).ready(function() {
 
 function deepCopy(arr) {
     return JSON.parse(JSON.stringify(arr));
+}
+
+function setDeckTop(card) {
+    if(card.getNumber() !== null) {
+        dealer.html(card.getNumber());
+    }
+
+    dealer.css({
+        "background-color": deckTop.getColor(),
+        "color": invertColor(deckTop.getColor()),
+    });
 }
 
 function addCardDiv (card, pos, playerType) {

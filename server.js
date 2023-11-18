@@ -83,11 +83,8 @@ io.on('connection', (socket) => {
         socketHandler.readyConfirmation(data.ready);
     });
 
-    socket.on('getHands', () => {
-        const room = roomsHandler.getRoom(roomKey);
-        const [yourHand, enemyHand, yourTurn, deckTop] = room.getGameSetup(username);
-
-        socket.emit('setHands', { yourHand: yourHand, enemyHand: enemyHand, yourTurn: yourTurn, deckTop: deckTop });
+    socket.on('getGameSetup', () => {
+        socketHandler.getGameSetup();
     });
 
     socketHandler.updateLobby();

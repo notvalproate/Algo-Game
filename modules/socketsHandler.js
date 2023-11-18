@@ -52,11 +52,11 @@ class SocketHandler {
     }
 
 
-    getHands() {
+    getGameSetup() {
         const room = SocketHandler.roomsHandler.getRoom(this.roomKey);
-        const [yourHand, enemyHand] = room.getHands(this.username);
+        const [yourHand, enemyHand, yourTurn, deckTop] = room.getGameSetup(this.username);
 
-        this.socket.emit('setHands', { yourHand: yourHand, enemyHand: enemyHand });
+        this.socket.emit('setupGame', { yourHand: yourHand, enemyHand: enemyHand, yourTurn: yourTurn, deckTop: deckTop });
     }
 
 
