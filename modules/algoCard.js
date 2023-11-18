@@ -75,7 +75,7 @@ function sortPlayerHand(hand) {
 function removeNums(cards) {
     var retval = cards;
     for(i = 0; i < retval.length; i++) {
-        retval[i].number = null;
+        retval[i].setNumber(null);
     }
     return retval;
 }
