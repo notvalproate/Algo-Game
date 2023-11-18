@@ -18,7 +18,6 @@ const PORT = process.env.PORT;
 const app = express();
 const socket_server = require('http').Server(app);
 const io = require('socket.io')(socket_server);
-const { start } = require('repl');
 
 
 var roomsHandler = new RoomListHandler();
