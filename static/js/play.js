@@ -128,7 +128,7 @@ function addCardDiv (card, pos, playerType) {
         
     } else {
         var parentDiv = $("#yourDeck");
-        var newDiv = createDiv(card, pos, playerType, myHand.length);
+        var newDiv = createDiv(pos, playerType);
         newDiv.html(card.getNumber());
         parentDiv.append(newDiv);
     }

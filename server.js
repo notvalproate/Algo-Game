@@ -5,7 +5,6 @@ const path = require('path');
 require('dotenv').config();
 
 // Custom Module Imports
-const { AlgoCard } = require('./modules/algoCard.js');
 const { getShuffledDeck } = require('./modules/algoCard.js');
 const { removeNums } = require('./modules/algoCard.js');
 const { sortPlayerHand } = require('./modules/algoCard.js');
