@@ -63,7 +63,6 @@ app.post('/', (req, res) => {
     }
 });
 
-
 // Socket routes
 io.on('connection', (socket) => {
     const username = socket.handshake.query.username;
@@ -106,9 +105,9 @@ io.on('connection', (socket) => {
 
     socket.on('getHands', () => {
         const room = roomsHandler.getRoom(roomKey);
-        const [yourHand, enemyHand] = room.getHands(username);
+        const [yourHand, enemyHand, yourTurn, deckTop] = room.getGameSetup(username);
 
-        socket.emit('setHands', { yourHand: yourHand, enemyHand: enemyHand });
+        socket.emit('setHands', { yourHand: yourHand, enemyHand: enemyHand, yourTurn: yourTurn, deckTop: deckTop });
     });
 
     io.to(roomKey).emit('lobbyUpdate', roomsHandler.getRoom(roomKey));

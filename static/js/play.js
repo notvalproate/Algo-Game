@@ -10,7 +10,10 @@ $(document).ready(function() {
     const readyButton = $('#ready-button');
     const you = $('#you');
     const enemy = $('#enemy');
+    const dealer = $('#dealer');
     var ready = false;
+    var myTurn = undefined;
+    var deckTop = undefined;
 
     if(numberOfPlayersReady == 1) {
         enemy.addClass('player-ready');
@@ -97,6 +100,8 @@ $(document).ready(function() {
     });
 
     socket.on('setHands', (data) => {
+        myTurn = data.yourTurn;
+        deckTop = data.deckTop;
         myHand = ObjectArray_to_AlgoCardArray(data.yourHand);
         enemyHand = ObjectArray_to_AlgoCardArray(data.enemyHand);
 
@@ -107,10 +112,18 @@ $(document).ready(function() {
         for(var i = 0; i < enemyHand.length; i++) {
             addCardDiv(enemyHand[i], i, 'enemy');
         }
-    });
-    
-});
 
+        if(deckTop.number !== null) {
+            dealer.html(deckTop.number);
+        }
+
+        dealer.css({
+            "background-color": deckTop.color,
+            "color": invertColor(deckTop.color)
+        });
+    });
+
+});
 
 // Utility Functions
 

@@ -10,6 +10,7 @@ class Room {
         this.users = [ { username: username, ready: false, hand: []} ];
         this.numberOfPlayersReady = 0;
         this.deck = undefined;
+        this.activeTurn = undefined;
     }
 
     addUser(username) {
@@ -24,6 +25,9 @@ class Room {
     }
 
     setupGame() {
+        // this.activeTurn = Math.floor(Math.random() * 2);
+        this.activeTurn = 0;
+
         this.deck = getShuffledDeck(24);
         this.users[0].hand.push(...this.deck.splice(0,4));
         this.users[1].hand.push(...this.deck.splice(0,4));
@@ -56,15 +60,27 @@ class Room {
         return this.numberOfPlayersReady;
     }
 
-    getHands(username) {
+    getActiveTurn(username) {
+        if(this.users[this.activeTurn].username === username) {
+            return true;
+        }
+        return false;
+    }
+
+    getGameSetup(username) {
         var yourHand = sortPlayerHand( ObjectArray_to_AlgoCardArray( deepCopy(this.users[0].hand) ) );
         var enemyHand = sortPlayerHand( ObjectArray_to_AlgoCardArray( deepCopy(this.users[1].hand) ) );
+        var yourTurn = this.getActiveTurn(username);
+        var deckTop = deepCopy(this.deck[0]);
 
         if(this.users[0].username !== username) {
             [yourHand, enemyHand] = [enemyHand, yourHand];
         }
+        if(!yourTurn) {
+            deckTop.number = null;
+        }
 
-        return [yourHand, removeNums(enemyHand)];
+        return [yourHand, removeNums(enemyHand), yourTurn, deckTop];
     }
 
     displayRoom() {
