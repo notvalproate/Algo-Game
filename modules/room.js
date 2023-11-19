@@ -130,6 +130,10 @@ class Room {
         return this.users;
     }
 
+    getDeck() {
+        return this.deck;
+    }
+
     getReadyCount() {
         return this.numberOfPlayersReady;
     }

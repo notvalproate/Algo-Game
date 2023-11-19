@@ -215,7 +215,7 @@ function addEventListnersToEnemyHand(socket) {
     });
 }
 
-function addCardDiv (card, pos, playerType, flag, state) {
+async function addCardDiv (card, pos, playerType, flag, state) {
     if(playerType === 'enemy'){
         var parentDiv = $("#enemyDeck");
         var newDiv = createDiv(pos, playerType, enemyHand.length, state);
@@ -278,6 +278,7 @@ function createDiv(pos, playerType, n, state){
     return newDiv;
 }
 
+
 function invertColor(color){
     if(color == 'black'){
         return 'white';
@@ -285,34 +286,36 @@ function invertColor(color){
     return 'black';
 }
 
-function anime(playerType, pos){
-    const dealerPos = $('#dealer').offset();
-    const victimPos = $("#div" + playerType + pos).offset();
 
-    const translateDir = {
-        Y: dealerPos.top - victimPos.top,
-        X: dealerPos.left - victimPos.left
-    };
+// Kunal's FrontEnd
+// function anime(playerType, pos){
+//     const dealerPos = $('#dealer').offset();
+//     const victimPos = $("#div" + playerType + pos).offset();
 
-    console.log(victimPos);
+//     const translateDir = {
+//         Y: dealerPos.top - victimPos.top,
+//         X: dealerPos.left - victimPos.left
+//     };
 
-    $.keyframe.define([{
-        name: 'serve' + playerType + pos,
-        '0%': {
-            'visibility': 'visible',
-        },
-        '100%': {
-            'transform': `translate(${translateDir.X}px, ${translateDir.Y}px ) rotateY(180deg)`,
-        }
-    }]);
+//     console.log(victimPos);
+
+//     $.keyframe.define([{
+//         name: 'serve' + playerType + pos,
+//         '0%': {
+//             'visibility': 'visible',
+//         },
+//         '100%': {
+//             'transform': `translate(${translateDir.X}px, ${translateDir.Y}px ) rotateY(180deg)`,
+//         }
+//     }]);
     
-    $("#div" + playerType + pos).playKeyframe({
-        name: 'serve' + playerType + pos,
-        duration: '0.4s',
-        timingFunction: 'ease',
-        delay: '0s',
-        direction: 'reverse',
-        // fillMode: 'forwards',
-        complete: function() {}
-    });
-}
+//     $("#div" + playerType + pos).playKeyframe({
+//         name: 'serve' + playerType + pos,
+//         duration: '0.4s',
+//         timingFunction: 'ease',
+//         delay: '0s',
+//         direction: 'reverse',
+//         // fillMode: 'forwards',
+//         complete: function() {}
+//     });
+// }

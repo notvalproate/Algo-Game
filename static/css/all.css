@@ -345,12 +345,13 @@ footer {
 
 .card{
     padding: 10px;
-    height: 90%;
+    height: 85%;
     width: 130px;
     border-radius: 10px;
     display: flex;
     justify-content: space-around;
     transition: 0.4s cubic-bezier(.36,-0.23,.1,1.01);
+    font-weight: 600;
 }
 
 .card:hover {
@@ -358,12 +359,12 @@ footer {
 }
 
 .open {
-    font-size: 45px;
+    font-size: 50px;
     align-items: center;
 } /*JS Controlled Class*/
 
 .closed {
-    font-size: 25px;
+    font-size: 30px;
     align-items: flex-end;
 } /*JS Controlled Class*/
 
