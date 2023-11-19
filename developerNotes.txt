@@ -2,30 +2,20 @@
 
 CHAT:
 
-[Manoj] - [17-11-23 ; 1303Hrs]
-1. Rendering EJS through client-side js alters `window.history.pushState(null, '', `/${roomKey}/play`);`, hence it is commented out.
-
-[Ian] - [17-11-23 ; 1750Hrs]
-1. In server.js in socket.on('getHands'), if var yourHand and enemyHand are assigned the hands normally, they are deep copied. Hence
-   when I pass enemyHand to the removeNums() function, it makes the values null even in the ACTUAL room object, thats why I have used
-   a raw loop to create a non algocard object, and pass it through. if there's any fix for this to shallow copy an array of objects please
-   change that.
-
-[Manoj] - [17-11-23 ; 1919Hrs]
-1. Fixed the deepcopy issue.
-2. I'm now focusing on modularising the server.js script.
-
 [Manoj] - [19-11-23 ; 0227Hrs]
 1. Backend handles the sending of a new card to deckTop, inserting cards to guesser, revealing guessee's card on correct guess.
 2. The player whose turn is currently going on, has his hand highlighted.
 2. To Improve:
-   -> The .before() jQuery function is not working for some reason. I have implemented rendering by emptying #yourDeck and adding
-      new divs for all cards after insertion. Try if you can fix this with .before() only
-   -> Card insertion on frontend happens always to the playing user, despite it not being his turn. This will probably be fixed once
-      player-turns are implemented on the backend.
    -> No card animations are implemented yet.
    -> Modularizing play.js may REALLY come in handy!
    -> For server.js, adding a RoutesHandler could seem resourceful. 
+
+[Ian] - [19-11-23 ; 2050Hrs]
+1. Things to implement/re-implement:
+   -> Handling correct guesss (re-implementing manoj's reveal function).
+   -> Implement win-case scenario.
+   -> Add event listeners on adding card div.
+   -> Stop using IDs for adding card divs.
 
 }
 

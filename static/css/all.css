@@ -359,12 +359,12 @@ footer {
 }
 
 .open {
-    font-size: 50px;
+    font-size: 100px;
     align-items: center;
 } /*JS Controlled Class*/
 
 .closed {
-    font-size: 30px;
+    font-size: 40px;
     align-items: flex-end;
 } /*JS Controlled Class*/
 
