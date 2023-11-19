@@ -80,11 +80,15 @@ io.on('connection', (socket) => {
     });
 
     socket.on('readyConfirmation', (data) => {
-        socketHandler.confirmReady(data.ready);
+        socketHandler.confirmReady(data);
     });
 
-    socket.on('getGameSetup', () => {
-        socketHandler.setupGame();
+    socket.on('selectCard', (data) => {
+        socketHandler.updateSelection(data);
+    });
+
+    socket.on('playMove', (data) => {
+        socketHandler.playMove(data);
     });
 
     socketHandler.emitLobbyUpdate();

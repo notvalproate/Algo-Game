@@ -87,11 +87,16 @@ function ObjectArray_to_AlgoCardArray(arr) {
     return arr;
 }
 
+function deepCopy(obj) {
+    return JSON.parse(JSON.stringify(obj));
+}
+
 module.exports = {
     AlgoCard: AlgoCard,
     shuffle: shuffle,
     getShuffledDeck: getShuffledDeck,
     removeNums: removeNums,
     sortPlayerHand: sortPlayerHand,
-    ObjectArray_to_AlgoCardArray: ObjectArray_to_AlgoCardArray
+    ObjectArray_to_AlgoCardArray: ObjectArray_to_AlgoCardArray,
+    deepCopy: deepCopy,
 }

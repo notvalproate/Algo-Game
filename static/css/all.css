@@ -350,6 +350,11 @@ footer {
     border-radius: 10px;
     display: flex;
     justify-content: space-around;
+    transition: 0.4s cubic-bezier(.36,-0.23,.1,1.01);
+}
+
+.card:hover {
+    cursor: pointer;
 }
 
 .open {
@@ -360,4 +365,14 @@ footer {
 .closed {
     font-size: 25px;
     align-items: flex-end;
+} /*JS Controlled Class*/
+
+.selected {
+    box-shadow: 0px 0px 20px yellow;
+} /*JS Controlled Class*/
+
+.highlight-hand {
+    background-color: var(--headerFooterColor) !important;
+    padding: 20px;
+    border-radius: 20px;
 } /*JS Controlled Class*/

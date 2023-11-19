@@ -14,7 +14,7 @@ class RoomListHandler {
         } else {
             room.addUser(username);
         }
-        
+
         return false;
     }
 

@@ -1,3 +1,8 @@
+const e = require("express");
+const { removeNums } = require("./algoCard.js");
+const { deepCopy } = require('./algoCard.js');
+const { ObjectArray_to_AlgoCardArray } = require('./algoCard.js');
+
 class SocketHandler {
 
     static init(io, roomsHandler) {
@@ -10,12 +15,14 @@ class SocketHandler {
         this.socket = socket;
         this.username = username;
         this.roomKey = roomKey;
+        this.room = undefined;
     }
 
 
     connectToGameRoom() {
-
         const roomWasCreated = SocketHandler.roomsHandler.connectToRoom(this.roomKey, this.username);
+        this.room = SocketHandler.roomsHandler.getRoom(this.roomKey);
+
         if(roomWasCreated) {
             logWithTime(`[+] Room [${this.roomKey}] was created!`);
         }
@@ -40,40 +47,80 @@ class SocketHandler {
     }
 
 
-    confirmReady(ready) {
-        const room = SocketHandler.roomsHandler.getRoom(this.roomKey);
-        const startGame = room.setReady(this.username, ready);
+    confirmReady(readyData) {
+        const startGame = this.room.setReady(this.username, readyData.ready);
 
         this.emitReadyUpdate()
 
         if (startGame) {
+            const [yourHand, enemyHand, yourTurn] = this.room.getGameSetup(this.username);
+            var [hiddenDeckTop, visibleDeckTop] = this.room.getHiddenAndVisibleDeckTop();
+            
+            if(!yourTurn) { [hiddenDeckTop, visibleDeckTop] = [visibleDeckTop, hiddenDeckTop]; }
+
+            this.socket.emit('startGame',
+                { 
+                    yourHand: yourHand, 
+                    enemyHand: removeNums ( ObjectArray_to_AlgoCardArray ( deepCopy ( enemyHand ) ) ), 
+                    yourTurn: yourTurn, 
+                    deckTop: visibleDeckTop 
+                }
+            );
+
+            this.socket.broadcast.to(this.roomKey).emit('startGame',
+                { 
+                    yourHand: enemyHand, 
+                    enemyHand: removeNums ( ObjectArray_to_AlgoCardArray ( deepCopy ( yourHand ) ) ), 
+                    yourTurn: !yourTurn, 
+                    deckTop: hiddenDeckTop 
+                }
+            );
+            
             logWithTime(`[-] Game started in room [${this.roomKey}]!!!`);
-            this.emitStartGame();
         }
     }
 
 
-    setupGame() {
-        const room = SocketHandler.roomsHandler.getRoom(this.roomKey);
-        const [yourHand, enemyHand, yourTurn, deckTop] = room.getGameSetup(this.username);
+    updateSelection(data) {
+        if(!this.room.getActiveTurn(this.username)) {
+            return;
+        }
 
-        this.socket.emit('setupGame', { yourHand: yourHand, enemyHand: enemyHand, yourTurn: yourTurn, deckTop: deckTop });
+        this.socket.broadcast.to(this.roomKey).emit('highlightCard', { index: data.guessTarget });
     }
 
-    
+
+    playMove(data) {
+        if(!this.room.getActiveTurn(this.username)) {
+            return;
+        }
+
+        const [guessWasCorrect, insertIndex, deckTopValue] = this.room.makeGuess(data.guessTarget, data.guessValue);
+
+        if(guessWasCorrect) {
+            this.socket.emit('revealEnemyCard');
+        }
+        else {
+            const [hiddenDeckTop, visibleDeckTop] =  this.room.getHiddenAndVisibleDeckTop();
+
+            this.socket.emit('wrongMove',
+                { yourTurn: false, value: deckTopValue, insertIndex: insertIndex, nextDeckTop: hiddenDeckTop }
+            );
+
+            this.socket.broadcast.to(this.roomKey).emit('wrongMove', 
+                { yourTurn: true, value: deckTopValue, insertIndex: insertIndex, nextDeckTop: visibleDeckTop }
+            );
+        }
+    }
+
+
     // io Emits
     emitLobbyUpdate() {
-        const room = SocketHandler.roomsHandler.getRoom(this.roomKey);
-        SocketHandler.io.to(this.roomKey).emit('lobbyUpdate', room);
+        SocketHandler.io.to(this.roomKey).emit('lobbyUpdate', this.room);
     }
 
     emitReadyUpdate() {
-        const room = SocketHandler.roomsHandler.getRoom(this.roomKey);
-        SocketHandler.io.to(this.roomKey).emit('readyUpdate', { userList: room.getUsers(), readyCount: room.getReadyCount() });
-    }
-
-    emitStartGame() {
-        SocketHandler.io.to(this.roomKey).emit('startGame');
+        SocketHandler.io.to(this.roomKey).emit('readyUpdate', { userList: this.room.getUsers(), readyCount: this.room.getReadyCount() });
     }
 
 }
