@@ -98,7 +98,7 @@ class SocketHandler {
         const [guessWasCorrect, insertIndex, deckTopValue] = this.room.makeGuess(data.guessTarget, data.guessValue);
 
         if(guessWasCorrect) {
-            this.socket.emit('revealEnemyCard');
+            console.log('wow bruh nice');
         }
         else {
             const [hiddenDeckTop, visibleDeckTop] =  this.room.getHiddenAndVisibleDeckTop();

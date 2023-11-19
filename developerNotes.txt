@@ -6,7 +6,7 @@ CHAT:
 1. Backend handles the sending of a new card to deckTop, inserting cards to guesser, revealing guessee's card on correct guess.
 2. The player whose turn is currently going on, has his hand highlighted.
 2. To Improve:
-   -> No card animations are implemented yet.
+   -> *Only Some* card animations have been implemented. [Edit by Ian]
    -> Modularizing play.js may REALLY come in handy!
    -> For server.js, adding a RoutesHandler could seem resourceful. 
 
@@ -16,7 +16,7 @@ CHAT:
    -> Implement win-case scenario.
    -> Add event listeners on adding card div.
    -> Stop using IDs for adding card divs.
-
+   
 }
 
 

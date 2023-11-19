@@ -9,7 +9,7 @@ var myTurn = undefined;
 var ready = false;
 
 // replace this guess value variable with an input with the actual guess
-var myGuessValue = 3;
+var myGuessValue = 0;
 var selectedCard = 0;
 
 var deckTop = undefined;
@@ -109,8 +109,10 @@ $(document).ready(function() {
 
         if(myTurn) {
             $('#yourDeck').addClass('highlight-hand');
+            dealer.addClass('highlight-dealer');
         } else {
             $('#enemyDeck').addClass('highlight-hand');
+            $('#pick-array').addClass('pick-inactive');
         }
     });
 
@@ -133,6 +135,8 @@ $(document).ready(function() {
             addCardDiv(cardToInsert, insertIndex, 'you', 0, 'open');
             $('#yourDeck').removeClass('highlight-hand');
             $('#enemyDeck').addClass('highlight-hand');
+            $('#pick-array').addClass('pick-inactive');
+            dealer.removeClass('highlight-dealer');
         } else {
             var myHandDivs = document.querySelectorAll('.you-hand');
             myHandDivs[selectedCard].classList.remove('selected');
@@ -142,6 +146,8 @@ $(document).ready(function() {
             addCardDiv(cardToInsert, insertIndex, 'enemy', 0, 'open');
             $('#yourDeck').addClass('highlight-hand');
             $('#enemyDeck').removeClass('highlight-hand');
+            $('#pick-array').removeClass('pick-inactive');
+            dealer.addClass('highlight-dealer');
         }
 
         setDeckTopDiv(nextDeckTop);
@@ -167,6 +173,18 @@ $(document).ready(function() {
             selectedCard = 0;
         }
     })
+
+    var buttons = document.querySelectorAll('.pick-button');
+
+    buttons.forEach(function (item, index) {
+        item.addEventListener('click', function () {
+            if(myTurn) {
+                buttons[myGuessValue].classList.remove('button-selected');
+                myGuessValue = index;
+                buttons[myGuessValue].classList.add('button-selected');
+            }
+        });
+    });
 });
 
 

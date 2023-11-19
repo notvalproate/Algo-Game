@@ -299,6 +299,7 @@ footer {
     height: 100vh;
     width: 100vw;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     transform: scale(50%);
@@ -314,24 +315,30 @@ footer {
 
 .inner-desk{
     background-color: var(--backgroundColor);
-    height: 100vh;
+    height: 80vh;
     width: 80%;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     font-family: 'Urbanist', sans-serif;
-    
 }
 
 .deck{
     height: 25%;
     width: auto;
     gap: 15px;
+    padding: 20px;
+    border-radius: 20px;
     background-color: var(--backgroundColor);
     display: flex;
     justify-content: space-around;
     align-items: center;
+    transition: 0.3s linear;
+}
+
+#yourDeck {
+    pointer-events: none;
 }
 
 .pick-deck{
@@ -345,12 +352,12 @@ footer {
 .card{
     padding: 10px;
     height: 85%;
-    width: 130px;
+    width: 104px;
     border-radius: 10px;
     display: flex;
     justify-content: space-around;
-    transition: 0.4s cubic-bezier(.36,-0.23,.1,1.01);
     font-weight: 600;
+    transition: 0.2s cubic-bezier(.36,-0.23,.1,1.01);
 }
 
 .card:hover {
@@ -371,8 +378,51 @@ footer {
     box-shadow: 0px 0px 20px yellow;
 } /*JS Controlled Class*/
 
+.highlight-dealer {
+    box-shadow: 0px 0px 20px rgb(108, 201, 255);
+}
+
 .highlight-hand {
-    background-color: var(--headerFooterColor) !important;
-    padding: 20px;
-    border-radius: 20px;
+    background-color: var(--headerFooterColor);
 } /*JS Controlled Class*/
+
+/* Picking */
+
+.pick-array {
+    margin-top: 20px;
+    transition: 0.4s cubic-bezier(.42,0,.04,.99);
+}
+
+.pick-button {
+    font-family: 'Urbanist', sans-serif;
+    -webkit-border-radius: 10;
+    -moz-border-radius: 10;
+    border: none;
+    border-radius: 10px;
+    color: #000000;
+    width: 60px;
+    height: 60px;
+    font-size: 30px;
+    font-weight: 600;
+    margin: 0 8px;
+    background: #ffffff;
+    text-decoration: none;
+    transition: 0.2s linear;
+}
+
+.pick-button:hover {
+    cursor: pointer;
+    background: #d6d6d6;
+    text-decoration: none;
+}
+
+.pick-inactive {
+    transform: scale(50%);
+    opacity: 50%;
+    transform-origin: 50% 0;
+    pointer-events: none;
+}
+
+.button-selected {
+    box-shadow: 0px 0px 20px rgb(108, 201, 255);
+}
