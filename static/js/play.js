@@ -220,14 +220,14 @@ async function addCardDiv (card, pos, playerType, flag, state) {
         var parentDiv = $("#enemyDeck");
         var newDiv = createDiv(pos, playerType, enemyHand.length, state);
         newDiv.html(card.getNumber());
-        // parentDiv.append(newDiv);
+
+        newDiv.css({
+            "visibility": "hidden",
+        });
+
         if(flag == 1) {
             parentDiv.append(newDiv);
-            console.log("card appended");
         } else {
-            // newDiv.css({
-            //     "visibility": "hidden",
-            // });
             if(pos === enemyHand.length - 1) {
                 $("#divenemy" + (pos-1)).after(newDiv);
             } else {
@@ -239,10 +239,13 @@ async function addCardDiv (card, pos, playerType, flag, state) {
         var parentDiv = $("#yourDeck");
         var newDiv = createDiv(pos, playerType, myHand.length, state);
         newDiv.html(card.getNumber());
-        // parentDiv.append(newDiv);
+
+        newDiv.css({
+            "visibility": "hidden",
+        });
+        
         if(flag == 1){
             parentDiv.append(newDiv);
-            console.log("card appended");
         }else{
             // newDiv.css({
             //     "visibility": "hidden",
@@ -256,9 +259,12 @@ async function addCardDiv (card, pos, playerType, flag, state) {
     }
 
     newDiv.css({
+        "visibility": "hidden",
         "background-color": card.getColor(),
         "color": invertColor(card.getColor())
     });
+
+    anime(playerType, pos);
 }
 
 
@@ -286,36 +292,34 @@ function invertColor(color){
     return 'black';
 }
 
+function anime(playerType, pos){
+    const dealerPos = $('#dealer').offset();
+    const victimPos = $("#div" + playerType + pos).offset();
 
-// Kunal's FrontEnd
-// function anime(playerType, pos){
-//     const dealerPos = $('#dealer').offset();
-//     const victimPos = $("#div" + playerType + pos).offset();
+    const translateDir = {
+        Y: dealerPos.top - victimPos.top,
+        X: dealerPos.left - victimPos.left
+    };
 
-//     const translateDir = {
-//         Y: dealerPos.top - victimPos.top,
-//         X: dealerPos.left - victimPos.left
-//     };
+    console.log(victimPos);
 
-//     console.log(victimPos);
-
-//     $.keyframe.define([{
-//         name: 'serve' + playerType + pos,
-//         '0%': {
-//             'visibility': 'visible',
-//         },
-//         '100%': {
-//             'transform': `translate(${translateDir.X}px, ${translateDir.Y}px ) rotateY(180deg)`,
-//         }
-//     }]);
+    $.keyframe.define([{
+        name: 'serve' + playerType + pos,
+        '0%': {
+            'visibility': 'visible',
+        },
+        '100%': {
+            'transform': `translate(${translateDir.X}px, ${translateDir.Y}px ) rotateY(180deg)`,
+        }
+    }]);
     
-//     $("#div" + playerType + pos).playKeyframe({
-//         name: 'serve' + playerType + pos,
-//         duration: '0.4s',
-//         timingFunction: 'ease',
-//         delay: '0s',
-//         direction: 'reverse',
-//         // fillMode: 'forwards',
-//         complete: function() {}
-//     });
-// }
+    $("#div" + playerType + pos).playKeyframe({
+        name: 'serve' + playerType + pos,
+        duration: '0.4s',
+        timingFunction: 'ease',
+        delay: '0s',
+        direction: 'reverse',
+        // fillMode: 'forwards',
+        complete: function() {}
+    });
+}

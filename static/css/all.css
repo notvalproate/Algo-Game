@@ -336,7 +336,6 @@ footer {
 
 .pick-deck{
     height: 25%;
-    width: 130px;
     background-color: var(--backgroundColor);
     display: flex;
     justify-content: space-around;
