@@ -93,6 +93,10 @@ $(document).ready(function() {
             $(".board").addClass("display-none");
 
             $(".desk").addClass("fade-in");
+            
+            ready = false;
+            enemy.removeClass('player-ready');
+            you.removeClass('player-ready');
         }, 1400);
 
         myTurn = data.yourTurn;
