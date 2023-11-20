@@ -40,17 +40,17 @@ class SocketHandler {
         if(destroyed) {
             logWithTime(`[-] Room [${this.roomKey}] was destroyed!`);
         } else {
-            this.emitReadyUpdate()
+            this.emitReadyUpdate();
         }
 
-        this.emitLobbyUpdate()
+        this.emitLobbyUpdate();
     }
 
 
     confirmReady(readyData) {
         const startGame = this.room.setReady(this.username, readyData.ready);
 
-        this.emitReadyUpdate()
+        this.emitReadyUpdate();
 
         if (startGame) {
             const [yourHand, enemyHand, yourTurn] = this.room.getGameSetup(this.username);
@@ -86,7 +86,15 @@ class SocketHandler {
             return;
         }
 
-        this.socket.broadcast.to(this.roomKey).emit('highlightCard', { index: data.guessTarget });
+        this.socket.broadcast.to(this.roomKey).emit('highlightCard', { index: data.guessTarget, value: data.guessValue });
+    }
+
+    updateButtonClicked(data) {
+        if(!this.room.getActiveTurn(this.username)) {
+            return;
+        }
+
+        this.socket.broadcast.to(this.roomKey).emit('updateButtonValue', { buttonValue: data.buttonValue });
     }
 
 
@@ -95,11 +103,16 @@ class SocketHandler {
             return;
         }
 
-        const [guessWasCorrect, insertIndex, deckTopValue] = this.room.makeGuess(data.guessTarget, data.guessValue);
+        const [guessWasCorrect, insertIndex, deckTopValue, wonGame] = this.room.makeGuess(data.guessTarget, data.guessValue);
 
         if(guessWasCorrect) {
             this.socket.emit('correctMove', { yourTurn: true, guessTarget: data.guessTarget } );
             this.socket.broadcast.to(this.roomKey).emit('correctMove', { yourTurn: false, guessTarget: data.guessTarget } );
+
+            if(wonGame) {
+                this.socket.emit('gameEnded', { wonGame: true });
+                this.socket.broadcast.to(this.roomKey).emit('gameEnded', { wonGame: false } );
+            }
         } else {
             const [hiddenDeckTop, visibleDeckTop] =  this.room.getHiddenAndVisibleDeckTop();
 

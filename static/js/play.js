@@ -8,7 +8,6 @@ var enemyHand = [];
 var myTurn = undefined;
 var ready = false;
 
-// replace this guess value variable with an input with the actual guess
 var myGuessValue = 0;
 var thinkingValue = 10;
 var selectedCard = 0;
@@ -137,6 +136,11 @@ $(document).ready(function() {
         myHandDiv[selectedCard].classList.add('selected');
     });
 
+    socket.on('updateButtonValue', (data) => {
+        var buttonValue = data.buttonValue;
+        console.log(buttonValue);
+    })
+
     socket.on('correctMove', (data) => {
         myTurn = data.yourTurn;
         var index = data.guessTarget;
@@ -187,6 +191,16 @@ $(document).ready(function() {
         deckTop = nextDeckTop;
     });
 
+    socket.on('gameEnded', (data) => {
+        var wonGame = data.wonGame;
+
+        if(wonGame) {
+            console.log('nice you win');
+        } else {
+            console.log('loser');
+        }
+    })
+
     // EVENT LISTENERS
 
     readyButton.click(() => {
@@ -215,6 +229,7 @@ $(document).ready(function() {
                 buttons[myGuessValue].classList.remove('button-selected');
                 myGuessValue = index;
                 buttons[myGuessValue].classList.add('button-selected');
+                socket.emit('buttonClicked', { buttonValue: index });
             }
         });
     });
