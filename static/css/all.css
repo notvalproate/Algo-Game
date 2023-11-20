@@ -351,8 +351,8 @@ footer {
 
 .card{
     padding: 10px;
-    height: 85%;
-    width: 104px;
+    height: 17vh;
+    width: 11vh;
     border-radius: 10px;
     display: flex;
     justify-content: space-around;
