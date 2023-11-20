@@ -105,19 +105,19 @@ $(document).ready(function() {
         enemyHand = ObjectArray_to_AlgoCardArray(data.enemyHand);
 
         // add event listener ever time a single div is added to the hand.
-        waitForHandDivs(myHand, enemyHand).then(addEventListnersToEnemyHand(socket));
+        createHandDivsAndAddEventListenersToEnemyHand(myHand, enemyHand, socket);
 
         if(myTurn) {
-            $('#yourDeck').addClass('highlight-hand');
+            $('#yourHand').addClass('highlight-hand');
             dealer.addClass('highlight-dealer');
         } else {
-            $('#enemyDeck').addClass('highlight-hand');
+            $('#enemyHand').addClass('highlight-hand');
             $('#pick-array').addClass('pick-inactive');
         }
     });
 
     socket.on('highlightCard', (data) => {
-        var myHandDiv = document.querySelectorAll('.you-hand');
+        var myHandDiv = document.querySelectorAll('.your-hand');
 
         myHandDiv[selectedCard].classList.remove('selected');
         selectedCard = data.index;
@@ -132,20 +132,20 @@ $(document).ready(function() {
 
         if(!myTurn) {
             myHand.splice(insertIndex, 0, cardToInsert);
-            addCardDiv(cardToInsert, insertIndex, 'you', 0, 'open');
-            $('#yourDeck').removeClass('highlight-hand');
-            $('#enemyDeck').addClass('highlight-hand');
+            addCardDiv(cardToInsert, insertIndex, 'your', 0, 'open', socket);
+            $('#yourHand').removeClass('highlight-hand');
+            $('#enemyHand').addClass('highlight-hand');
             $('#pick-array').addClass('pick-inactive');
             dealer.removeClass('highlight-dealer');
         } else {
-            var myHandDivs = document.querySelectorAll('.you-hand');
+            var myHandDivs = document.querySelectorAll('.your-hand');
             myHandDivs[selectedCard].classList.remove('selected');
             cardToInsert.setNumber(data.value);
 
             enemyHand.splice(insertIndex, 0, cardToInsert);
-            addCardDiv(cardToInsert, insertIndex, 'enemy', 0, 'open');
-            $('#yourDeck').addClass('highlight-hand');
-            $('#enemyDeck').removeClass('highlight-hand');
+            addCardDiv(cardToInsert, insertIndex, 'enemy', 0, 'open', socket);
+            $('#yourHand').addClass('highlight-hand');
+            $('#enemyHand').removeClass('highlight-hand');
             $('#pick-array').removeClass('pick-inactive');
             dealer.addClass('highlight-dealer');
         }
@@ -208,76 +208,58 @@ function setDeckTopDiv(card) {
     });
 }
 
-async function waitForHandDivs(myHands, enemyHands) {
+async function createHandDivsAndAddEventListenersToEnemyHand(myHands, enemyHands, socket) {
     for(var i = 0; i < myHands.length; i++) {
-        addCardDiv(myHands[i], i, 'you' , 1, 'closed');
+        await addCardDiv(myHands[i], i, 'your' , 1, 'closed', socket);
     }
 
     for(var i = 0; i < enemyHands.length; i++) {
-        addCardDiv(enemyHands[i], i, 'enemy' , 1, 'closed');
+        await addCardDiv(enemyHands[i], i, 'enemy' , 1, 'closed', socket);
     }
 }
 
-function addEventListnersToEnemyHand(socket) {
-    var enemyHandDivs = document.querySelectorAll('.enemy-hand');
-        
-    enemyHandDivs.forEach(function (item, index) {
-        item.addEventListener('click', function () {
-            if(myTurn) {
-                enemyHandDivs[selectedCard].classList.remove('selected');
-                selectedCard = index;
-                enemyHandDivs[selectedCard].classList.add('selected');
-                socket.emit('selectCard', { guessTarget: selectedCard });
-            }
-        });
+async function addEventListnersToEnemyHand(pos, socket) {
+    $($(".enemy-hand")[pos]).click(() => {
+        if(myTurn) {
+            var enemyCardDivs = $(".enemy-hand");
+            var newCard = $(enemyCardDivs[pos]);
+            var oldCard = $(enemyCardDivs[selectedCard]);
+            
+            oldCard.removeClass("selected");
+            selectedCard = pos;
+            newCard.addClass("selected");
+            
+            socket.emit("selectCard", { guessTarget: selectedCard });
+        }
     });
 }
 
-async function addCardDiv (card, pos, playerType, flag, state) {
-    if(playerType === 'enemy'){
-        var parentDiv = $("#enemyDeck");
-        var newDiv = createDiv(pos, playerType, enemyHand.length, state);
-        newDiv.html(card.getNumber());
+async function addCardDiv (card, pos, playerType, appendable, state, socket) {
+    var parentDiv = $(`#${playerType}Hand`);
+    var newDiv = createDiv(pos, playerType, enemyHand.length, state);
+    newDiv.html(card.getNumber());
 
-        newDiv.css({
-            "visibility": "hidden",
-        });
+    // newDiv.css({
+    //     "visibility": "hidden",
+    // });
 
-        if(flag == 1) {
-            parentDiv.append(newDiv);
-        } else {
-            if(pos === enemyHand.length - 1) {
-                $("#divenemy" + (pos-1)).after(newDiv);
-            } else {
-                $("#divenemy" + (pos+1)).before(newDiv);
-            }
-        }
-        
+    if(appendable === 1) {
+        parentDiv.append(newDiv);
     } else {
-        var parentDiv = $("#yourDeck");
-        var newDiv = createDiv(pos, playerType, myHand.length, state);
-        newDiv.html(card.getNumber());
+        if(pos === enemyHand.length - 1 || pos === myHand.length - 1) {
+            $(`.${playerType}-hand`).siblings(":last").after(newDiv);
 
-        newDiv.css({
-            "visibility": "hidden",
-        });
-        
-        if(flag == 1){
-            parentDiv.append(newDiv);
-        }else{
-            // newDiv.css({
-            //     "visibility": "hidden",
-            // });
-            if(pos === myHand.length - 1) {
-                $("#divyou" + (pos-1)).after(newDiv);
-            } else {
-                $("#divyou" + (pos+1)).before(newDiv);
-            }
+        } else {
+            $(`.${playerType}-hand`).siblings(`:eq(${pos+1})`).before(newDiv);
         }
     }
 
+    if (playerType === 'enemy') {
+        await addEventListnersToEnemyHand(pos, socket);
+    }
+
     newDiv.css({
-        "visibility": "hidden",
+        // "visibility": "hidden",
         "background-color": card.getColor(),
         "color": invertColor(card.getColor())
     });
@@ -318,8 +300,6 @@ function anime(playerType, pos){
         Y: dealerPos.top - victimPos.top,
         X: dealerPos.left - victimPos.left
     };
-
-    console.log(victimPos);
 
     $.keyframe.define([{
         name: 'serve' + playerType + pos,
