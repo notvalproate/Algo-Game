@@ -296,7 +296,8 @@ footer {
 
 /* Cards Desk */
 .desk{
-    height: 100vh;
+    margin-top: 20px;
+    height: 80vh;
     width: 100vw;
     display: flex;
     flex-direction: column;
@@ -325,10 +326,10 @@ footer {
 }
 
 .deck{
-    height: 25%;
+    height: 80%;
     width: auto;
     gap: 15px;
-    padding: 20px;
+    padding: 0px 20px;
     border-radius: 20px;
     background-color: var(--backgroundColor);
     display: flex;
@@ -337,12 +338,13 @@ footer {
     transition: 0.3s linear;
 }
 
-#yourDeck {
+#yourHand {
     pointer-events: none;
 }
 
 .pick-deck{
     height: 25%;
+    padding: 20px;
     background-color: var(--backgroundColor);
     display: flex;
     justify-content: space-around;
@@ -390,7 +392,9 @@ footer {
 /* Picking */
 
 .pick-array {
-    margin-top: 20px;
+    margin-top: 90px;
+    display: flex;
+    justify-content: center;
     transition: 0.4s cubic-bezier(.42,0,.04,.99);
 }
 
@@ -427,3 +431,49 @@ footer {
 .button-selected {
     box-shadow: 0px 0px 20px rgb(108, 201, 255);
 }
+
+.hand-container {
+    height: 50%;
+    width: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+}
+
+.guess-callout {
+    background-color: var(--headerFooterColor) !important;
+    margin: 20px;
+    margin-top: 40px;
+    padding: 20px;
+    height: 20%;
+    display: flex;
+    align-self: flex-start !important;
+    border-radius: 10px;
+    position: relative;
+
+    color: white;
+    font-weight: 600;
+    font-size: 40px;
+    text-align: center;
+    justify-content: center;
+}
+
+.guess-callout:before {
+    content:"";
+    border-style: solid;
+    border-width: 10px 15px 10px 0;
+    border-color: transparent var(--headerFooterColor) transparent transparent;
+    position: absolute;
+    left: -15px;
+    bottom: 15px;
+}
+
+.thinker {
+    height: 55%;
+    transform: translateX(60px);
+}
+
+.visibility-hidden {
+    visibility: hidden;
+} /* JS Controlled Class */

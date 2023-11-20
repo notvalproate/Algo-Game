@@ -10,6 +10,7 @@ var ready = false;
 
 // replace this guess value variable with an input with the actual guess
 var myGuessValue = 0;
+var thinkingValue = 10;
 var selectedCard = 0;
 
 var deckTop = undefined;
@@ -110,9 +111,21 @@ $(document).ready(function() {
         if(myTurn) {
             $('#yourHand').addClass('highlight-hand');
             dealer.addClass('highlight-dealer');
+
+            $('#yourGuessCallout').removeClass('visibility-hidden');
+            $('#yourThinker').removeClass('visibility-hidden');
+            $('#enemyGuessCallout').addClass('visibility-hidden');
+            $('#enemyThinker').addClass('visibility-hidden');
+            $('#yourGuessCallout').html(thinkingValue);
         } else {
             $('#enemyHand').addClass('highlight-hand');
             $('#pick-array').addClass('pick-inactive');
+
+            $('#yourGuessCallout').addClass('visibility-hidden');
+            $('#yourThinker').addClass('visibility-hidden');
+            $('#enemyGuessCallout').removeClass('visibility-hidden');
+            $('#enemyThinker').removeClass('visibility-hidden');
+            $('#enemyGuessCallout').html(thinkingValue);
         }
     });
 
@@ -137,6 +150,8 @@ $(document).ready(function() {
             $(myHandDivs[index]).removeClass('selected');
             $(myHandDivs[index]).addClass('open');
         }
+
+        thinkerCalloutShow();
     });
 
     socket.on('wrongMove', (data) => {
@@ -165,6 +180,8 @@ $(document).ready(function() {
             $('#pick-array').removeClass('pick-inactive');
             dealer.addClass('highlight-dealer');
         }
+
+        thinkerCalloutShow();
 
         setDeckTopDiv(nextDeckTop);
         deckTop = nextDeckTop;
@@ -208,6 +225,23 @@ $(document).ready(function() {
 
 function deepCopy(arr) {
     return JSON.parse(JSON.stringify(arr));
+}
+
+function thinkerCalloutShow() {
+    if(myTurn) {
+        $('#yourGuessCallout').removeClass('visibility-hidden');
+        $('#yourThinker').removeClass('visibility-hidden');
+        $('#enemyGuessCallout').addClass('visibility-hidden');
+        $('#enemyThinker').addClass('visibility-hidden');
+        $('#yourGuessCallout').html(thinkingValue);
+    }
+    else {
+        $('#yourGuessCallout').addClass('visibility-hidden');
+        $('#yourThinker').addClass('visibility-hidden');
+        $('#enemyGuessCallout').removeClass('visibility-hidden');
+        $('#enemyThinker').removeClass('visibility-hidden');
+        $('#enemyGuessCallout').html(thinkingValue);
+    }
 }
 
 function setDeckTopDiv(card) {
