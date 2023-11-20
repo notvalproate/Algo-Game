@@ -231,24 +231,28 @@ async function createHandDivsAndAddEventListenersToEnemyHand(myHands, enemyHands
     }
 
     for(var i = 0; i < enemyHands.length; i++) {
-        await addCardDiv(enemyHands[i], i, 'enemy' , 1, 'closed', socket);
+        await addCardDiv(enemyHands[i], i, 'enemy' , 1, 'open', socket);
     }
 }
 
 async function addEventListnersToEnemyHand(pos, socket) {
-    $($(".enemy-hand")[pos]).click(() => {
-        if(myTurn) {
-            var enemyCardDivs = $(".enemy-hand");
-            var newCard = $(enemyCardDivs[pos]);
-            var oldCard = $(enemyCardDivs[selectedCard]);
-            
-            oldCard.removeClass("selected");
-            selectedCard = pos;
-            newCard.addClass("selected");
-            
-            socket.emit("selectCard", { guessTarget: selectedCard });
-        }
-    });
+    for(let i = pos; i < $(".enemy-hand").length; i++) {
+        console.log(i, $(".enemy-hand").length);
+        $($(".enemy-hand")[i]).click(() => {
+            if(myTurn) {
+                console.log('pressed' + i);
+                var enemyCardDivs = $(".enemy-hand");
+                var newCard = $(enemyCardDivs[i]);
+                var oldCard = $(enemyCardDivs[selectedCard]);
+                
+                oldCard.removeClass("selected");
+                selectedCard = i;
+                newCard.addClass("selected");
+                
+                socket.emit("selectCard", { guessTarget: selectedCard });
+            }
+        });
+    }
 }
 
 async function addCardDiv (card, pos, playerType, appendable, state, socket) {
