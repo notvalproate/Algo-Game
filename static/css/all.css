@@ -361,7 +361,7 @@ footer {
     font-weight: 600;
     box-sizing: border-box;
     transition: 
-    box-shadow 0.2s cubic-bezier(.36, -0.23, .1, 1.01), 
+    box-shadow 0.3s cubic-bezier(.36, -0.23, .1, 1.01), 
     padding-top 0.4s cubic-bezier(.36, -0.23, .1, 1.01),
     font-size 0.4s cubic-bezier(.36, -0.23, .1, 1.01);
 }
@@ -373,7 +373,6 @@ footer {
 .open {
     padding-top: 2vh;
     font-size: 11vh;
-    align-items: center;
 } /*JS Controlled Class*/
 
 .closed {

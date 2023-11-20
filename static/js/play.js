@@ -177,7 +177,6 @@ $(document).ready(function() {
             dealer.removeClass('highlight-dealer');
         } else {
             var myHandDivs = document.querySelectorAll('.your-hand');
-            var myHandDivs = document.querySelectorAll('.your-hand');
             myHandDivs[selectedCard].classList.remove('selected');
             cardToInsert.setNumber(data.value);
 
