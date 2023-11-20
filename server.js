@@ -87,6 +87,10 @@ io.on('connection', (socket) => {
         socketHandler.updateSelection(data);
     });
 
+    socket.on('buttonClicked', (data) => {
+        socketHandler.updateButtonClicked(data);
+    })
+
     socket.on('playMove', (data) => {
         socketHandler.playMove(data);
     });
