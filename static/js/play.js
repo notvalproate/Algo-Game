@@ -152,11 +152,14 @@ $(document).ready(function() {
         var myHandDivs = $('.your-hand');
 
         if(myTurn) {
+            hightlightFadeOutTo('correct', enemyHandDivs[index]);
+
             $(enemyHandDivs[index]).html(myGuessValue);
         } else {
             $(myHandDivs[index]).removeClass('closed');
-            $(myHandDivs[index]).removeClass('selected');
             $(myHandDivs[index]).addClass('open');
+
+            hightlightFadeOutTo('correct', myHandDivs[index]);
         }
 
         thinkerCalloutShow();
@@ -169,6 +172,8 @@ $(document).ready(function() {
         myTurn = data.yourTurn;
 
         if(!myTurn) {
+            hightlightFadeOutTo('wrong', $('.enemy-hand')[selectedCard]);
+
             myHand.splice(insertIndex, 0, cardToInsert);
             addCardDiv(cardToInsert, insertIndex, 'your', 'open', socket);
             $('#yourHand').removeClass('highlight-hand');
@@ -176,10 +181,9 @@ $(document).ready(function() {
             $('#pick-array').addClass('pick-inactive');
             dealer.removeClass('highlight-dealer');
         } else {
-            var myHandDivs = document.querySelectorAll('.your-hand');
-            myHandDivs[selectedCard].classList.remove('selected');
-            cardToInsert.setNumber(data.value);
+            hightlightFadeOutTo('wrong', $('.your-hand')[selectedCard]);
 
+            cardToInsert.setNumber(data.value);
             enemyHand.splice(insertIndex, 0, cardToInsert);
             addCardDiv(cardToInsert, insertIndex, 'enemy', 'open', socket);
             $('#yourHand').addClass('highlight-hand');
@@ -217,10 +221,7 @@ $(document).ready(function() {
 
     dealer.click(() => {
         if(myTurn) {
-            var enemyHandDivs = document.querySelectorAll('.enemy-hand');
-            enemyHandDivs[selectedCard].classList.remove('selected');
             socket.emit('playMove', { guessTarget: selectedCard, guessValue: myGuessValue });
-            selectedCard = 0;
         }
     });
 
@@ -240,6 +241,14 @@ $(document).ready(function() {
 
 
 // Utility Functions
+
+function hightlightFadeOutTo(state, card) {
+    $(card).removeClass('selected');
+    $(card).addClass(state);
+    setTimeout(() => {
+        $(card).removeClass(state);
+    }, 400);
+}
 
 function deepCopy(arr) {
     return JSON.parse(JSON.stringify(arr));

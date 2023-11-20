@@ -76,6 +76,7 @@ class SocketHandler {
                 }
             );
             
+            this.room.resetReadyStatus();
             logWithTime(`[-] Game started in room [${this.roomKey}]!!!`);
         }
     }

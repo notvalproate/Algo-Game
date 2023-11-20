@@ -44,12 +44,15 @@ class Room {
         if(this.users.length === 2) { this.numberOfPlayersReady += this.users[1].ready; }
 
         if(this.numberOfPlayersReady === 2) {
-            this.users[0].ready = this.users[1].ready = false;
             this.game = new Game(this.users[0].username, this.users[1].username);
             return true;
         }
 
         return false;
+    }
+
+    resetReadyStatus() {
+        this.users[0].ready = this.users[1].ready = false;
     }
 
     // GETTERS
