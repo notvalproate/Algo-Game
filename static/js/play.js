@@ -239,14 +239,6 @@ function hightlightFadeOutTo(state, card) {
     }, 400);
 }
 
-function hightlightFadeOutTo(state, card) {
-    $(card).removeClass('selected');
-    $(card).addClass(state);
-    setTimeout(() => {
-        $(card).removeClass(state);
-    }, 400);
-}
-
 async function positionCallout() {
     if(!myTurn) {
         var position = -1;
@@ -260,38 +252,31 @@ async function positionCallout() {
         }
 
         let offsetHand = $($('.your-hand')[position]).offset();
-        let offsetCallout = $('#yourGuessCallout').offset();
-
-        console.log(offsetHand);
-        console.log(offsetCallout);
-
-        let dir = {
-            X: offsetHand.left - offsetCallout.left + 39,
-        };
 
         $('.guess-callout').css({
-            "transform" : `translate(${dir.X}px, -97px)`
+            "left" : `${offsetHand.left}px`
         });
-
-        console.log(dir.X);
     }
 }
 
-function calloutShow() {
+async function calloutShow() {
     if(!myTurn) {
         $('#yourGuessCallout').removeClass('visibility-hidden');
         $('#yourGuessCallout').html(buttonValue);
+        $('#yourGuessCallout').addClass('fade-in');
+        $('#yourGuessCallout:before').addClass('fade-in');
     }
     else {
+        $('#yourGuessCallout').addClass('fade-out');
+        $('#yourGuessCallout:before').addClass('fade-out');
         $('#yourGuessCallout').addClass('visibility-hidden');
     }
 }
 
-function calloutHide() {
+async function calloutHide() {
     $('#yourGuessCallout').addClass('visibility-hidden');
-    $('.guess-callout').css({
-        "transform" : `translate(0px, -97px)`
-    });
+    $('#yourGuessCallout').addClass('fade-out');
+    await $('#yourGuessCallout:before').addClass('fade-out');
 }
 
 function setDeckTopDiv(card) {
