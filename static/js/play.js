@@ -80,7 +80,7 @@ $(document).ready(function() {
             you.removeClass('player-ready');
             readyButton.removeClass('ready-status');
         }
-    })
+    });
 
     socket.on('startGame', (data) => {
         console.log('Game started');
@@ -118,11 +118,27 @@ $(document).ready(function() {
 
     socket.on('highlightCard', (data) => {
         var myHandDiv = document.querySelectorAll('.your-hand');
+        var myHandDiv = document.querySelectorAll('.your-hand');
 
         myHandDiv[selectedCard].classList.remove('selected');
         selectedCard = data.index;
         myHandDiv[selectedCard].classList.add('selected');
-    })
+    });
+
+    socket.on('correctMove', (data) => {
+        myTurn = data.yourTurn;
+        var index = data.guessTarget;
+        var enemyHandDivs = $('.enemy-hand');
+        var myHandDivs = $('.your-hand');
+
+        if(myTurn) {
+            $(enemyHandDivs[index]).html(myGuessValue);
+        } else {
+            $(myHandDivs[index]).removeClass('closed');
+            $(myHandDivs[index]).removeClass('selected');
+            $(myHandDivs[index]).addClass('open');
+        }
+    });
 
     socket.on('wrongMove', (data) => {
         const nextDeckTop = new AlgoCard(data.nextDeckTop.number, data.nextDeckTop.color);
@@ -139,6 +155,7 @@ $(document).ready(function() {
             dealer.removeClass('highlight-dealer');
         } else {
             var myHandDivs = document.querySelectorAll('.your-hand');
+            var myHandDivs = document.querySelectorAll('.your-hand');
             myHandDivs[selectedCard].classList.remove('selected');
             cardToInsert.setNumber(data.value);
 
@@ -152,7 +169,7 @@ $(document).ready(function() {
 
         setDeckTopDiv(nextDeckTop);
         deckTop = nextDeckTop;
-    })
+    });
 
     // EVENT LISTENERS
 
@@ -172,7 +189,7 @@ $(document).ready(function() {
             socket.emit('playMove', { guessTarget: selectedCard, guessValue: myGuessValue });
             selectedCard = 0;
         }
-    })
+    });
 
     var buttons = document.querySelectorAll('.pick-button');
 
@@ -259,7 +276,6 @@ async function addCardDiv (card, pos, playerType, appendable, state, socket) {
     }
 
     newDiv.css({
-        // "visibility": "hidden",
         "background-color": card.getColor(),
         "color": invertColor(card.getColor())
     });

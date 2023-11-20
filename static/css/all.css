@@ -351,13 +351,13 @@ footer {
 
 .card{
     padding: 10px;
-    height: 85%;
-    width: 104px;
+    height: 17vh;
+    width: 11vh;
     border-radius: 10px;
     display: flex;
     justify-content: space-around;
     font-weight: 600;
-    transition: 0.2s cubic-bezier(.36,-0.23,.1,1.01);
+    transition: box-shadow 0.2s cubic-bezier(.36,-0.23,.1,1.01), font-size 0.6 cubic-bezier(.36,-0.23,.1,1.01);
 }
 
 .card:hover {
