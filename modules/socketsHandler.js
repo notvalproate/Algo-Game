@@ -103,11 +103,16 @@ class SocketHandler {
             return;
         }
 
-        const [guessWasCorrect, insertIndex, deckTopValue] = this.room.makeGuess(data.guessTarget, data.guessValue);
+        const [guessWasCorrect, insertIndex, deckTopValue, wonGame] = this.room.makeGuess(data.guessTarget, data.guessValue);
 
         if(guessWasCorrect) {
             this.socket.emit('correctMove', { yourTurn: true, guessTarget: data.guessTarget } );
             this.socket.broadcast.to(this.roomKey).emit('correctMove', { yourTurn: false, guessTarget: data.guessTarget } );
+
+            if(wonGame) {
+                this.socket.emit('gameEnded', { wonGame: true });
+                this.socket.broadcast.to(this.roomKey).emit('gameEnded', { wonGame: false } );
+            }
         } else {
             const [hiddenDeckTop, visibleDeckTop] =  this.room.getHiddenAndVisibleDeckTop();
 

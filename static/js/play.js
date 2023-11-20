@@ -174,6 +174,16 @@ $(document).ready(function() {
         deckTop = nextDeckTop;
     });
 
+    socket.on('gameEnded', (data) => {
+        var wonGame = data.wonGame;
+
+        if(wonGame) {
+            console.log('nice you win');
+        } else {
+            console.log('loser');
+        }
+    })
+
     // EVENT LISTENERS
 
     readyButton.click(() => {

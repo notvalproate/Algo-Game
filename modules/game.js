@@ -49,17 +49,23 @@ class Game {
     makeGuess(target, value) {
         const enemyUserIndex = 1 - this.activeTurn;
         const deckTopValue = this.getDeckTop().getNumber();
+        var wonGame = false;
 
         if(this.players[enemyUserIndex].hand[target].getNumber() === value) {
             this.players[enemyUserIndex].openCount++;
-            return [true, 0, deckTopValue];
+
+            if(this.players[enemyUserIndex].openCount === this.players[enemyUserIndex].hand.length) {
+                wonGame = true;
+            }
+
+            return [true, 0, deckTopValue, wonGame];
         }
     
         const indexInsertedAt = this.insertDeckTopToActiveUser();
 
         this.switchTurns();
 
-        return [false, indexInsertedAt, deckTopValue];
+        return [false, indexInsertedAt, deckTopValue, wonGame];
     }
 
     getGameSetup(username) {
