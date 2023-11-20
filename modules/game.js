@@ -51,7 +51,7 @@ class Game {
         const deckTopValue = this.getDeckTop().getNumber();
 
         if(this.players[enemyUserIndex].hand[target].getNumber() === value) {
-            //handle correct what shud happen
+            this.players[enemyUserIndex].openCount++;
             return [true, 0, deckTopValue];
         }
     

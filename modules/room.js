@@ -53,6 +53,10 @@ class Room {
 
     // GETTERS
 
+    getRoomKey() {
+        return this.roomKey;
+    }
+
     getUsers() {
         return this.users;
     }
