@@ -55,10 +55,10 @@ $(document).ready(function() {
 
         var youUser = data.userList[0];
 
-        if(data.userList.length != 1) {
+        if(data.userList.length !== 1) {
             var enemyUser = data.userList[1];
 
-            if(youUser.username != username) {
+            if(youUser.username !== username) {
                 [youUser, enemyUser] = [enemyUser, youUser];
             }
 
@@ -236,10 +236,8 @@ async function createHandDivsAndAddEventListenersToEnemyHand(myHands, enemyHands
 
 async function addEventListnersToEnemyHand(pos, socket) {
     for(let i = pos; i < $(".enemy-hand").length; i++) {
-        console.log(i, $(".enemy-hand").length);
         $($(".enemy-hand")[i]).click(() => {
             if(myTurn) {
-                console.log('pressed' + i);
                 var enemyCardDivs = $(".enemy-hand");
                 var newCard = $(enemyCardDivs[i]);
                 var oldCard = $(enemyCardDivs[selectedCard]);

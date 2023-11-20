@@ -39,7 +39,6 @@ class Game {
         }
 
         activeUserHand.splice(insertIndex, 0, cardToInsert);
-        console.log(insertIndex);
         return insertIndex;
     }
 
