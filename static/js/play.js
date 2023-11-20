@@ -118,7 +118,6 @@ $(document).ready(function() {
 
     socket.on('highlightCard', (data) => {
         var myHandDiv = document.querySelectorAll('.your-hand');
-        var myHandDiv = document.querySelectorAll('.your-hand');
 
         myHandDiv[selectedCard].classList.remove('selected');
         selectedCard = data.index;
@@ -148,7 +147,7 @@ $(document).ready(function() {
 
         if(!myTurn) {
             myHand.splice(insertIndex, 0, cardToInsert);
-            addCardDiv(cardToInsert, insertIndex, 'your', 0, 'open', socket);
+            addCardDiv(cardToInsert, insertIndex, 'your', 'open', socket);
             $('#yourHand').removeClass('highlight-hand');
             $('#enemyHand').addClass('highlight-hand');
             $('#pick-array').addClass('pick-inactive');
@@ -160,7 +159,7 @@ $(document).ready(function() {
             cardToInsert.setNumber(data.value);
 
             enemyHand.splice(insertIndex, 0, cardToInsert);
-            addCardDiv(cardToInsert, insertIndex, 'enemy', 0, 'open', socket);
+            addCardDiv(cardToInsert, insertIndex, 'enemy', 'open', socket);
             $('#yourHand').addClass('highlight-hand');
             $('#enemyHand').removeClass('highlight-hand');
             $('#pick-array').removeClass('pick-inactive');
@@ -227,11 +226,11 @@ function setDeckTopDiv(card) {
 
 async function createHandDivsAndAddEventListenersToEnemyHand(myHands, enemyHands, socket) {
     for(var i = 0; i < myHands.length; i++) {
-        await addCardDiv(myHands[i], i, 'your' , 1, 'closed', socket);
+        await addCardDiv(myHands[i], i, 'your' , 'closed', socket);
     }
 
     for(var i = 0; i < enemyHands.length; i++) {
-        await addCardDiv(enemyHands[i], i, 'enemy' , 1, 'open', socket);
+        await addCardDiv(enemyHands[i], i, 'enemy' , 'open', socket);
     }
 }
 
@@ -255,24 +254,21 @@ async function addEventListnersToEnemyHand(pos, socket) {
     }
 }
 
-async function addCardDiv (card, pos, playerType, appendable, state, socket) {
+async function addCardDiv (card, pos, playerType, state, socket) {
     var parentDiv = $(`#${playerType}Hand`);
     var newDiv = createDiv(pos, playerType, enemyHand.length, state);
     newDiv.html(card.getNumber());
 
-    // newDiv.css({
-    //     "visibility": "hidden",
-    // });
+    newDiv.css({
+         "visibility": "hidden",
+    });
 
-    if(appendable === 1) {
+    let hand = $(`.${playerType}-hand`);
+
+    if(pos === hand.length) {
         parentDiv.append(newDiv);
     } else {
-        if(pos === enemyHand.length - 1 || pos === myHand.length - 1) {
-            $(`.${playerType}-hand`).siblings(":last").after(newDiv);
-
-        } else {
-            $(`.${playerType}-hand`).siblings(`:eq(${pos+1})`).before(newDiv);
-        }
+        $(hand[pos]).before(newDiv);
     }
 
     if (playerType === 'enemy') {
