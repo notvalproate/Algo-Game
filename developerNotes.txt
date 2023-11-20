@@ -15,8 +15,12 @@ CHAT:
    -> Implement win-case scenario.
 
 [Ian] - [20-11-23 ; 16:41]
-   -> Modal to ask to continue attacking or hold.
+   -> Modal in wait lobby for replaying the game. [Edit by Manoj]
    -> Replay after game ends.
+
+[Manoj] - [21-11-23 ; 0138Hrs]
+   -> Remove dependency on #divenemy_ and #divyou_.
+   -> Implement callout to display guesser's number choice to the guessee.
    
 }
 

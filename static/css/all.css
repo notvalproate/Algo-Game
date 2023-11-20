@@ -352,14 +352,18 @@ footer {
 }
 
 .card{
-    padding: 10px;
+    padding-top: 11vh;
     height: 17vh;
     width: 11vh;
-    border-radius: 10px;
-    display: flex;
-    justify-content: space-around;
+    text-align: center;
+    font-size: 4vh;
+    border-radius: 1.2vh;
     font-weight: 600;
-    transition: box-shadow 0.2s cubic-bezier(.36,-0.23,.1,1.01);
+    box-sizing: border-box;
+    transition: 
+    box-shadow 0.6s cubic-bezier(.36, -0.23, .1, 1.01), 
+    padding-top 0.4s cubic-bezier(.36, -0.23, .1, 1.01),
+    font-size 0.4s cubic-bezier(.36, -0.23, .1, 1.01);
 }
 
 .card:hover {
@@ -367,13 +371,11 @@ footer {
 }
 
 .open {
-    font-size: 100px;
-    align-items: center;
-    transition: 0.6 cubic-bezier(.36,-0.23,.1,1.01);
+    padding-top: 2vh;
+    font-size: 11vh;
 } /*JS Controlled Class*/
 
 .closed {
-    font-size: 40px;
     align-items: flex-end;
 } /*JS Controlled Class*/
 
@@ -381,13 +383,22 @@ footer {
     box-shadow: 0px 0px 20px yellow;
 } /*JS Controlled Class*/
 
+.correct {
+    box-shadow: 0px 0px 40px rgb(34, 255, 0);
+} /*JS Controlled Class*/
+
+.wrong {
+    box-shadow: 0px 0px 40px rgb(255, 60, 0);
+} /*JS Controlled Class*/
+
 .highlight-dealer {
-    box-shadow: 0px 0px 20px rgb(108, 201, 255);
+    box-shadow: 0px 0px 30px rgb(108, 201, 255);
 }
 
 .highlight-hand {
     background-color: var(--headerFooterColor);
 } /*JS Controlled Class*/
+
 
 /* Picking */
 

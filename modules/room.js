@@ -51,6 +51,10 @@ class Room {
         return false;
     }
 
+    resetReadyStatus() {
+        this.users[0].ready = this.users[1].ready = false;
+    }
+
     // GETTERS
 
     getRoomKey() {
