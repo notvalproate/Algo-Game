@@ -9,7 +9,7 @@ var myTurn = undefined;
 var ready = false;
 
 var myGuessValue = 0;
-var thinkingValue = 10;
+var buttonValue = 0;
 var selectedCard = 0;
 
 var deckTop = undefined;
@@ -110,22 +110,12 @@ $(document).ready(function() {
         if(myTurn) {
             $('#yourHand').addClass('highlight-hand');
             dealer.addClass('highlight-dealer');
-
-            $('#yourGuessCallout').removeClass('visibility-hidden');
-            $('#yourThinker').removeClass('visibility-hidden');
-            $('#enemyGuessCallout').addClass('visibility-hidden');
-            $('#enemyThinker').addClass('visibility-hidden');
-            $('#yourGuessCallout').html(thinkingValue);
         } else {
             $('#enemyHand').addClass('highlight-hand');
             $('#pick-array').addClass('pick-inactive');
-
-            $('#yourGuessCallout').addClass('visibility-hidden');
-            $('#yourThinker').addClass('visibility-hidden');
-            $('#enemyGuessCallout').removeClass('visibility-hidden');
-            $('#enemyThinker').removeClass('visibility-hidden');
-            $('#enemyGuessCallout').html(thinkingValue);
         }
+        
+        $('#yourGuessCallout').addClass('visibility-hidden');
     });
 
     socket.on('highlightCard', (data) => {
@@ -136,10 +126,11 @@ $(document).ready(function() {
         myHandDiv[selectedCard].classList.add('selected');
     });
 
-    socket.on('updateButtonValue', (data) => {
-        var buttonValue = data.buttonValue;
-        console.log(buttonValue);
-    })
+    socket.on('updateButtonValue', async (data) => {
+        buttonValue = data.buttonValue;
+        await positionCallout();
+        calloutShow();
+    });
 
     socket.on('correctMove', (data) => {
         myTurn = data.yourTurn;
@@ -154,8 +145,7 @@ $(document).ready(function() {
             $(myHandDivs[index]).removeClass('selected');
             $(myHandDivs[index]).addClass('open');
         }
-
-        thinkerCalloutShow();
+        calloutHide();
     });
 
     socket.on('wrongMove', (data) => {
@@ -184,8 +174,7 @@ $(document).ready(function() {
             $('#pick-array').removeClass('pick-inactive');
             dealer.addClass('highlight-dealer');
         }
-
-        thinkerCalloutShow();
+        calloutHide();
 
         setDeckTopDiv(nextDeckTop);
         deckTop = nextDeckTop;
@@ -238,25 +227,51 @@ $(document).ready(function() {
 
 // Utility Functions
 
-function deepCopy(arr) {
-    return JSON.parse(JSON.stringify(arr));
+async function positionCallout() {
+    if(!myTurn) {
+        var position = -1;
+
+        for(let index = 0; index < $('.your-hand').length; index++) {
+            if($($('.your-hand')[index]).hasClass('selected')) {
+                position = index;
+                console.log(position);
+                break;
+            }
+        }
+
+        let offsetHand = $($('.your-hand')[position]).offset();
+        let offsetCallout = $('#yourGuessCallout').offset();
+
+        console.log(offsetHand);
+        console.log(offsetCallout);
+
+        let dir = {
+            X: offsetHand.left - offsetCallout.left + 39,
+        };
+
+        $('.guess-callout').css({
+            "transform" : `translate(${dir.X}px, -97px)`
+        });
+
+        console.log(dir.X);
+    }
 }
 
-function thinkerCalloutShow() {
-    if(myTurn) {
+function calloutShow() {
+    if(!myTurn) {
         $('#yourGuessCallout').removeClass('visibility-hidden');
-        $('#yourThinker').removeClass('visibility-hidden');
-        $('#enemyGuessCallout').addClass('visibility-hidden');
-        $('#enemyThinker').addClass('visibility-hidden');
-        $('#yourGuessCallout').html(thinkingValue);
+        $('#yourGuessCallout').html(buttonValue);
     }
     else {
         $('#yourGuessCallout').addClass('visibility-hidden');
-        $('#yourThinker').addClass('visibility-hidden');
-        $('#enemyGuessCallout').removeClass('visibility-hidden');
-        $('#enemyThinker').removeClass('visibility-hidden');
-        $('#enemyGuessCallout').html(thinkingValue);
     }
+}
+
+function calloutHide() {
+    $('#yourGuessCallout').addClass('visibility-hidden');
+    $('.guess-callout').css({
+        "transform" : `translate(0px, -97px)`
+    });
 }
 
 function setDeckTopDiv(card) {
@@ -332,15 +347,7 @@ async function addCardDiv (card, pos, playerType, state, socket) {
 
 
 function createDiv(pos, playerType, n, state){
-    var i = pos;
-    if(i != n-1){
-        for(var j=n-1; j>=i ; j--){
-            $("#div"+ playerType + j).attr('id', "div" + playerType +(j+1));
-        }
-    }
-
     var newDiv = $("<div>");
-    newDiv.attr('id', `div${playerType}${pos}`);
     newDiv.addClass(`${playerType}-hand`);
     newDiv.addClass("card");
     newDiv.addClass(state);
@@ -355,9 +362,9 @@ function invertColor(color){
     return 'black';
 }
 
-function anime(playerType, pos){
+function anime(playerType, pos) {
     const dealerPos = $('#dealer').offset();
-    const victimPos = $("#div" + playerType + pos).offset();
+    const victimPos = $($(`.${playerType}-hand`)[pos]).offset();
 
     const translateDir = {
         Y: dealerPos.top - victimPos.top,
@@ -374,7 +381,7 @@ function anime(playerType, pos){
         }
     }]);
     
-    $("#div" + playerType + pos).playKeyframe({
+    $($(`.${playerType}-hand`)[pos]).playKeyframe({
         name: 'serve' + playerType + pos,
         duration: '0.4s',
         timingFunction: 'ease',

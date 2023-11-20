@@ -13,12 +13,10 @@ CHAT:
 [Ian] - [19-11-23 ; 2050Hrs]
 1. Things to implement/re-implement:
    -> Implement win-case scenario.
-   -> Stop using IDs for adding card divs for animation. [Edit by Ian]
 
 [Ian] - [20-11-23 ; 16:41]
    -> Modal to ask to continue attacking or hold.
    -> Replay after game ends.
-   -> Add visibility of opponents guess value (with man).
    
 }
 

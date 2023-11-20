@@ -297,7 +297,7 @@ footer {
 /* Cards Desk */
 .desk{
     margin-top: 20px;
-    height: 80vh;
+    height: 90vh;
     width: 100vw;
     display: flex;
     flex-direction: column;
@@ -392,7 +392,7 @@ footer {
 /* Picking */
 
 .pick-array {
-    margin-top: 90px;
+    height: 7vh;
     display: flex;
     justify-content: center;
     transition: 0.4s cubic-bezier(.42,0,.04,.99);
@@ -446,33 +446,34 @@ footer {
     margin: 20px;
     margin-top: 40px;
     padding: 20px;
-    height: 20%;
+    height: 3%;
     display: flex;
     align-self: flex-start !important;
     border-radius: 10px;
-    position: relative;
+    position: absolute;
+    transform: translateY(-97px);
 
     color: white;
     font-weight: 600;
     font-size: 40px;
     text-align: center;
+    align-items:center;
     justify-content: center;
 }
 
 .guess-callout:before {
     content:"";
     border-style: solid;
-    border-width: 10px 15px 10px 0;
-    border-color: transparent var(--headerFooterColor) transparent transparent;
+    border-width: 15px 10px 0 10px;
+    border-color: var(--headerFooterColor) transparent transparent transparent;
     position: absolute;
-    left: -15px;
-    bottom: 15px;
+    bottom: -15px;
 }
 
-.thinker {
+/* .thinker {
     height: 55%;
     transform: translateX(60px);
-}
+} */
 
 .visibility-hidden {
     visibility: hidden;
