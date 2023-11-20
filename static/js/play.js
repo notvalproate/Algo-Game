@@ -83,8 +83,6 @@ $(document).ready(function() {
     });
 
     socket.on('startGame', (data) => {
-        console.log('Game started');
-
         $("header").addClass("header-out");
         $("footer").addClass("footer-out");
         $(".board").addClass("fade-out");
@@ -101,6 +99,8 @@ $(document).ready(function() {
         deckTop = new AlgoCard(data.deckTop.number, data.deckTop.color);
         setDeckTopDiv(deckTop);
 
+        $('#yourHand').html('');
+        $('#enemyHand').html('');
         myHand = ObjectArray_to_AlgoCardArray(data.yourHand);
         enemyHand = ObjectArray_to_AlgoCardArray(data.enemyHand);
 
@@ -199,7 +199,7 @@ $(document).ready(function() {
         } else {
             console.log('loser');
         }
-    })
+    });
 
     // EVENT LISTENERS
 
