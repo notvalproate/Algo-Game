@@ -62,7 +62,8 @@ class Game {
         }
     
         const indexInsertedAt = this.insertDeckTopToActiveUser();
-
+        this.players[this.activeTurn].openCount++;
+        
         this.switchTurns();
 
         return [false, indexInsertedAt, deckTopValue, wonGame];
