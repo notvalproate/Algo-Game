@@ -2,6 +2,9 @@ const { AlgoCard } = require("algoCard");
 const { ObjectArray_to_AlgoCardArray } = require("algoCard");
 const ejs = require('ejs');
 
+// IMPORTS
+import * as Animations from './animations.js';
+
 var myHand = [];
 var enemyHand = [];
 
@@ -27,7 +30,7 @@ $(document).ready(function() {
 
     window.history.pushState(null, '', `/${roomKey}/play`);
 
-    initAnims();
+    Animations.initAnimations();
     
     // SOCKET.IO ONS AND EMITS
 
@@ -131,7 +134,8 @@ $(document).ready(function() {
         myHandDiv[selectedCard].classList.add('selected');
         
         let calloutDiv = createAndDisplayCallout(selectedCard, myHand[selectedCard].getColor());
-        playCalloutAnimation(calloutDiv);
+
+        Animations.playCalloutAnimation(calloutDiv);
     });
 
     socket.on('updateButtonValue', async (data) => {
@@ -149,7 +153,8 @@ $(document).ready(function() {
             hightlightFadeOutTo('correct', enemyHandDivs[index]);
 
             $(enemyHandDivs[index]).html(myGuessValue);
-            animeFlip(index, enemyHand[index]);
+
+            Animations.flipCardAnimation($($('.enemy-hand')[pos]), enemyHand[index]);
         } else {
             $(myHandDivs[index]).removeClass('closed');
             $(myHandDivs[index]).addClass('open');
@@ -266,17 +271,8 @@ function updateCalloutValue(value) {
     $('.guess-callout').html(value);
 }
 
-function playCalloutAnimation(callout) {
-    callout.playKeyframe({
-        name: 'hover',
-        duration: '2s',
-        timingFunction: 'cubic-bezier(.48,.01,.49,.99)',
-        iterationCount: 'infinite',
-    }); 
-}
-
 function setDeckTopDiv(card) {
-    dealer = $('#dealer');
+    let dealer = $('#dealer');
     if(card.getNumber() !== null) {
         dealer.html(card.getNumber());
     } else {
@@ -334,20 +330,13 @@ async function addCardDiv (card, pos, playerType, state, socket) {
         await addEventListnersToEnemyHand(pos, socket);
     }
 
-    let color = invertColor(card.getColor());
-    if(playerType === 'enemy') {
-        color = card.getColor();
-        newDiv.css({
-            'transform': `rotateY(180deg)`,
-        });
-    }
-
     newDiv.css({
+        "z-index": "30",
         "background-color": card.getColor(),
-        "color": color
+        "color": invertColor(card.getColor())
     });
 
-    anime(playerType, pos, card);
+    Animations.drawCardAnimation(playerType, pos, card);
 }
 
 
@@ -359,119 +348,9 @@ function createDiv(pos, playerType, n, state){
     return newDiv;
 }
 
-
 function invertColor(color){
     if(color == 'black'){
         return 'white';
     }
     return 'black';
-}
-
-function anime(playerType, pos, card) {
-    const dealerPos = $('#dealer').offset();
-    const victimPos = $($(`.${playerType}-hand`)[pos]).offset();
-
-    $($(`.${playerType}-hand`)[pos]).css({
-        "z-index": "30",
-    });
-
-
-    const translateDir = {
-        Y: dealerPos.top - victimPos.top,
-        X: dealerPos.left - victimPos.left
-    };
-
-    if(playerType == 'your'){
-        $.keyframe.define([{
-            name: 'serve' + playerType + pos,
-            '100%': {
-                'transform': `translate(${translateDir.X}px, ${translateDir.Y}px ) `,
-            }
-        }]);
-    }else{
-        $.keyframe.define([{
-            name: 'serve' + playerType + pos,
-            '0%': {
-                'color': `${invertColor(card.color)}`,
-                'transform': 'rotateY(0deg)'
-            },
-            '49%':{
-                'color': `${card.color}`
-            },
-            '100%': {
-                'transform': `translate(${translateDir.X}px, ${translateDir.Y}px ) rotateY(180deg)`,
-                'color': `${card.color}`
-            }
-        }]);
-    }
-    
-    $($(`.${playerType}-hand`)[pos]).playKeyframe({
-        name: 'serve' + playerType + pos,
-        duration: '0.4s',
-        timingFunction: 'ease',
-        delay: '0s',
-        direction: 'reverse',
-        fillMode: 'both',
-        complete: function() {
-            $($(`.${playerType}-hand`)[pos]).css({
-                "z-index": "10",
-            });
-        }
-    });
-}
-
-function animeFlip(pos, card) {
-    $($('.enemy-hand')[pos]).playKeyframe({
-        name: `flip-${enemyHand[pos].getColor()}-card`,
-        duration: '0.4s',
-        timingFunction: 'ease',
-        delay: '0s',
-        direction: 'reverse',
-        fillMode: 'both'
-    });
-}
-
-function initAnims() {
-    $.keyframe.define([{
-        name: 'flip-white-card',
-        '0%': {
-            'color': 'black',
-            'transform': 'rotateY(0deg)'
-        },
-        '49%':{
-            'color': `white`
-        },
-        '100%': {
-            'transform': `rotateY(180deg)`,
-            'color': `white`
-        }
-    }]);
-    
-    $.keyframe.define([{
-        name: 'flip-black-card',
-        '0%': {
-            'color': 'white',
-            'transform': 'rotateY(0deg)'
-        },
-        '49%':{
-            'color': `black`
-        },
-        '100%': {
-            'transform': `rotateY(180deg)`,
-            'color': `black`
-        }
-    }]);
-
-    $.keyframe.define({
-        name: 'hover',
-        '0%': {
-            'transform': 'translate(calc(5.5vh - 50%), -110%)',
-        },
-        '50%': {
-            'transform': 'translate(calc(5.5vh - 50%), -140%)',
-        },
-        '100%': {
-            'transform': 'translate(calc(5.5vh - 50%), -110%)',
-        }
-    });
 }
