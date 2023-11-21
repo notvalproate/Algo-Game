@@ -127,8 +127,8 @@ $(document).ready(function() {
         myHandDiv[selectedCard].classList.remove('selected');
         selectedCard = data.index;
         myHandDiv[selectedCard].classList.add('selected');
-
-        let calloutDiv = createAndDisplayCallout(selectedCard);
+        
+        let calloutDiv = createAndDisplayCallout(selectedCard, myHand[selectedCard].getColor());
         playCalloutAnimation(calloutDiv);
     });
 
@@ -147,7 +147,6 @@ $(document).ready(function() {
             hightlightFadeOutTo('correct', enemyHandDivs[index]);
 
             $(enemyHandDivs[index]).html(myGuessValue);
-            animeFlip(index);
         } else {
             $(myHandDivs[index]).removeClass('closed');
             $(myHandDivs[index]).addClass('open');
@@ -181,6 +180,7 @@ $(document).ready(function() {
             $('#enemyHand').removeClass('highlight-hand');
             $('#pick-array').removeClass('pick-inactive');
             dealer.addClass('highlight-dealer');
+            $('.guess-callout').remove();
         }
         calloutHide();
 
@@ -240,7 +240,7 @@ function hightlightFadeOutTo(state, card) {
     }, 400);
 }
 
-function createAndDisplayCallout(index) {
+function createAndDisplayCallout(index, color) {
     if(!myTurn) {
         if($('.guess-callout')) {
             $('.guess-callout').remove();
@@ -250,14 +250,9 @@ function createAndDisplayCallout(index) {
 
         var calloutDiv = $('<div>');
         calloutDiv.addClass('guess-callout');
-        calloutDiv.addClass('callout-black-text');
+        calloutDiv.addClass(`callout-${invertColor(color)}-text`);
         calloutDiv.attr('id', 'yourGuessCallout');
         calloutDiv.html(buttonValue);
-
-        if(enemyHand[index].getColor() === 'black') {
-            calloutDiv.removeClass('callout-black-text');
-            calloutDiv.addClass('callout-white-text');
-        }
 
         card.prepend(calloutDiv);
         
@@ -439,36 +434,6 @@ function anime(playerType, pos, card) {
             $($(`.${playerType}-hand`)[pos]).css({
                 "z-index": "10",
             });
-        }
-    });
-}
-
-$.keyframe.define([{
-    name: 'flip-black',
-    'to': {
-        'color': 'white',
-        'transform': `rotateY(0deg)`
-    }
-}]);
-
-$.keyframe.define([{
-    name: 'flip-white',
-    'to': {
-        'color': 'black',
-        'transform': `rotateY(0deg)`
-    }
-}]);
-
-function animeFlip(pos) {
-    console.log(myHand[pos].getColor());
-
-    $($(`.enemy-hand`)[pos]).playKeyframe({
-        name: `flip-${myHand[pos].getColor()}`,
-        duration: '0.4s',
-        timingFunction: 'ease',
-        fillMode: 'both',
-        complete: function() {
-            console.log($($(`.enemy-hand`)[pos]).css('color'));
         }
     });
 }
