@@ -27,7 +27,6 @@ $(document).ready(function() {
 
     window.history.pushState(null, '', `/${roomKey}/play`);
     
-
     // SOCKET.IO ONS AND EMITS
 
     var socket = io({
@@ -128,12 +127,14 @@ $(document).ready(function() {
         myHandDiv[selectedCard].classList.remove('selected');
         selectedCard = data.index;
         myHandDiv[selectedCard].classList.add('selected');
+
+        let calloutDiv = createAndDisplayCallout(selectedCard);
+        playCalloutAnimation(calloutDiv);
     });
 
     socket.on('updateButtonValue', async (data) => {
         buttonValue = data.buttonValue;
-        await positionCallout();
-        calloutShow();
+        updateCalloutValue(buttonValue);
     });
 
     socket.on('correctMove', (data) => {
@@ -152,7 +153,6 @@ $(document).ready(function() {
 
             hightlightFadeOutTo('correct', myHandDivs[index]);
         }
-        calloutHide();
     });
 
     socket.on('wrongMove', (data) => {
@@ -239,44 +239,55 @@ function hightlightFadeOutTo(state, card) {
     }, 400);
 }
 
-async function positionCallout() {
+function createAndDisplayCallout(index) {
     if(!myTurn) {
-        var position = -1;
+        if($('.guess-callout')) {
+            $('.guess-callout').remove();
+        }
+        
+        let card = $($('.your-hand')[index]);
 
-        for(let index = 0; index < $('.your-hand').length; index++) {
-            if($($('.your-hand')[index]).hasClass('selected')) {
-                position = index;
-                console.log(position);
-                break;
-            }
+        var calloutDiv = $('<div>');
+        calloutDiv.addClass('guess-callout');
+        calloutDiv.addClass('callout-black-text');
+        calloutDiv.attr('id', 'yourGuessCallout');
+        calloutDiv.html(buttonValue);
+
+        if(enemyHand[index].getColor() === 'black') {
+            calloutDiv.removeClass('callout-black-text');
+            calloutDiv.addClass('callout-white-text');
         }
 
-        let offsetHand = $($('.your-hand')[position]).offset();
-
-        $('.guess-callout').css({
-            "left" : `${offsetHand.left}px`
-        });
+        card.prepend(calloutDiv);
+        
+        return calloutDiv;
     }
 }
 
-async function calloutShow() {
-    if(!myTurn) {
-        $('#yourGuessCallout').removeClass('visibility-hidden');
-        $('#yourGuessCallout').html(buttonValue);
-        $('#yourGuessCallout').addClass('fade-in');
-        $('#yourGuessCallout:before').addClass('fade-in');
-    }
-    else {
-        $('#yourGuessCallout').addClass('fade-out');
-        $('#yourGuessCallout:before').addClass('fade-out');
-        $('#yourGuessCallout').addClass('visibility-hidden');
-    }
+function updateCalloutValue(value) {
+    $('.guess-callout').html(value);
 }
 
-async function calloutHide() {
-    $('#yourGuessCallout').addClass('visibility-hidden');
-    $('#yourGuessCallout').addClass('fade-out');
-    await $('#yourGuessCallout:before').addClass('fade-out');
+$.keyframe.define({
+    name: 'hover',
+    '0%': {
+        'transform': 'translate(calc(5.5vh - 50%), -110%)',
+    },
+    '50%': {
+        'transform': 'translate(calc(5.5vh - 50%), -140%)',
+    },
+    '100%': {
+        'transform': 'translate(calc(5.5vh - 50%), -110%)',
+    }
+});
+
+function playCalloutAnimation(callout) {
+    callout.playKeyframe({
+        name: 'hover',
+        duration: '2s',
+        timingFunction: 'cubic-bezier(.48,.01,.49,.99)',
+        iterationCount: 'infinite',
+    }); 
 }
 
 function setDeckTopDiv(card) {
@@ -393,6 +404,6 @@ function anime(playerType, pos) {
         delay: '0s',
         direction: 'reverse',
         // fillMode: 'forwards',
-        complete: function() {}
+        complete: function() { }
     });
 }

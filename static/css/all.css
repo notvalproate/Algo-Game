@@ -352,6 +352,7 @@ footer {
 }
 
 .card{
+    position: relative;
     padding-top: 11vh;
     height: 17vh;
     width: 11vh;
@@ -454,22 +455,31 @@ footer {
 }
 
 .guess-callout {
-    background-color: var(--headerFooterColor);
-    box-sizing: border-box;
+    top: 0;
+    left: 0;
+    position: absolute;
     padding: 2vh;
     height: 5vh;   
     width: 5vh;
-    display: flex;
     border-radius: 1vh;
-    position: absolute;
-    z-index: 20;
-    color: white;
-    font-weight: 600;
+    box-sizing: border-box;
     font-size: 3vh;
-    text-align: center;
+    font-weight: 600;
+    display: flex;
     align-items:center;
     justify-content: center;
-    transition: 0.5s cubic-bezier(.35,-0.5,.79,1.13) 0.6s;
+    z-index: 999;
+    transform: translate(calc(5.5vh - 50%), -110%);
+}
+
+.callout-white-text {
+    color: white;
+    background-color: black;
+}
+
+.callout-black-text {
+    color: black;
+    background-color: white;
 }
 
 .visibility-hidden {
