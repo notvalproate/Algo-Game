@@ -297,7 +297,7 @@ footer {
 /* Cards Desk */
 .desk{
     margin-top: 20px;
-    height: 90vh;
+    height: 80vh;
     width: 100vw;
     display: flex;
     flex-direction: column;
@@ -410,15 +410,16 @@ footer {
 }
 
 .pick-button {
+    box-sizing: border-box;
     font-family: 'Urbanist', sans-serif;
     -webkit-border-radius: 10;
     -moz-border-radius: 10;
     border: none;
     border-radius: 10px;
     color: #000000;
-    width: 60px;
-    height: 60px;
-    font-size: 30px;
+    width: 8vh;
+    height: 8vh;
+    font-size: 4vh;
     font-weight: 600;
     margin: 0 8px;
     background: #ffffff;
