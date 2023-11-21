@@ -26,6 +26,8 @@ $(document).ready(function() {
     }
 
     window.history.pushState(null, '', `/${roomKey}/play`);
+
+    initAnims();
     
     // SOCKET.IO ONS AND EMITS
 
@@ -147,6 +149,7 @@ $(document).ready(function() {
             hightlightFadeOutTo('correct', enemyHandDivs[index]);
 
             $(enemyHandDivs[index]).html(myGuessValue);
+            animeFlip(index, enemyHand[index]);
         } else {
             $(myHandDivs[index]).removeClass('closed');
             $(myHandDivs[index]).addClass('open');
@@ -182,7 +185,6 @@ $(document).ready(function() {
             dealer.addClass('highlight-dealer');
             $('.guess-callout').remove();
         }
-        calloutHide();
 
         setDeckTopDiv(nextDeckTop);
         deckTop = nextDeckTop;
@@ -264,19 +266,6 @@ function updateCalloutValue(value) {
     $('.guess-callout').html(value);
 }
 
-$.keyframe.define({
-    name: 'hover',
-    '0%': {
-        'transform': 'translate(calc(5.5vh - 50%), -110%)',
-    },
-    '50%': {
-        'transform': 'translate(calc(5.5vh - 50%), -140%)',
-    },
-    '100%': {
-        'transform': 'translate(calc(5.5vh - 50%), -110%)',
-    }
-});
-
 function playCalloutAnimation(callout) {
     callout.playKeyframe({
         name: 'hover',
@@ -332,10 +321,6 @@ async function addCardDiv (card, pos, playerType, state, socket) {
     var parentDiv = $(`#${playerType}Hand`);
     var newDiv = createDiv(pos, playerType, enemyHand.length, state);
     newDiv.html(card.getNumber());
-
-    // newDiv.css({
-    //      "visibility": "hidden",
-    // });
 
     let hand = $(`.${playerType}-hand`);
 
@@ -399,9 +384,6 @@ function anime(playerType, pos, card) {
     if(playerType == 'your'){
         $.keyframe.define([{
             name: 'serve' + playerType + pos,
-            '0%': {
-                'visibility': 'visible',
-            },
             '100%': {
                 'transform': `translate(${translateDir.X}px, ${translateDir.Y}px ) `,
             }
@@ -410,8 +392,8 @@ function anime(playerType, pos, card) {
         $.keyframe.define([{
             name: 'serve' + playerType + pos,
             '0%': {
-                'visibility': 'visible',
-                'color': `${invertColor(card.color)}`            
+                'color': `${invertColor(card.color)}`,
+                'transform': 'rotateY(0deg)'
             },
             '49%':{
                 'color': `${card.color}`
@@ -429,11 +411,67 @@ function anime(playerType, pos, card) {
         timingFunction: 'ease',
         delay: '0s',
         direction: 'reverse',
-        // fillMode: 'forwards',
+        fillMode: 'both',
         complete: function() {
             $($(`.${playerType}-hand`)[pos]).css({
                 "z-index": "10",
             });
+        }
+    });
+}
+
+function animeFlip(pos, card) {
+    $($('.enemy-hand')[pos]).playKeyframe({
+        name: `flip-${enemyHand[pos].getColor()}-card`,
+        duration: '0.4s',
+        timingFunction: 'ease',
+        delay: '0s',
+        direction: 'reverse',
+        fillMode: 'both'
+    });
+}
+
+function initAnims() {
+    $.keyframe.define([{
+        name: 'flip-white-card',
+        '0%': {
+            'color': 'black',
+            'transform': 'rotateY(0deg)'
+        },
+        '49%':{
+            'color': `white`
+        },
+        '100%': {
+            'transform': `rotateY(180deg)`,
+            'color': `white`
+        }
+    }]);
+    
+    $.keyframe.define([{
+        name: 'flip-black-card',
+        '0%': {
+            'color': 'white',
+            'transform': 'rotateY(0deg)'
+        },
+        '49%':{
+            'color': `black`
+        },
+        '100%': {
+            'transform': `rotateY(180deg)`,
+            'color': `black`
+        }
+    }]);
+
+    $.keyframe.define({
+        name: 'hover',
+        '0%': {
+            'transform': 'translate(calc(5.5vh - 50%), -110%)',
+        },
+        '50%': {
+            'transform': 'translate(calc(5.5vh - 50%), -140%)',
+        },
+        '100%': {
+            'transform': 'translate(calc(5.5vh - 50%), -110%)',
         }
     });
 }
