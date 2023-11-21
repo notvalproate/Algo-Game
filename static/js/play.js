@@ -146,6 +146,7 @@ $(document).ready(function() {
             hightlightFadeOutTo('correct', enemyHandDivs[index]);
 
             $(enemyHandDivs[index]).html(myGuessValue);
+            animeFlip(index);
         } else {
             $(myHandDivs[index]).removeClass('closed');
             $(myHandDivs[index]).addClass('open');
@@ -326,9 +327,9 @@ async function addCardDiv (card, pos, playerType, state, socket) {
     var newDiv = createDiv(pos, playerType, enemyHand.length, state);
     newDiv.html(card.getNumber());
 
-    newDiv.css({
-         "visibility": "hidden",
-    });
+    // newDiv.css({
+    //      "visibility": "hidden",
+    // });
 
     let hand = $(`.${playerType}-hand`);
 
@@ -342,12 +343,20 @@ async function addCardDiv (card, pos, playerType, state, socket) {
         await addEventListnersToEnemyHand(pos, socket);
     }
 
+    let color = invertColor(card.getColor());
+    if(playerType === 'enemy') {
+        color = card.getColor();
+        newDiv.css({
+            'transform': `rotateY(180deg)`,
+        });
+    }
+
     newDiv.css({
         "background-color": card.getColor(),
-        "color": invertColor(card.getColor())
+        "color": color
     });
 
-    anime(playerType, pos);
+    anime(playerType, pos, card);
 }
 
 
@@ -367,24 +376,46 @@ function invertColor(color){
     return 'black';
 }
 
-function anime(playerType, pos) {
+function anime(playerType, pos, card) {
     const dealerPos = $('#dealer').offset();
     const victimPos = $($(`.${playerType}-hand`)[pos]).offset();
+
+    $($(`.${playerType}-hand`)[pos]).css({
+        "z-index": "30",
+    });
+
 
     const translateDir = {
         Y: dealerPos.top - victimPos.top,
         X: dealerPos.left - victimPos.left
     };
 
-    $.keyframe.define([{
-        name: 'serve' + playerType + pos,
-        '0%': {
-            'visibility': 'visible',
-        },
-        '100%': {
-            'transform': `translate(${translateDir.X}px, ${translateDir.Y}px ) rotateY(180deg)`,
-        }
-    }]);
+    if(playerType == 'your'){
+        $.keyframe.define([{
+            name: 'serve' + playerType + pos,
+            '0%': {
+                'visibility': 'visible',
+            },
+            '100%': {
+                'transform': `translate(${translateDir.X}px, ${translateDir.Y}px ) `,
+            }
+        }]);
+    }else{
+        $.keyframe.define([{
+            name: 'serve' + playerType + pos,
+            '0%': {
+                'visibility': 'visible',
+                'color': `${invertColor(card.color)}`            
+            },
+            '49%':{
+                'color': `${card.color}`
+            },
+            '100%': {
+                'transform': `translate(${translateDir.X}px, ${translateDir.Y}px ) rotateY(180deg)`,
+                'color': `${card.color}`
+            }
+        }]);
+    }
     
     $($(`.${playerType}-hand`)[pos]).playKeyframe({
         name: 'serve' + playerType + pos,
@@ -393,6 +424,40 @@ function anime(playerType, pos) {
         delay: '0s',
         direction: 'reverse',
         // fillMode: 'forwards',
-        complete: function() {}
+        complete: function() {
+            $($(`.${playerType}-hand`)[pos]).css({
+                "z-index": "10",
+            });
+        }
+    });
+}
+
+$.keyframe.define([{
+    name: 'flip-black',
+    'to': {
+        'color': 'white',
+        'transform': `rotateY(0deg)`
+    }
+}]);
+
+$.keyframe.define([{
+    name: 'flip-white',
+    'to': {
+        'color': 'black',
+        'transform': `rotateY(0deg)`
+    }
+}]);
+
+function animeFlip(pos) {
+    console.log(myHand[pos].getColor());
+
+    $($(`.enemy-hand`)[pos]).playKeyframe({
+        name: `flip-${myHand[pos].getColor()}`,
+        duration: '0.4s',
+        timingFunction: 'ease',
+        fillMode: 'both',
+        complete: function() {
+            console.log($($(`.enemy-hand`)[pos]).css('color'));
+        }
     });
 }
