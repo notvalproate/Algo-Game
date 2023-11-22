@@ -1,3 +1,5 @@
+// Helper functions
+
 function invertColor(color){
     if(color == 'black'){
         return 'white';

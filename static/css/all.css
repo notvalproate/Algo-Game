@@ -356,6 +356,7 @@ footer {
     padding-top: 11vh;
     height: 17vh;
     width: 11vh;
+    z-index: 30;
     text-align: center;
     font-size: 4vh;
     border-radius: 1.2vh;

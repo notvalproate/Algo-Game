@@ -1,7 +1,5 @@
 // Module that handles all the animations
 
-const { AlgoCard } = require("algoCard");
-
 import * as Helpers from './helpers.js';
 
 async function drawCardAnimation(cardDiv, card) {
@@ -75,15 +73,15 @@ function hoverCalloutAnimation(callout) {
     }); 
 }
 
-function highlightFadeOutTo(state, card) {
-    $(card).removeClass('selected');
-    $(card).addClass(state);
+function highlightFadeOutTo(state, cardDiv) {
+    $(cardDiv).removeClass('selected');
+    $(cardDiv).addClass(state);
     setTimeout(() => {
-        $(card).removeClass(state);
+        $(cardDiv).removeClass(state);
     }, 400);
 }
 
-function initAnimations() {
+async function initAnimations() {
     $.keyframe.define({
         name: 'flip-white-card',
         '0%': {
