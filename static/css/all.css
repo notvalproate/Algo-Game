@@ -472,12 +472,12 @@ footer {
     transform: translate(calc(5.5vh - 50%), -110%);
 }
 
-.callout-white-text {
+.black {
     color: white;
     background-color: black;
 }
 
-.callout-black-text {
+.white {
     color: black;
     background-color: white;
 }

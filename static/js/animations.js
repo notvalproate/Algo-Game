@@ -2,6 +2,8 @@
 
 const { AlgoCard } = require("algoCard");
 
+import * as Helpers from './helpers.js';
+
 async function drawCardAnimation(cardDiv, card) {
     const dealerOffset = $('#dealer').offset();
     const cardOffset = cardDiv.offset();
@@ -41,7 +43,7 @@ async function defineDrawAnimation(cardDiv, card, translateVector) {
         $.keyframe.define([{
             name: `draw-${card.getColor()}-${card.getNumber()}`,
             '0%': {
-                'color': `${invertColor(card.getColor())}`,
+                'color': `${Helpers.invertColor(card.getColor())}`,
                 'transform': 'rotateY(0deg)'
             },
             '49%':{
@@ -71,6 +73,14 @@ function hoverCalloutAnimation(callout) {
         timingFunction: 'cubic-bezier(.48,.01,.49,.99)',
         iterationCount: 'infinite',
     }); 
+}
+
+function highlightFadeOutTo(state, card) {
+    $(card).removeClass('selected');
+    $(card).addClass(state);
+    setTimeout(() => {
+        $(card).removeClass(state);
+    }, 400);
 }
 
 function initAnimations() {
@@ -122,16 +132,10 @@ function initAnimations() {
     });
 }
 
-function invertColor(color){
-    if(color == 'black'){
-        return 'white';
-    }
-    return 'black';
-}
-
 export {
     drawCardAnimation,
     flipCardAnimation,
     hoverCalloutAnimation,
+    highlightFadeOutTo,
     initAnimations
 };

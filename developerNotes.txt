@@ -21,7 +21,12 @@ CHAT:
 [Manoj] - [21-11-23 ; 0138Hrs]
    -> Remove dependency on #divenemy_ and #divyou_.
    -> Implement callout to display guesser's number choice to the guessee.
-   
+
+[Ian] - [22-11-23 ; 1421Hrs]
+   -> created 'black' and 'white' class to use to apply on creating new cards.
+   -> created a card creation class. Need to rewrite some stuff and make it better
+   -> helpers go in the helpers.js.
+
 }
 
 

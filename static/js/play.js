@@ -4,6 +4,8 @@ const ejs = require('ejs');
 
 // IMPORTS
 import * as Animations from './animations.js';
+import * as HTMLCardCreator from './cardcreation.js';
+import * as Helpers from './helpers.js';
 
 var myHand = [];
 var enemyHand = [];
@@ -138,7 +140,7 @@ $(document).ready(function() {
         Animations.hoverCalloutAnimation(calloutDiv);
     });
 
-    socket.on('updateButtonValue', async (data) => {
+    socket.on('updateButtonValue', (data) => {
         buttonValue = data.buttonValue;
         updateCalloutValue(buttonValue);
     });
@@ -150,7 +152,7 @@ $(document).ready(function() {
         var myHandDivs = $('.your-hand');
 
         if(myTurn) {
-            hightlightFadeOutTo('correct', enemyHandDivs[index]);
+            Animations.highlightFadeOutTo('correct', enemyHandDivs[index])
 
             $(enemyHandDivs[index]).html(myGuessValue);
 
@@ -159,7 +161,7 @@ $(document).ready(function() {
             $(myHandDivs[index]).removeClass('closed');
             $(myHandDivs[index]).addClass('open');
 
-            hightlightFadeOutTo('correct', myHandDivs[index]);
+            Animations.highlightFadeOutTo('correct', myHandDivs[index]);
         }
     });
 
@@ -170,7 +172,7 @@ $(document).ready(function() {
         myTurn = data.yourTurn;
 
         if(!myTurn) {
-            hightlightFadeOutTo('wrong', $('.enemy-hand')[selectedCard]);
+            Animations.highlightFadeOutTo('wrong', $('.enemy-hand')[selectedCard]);
 
             myHand.splice(insertIndex, 0, cardToInsert);
             addCardDiv(cardToInsert, insertIndex, 'your', 'open', socket);
@@ -179,7 +181,7 @@ $(document).ready(function() {
             $('#pick-array').addClass('pick-inactive');
             dealer.removeClass('highlight-dealer');
         } else {
-            hightlightFadeOutTo('wrong', $('.your-hand')[selectedCard]);
+            Animations.hightlightFadeOutTo('wrong', $('.your-hand')[selectedCard]);
 
             cardToInsert.setNumber(data.value);
             enemyHand.splice(insertIndex, 0, cardToInsert);
@@ -239,14 +241,6 @@ $(document).ready(function() {
 
 // Utility Functions
 
-function hightlightFadeOutTo(state, card) {
-    $(card).removeClass('selected');
-    $(card).addClass(state);
-    setTimeout(() => {
-        $(card).removeClass(state);
-    }, 400);
-}
-
 function createAndDisplayCallout(index, color) {
     if(!myTurn) {
         if($('.guess-callout')) {
@@ -257,7 +251,7 @@ function createAndDisplayCallout(index, color) {
 
         var calloutDiv = $('<div>');
         calloutDiv.addClass('guess-callout');
-        calloutDiv.addClass(`callout-${invertColor(color)}-text`);
+        calloutDiv.addClass(color);
         calloutDiv.attr('id', 'yourGuessCallout');
         calloutDiv.html(buttonValue);
 
@@ -281,7 +275,7 @@ function setDeckTopDiv(card) {
 
     dealer.css({
         "background-color": card.getColor(),
-        "color": invertColor(card.getColor()),
+        "color": Helpers.invertColor(card.getColor()),
     });
 }
 
@@ -333,7 +327,7 @@ async function addCardDiv (card, pos, playerType, state, socket) {
     newDiv.css({
         "z-index": "30",
         "background-color": card.getColor(),
-        "color": invertColor(card.getColor())
+        "color": Helpers.invertColor(card.getColor())
     });
 
     Animations.drawCardAnimation(newDiv, card);
@@ -346,11 +340,4 @@ function createDiv(pos, playerType, n, state){
     newDiv.addClass("card");
     newDiv.addClass(state);
     return newDiv;
-}
-
-function invertColor(color){
-    if(color == 'black'){
-        return 'white';
-    }
-    return 'black';
 }
