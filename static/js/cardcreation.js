@@ -11,8 +11,6 @@ async function createInitialHands(myHand, enemyHand) {
     for(let i = 0; i < enemyHand.length; i++) {
         await createAndAnimateCardDiv(enemyHand[i], i, 'enemy-hand', 'closed');
     }
-
-    await updateEnemyHandEventListeners();
 }
 
 async function createAndAnimateCardDiv(card, pos, hand, state) {
