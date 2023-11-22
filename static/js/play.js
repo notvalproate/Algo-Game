@@ -13,6 +13,8 @@ var enemyHand = [];
 
 var ready = false;
 
+var buttonValue = 0;
+
 var globals = {
     selectedCard: 0,
     myGuessValue: 0,
@@ -141,7 +143,8 @@ $(document).ready(function() {
     });
 
     globals.socket.on('updateButtonValue', (data) => {
-        CalloutHandler.updateCallout(data.buttonValue);
+        buttonValue = data.buttonValue;
+        CalloutHandler.updateCallout(buttonValue);
     });
 
     globals.socket.on('correctMove', (data) => {
