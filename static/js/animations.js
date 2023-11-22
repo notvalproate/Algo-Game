@@ -2,52 +2,57 @@
 
 const { AlgoCard } = require("algoCard");
 
-function drawCardAnimation(playerType, pos, card) {
-    const dealerPos = $('#dealer').offset();
-    const victimPos = $($(`.${playerType}-hand`)[pos]).offset();
+async function drawCardAnimation(cardDiv, card) {
+    const dealerOffset = $('#dealer').offset();
+    const cardOffset = cardDiv.offset();
 
-    const translateDir = {
-        Y: dealerPos.top - victimPos.top,
-        X: dealerPos.left - victimPos.left
+    const translateVector = {
+        Y: dealerOffset.top - cardOffset.top,
+        X: dealerOffset.left - cardOffset.left
     };
 
-    if(playerType == 'your'){
-        $.keyframe.define([{
-            name: 'serve' + playerType + pos,
-            '100%': {
-                'transform': `translate(${translateDir.X}px, ${translateDir.Y}px ) `,
+    defineDrawAnimation(cardDiv, card, translateVector)
+    .then(() => {
+        cardDiv.playKeyframe({
+            name: `draw-${card.getColor()}-${card.getNumber()}`,
+            duration: '0.4s',
+            timingFunction: 'ease',
+            delay: '0s',
+            direction: 'reverse',
+            fillMode: 'both',
+            complete: function() {
+                cardDiv.css({
+                    "z-index": "10",
+                });
             }
-        }]);
-    }else{
+        });
+    })
+}
+
+async function defineDrawAnimation(cardDiv, card, translateVector) {
+    if(cardDiv.hasClass('your-hand')) {
+        $.keyframe.define({
+            name: `draw-${card.getColor()}-${card.getNumber()}`,
+            '100%': {
+                'transform': `translate(${translateVector.X}px, ${translateVector.Y}px ) `,
+            }
+        });
+    } else {
         $.keyframe.define([{
-            name: 'serve' + playerType + pos,
+            name: `draw-${card.getColor()}-${card.getNumber()}`,
             '0%': {
-                'color': `${invertColor(card.color)}`,
+                'color': `${invertColor(card.getColor())}`,
                 'transform': 'rotateY(0deg)'
             },
             '49%':{
-                'color': `${card.color}`
+                'color': `${card.getColor()}`,
             },
             '100%': {
-                'transform': `translate(${translateDir.X}px, ${translateDir.Y}px ) rotateY(180deg)`,
-                'color': `${card.color}`
+                'transform': `translate(${translateVector.X}px, ${translateVector.Y}px ) rotateY(180deg)`,
+                'color': `${card.getColor()}`,
             }
         }]);
     }
-    
-    $($(`.${playerType}-hand`)[pos]).playKeyframe({
-        name: 'serve' + playerType + pos,
-        duration: '0.4s',
-        timingFunction: 'ease',
-        delay: '0s',
-        direction: 'reverse',
-        fillMode: 'both',
-        complete: function() {
-            $($(`.${playerType}-hand`)[pos]).css({
-                "z-index": "10",
-            });
-        }
-    });
 }
 
 function flipCardAnimation(cardDiv, algoCard) {
@@ -61,7 +66,7 @@ function flipCardAnimation(cardDiv, algoCard) {
 
 function playCalloutAnimation(callout) {
     callout.playKeyframe({
-        name: 'hover',
+        name: 'hover-callout',
         duration: '2s',
         timingFunction: 'cubic-bezier(.48,.01,.49,.99)',
         iterationCount: 'infinite',
@@ -69,7 +74,7 @@ function playCalloutAnimation(callout) {
 }
 
 function initAnimations() {
-    $.keyframe.define([{
+    $.keyframe.define({
         name: 'flip-white-card',
         '0%': {
             'transform': `rotateY(180deg)`,
@@ -84,9 +89,9 @@ function initAnimations() {
         '100%': {
             'transform': 'rotateY(0deg)'
         }
-    }]);
+    });
     
-    $.keyframe.define([{
+    $.keyframe.define({
         name: 'flip-black-card',
         '0%': {
             'transform': `rotateY(180deg)`,
@@ -101,10 +106,10 @@ function initAnimations() {
         '100%': {
             'transform': 'rotateY(0deg)'
         }
-    }]);
+    });
 
     $.keyframe.define({
-        name: 'hover',
+        name: 'hover-callout',
         '0%': {
             'transform': `translate(calc(5.5vh - 50%), -110%)`,
         },

@@ -154,7 +154,7 @@ $(document).ready(function() {
 
             $(enemyHandDivs[index]).html(myGuessValue);
 
-            Animations.flipCardAnimation($($('.enemy-hand')[pos]), enemyHand[index]);
+            Animations.flipCardAnimation($($('.enemy-hand')[index]), enemyHand[index]);
         } else {
             $(myHandDivs[index]).removeClass('closed');
             $(myHandDivs[index]).addClass('open');
@@ -336,7 +336,7 @@ async function addCardDiv (card, pos, playerType, state, socket) {
         "color": invertColor(card.getColor())
     });
 
-    Animations.drawCardAnimation(playerType, pos, card);
+    Animations.drawCardAnimation(newDiv, card);
 }
 
 
