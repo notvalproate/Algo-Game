@@ -3,29 +3,22 @@
 CHAT:
 
 [Manoj] - [19-11-23 ; 0227Hrs]
-1. Backend handles the sending of a new card to deckTop, inserting cards to guesser, revealing guessee's card on correct guess.
-2. The player whose turn is currently going on, has his hand highlighted.
-2. To Improve:
-   -> *Only Some* card animations have been implemented. [Edit by Ian]
-   -> Modularizing play.js may REALLY come in handy!
+1. To Improve:
    -> For server.js, adding a RoutesHandler could seem resourceful. 
-
-[Ian] - [19-11-23 ; 2050Hrs]
-1. Things to implement/re-implement:
-   -> Implement win-case scenario.
 
 [Ian] - [20-11-23 ; 16:41]
    -> Modal in wait lobby for replaying the game. [Edit by Manoj]
    -> Replay after game ends.
 
-[Manoj] - [21-11-23 ; 0138Hrs]
-   -> Remove dependency on #divenemy_ and #divyou_.
-   -> Implement callout to display guesser's number choice to the guessee.
-
 [Ian] - [22-11-23 ; 1421Hrs]
    -> created 'black' and 'white' class to use to apply on creating new cards.
-   -> created a card creation class. Need to rewrite some stuff and make it better
+   -> created a card creation module.
    -> helpers go in the helpers.js.
+
+[Ian] - [23-11-23 ; 0007Hrs]
+   -> Almost modularized play.js completely. yet to modularize socket.io.
+   -> Cannot implement and use favicons for some reason. someone figure it out please
+   -> need to create socket emits for holding/attacking before we implement the front end modal/icons for that.
 
 }
 
