@@ -405,6 +405,7 @@ footer {
 /* Picking */
 
 .pick-array {
+    z-index: 999;
     height: 7vh;
     display: flex;
     justify-content: center;

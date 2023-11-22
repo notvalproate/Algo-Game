@@ -13,22 +13,19 @@ var enemyHand = [];
 
 var ready = false;
 
-var myGuessValue = 0;
-var buttonValue = 0;
-
 var globals = {
     selectedCard: 0,
+    myGuessValue: 0,
     myTurn: undefined,
     socket: undefined,
     deckTop: undefined,
-}
+};
 
 export {
-    globals,
-}
+    globals
+};
 
 $(document).ready(function() {
-
     const readyButton = $('#ready-button');
     const you = $('#you');
     const enemy = $('#enemy');
@@ -115,7 +112,7 @@ $(document).ready(function() {
 
         globals.myTurn = data.yourTurn;
         globals.deckTop = new AlgoCard(data.deckTop.number, data.deckTop.color);
-        setDeckTopDiv(globals.deckTop);
+        Helpers.setDeckTopDiv(globals.deckTop);
 
         $('#yourHand').html('');
         $('#enemyHand').html('');
@@ -144,8 +141,7 @@ $(document).ready(function() {
     });
 
     globals.socket.on('updateButtonValue', (data) => {
-        buttonValue = data.buttonValue;
-        CalloutHandler.updateCallout(buttonValue);
+        CalloutHandler.updateCallout(data.buttonValue);
     });
 
     globals.socket.on('correctMove', (data) => {
@@ -157,7 +153,7 @@ $(document).ready(function() {
         if(globals.myTurn) {
             Animations.highlightFadeOutTo('correct', enemyHandDivs[index])
 
-            $(enemyHandDivs[index]).html(myGuessValue);
+            $(enemyHandDivs[index]).html(globals.myGuessValue);
             $(enemyHandDivs[index]).addClass('open');
 
             Animations.flipCardAnimation($($('.enemy-hand')[index]), enemyHand[index]);
@@ -198,7 +194,7 @@ $(document).ready(function() {
             CalloutHandler.removeCallout();
         }
 
-        setDeckTopDiv(nextDeckTop);
+        Helpers.setDeckTopDiv(nextDeckTop);
         globals.deckTop = nextDeckTop;
     });
 
@@ -223,45 +219,6 @@ $(document).ready(function() {
         globals.socket.emit('readyConfirmation', { ready: ready });
     });
 
-
-    // SEE A MORE ELEGANT SOLUTION TO THIS PLS
-    dealer.css({
-        'z-index': '10',
-    })
-
-    dealer.click(() => {
-        if(globals.myTurn) {
-            globals.socket.emit('playMove', { guessTarget: globals.selectedCard, guessValue: myGuessValue });
-        }
-    });
-
-    var buttons = document.querySelectorAll('.pick-button');
-
-    buttons.forEach(function (item, index) {
-        item.addEventListener('click', function () {
-            if(globals.myTurn) {
-                buttons[myGuessValue].classList.remove('button-selected');
-                myGuessValue = index;
-                buttons[myGuessValue].classList.add('button-selected');
-                globals.socket.emit('buttonClicked', { buttonValue: index });
-            }
-        });
-    });
+    Helpers.addDealerEventListener();
+    Helpers.addButtonEventListeners();
 });
-
-
-// Utility Functions
-
-function setDeckTopDiv(card) {
-    let dealer = $('#dealer');
-    if(card.getNumber() !== null) {
-        dealer.html(card.getNumber());
-    } else {
-        dealer.html("");
-    }
-
-    dealer.css({
-        "background-color": card.getColor(),
-        "color": Helpers.invertColor(card.getColor()),
-    });
-}
