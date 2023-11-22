@@ -135,7 +135,7 @@ $(document).ready(function() {
         
         let calloutDiv = createAndDisplayCallout(selectedCard, myHand[selectedCard].getColor());
 
-        Animations.playCalloutAnimation(calloutDiv);
+        Animations.hoverCalloutAnimation(calloutDiv);
     });
 
     socket.on('updateButtonValue', async (data) => {

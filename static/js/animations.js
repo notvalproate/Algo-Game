@@ -64,7 +64,7 @@ function flipCardAnimation(cardDiv, algoCard) {
     });
 }
 
-function playCalloutAnimation(callout) {
+function hoverCalloutAnimation(callout) {
     callout.playKeyframe({
         name: 'hover-callout',
         duration: '2s',
@@ -132,6 +132,6 @@ function invertColor(color){
 export {
     drawCardAnimation,
     flipCardAnimation,
-    playCalloutAnimation,
+    hoverCalloutAnimation,
     initAnimations
 };
