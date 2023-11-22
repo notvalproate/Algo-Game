@@ -8,19 +8,15 @@ function displayCallout(index, color, value) {
         if($('.guess-callout')) {
             $('.guess-callout').remove();
         }
-        
-        let card = $($('.your-hand')[index]);
 
-        var calloutDiv = $('<div>');
+        const calloutDiv = $('<div>');
         calloutDiv.addClass('guess-callout');
         calloutDiv.addClass(color);
         calloutDiv.html(value);
 
-        card.prepend(calloutDiv);
+        $($('.your-hand')[index]).prepend(calloutDiv);
         
         Animations.hoverCalloutAnimation(calloutDiv);
-
-        return calloutDiv;
     }
 }
 

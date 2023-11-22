@@ -3,29 +3,29 @@
 import { globals } from './play.js';
 import * as Animations from './animations.js';
 
-async function createInitialHands(myHand, enemyHand) {
+function createInitialHands(myHand, enemyHand) {
     for(let i = 0; i < myHand.length; i++) {
-        await createAndAnimateCardDiv(myHand[i], i, 'your-hand', 'closed');
+        createAndAnimateCardDiv(myHand[i], i, 'your-hand', 'closed');
     }
 
     for(let i = 0; i < enemyHand.length; i++) {
-        await createAndAnimateCardDiv(enemyHand[i], i, 'enemy-hand', 'closed');
+        createAndAnimateCardDiv(enemyHand[i], i, 'enemy-hand', 'closed');
     }
 }
 
-async function createAndAnimateCardDiv(card, pos, hand, state) {
-    const cardDiv = await createCardDiv(card, state);
+function createAndAnimateCardDiv(card, pos, hand, state) {
+    const cardDiv = createCardDiv(card, state);
 
-    await addCardDivToHand(cardDiv, pos, hand);
+    addCardDivToHand(cardDiv, pos, hand);
 
     if(hand === 'enemy-hand') {
-        await updateEnemyHandEventListeners(pos);
+        updateEnemyHandEventListeners(pos);
     }
 
-    await Animations.drawCardAnimation(cardDiv, card);
+    Animations.drawCardAnimation(cardDiv, card);
 }
 
-async function createCardDiv(card, state) {
+function createCardDiv(card, state) {
     const cardDiv = $('<div>');
     cardDiv.addClass("card");
     cardDiv.addClass(state);
@@ -35,7 +35,7 @@ async function createCardDiv(card, state) {
     return cardDiv;
 }
 
-async function addCardDivToHand(cardDiv, pos, hand) {
+function addCardDivToHand(cardDiv, pos, hand) {
     const handDivs = $(`.${hand}`);
     const handLength = handDivs.length;
 
@@ -52,7 +52,7 @@ async function addCardDivToHand(cardDiv, pos, hand) {
     }
 }
 
-async function updateEnemyHandEventListeners(pos) {
+function updateEnemyHandEventListeners(pos) {
     const handDivs = $(".enemy-hand");
 
     for(let i = pos; i < handDivs.length; i++) {
@@ -63,13 +63,15 @@ async function updateEnemyHandEventListeners(pos) {
         }
 
         cardDiv.click(() => {
-            const selectedCardDiv = $($(".enemy-hand")[globals.selectedCard]);
-
-            selectedCardDiv.removeClass('selected');
-            cardDiv.addClass('selected');
-
-            globals.selectedCard = i;
-            globals.socket.emit("selectCard", { guessTarget: globals.selectedCard });
+            if(globals.myTurn) {
+                const selectedCardDiv = $($(".enemy-hand")[globals.selectedCard]);
+    
+                selectedCardDiv.removeClass('selected');
+                cardDiv.addClass('selected');
+    
+                globals.selectedCard = i;
+                globals.socket.emit("selectCard", { guessTarget: globals.selectedCard });
+            }
         })
     }
 }

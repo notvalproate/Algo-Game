@@ -122,7 +122,6 @@ $(document).ready(function() {
         myHand = ObjectArray_to_AlgoCardArray(data.yourHand);
         enemyHand = ObjectArray_to_AlgoCardArray(data.enemyHand);
 
-        // add event listener ever time a single div is added to the hand.
         CardDivManager.createInitialHands(myHand, enemyHand);
 
         if(globals.myTurn) {
