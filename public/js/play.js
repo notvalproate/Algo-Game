@@ -128,6 +128,7 @@ $(document).ready(function() {
             dealer.addClass('highlight-dealer');
         } else {
             $('#enemy-username').addClass('player-turn');
+            $('.enemy-hand-container').addClass('no-pointer-events');
             $('#pick-array').addClass('pick-inactive');
         }
     });
@@ -181,6 +182,7 @@ $(document).ready(function() {
             CardDivManager.createAndAnimateCardDiv(cardToInsert, insertIndex, 'your-hand', 'open');
             $('#my-username').removeClass('player-turn');
             $('#enemy-username').addClass('player-turn');
+            $('.enemy-hand-container').addClass('no-pointer-events');
             $('#pick-array').addClass('pick-inactive');
             dealer.removeClass('highlight-dealer');
         } else {
@@ -191,6 +193,7 @@ $(document).ready(function() {
             CardDivManager.createAndAnimateCardDiv(cardToInsert, insertIndex, 'enemy-hand', 'open');
             $('#my-username').addClass('player-turn');
             $('#enemy-username').removeClass('player-turn');
+            $('.enemy-hand-container').removeClass('no-pointer-events');
             $('#pick-array').removeClass('pick-inactive');
             dealer.addClass('highlight-dealer');
 

@@ -368,6 +368,7 @@ footer {
     border-radius: 1.2vh;
     font-weight: 600;
     box-sizing: border-box;
+    user-select: none;
     transition: 
     box-shadow 0.6s cubic-bezier(.36, -0.23, .1, 1.01), 
     padding-top 0.4s cubic-bezier(.36, -0.23, .1, 1.01),
@@ -411,6 +412,7 @@ footer {
     display: flex;
     justify-content: center;
     transition: 0.5s cubic-bezier(.42,0,.04,.99);
+    user-select: none;
 }
 
 .pick-button {
@@ -503,6 +505,10 @@ footer {
 .white {
     color: black;
     background-color: white;
+}
+
+.no-pointer-events {
+    pointer-events: none;
 }
 
 .visibility-hidden {
