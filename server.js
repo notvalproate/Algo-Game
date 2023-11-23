@@ -26,7 +26,7 @@ var roomsHandler = new RoomListHandler();
 
 // Middleware
 app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static(path.join(__dirname, '/static')));
+app.use(express.static(path.join(__dirname, '/public')));
 
 
 // View engine and views path
