@@ -8,17 +8,23 @@ CHAT:
 
 [Ian] - [20-11-23 ; 16:41]
    -> Modal in wait lobby for replaying the game. [Edit by Manoj]
-   -> Replay after game ends.
+   -> [Edit by Ian] For the above, instead of making a modal after the game ends, just send them back to the main lobby where they can press \
+      Ready again to play again. I have reset the players ready status on the server side and client side after game starts. so just sending \
+      them back to the lobby will be enough.
 
 [Ian] - [22-11-23 ; 1421Hrs]
+1. The following points are to be made note of and follow. [Edit by Ian]
    -> created 'black' and 'white' class to use to apply on creating new cards.
-   -> created a card creation module.
    -> helpers go in the helpers.js.
 
 [Ian] - [23-11-23 ; 0007Hrs]
    -> Almost modularized play.js completely. yet to modularize socket.io.
-   -> Cannot implement and use favicons for some reason. someone figure it out please
    -> need to create socket emits for holding/attacking before we implement the front end modal/icons for that.
+
+[Ian] - [23-11-23 ; 2051Hrs]
+   -> Need to fix the fact that in the waiting lobby, you can scroll down where there is nothing there. The game desk is taking up space with \
+      0 opacity. need to somehow make it's display none and then its display back to flex when animation needed. issue is doing that didnt
+      work for me since animation didnt play idk.
 
 }
 
