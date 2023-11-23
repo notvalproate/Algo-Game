@@ -23,6 +23,17 @@ function setDeckTopDiv(card) {
     });
 }
 
+function addReadyButtonEventListener() {
+    $('#ready-button').click(() => {
+        if(!globals.ready) {
+            globals.ready = true;
+        } else {
+            globals.ready = false;
+        }
+        globals.socket.emit('readyConfirmation', { ready: globals.ready });
+    });
+}
+
 function addButtonEventListeners() {
     const buttons = $('.pick-button');
 
@@ -57,6 +68,7 @@ function addDealerEventListener() {
 export {
     invertColor,
     setDeckTopDiv,
+    addReadyButtonEventListener,
     addButtonEventListeners,
     addDealerEventListener,
 }

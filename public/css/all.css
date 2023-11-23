@@ -296,12 +296,12 @@ footer {
 
 /* Cards Desk */
 .desk{
-    margin-top: 20px;
-    height: 80vh;
+    height: 100vh;
     width: 100vw;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    row-gap: 2vh;
+    justify-content: flex-start;
     align-items: center;
     transform: scale(50%);
     opacity: 0%;
@@ -314,24 +314,31 @@ footer {
     transform: scale(100%);
 } /* JS Controlled Class*/
 
+.user-name {
+    transform: scale(65%);
+    font-size: 5vh;
+    font-weight: 400;
+    font-family: 'Gruppo', sans-serif;
+    transition: 0.5s cubic-bezier(.42,0,.04,.99);
+}
+
 .inner-desk{
     background-color: var(--backgroundColor);
+    margin-top: 3.5vh;
     height: 80vh;
     width: 80%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    row-gap: 3vh;
+    justify-content: flex-start;
     align-items: center;
     font-family: 'Urbanist', sans-serif;
 }
 
 .deck{
-    height: 80%;
     width: auto;
     gap: 15px;
     padding: 0px 20px;
-    border-radius: 20px;
-    background-color: var(--backgroundColor);
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -343,7 +350,6 @@ footer {
 }
 
 .pick-deck{
-    height: 25%;
     padding: 20px;
     background-color: var(--backgroundColor);
     display: flex;
@@ -397,11 +403,6 @@ footer {
     box-shadow: 0px 0px 30px rgb(108, 201, 255);
 }
 
-.highlight-hand {
-    background-color: var(--headerFooterColor);
-} /*JS Controlled Class*/
-
-
 /* Picking */
 
 .pick-array {
@@ -409,7 +410,7 @@ footer {
     height: 7vh;
     display: flex;
     justify-content: center;
-    transition: 0.4s cubic-bezier(.42,0,.04,.99);
+    transition: 0.5s cubic-bezier(.42,0,.04,.99);
 }
 
 .pick-button {
@@ -422,9 +423,9 @@ footer {
     color: #000000;
     width: 8vh;
     height: 8vh;
+    margin: 0 8px;
     font-size: 4vh;
     font-weight: 600;
-    margin: 0 8px;
     background: #ffffff;
     text-decoration: none;
     transition: 0.2s linear;
@@ -448,12 +449,32 @@ footer {
 }
 
 .hand-container {
-    height: 50%;
+    border-radius: 20px;
+    padding-left: 2vh;
+    padding-right: 2vh;
+    height: 30vh;
     width: auto;
     display: flex;
-    justify-content: space-around;
+    box-sizing: border-box;
+    justify-content: space-between;
     align-items: center;
-    flex-direction: row;
+    flex-direction: column;
+}
+
+.my-hand-container {
+    padding-bottom: 1vh;
+    padding-top: 2vh;
+}
+
+.enemy-hand-container {
+    padding-top: 1vh;
+    padding-bottom: 2vh;
+}
+
+.player-turn {
+    transform: scale(100%);
+    color: yellow;
+    text-shadow: 0px 0px 20px yellow;
 }
 
 .guess-callout {

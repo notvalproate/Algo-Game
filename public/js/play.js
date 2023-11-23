@@ -11,16 +11,15 @@ import * as CalloutHandler from './callout.js';
 var myHand = [];
 var enemyHand = [];
 
-var ready = false;
-
 var buttonValue = 0;
 
 var globals = {
+    socket: undefined,
+    myTurn: undefined,
+    ready: false,
+    deckTop: undefined,
     selectedCard: 0,
     myGuessValue: 0,
-    myTurn: undefined,
-    socket: undefined,
-    deckTop: undefined,
 };
 
 export {
@@ -57,6 +56,7 @@ $(document).ready(function() {
                 enemyuser = roomData.users[1].username;
             }
             $('#enemy').html(enemyuser);
+            $('#enemy-username').html(enemyuser);
         }
         else {
             $('#enemy').html('...');
@@ -107,7 +107,7 @@ $(document).ready(function() {
 
             $(".desk").addClass("fade-in");
             
-            ready = false;
+            globals.ready = false;
             enemy.removeClass('player-ready');
             you.removeClass('player-ready');
         }, 1400);
@@ -124,10 +124,10 @@ $(document).ready(function() {
         CardDivManager.createInitialHands(myHand, enemyHand);
 
         if(globals.myTurn) {
-            $('#yourHand').addClass('highlight-hand');
+            $('#my-username').addClass('player-turn');
             dealer.addClass('highlight-dealer');
         } else {
-            $('#enemyHand').addClass('highlight-hand');
+            $('#enemy-username').addClass('player-turn');
             $('#pick-array').addClass('pick-inactive');
         }
     });
@@ -179,8 +179,8 @@ $(document).ready(function() {
 
             myHand.splice(insertIndex, 0, cardToInsert);
             CardDivManager.createAndAnimateCardDiv(cardToInsert, insertIndex, 'your-hand', 'open');
-            $('#yourHand').removeClass('highlight-hand');
-            $('#enemyHand').addClass('highlight-hand');
+            $('#my-username').removeClass('player-turn');
+            $('#enemy-username').addClass('player-turn');
             $('#pick-array').addClass('pick-inactive');
             dealer.removeClass('highlight-dealer');
         } else {
@@ -189,8 +189,8 @@ $(document).ready(function() {
             cardToInsert.setNumber(data.value);
             enemyHand.splice(insertIndex, 0, cardToInsert);
             CardDivManager.createAndAnimateCardDiv(cardToInsert, insertIndex, 'enemy-hand', 'open');
-            $('#yourHand').addClass('highlight-hand');
-            $('#enemyHand').removeClass('highlight-hand');
+            $('#my-username').addClass('player-turn');
+            $('#enemy-username').removeClass('player-turn');
             $('#pick-array').removeClass('pick-inactive');
             dealer.addClass('highlight-dealer');
 
@@ -213,15 +213,7 @@ $(document).ready(function() {
 
     // EVENT LISTENERS
 
-    readyButton.click(() => {
-        if(!ready) {
-            ready = true;
-        } else {
-            ready = false;
-        }
-        globals.socket.emit('readyConfirmation', { ready: ready });
-    });
-
+    Helpers.addReadyButtonEventListener();
     Helpers.addDealerEventListener();
     Helpers.addButtonEventListeners();
 });
