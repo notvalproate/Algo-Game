@@ -2,7 +2,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const favicon = require('serve-favicon');
 require('dotenv').config();
 
 
@@ -28,8 +27,6 @@ var roomsHandler = new RoomListHandler();
 // Middleware
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, '/static')));
-app.use(favicon(path.join(__dirname, 'static', 'favicon.ico')));
-
 
 
 // View engine and views path
