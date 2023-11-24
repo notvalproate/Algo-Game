@@ -186,6 +186,7 @@ footer {
 
 /* Waiting Lobby */
 .lobby {
+    position: fixed;
     margin-top: 10vh;
     width: 100vw;
     height: 80vh;
