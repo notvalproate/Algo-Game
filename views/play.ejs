@@ -28,7 +28,7 @@
 <section class="desk">
     <section class="inner-desk">
         <div class="hand-container enemy-hand-container">
-            <h2 class="user-name" id="enemy-username"></h2>
+            <h2 class="user-name" id="enemy-username"><%= enemyUsername %></h2>
             <div class="deck" id="enemyHand">
             </div>
         </div>
@@ -65,15 +65,7 @@
 
 
 <!-- Scripts -->
-<script>
-    const numberOfPlayersReady = '<%= numberOfPlayersReady %>'
-    const enemyUsername = '<%= enemyUsername %>'
-    const username = '<%= username %>';
-    const roomKey = '<%= roomKey %>';
-</script>
-
 <script src="/js/browserifyBundles/algoCardBundle.js"></script>
-<script src="/js/browserifyBundles/ejsBundle.js"></script>
 <script src="/js/play.js" type="module"></script>
 
 <%- include('./partials/_footer'); %>

@@ -1,6 +1,8 @@
 // Imports
 const express = require('express');
 const compression = require('compression');
+const helmet = require('helmet');
+const permissionsPolicy = require("permissions-policy");
 const bodyParser = require('body-parser');
 const path = require('path');
 require('dotenv').config();
@@ -23,9 +25,27 @@ const io = require('socket.io')(socket_server);
 
 var roomsHandler = new RoomListHandler();
 
-
 // Middleware
 app.disable('x-powered-by'); 
+app.use(helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: [
+          "'self'",
+          'https://cdn.jsdelivr.net',
+          'https://kit.fontawesome.com',
+          'https://cdnjs.cloudflare.com',
+        ],
+        connectSrc: ["'self'", 'https://ka-f.fontawesome.com'],
+      },
+    },
+}));
+app.use(permissionsPolicy({
+    features: {
+        fullscreen: ["self"],
+    },
+}));
 app.use(compression());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, '/public')));

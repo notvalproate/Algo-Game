@@ -1,12 +1,12 @@
 const { AlgoCard } = require("algoCard");
 const { ObjectArray_to_AlgoCardArray } = require("algoCard");
-const ejs = require('ejs');
 
 // IMPORTS
 import * as Animations from './animations.js';
 import * as CardDivManager from './cardcreation.js';
 import * as Helpers from './helpers.js';
 import * as CalloutHandler from './callout.js';
+
 
 var myHand = [];
 var enemyHand = [];
@@ -32,6 +32,10 @@ $(document).ready(function() {
     const enemy = $('#enemy');
     const dealer = $('#dealer');
 
+    const roomKey = $('#roomkey').html();
+    const username = $('#you').html();
+    const numberOfPlayersReady = parseInt($('#ready-count').html());
+    
     if(numberOfPlayersReady == 1) {
         enemy.addClass('player-ready');
     }
