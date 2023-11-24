@@ -19,13 +19,13 @@ CHAT:
 
 [Ian] - [23-11-23 ; 0007Hrs]
    -> Almost modularized play.js completely. yet to modularize socket.io.
-   -> need to create socket emits for holding/attacking before we implement the front end modal/icons for that.
 
-[Ian] - [23-11-23 ; 2051Hrs]
-   -> Need to fix the fact that in the waiting lobby, you can scroll down where there is nothing there. The game desk is taking up space with \
-      0 opacity. need to somehow make it's display none and then its display back to flex when animation needed. issue is doing that didnt
-      work for me since animation didnt play idk.
-
+[Ian] - [25-11-23 ; 0238Hrs]
+   -> Added server side socket event for handling either attack or hold event. It takes in an object with one field called 'decision' which \
+      should be set to either 'attack' or 'hold' in the front-end. Just need to implement a front-end modal with two options, one to attack, \
+      and one to hold. Use it as such, Ex for attack: globals.socket.emit('attackOrHold', { decision: 'attack' }); \
+      During this process, create a Halt variable that is set to true that rejects clicks in all event handlers as to not allow the player \
+      to just change display to none for the modal and continue playing. halt should be set to false only after the attackOrHold emit is made.
 }
 
 

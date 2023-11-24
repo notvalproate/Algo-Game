@@ -89,10 +89,14 @@ io.on('connection', (socket) => {
 
     socket.on('buttonClicked', (data) => {
         socketHandler.updateButtonClicked(data);
-    })
+    });
 
     socket.on('playMove', (data) => {
         socketHandler.playMove(data);
+    });
+
+    socket.on('attackOrHold', (data) => {
+        socketHandler.handleAttackOrHold(data);
     });
 
     socketHandler.emitLobbyUpdate();

@@ -127,6 +127,16 @@ class SocketHandler {
         }
     }
 
+    handleAttackOrHold(data) {
+        const decision = data.decision;
+
+        if(decision === 'attack') {
+            this.socket.broadcast.to(this.roomKey).emit('enemyAttack');
+        } else {            
+            this.socket.broadcast.to(this.roomKey).emit('enemyHold');
+        }
+    }
+
 
     // io Emits
     emitLobbyUpdate() {
