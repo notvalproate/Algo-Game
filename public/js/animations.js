@@ -3,12 +3,12 @@
 import * as Helpers from './helpers.js';
 
 async function drawCardAnimation(cardDiv, card) {
-    const dealerOffset = $('#dealer').offset();
+    const dealtCardOffset = $('#dealt-card').offset();
     const cardOffset = cardDiv.offset();
 
     const translateVector = {
-        Y: dealerOffset.top - cardOffset.top,
-        X: dealerOffset.left - cardOffset.left
+        Y: dealtCardOffset.top - cardOffset.top,
+        X: dealtCardOffset.left - cardOffset.left
     };
 
     defineDrawAnimation(cardDiv, card, translateVector)
@@ -30,7 +30,7 @@ async function drawCardAnimation(cardDiv, card) {
 }
 
 async function defineDrawAnimation(cardDiv, card, translateVector) {
-    if(cardDiv.hasClass('your-hand')) {
+    if(cardDiv.hasClass('my-card')) {
         $.keyframe.define({
             name: `draw-${card.getColor()}-${card.getNumber()}`,
             '100%': {

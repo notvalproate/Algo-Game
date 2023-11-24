@@ -185,7 +185,7 @@ footer {
 /*play.ejs page stuff */
 
 /* Waiting Lobby */
-.board{
+.lobby {
     margin-top: 10vh;
     width: 100vw;
     height: 80vh;
@@ -295,7 +295,7 @@ footer {
 
 
 /* Cards Desk */
-.desk{
+.desk-wrapper {
     height: 100vh;
     width: 100vw;
     display: flex;
@@ -314,7 +314,7 @@ footer {
     transform: scale(100%);
 } /* JS Controlled Class*/
 
-.user-name {
+.username {
     transform: scale(65%);
     font-size: 5vh;
     font-weight: 400;
@@ -322,7 +322,7 @@ footer {
     transition: 0.5s cubic-bezier(.42,0,.04,.99);
 }
 
-.inner-desk{
+.desk {
     background-color: var(--backgroundColor);
     margin-top: 3.5vh;
     height: 80vh;
@@ -335,7 +335,7 @@ footer {
     font-family: 'Urbanist', sans-serif;
 }
 
-.deck{
+.hand {
     width: auto;
     gap: 15px;
     padding: 0px 20px;
@@ -345,11 +345,11 @@ footer {
     transition: 0.3s linear;
 }
 
-#yourHand {
+#my-hand {
     pointer-events: none;
 }
 
-.pick-deck{
+.draw-pile {
     padding: 20px;
     background-color: var(--backgroundColor);
     display: flex;
@@ -400,13 +400,13 @@ footer {
     box-shadow: 0px 0px 40px rgb(255, 60, 0);
 } /*JS Controlled Class*/
 
-.highlight-dealer {
+.highlight-dealt-card {
     box-shadow: 0px 0px 30px rgb(108, 201, 255);
 }
 
 /* Picking */
 
-.pick-array {
+.guess-array {
     z-index: 999;
     height: 7vh;
     display: flex;
@@ -415,13 +415,13 @@ footer {
     user-select: none;
 }
 
-.pick-button {
+.guess-button {
     box-sizing: border-box;
     font-family: 'Urbanist', sans-serif;
     -webkit-border-radius: 10;
     -moz-border-radius: 10;
     border: none;
-    border-radius: 10px;
+    border-radius: 1vh;
     color: #000000;
     width: 8vh;
     height: 8vh;
@@ -433,20 +433,20 @@ footer {
     transition: 0.2s linear;
 }
 
-.pick-button:hover {
+.guess-button:hover {
     cursor: pointer;
     background: #d6d6d6;
     text-decoration: none;
 }
 
-.pick-inactive {
+.guess-array-inactive {
     transform: scale(50%);
     opacity: 50%;
     transform-origin: 50% 0;
     pointer-events: none;
 }
 
-.button-selected {
+.guess-button-selected {
     box-shadow: 0px 0px 20px rgb(108, 201, 255);
 }
 
@@ -484,11 +484,11 @@ footer {
     left: 0;
     position: absolute;
     padding: 2vh;
-    height: 5vh;   
-    width: 5vh;
-    border-radius: 1vh;
+    height: 4vh;   
+    width: 4vh;
+    border-radius: 0.5vh;
     box-sizing: border-box;
-    font-size: 3vh;
+    font-size: 2vh;
     font-weight: 600;
     display: flex;
     align-items:center;

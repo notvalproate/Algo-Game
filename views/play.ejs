@@ -4,13 +4,13 @@
     <h1 class="title">Lobby</h1>
 </header>
 
-<section class="board">
+<section class="lobby">
     <div class="key">
-        <img src="icons/key_logo.png" alt="Key:">
-        <h2 id="roomkey"><%= roomKey %></h2>
+        <img src="icons/key_logo.png" alt="Key">
+        <h2 id="room-key"><%= roomKey %></h2>
     </div>
     <div class="player-display">
-        <div class="players" id="you"><%= username %></div>
+        <div class="players" id="me"><%= username %></div>
         <div class="versus">
             <h1 class="vvv">V</h1>
             <div class="versus-block"></div>
@@ -25,37 +25,37 @@
     </button>
 </section>
 
-<section class="desk">
-    <section class="inner-desk">
+<section class="desk-wrapper">
+    <section class="desk">
         <div class="hand-container enemy-hand-container">
-            <h2 class="user-name" id="enemy-username"><%= enemyUsername %></h2>
-            <div class="deck" id="enemyHand">
+            <h2 class="username" id="enemy-username"><%= enemyUsername %></h2>
+            <div class="hand" id="enemy-hand">
             </div>
         </div>
 
-        <div class="pick-deck" id="pickDeck">
-            <div class="card open" id="dealer"></div>
+        <div class="draw-pile">
+            <div class="card open" id="dealt-card"></div>
         </div>
 
         <div class="hand-container my-hand-container">
-            <div class="deck" id="yourHand">
+            <div class="hand" id="my-hand">
             </div>
-            <h2 class="user-name" id="my-username"><%= username %></h2>
+            <h2 class="username" id="my-username"><%= username %></h2>
         </div>
     </section>
-    <section class="pick-array" id="pick-array">
-        <button class="pick-button">0</button>
-        <button class="pick-button">1</button>
-        <button class="pick-button">2</button>
-        <button class="pick-button">3</button>
-        <button class="pick-button">4</button>
-        <button class="pick-button">5</button>
-        <button class="pick-button">6</button>
-        <button class="pick-button">7</button>
-        <button class="pick-button">8</button>
-        <button class="pick-button">9</button>
-        <button class="pick-button">10</button>
-        <button class="pick-button">11</button>
+    <section class="guess-array">
+        <button class="guess-button">0</button>
+        <button class="guess-button">1</button>
+        <button class="guess-button">2</button>
+        <button class="guess-button">3</button>
+        <button class="guess-button">4</button>
+        <button class="guess-button">5</button>
+        <button class="guess-button">6</button>
+        <button class="guess-button">7</button>
+        <button class="guess-button">8</button>
+        <button class="guess-button">9</button>
+        <button class="guess-button">10</button>
+        <button class="guess-button">11</button>
     </section>
 </section>
 

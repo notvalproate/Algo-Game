@@ -14,7 +14,7 @@ function displayCallout(index, color, value) {
         calloutDiv.addClass(color);
         calloutDiv.html(value);
 
-        $($('.your-hand')[index]).prepend(calloutDiv);
+        $($('.my-card')[index]).prepend(calloutDiv);
         
         Animations.hoverCalloutAnimation(calloutDiv);
     }

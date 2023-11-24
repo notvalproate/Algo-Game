@@ -10,14 +10,14 @@ function invertColor(color){
 }
 
 function setDeckTopDiv(card) {
-    let dealer = $('#dealer');
+    let dealtCard = $('#dealt-card');
     if(card.getNumber() !== null) {
-        dealer.html(card.getNumber());
+        dealtCard.html(card.getNumber());
     } else {
-        dealer.html("");
+        dealtCard.html("");
     }
 
-    dealer.css({
+    dealtCard.css({
         "background-color": card.getColor(),
         "color": invertColor(card.getColor()),
     });
@@ -35,14 +35,14 @@ function addReadyButtonEventListener() {
 }
 
 function addButtonEventListeners() {
-    const buttons = $('.pick-button');
+    const buttons = $('.guess-button');
 
     for(let i = 0; i < 12; i++) {
         $(buttons[i]).click(() => {
             if(globals.myTurn) {
-                $(buttons[globals.myGuessValue]).removeClass('button-selected');
+                $(buttons[globals.myGuessValue]).removeClass('guess-button-selected');
                 globals.myGuessValue = i;
-                $(buttons[globals.myGuessValue]).addClass('button-selected');
+                $(buttons[globals.myGuessValue]).addClass('guess-button-selected');
 
                 globals.socket.emit('buttonClicked', { buttonValue: globals.myGuessValue });
             }
@@ -50,15 +50,15 @@ function addButtonEventListeners() {
     }
 }
 
-function addDealerEventListener() {
-    const dealer = $('#dealer');
+function addDealtCardEventListener() {
+    const dealtCard = $('#dealt-card');
 
     // SEE A MORE ELEGANT SOLUTION TO THIS PLS IM TOO LAZY
-    dealer.css({
+    dealtCard.css({
         'z-index': '10',
     })
 
-    dealer.click(() => {
+    dealtCard.click(() => {
         if(globals.myTurn) {
             globals.socket.emit('playMove', { guessTarget: globals.selectedCard, guessValue: globals.myGuessValue });
         }
@@ -70,5 +70,5 @@ export {
     setDeckTopDiv,
     addReadyButtonEventListener,
     addButtonEventListeners,
-    addDealerEventListener,
+    addDealtCardEventListener,
 }

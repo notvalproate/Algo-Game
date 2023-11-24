@@ -5,11 +5,11 @@ import * as Animations from './animations.js';
 
 function createInitialHands(myHand, enemyHand) {
     for(let i = 0; i < myHand.length; i++) {
-        createAndAnimateCardDiv(myHand[i], i, 'your-hand', 'closed');
+        createAndAnimateCardDiv(myHand[i], i, 'my', 'closed');
     }
 
     for(let i = 0; i < enemyHand.length; i++) {
-        createAndAnimateCardDiv(enemyHand[i], i, 'enemy-hand', 'closed');
+        createAndAnimateCardDiv(enemyHand[i], i, 'enemy', 'closed');
     }
 }
 
@@ -18,7 +18,7 @@ function createAndAnimateCardDiv(card, pos, hand, state) {
 
     addCardDivToHand(cardDiv, pos, hand);
 
-    if(hand === 'enemy-hand') {
+    if(hand === 'enemy') {
         updateEnemyHandEventListeners(pos);
     }
 
@@ -36,27 +36,27 @@ function createCardDiv(card, state) {
 }
 
 function addCardDivToHand(cardDiv, pos, hand) {
-    const handDivs = $(`.${hand}`);
-    const handLength = handDivs.length;
+    const cardDivsInHand = $(`.${hand}-card`);
+    const numOfCards = cardDivsInHand.length;
 
-    cardDiv.addClass(hand);
+    cardDiv.addClass(`${hand}-card`);
 
-    if(pos === handLength) {
-        let parentDiv = $('#yourHand');
-        if(hand === 'enemy-hand') {
-            parentDiv = $('#enemyHand');
+    if(pos === numOfCards) {
+        let parentDiv = $('#my-hand');
+        if(hand === 'enemy') {
+            parentDiv = $('#enemy-hand');
         }
         parentDiv.append(cardDiv);
     } else {
-        $(handDivs[pos]).before(cardDiv);
+        $(cardDivsInHand[pos]).before(cardDiv);
     }
 }
 
 function updateEnemyHandEventListeners(pos) {
-    const handDivs = $(".enemy-hand");
+    const cardDivsInHand = $(".enemy-card");
 
-    for(let i = pos; i < handDivs.length; i++) {
-        const cardDiv = $(handDivs[i]);
+    for(let i = pos; i < cardDivsInHand.length; i++) {
+        const cardDiv = $(cardDivsInHand[i]);
         
         if(cardDiv.hasClass('open')) {
             continue;
@@ -64,7 +64,7 @@ function updateEnemyHandEventListeners(pos) {
 
         cardDiv.click(() => {
             if(globals.myTurn) {
-                const selectedCardDiv = $($(".enemy-hand")[globals.selectedCard]);
+                const selectedCardDiv = $($(".enemy-card")[globals.selectedCard]);
     
                 selectedCardDiv.removeClass('selected');
                 cardDiv.addClass('selected');
