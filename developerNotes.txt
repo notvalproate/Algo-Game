@@ -20,12 +20,14 @@ CHAT:
 [Ian] - [23-11-23 ; 0007Hrs]
    -> Almost modularized play.js completely. yet to modularize socket.io.
 
-[Ian] - [25-11-23 ; 0238Hrs]
+[Ian] - [25-11-23 ; 0244Hrs]
    -> Added server side socket event for handling either attack or hold event. It takes in an object with one field called 'decision' which \
       should be set to either 'attack' or 'hold' in the front-end. Just need to implement a front-end modal with two options, one to attack, \
       and one to hold. Use it as such, Ex for attack: globals.socket.emit('attackOrHold', { decision: 'attack' }); \
       During this process, create a Halt variable that is set to true that rejects clicks in all event handlers as to not allow the player \
       to just change display to none for the modal and continue playing. halt should be set to false only after the attackOrHold emit is made.
+   -> The enemy will also see a modal that shows waiting for opponent's decision or something, and once the opponent makes the decision, the \
+      server does one of two emits, 'enemyAttack' or 'enemyHold'. Appropriate animations should be done on these events.
 }
 
 
