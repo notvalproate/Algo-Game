@@ -1,8 +1,7 @@
 // Imports
 const express = require('express');
-const bodyParser = require('body-parser');
-const helmet = require('helmet');
 const compression = require('compression');
+const bodyParser = require('body-parser');
 const path = require('path');
 require('dotenv').config();
 
@@ -19,9 +18,7 @@ const PORT = process.env.PORT;
 // Server Setup
 const app = express();
 const socket_server = require('http').Server(app);
-const io = require('socket.io')(socket_server, {
-    transports: ['websocket'],
-});
+const io = require('socket.io')(socket_server);
 
 
 var roomsHandler = new RoomListHandler();
@@ -30,7 +27,6 @@ var roomsHandler = new RoomListHandler();
 // Middleware
 app.disable('x-powered-by'); 
 app.use(compression());
-app.use(helmet());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, '/public')));
 
