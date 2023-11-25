@@ -51,7 +51,7 @@ app.get('/:roomKey/play', (req, res) => {
 
 
 // POST routes
-app.post('/', (req, res) => {
+app.post('/play', (req, res) => {
     const roomKey = req.body.roomKey;
     const username = req.body.username;
     const roomToJoin = roomsHandler.getRoom(roomKey);

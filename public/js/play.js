@@ -31,7 +31,6 @@ $(document).ready(function() {
     const readyButton = $('#ready-button');
     const me = $('#me');
     const enemy = $('#enemy');
-    const dealtCard = $('#dealt-card');
 
     const roomKey = $('#room-key').html();
     globals.username = $('#me').html();
