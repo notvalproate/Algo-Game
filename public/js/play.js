@@ -14,6 +14,7 @@ var enemyHand = [];
 var buttonValue = 0;
 
 var globals = {
+    username: undefined,
     socket: undefined,
     myTurn: undefined,
     ready: false,
@@ -33,7 +34,7 @@ $(document).ready(function() {
     const dealtCard = $('#dealt-card');
 
     const roomKey = $('#room-key').html();
-    const username = $('#me').html();
+    globals.username = $('#me').html();
     const numberOfPlayersReady = parseInt($('#ready-count').html());
     
     if(numberOfPlayersReady == 1) {
@@ -48,25 +49,17 @@ $(document).ready(function() {
 
     globals.socket = io({
         query: {
-            username: username,
+            username: globals.username,
             roomKey: roomKey,
         }
     });
 
-    globals.socket.on('lobbyUpdate', (roomData) => {
-        if(roomData.users.length === 2) {
-            var enemyuser = roomData.users[0].username;
-            if(enemyuser === username) {
-                enemyuser = roomData.users[1].username;
-            }
-            $('#enemy').html(enemyuser);
-            $('#enemy-username').html(enemyuser);
-        }
-        else {
-            $('#enemy').html('...');
-        }
+    globals.socket.on('lobbyUpdate', (data) => {
+        const usernames = data.usernames;
+        Helpers.setEnemyUsername(usernames);
     });
 
+    // want to refactor this later, looks very ugly
     globals.socket.on('readyUpdate', (data) => {
         $('#ready-count').html(data.readyCount);
 
@@ -75,7 +68,7 @@ $(document).ready(function() {
         if(data.userList.length !== 1) {
             var enemyUser = data.userList[1];
 
-            if(youUser.username !== username) {
+            if(youUser.username !== globals.username) {
                 [youUser, enemyUser] = [enemyUser, youUser];
             }
 
@@ -99,22 +92,9 @@ $(document).ready(function() {
         }
     });
 
+
     globals.socket.on('startGame', (data) => {
-        $("header").addClass("header-out");
-        $("footer").addClass("footer-out");
-        $(".lobby").addClass("fade-out");
-
-        setInterval(() => {
-            $("header").addClass("display-none");
-            $("footer").addClass("display-none");
-            $(".lobby").addClass("display-none");
-
-            $(".desk-wrapper").addClass("fade-in");
-            
-            globals.ready = false;
-            enemy.removeClass('player-ready');
-            me.removeClass('player-ready');
-        }, 1400);
+        Helpers.applyGameStartTransition();
 
         globals.myTurn = data.yourTurn;
         globals.deckTop = new AlgoCard(data.deckTop.number, data.deckTop.color);
@@ -128,21 +108,18 @@ $(document).ready(function() {
         CardDivManager.createInitialHands(myHand, enemyHand);
 
         if(globals.myTurn) {
-            $('#my-username').addClass('player-turn');
-            dealtCard.addClass('highlight-dealt-card');
+            Helpers.applyTransitionToMyTurn();
         } else {
-            $('#enemy-username').addClass('player-turn');
-            $('.enemy-hand-container').addClass('no-pointer-events');
-            $('.guess-array').addClass('guess-array-inactive');
+            Helpers.applyTransitionToEnemyTurn();
         }
     });
 
     globals.socket.on('highlightCard', (data) => {
-        var myHandDiv = document.querySelectorAll('.my-card');
+        let myCardDivs = document.querySelectorAll('.my-card');
 
-        myHandDiv[globals.selectedCard].classList.remove('selected');
+        myCardDivs[globals.selectedCard].classList.remove('selected');
         globals.selectedCard = data.index;
-        myHandDiv[globals.selectedCard].classList.add('selected');
+        myCardDivs[globals.selectedCard].classList.add('selected');
         
         CalloutHandler.displayCallout(globals.selectedCard, myHand[globals.selectedCard].getColor(), buttonValue);
     });
@@ -155,21 +132,21 @@ $(document).ready(function() {
     globals.socket.on('correctMove', (data) => {
         globals.myTurn = data.yourTurn;
         var index = data.guessTarget;
-        var enemyHandDivs = $('.enemy-card');
-        var myHandDivs = $('.my-card');
+        var enemyCardDivs = $('.enemy-card');
+        let myCardDivs = $('.my-card');
 
         if(globals.myTurn) {
-            Animations.highlightFadeOutTo('correct', enemyHandDivs[index])
+            Animations.highlightFadeOutTo('correct', enemyCardDivs[index])
 
-            $(enemyHandDivs[index]).html(globals.myGuessValue);
-            $(enemyHandDivs[index]).addClass('open');
+            $(enemyCardDivs[index]).html(globals.myGuessValue);
+            $(enemyCardDivs[index]).addClass('open');
 
             Animations.flipCardAnimation($($('.enemy-card')[index]), enemyHand[index]);
         } else {
-            $(myHandDivs[index]).removeClass('closed');
-            $(myHandDivs[index]).addClass('open');
+            $(myCardDivs[index]).removeClass('closed');
+            $(myCardDivs[index]).addClass('open');
 
-            Animations.highlightFadeOutTo('correct', myHandDivs[index]);
+            Animations.highlightFadeOutTo('correct', myCardDivs[index]);
         }
     });
 
@@ -184,24 +161,17 @@ $(document).ready(function() {
 
             myHand.splice(insertIndex, 0, cardToInsert);
             CardDivManager.createAndAnimateCardDiv(cardToInsert, insertIndex, 'my', 'open');
-            $('#my-username').removeClass('player-turn');
-            $('#enemy-username').addClass('player-turn');
-            $('.enemy-hand-container').addClass('no-pointer-events');
-            $('.guess-array').addClass('guess-array-inactive');
-            dealtCard.removeClass('highlight-dealt-card');
+            
+            Helpers.applyTransitionToEnemyTurn();
         } else {
             Animations.highlightFadeOutTo('wrong', $('.my-card')[globals.selectedCard]);
 
             cardToInsert.setNumber(data.value);
             enemyHand.splice(insertIndex, 0, cardToInsert);
             CardDivManager.createAndAnimateCardDiv(cardToInsert, insertIndex, 'enemy', 'open');
-            $('#my-username').addClass('player-turn');
-            $('#enemy-username').removeClass('player-turn');
-            $('.enemy-hand-container').removeClass('no-pointer-events');
-            $('.guess-array').removeClass('guess-array-inactive');
-            dealtCard.addClass('highlight-dealt-card');
-
             CalloutHandler.removeCallout();
+
+            Helpers.applyTransitionToMyTurn();
         }
 
         Helpers.setDeckTopDiv(nextDeckTop);
@@ -211,6 +181,7 @@ $(document).ready(function() {
     globals.socket.on('gameEnded', (data) => {
         var wonGame = data.wonGame;
 
+        // Send back to the lobby instead after playing a win or lose animation
         if(wonGame) {
             console.log('nice you win');
         } else {

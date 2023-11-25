@@ -140,7 +140,10 @@ class SocketHandler {
 
     // io Emits
     emitLobbyUpdate() {
-        SocketHandler.io.to(this.roomKey).emit('lobbyUpdate', this.room);
+        const userList = this.room.getUsers();
+        let otherUser = null;
+        if(userList.length === 2) { otherUser = userList[1].username; }
+        SocketHandler.io.to(this.roomKey).emit('lobbyUpdate', { usernames: [userList[0].username, otherUser] });
     }
 
     emitReadyUpdate() {

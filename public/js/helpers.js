@@ -2,6 +2,9 @@
 
 import { globals } from "./play.js";
 
+
+// MISC HELPERS
+
 function invertColor(color){
     if(color == 'black'){
         return 'white';
@@ -22,6 +25,9 @@ function setDeckTopDiv(card) {
         "color": invertColor(card.getColor()),
     });
 }
+
+
+// EVENT LISTENER HELPERS
 
 function addReadyButtonEventListener() {
     $('#ready-button').click(() => {
@@ -65,10 +71,72 @@ function addDealtCardEventListener() {
     });
 }
 
+
+// DATA SETTINGS HELPERS
+
+function setEnemyUsername(usernames) {
+    let enemyUser = usernames[0];
+    if(enemyUser === globals.username) {
+        enemyUser = usernames[1];
+    }
+
+    if(enemyUser === null) {
+        $('#enemy').html('...');
+        return;
+    }
+    
+    $('#enemy').html(enemyUser);
+    $('#enemy-username').html(enemyUser);
+}
+
+
+// CSS CLASS MANAGING HELPERS
+
+function applyGameStartTransition() {
+    $("header").addClass("header-out");
+    $("footer").addClass("footer-out");
+    $(".lobby").addClass("fade-out");
+
+    setInterval(() => {
+        $("header").addClass("display-none");
+        $("footer").addClass("display-none");
+        $(".lobby").addClass("display-none");
+
+        $(".desk-wrapper").addClass("fade-in");
+            
+        globals.ready = false;
+        $('#enemy').removeClass('player-ready');
+        $('#me').removeClass('player-ready');
+    }, 1400);
+}
+
+function applyTransitionToEnemyTurn() {
+    $('#my-username').removeClass('player-turn');
+    $('#enemy-username').addClass('player-turn');
+    $('.enemy-hand-container').addClass('no-pointer-events');
+    $('.guess-array').addClass('guess-array-inactive');
+    $('#dealt-card').removeClass('highlight-dealt-card');
+}
+
+function applyTransitionToMyTurn() {
+    $('#my-username').addClass('player-turn');
+    $('#enemy-username').removeClass('player-turn');
+    $('.enemy-hand-container').removeClass('no-pointer-events');
+    $('.guess-array').removeClass('guess-array-inactive');
+    $('#dealt-card').addClass('highlight-dealt-card');
+}
+
 export {
     invertColor,
     setDeckTopDiv,
+
     addReadyButtonEventListener,
     addButtonEventListeners,
     addDealtCardEventListener,
+
+    setEnemyUsername,
+
+    applyGameStartTransition,
+    applyTransitionToEnemyTurn,
+    applyTransitionToMyTurn,
 }
