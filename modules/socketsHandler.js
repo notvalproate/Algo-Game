@@ -99,7 +99,7 @@ class SocketHandler {
     }
 
 
-    playMove(data) {
+    handleAttack(data) {
         if(!this.room.getActiveTurn(this.username)) {
             return;
         }
@@ -127,14 +127,12 @@ class SocketHandler {
         }
     }
 
-    handleAttackOrHold(data) {
-        const decision = data.decision;
+    handleHold() {
+        const insertIndex = this.room.holdDeckTop();
+        const [hiddenDeckTop, visibleDeckTop] =  this.room.getHiddenAndVisibleDeckTop();
 
-        if(decision === 'attack') {
-            this.socket.broadcast.to(this.roomKey).emit('enemyAttack');
-        } else {            
-            this.socket.broadcast.to(this.roomKey).emit('enemyHold');
-        }
+        this.socket.emit('cardHeld', { yourTurn: false, insertIndex: insertIndex, nextDeckTop: hiddenDeckTop });
+        this.socket.broadcast.to(this.roomKey).emit('cardHeld', { yourTurn: true, insertIndex: insertIndex, nextDeckTop: visibleDeckTop });
     }
 
 

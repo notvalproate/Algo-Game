@@ -69,6 +69,14 @@ class Game {
         return [false, indexInsertedAt, deckTopValue, wonGame];
     }
 
+    holdDeckTop() {
+        const insertIndex = this.insertDeckTopToActiveUser();
+
+        this.switchTurns();
+
+        return insertIndex;
+    }
+
     getGameSetup(username) {
         var yourHand =  ObjectArray_to_AlgoCardArray( deepCopy (this.players[0].hand) );
         var enemyHand = ObjectArray_to_AlgoCardArray( deepCopy (this.players[1].hand) );

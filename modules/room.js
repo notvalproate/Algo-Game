@@ -34,6 +34,10 @@ class Room {
         return this.game.makeGuess(target, value);
     }
 
+    holdDeckTop() {
+        return this.game.holdDeckTop();
+    }
+
     // SETTERS
 
     setReady(username, readyStatus) {

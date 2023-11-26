@@ -154,7 +154,7 @@ $(document).ready(function() {
     globals.socket.on('wrongMove', (data) => {
         const nextDeckTop = new AlgoCard(data.nextDeckTop.number, data.nextDeckTop.color);
         const insertIndex = data.insertIndex;
-        var cardToInsert = globals.deckTop;
+        let cardToInsert = globals.deckTop;
         globals.myTurn = data.yourTurn;
 
         if(!globals.myTurn) {
@@ -179,6 +179,32 @@ $(document).ready(function() {
         globals.deckTop = nextDeckTop;
     });
 
+    globals.socket.on('cardHeld', (data) => {        
+        const nextDeckTop = new AlgoCard(data.nextDeckTop.number, data.nextDeckTop.color);
+        const insertIndex = data.insertIndex;
+        const cardToInsert = globals.deckTop;
+        globals.myTurn = data.yourTurn;
+
+        if(!globals.myTurn) {
+            myHand.splice(insertIndex, 0, cardToInsert);           
+            CardDivManager.createAndAnimateCardDiv(cardToInsert, insertIndex, 'my', 'open');
+            Helpers.closeCard(insertIndex);
+            Helpers.removeHighlightFrom($('.enemy-card')[globals.selectedCard]);
+
+            Helpers.applyTransitionToEnemyTurn();
+        } else {            
+            enemyHand.splice(insertIndex, 0, cardToInsert);
+            CardDivManager.createAndAnimateCardDiv(cardToInsert, insertIndex, 'enemy', 'closed');
+            CalloutHandler.removeCallout();
+            Helpers.removeHighlightFrom($('.my-card')[globals.selectedCard]);
+
+            Helpers.applyTransitionToMyTurn();
+        }
+        
+        Helpers.setDeckTopDiv(nextDeckTop);
+        globals.deckTop = nextDeckTop;
+    })
+
     globals.socket.on('gameEnded', (data) => {
         var wonGame = data.wonGame;
 
@@ -189,6 +215,7 @@ $(document).ready(function() {
             console.log('loser');
         }
     });
+
 
     // EVENT LISTENERS
 

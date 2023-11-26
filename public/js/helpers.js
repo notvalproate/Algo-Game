@@ -59,7 +59,13 @@ function addButtonEventListeners() {
 function addDecisionsEventListener() {
     $('.attack').click(() => {
         if(globals.myTurn) {
-            globals.socket.emit('playMove', { guessTarget: globals.selectedCard, guessValue: globals.myGuessValue });
+            globals.socket.emit('attackMove', { guessTarget: globals.selectedCard, guessValue: globals.myGuessValue });
+        }
+    });
+
+    $('.hold').click(() => {
+        if(globals.myTurn) {
+            globals.socket.emit('holdMove');
         }
     });
 }
@@ -123,6 +129,18 @@ function applyTransitionToMyTurn() {
     $('.decision-wrapper').removeClass('decision-fade-away');
 }
 
+function closeCard(index) {
+    const cardToClose = $($('.my-card')[index]);
+    setTimeout(() => {
+        cardToClose.addClass('closed');
+        cardToClose.removeClass('open');
+    }, 500);
+}
+
+function removeHighlightFrom(cardDiv) {
+    $(cardDiv).removeClass('selected');
+}
+
 export {
     invertColor,
     setDeckTopDiv,
@@ -136,4 +154,7 @@ export {
     applyGameStartTransition,
     applyTransitionToEnemyTurn,
     applyTransitionToMyTurn,
+
+    closeCard,
+    removeHighlightFrom,
 }

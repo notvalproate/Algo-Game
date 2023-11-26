@@ -91,12 +91,12 @@ io.on('connection', (socket) => {
         socketHandler.updateButtonClicked(data);
     });
 
-    socket.on('playMove', (data) => {
-        socketHandler.playMove(data);
+    socket.on('attackMove', (data) => {
+        socketHandler.handleAttack(data);
     });
 
-    socket.on('attackOrHold', (data) => {
-        socketHandler.handleAttackOrHold(data);
+    socket.on('holdMove', () => {
+        socketHandler.handleHold();
     });
 
     socketHandler.emitLobbyUpdate();
