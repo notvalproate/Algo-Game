@@ -358,6 +358,14 @@ footer {
     align-items: center;
 }
 
+.dealt-card-class {
+    z-index: 10 !important;
+}
+
+.dealt-card-class:hover {
+    cursor: default !important;
+}
+
 .card{
     position: relative;
     padding-top: 11vh;

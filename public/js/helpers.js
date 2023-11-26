@@ -56,15 +56,8 @@ function addButtonEventListeners() {
     }
 }
 
-function addDealtCardEventListener() {
-    const dealtCard = $('#dealt-card');
-
-    // SEE A MORE ELEGANT SOLUTION TO THIS PLS IM TOO LAZY
-    dealtCard.css({
-        'z-index': '10',
-    })
-
-    dealtCard.click(() => {
+function addDecisionsEventListener() {
+    $('.attack').click(() => {
         if(globals.myTurn) {
             globals.socket.emit('playMove', { guessTarget: globals.selectedCard, guessValue: globals.myGuessValue });
         }
@@ -136,7 +129,7 @@ export {
 
     addReadyButtonEventListener,
     addButtonEventListeners,
-    addDealtCardEventListener,
+    addDecisionsEventListener,
 
     setEnemyUsername,
 

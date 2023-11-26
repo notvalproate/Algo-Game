@@ -193,6 +193,6 @@ $(document).ready(function() {
     // EVENT LISTENERS
 
     Helpers.addReadyButtonEventListener();
-    Helpers.addDealtCardEventListener();
+    Helpers.addDecisionsEventListener();
     Helpers.addButtonEventListeners();
 });
