@@ -139,6 +139,8 @@ $(document).ready(function() {
 
             $(enemyCardDivs[index]).html(globals.myGuessValue);
             $(enemyCardDivs[index]).addClass('open');
+            $('.attack').addClass('decision-inactive');
+            $('.hold').removeClass('decision-inactive');
 
             Animations.flipCardAnimation($($('.enemy-card')[index]), enemyHand[index]);
         } else {

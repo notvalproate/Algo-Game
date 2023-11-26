@@ -306,7 +306,6 @@ footer {
     align-items: center;
     transform: scale(50%);
     opacity: 0%;
-    background-color: var(--backgroundColour);
     transition: 0.8s cubic-bezier(.36,-0.23,.1,1.01);
 }
 
@@ -351,6 +350,7 @@ footer {
 }
 
 .draw-pile {
+    position: relative;
     padding: 20px;
     background-color: var(--backgroundColor);
     display: flex;
@@ -515,3 +515,50 @@ footer {
 .visibility-hidden {
     visibility: hidden;
 } /* JS Controlled Class */
+
+
+/* ATTACK AND HOLD */
+
+.decision-wrapper {
+    position: absolute;
+    top: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translate(0%, -50%);
+    cursor: pointer;
+    transition: 0.4s cubic-bezier(.42,0,.04,.99);
+}
+
+.decision-wrapper:hover {
+    transform: translate(0%, -50%) scale(120%);
+    font-weight: 600;
+}
+
+.decision-image {
+    width: 11vh;
+    height: 11vh;
+}
+
+.attack {
+    left: -100%;
+}
+
+.hold {
+    right: -100%;
+}
+
+.hold .decision-text {
+    margin-top: 5px;
+}
+
+.decision-inactive {
+    pointer-events: none;
+    opacity: 50%;
+    transform: translate(0%, -50%) scale(90%);
+}
+
+.decision-fade-away {
+    opacity: 0%;
+    transform: translate(0%, -50%) scale(80%);
+}

@@ -65,12 +65,14 @@ function updateEnemyHandEventListeners(pos) {
         cardDiv.click(() => {
             if(globals.myTurn) {
                 const selectedCardDiv = $($(".enemy-card")[globals.selectedCard]);
-    
+
                 selectedCardDiv.removeClass('selected');
                 cardDiv.addClass('selected');
     
                 globals.selectedCard = i;
                 globals.socket.emit("selectCard", { guessTarget: globals.selectedCard });
+
+                $('.attack').removeClass('decision-inactive');
             }
         })
     }

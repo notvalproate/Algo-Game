@@ -116,6 +116,9 @@ function applyTransitionToEnemyTurn() {
     $('.enemy-hand-container').addClass('no-pointer-events');
     $('.guess-array').addClass('guess-array-inactive');
     $('#dealt-card').removeClass('highlight-dealt-card');
+    $('.decision-wrapper').addClass('decision-fade-away');
+    $('.attack').addClass('decision-inactive');
+    $('.hold').addClass('decision-inactive');
 }
 
 function applyTransitionToMyTurn() {
@@ -124,6 +127,7 @@ function applyTransitionToMyTurn() {
     $('.enemy-hand-container').removeClass('no-pointer-events');
     $('.guess-array').removeClass('guess-array-inactive');
     $('#dealt-card').addClass('highlight-dealt-card');
+    $('.decision-wrapper').removeClass('decision-fade-away');
 }
 
 export {
