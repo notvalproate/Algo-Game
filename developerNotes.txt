@@ -24,6 +24,15 @@ CHAT:
    -> Pick appropriate background.
 }
 
+{
+   V1.0 GOALS:
+      -> Fully added sound effects. Touch up some animations and transitions here and there.
+      -> Different UI/Colors for the login and lobby page.
+      -> All features implemented.
+      -> Handle disconnects better and handle reconnects. Same socket allowed to reconnect and have 3 players in a room.
+      -> Deploy with helmet, compression, permissions policy.
+}
+
 
 BROWSERIFY:
 browserify enables useage of CommonJS entities [ like require() ] on the client side Javascript:
