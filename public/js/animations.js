@@ -56,6 +56,8 @@ async function defineDrawAnimation(cardDiv, card, translateVector) {
 }
 
 function playWinLoseAnimation(hand) {
+    $('.hold').addClass('decision-inactive');
+
     setTimeout(() => {
         hand.addClass('correct');
     }, 600);
