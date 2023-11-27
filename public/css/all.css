@@ -540,7 +540,6 @@ footer {
 
 .decision-wrapper:hover {
     transform: translate(0%, -50%) scale(120%);
-    font-weight: 600;
 }
 
 .decision-image {
@@ -552,8 +551,16 @@ footer {
     left: -100%;
 }
 
+.attack:hover {
+    filter: drop-shadow(0px 0px 20px #ff3a3a);
+}
+
 .hold {
     right: -100%;
+}
+
+.hold:hover {
+    filter: drop-shadow(0px 0px 20px rgb(108, 201, 255));
 }
 
 .hold .decision-text {

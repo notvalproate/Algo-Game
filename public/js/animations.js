@@ -30,7 +30,7 @@ async function drawCardAnimation(cardDiv, card) {
 }
 
 async function defineDrawAnimation(cardDiv, card, translateVector) {
-    if(cardDiv.hasClass('my-card')) {
+    if(cardDiv.hasClass('my-card') || cardDiv.hasClass('closed')) {
         $.keyframe.define({
             name: `draw-${card.getColor()}-${card.getNumber()}`,
             '100%': {

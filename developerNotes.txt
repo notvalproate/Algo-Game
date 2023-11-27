@@ -17,7 +17,6 @@ CHAT:
 [Ian] - [27-11-23 ; 0041Hrs]
    -> Test the hold feature for all cases possible. Make sure there are no animation nor logic bugs.
    -> Add an animation on win and animation on loss. Send back to main lobby after animation is finished.
-   -> Remove flipping part of the animation when card goes closed to the enemy on hold. [Edit by Ian]
 
 [Ian] - [27-11-23 ; 0044Hrs]
    -> Chat so lonely :(
