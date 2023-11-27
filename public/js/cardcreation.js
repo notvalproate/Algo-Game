@@ -52,6 +52,8 @@ function addCardDivToHand(cardDiv, pos, hand) {
     }
 }
 
+const attackButton = $('.attack');
+
 function updateEnemyHandEventListeners(pos) {
     const cardDivsInHand = $(".enemy-card");
 
@@ -72,7 +74,7 @@ function updateEnemyHandEventListeners(pos) {
                 globals.selectedCard = i;
                 globals.socket.emit("selectCard", { guessTarget: globals.selectedCard });
 
-                $('.attack').removeClass('decision-inactive');
+                attackButton.removeClass('decision-inactive');
             }
         })
     }

@@ -26,7 +26,7 @@ async function drawCardAnimation(cardDiv, card) {
                 });
             }
         });
-    })
+    });
 }
 
 async function defineDrawAnimation(cardDiv, card, translateVector) {

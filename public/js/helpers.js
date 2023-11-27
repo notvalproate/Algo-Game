@@ -2,6 +2,9 @@
 
 import { globals } from "./play.js";
 
+const dealtCard = $('#dealt-card');
+const attackButton = $('.attack');
+const holdButton = $('.hold');
 
 // MISC HELPERS
 
@@ -13,17 +16,17 @@ function invertColor(color){
 }
 
 function setDeckTopDiv(card) {
-    let dealtCard = $('#dealt-card');
-    if(card.getNumber() !== null) {
-        dealtCard.html(card.getNumber());
+    const cardNumber = card.getNumber();
+    const cardColor = card.getColor();
+
+    if(cardNumber !== null) {
+        dealtCard.html(cardNumber);
     } else {
         dealtCard.html("");
     }
 
-    dealtCard.css({
-        "background-color": card.getColor(),
-        "color": invertColor(card.getColor()),
-    });
+    dealtCard.removeClass(invertColor(cardColor));
+    dealtCard.addClass(cardColor);
 }
 
 
@@ -57,13 +60,13 @@ function addButtonEventListeners() {
 }
 
 function addDecisionsEventListener() {
-    $('.attack').click(() => {
+    attackButton.click(() => {
         if(globals.myTurn) {
             globals.socket.emit('attackMove', { guessTarget: globals.selectedCard, guessValue: globals.myGuessValue });
         }
     });
 
-    $('.hold').click(() => {
+    holdButton.click(() => {
         if(globals.myTurn) {
             globals.socket.emit('holdMove');
         }
@@ -109,32 +112,46 @@ function applyGameStartTransition() {
     }, 1400);
 }
 
+const myUsername = $('#my-username');
+const enemyUsername = $('#enemy-username');
+const enemyHandCont = $('.enemy-hand-container');
+const guessArray = $('.guess-array');
+const decisionWrapper = $('.decision-wrapper');
+
 function applyTransitionToEnemyTurn() {
-    $('#my-username').removeClass('player-turn');
-    $('#enemy-username').addClass('player-turn');
-    $('.enemy-hand-container').addClass('no-pointer-events');
-    $('.guess-array').addClass('guess-array-inactive');
-    $('#dealt-card').removeClass('highlight-dealt-card');
-    $('.decision-wrapper').addClass('decision-fade-away');
-    $('.attack').addClass('decision-inactive');
-    $('.hold').addClass('decision-inactive');
+    myUsername.removeClass('player-turn');
+    enemyUsername.addClass('player-turn');
+    enemyHandCont.addClass('no-pointer-events');
+    guessArray.addClass('guess-array-inactive');
+    dealtCard.removeClass('highlight-dealt-card');
+    decisionWrapper.addClass('decision-fade-away');
+    attackButton.addClass('decision-inactive');
+    holdButton.addClass('decision-inactive');
 }
 
 function applyTransitionToMyTurn() {
-    $('#my-username').addClass('player-turn');
-    $('#enemy-username').removeClass('player-turn');
-    $('.enemy-hand-container').removeClass('no-pointer-events');
-    $('.guess-array').removeClass('guess-array-inactive');
-    $('#dealt-card').addClass('highlight-dealt-card');
-    $('.decision-wrapper').removeClass('decision-fade-away');
+    myUsername.addClass('player-turn');
+    enemyUsername.removeClass('player-turn');
+    enemyHandCont.removeClass('no-pointer-events');
+    guessArray.removeClass('guess-array-inactive');
+    dealtCard.addClass('highlight-dealt-card');
+    decisionWrapper.removeClass('decision-fade-away');
 }
 
-function closeCard(index) {
+function closeCardWithDelay(index, delay) {
     const cardToClose = $($('.my-card')[index]);
     setTimeout(() => {
         cardToClose.addClass('closed');
         cardToClose.removeClass('open');
-    }, 500);
+    }, delay);
+}
+
+function addHighlightTo(index) {
+    let myCardDivs = $('.my-card');
+
+    $(myCardDivs[globals.selectedCard]).removeClass('selected');
+    globals.selectedCard = index;
+    $(myCardDivs[globals.selectedCard]).addClass('selected');
 }
 
 function removeHighlightFrom(cardDiv) {
@@ -155,6 +172,7 @@ export {
     applyTransitionToEnemyTurn,
     applyTransitionToMyTurn,
 
-    closeCard,
+    closeCardWithDelay,
+    addHighlightTo,
     removeHighlightFrom,
 }

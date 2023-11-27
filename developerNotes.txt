@@ -22,10 +22,10 @@ CHAT:
    -> Chat so lonely :(
 
 [Ian] - [27-11-23 ; 0918Hrs]
-   -> Optimize the jquery by storing whatever references possible before-hand, instead of making a query every time. Avoids searching for element \
-      every time. exceptions are the current list of card divs, since they are updated dynamically, they must be queried almost every time.
    -> Optimize some of the glowing effects by using a ::after psuedo element with opacity change, rather than box-shadow transition to avoid \
       re-draws every frame.
+   -> Break css into multiple files and remove unnecessary lines and merge classes that have similar properties.
+   -> Try to modularize play.js a bit more, reduce number of lines in main file.
 }
 
 

@@ -3,29 +3,34 @@
 import * as Animations from './animations.js';
 import { globals } from './play.js';
 
+let calloutDiv = undefined;
+
 function displayCallout(index, color, value) {
     if(!globals.myTurn) {
-        if($('.guess-callout')) {
-            $('.guess-callout').remove();
+        if(globals.calloutActive) {
+            calloutDiv.remove();
         }
 
-        const calloutDiv = $('<div>');
+        calloutDiv = $('<div>');
         calloutDiv.addClass('guess-callout');
         calloutDiv.addClass(color);
         calloutDiv.html(value);
 
         $($('.my-card')[index]).prepend(calloutDiv);
         
+        globals.calloutActive = true;
+
         Animations.hoverCalloutAnimation(calloutDiv);
     }
 }
 
 function removeCallout() {
-    $('.guess-callout').remove();
+    calloutDiv.remove();
+    globals.calloutActive = false;
 }
 
 function updateCallout(value) {
-    $('.guess-callout').html(value);
+    calloutDiv.html(value);
 }
 
 export {

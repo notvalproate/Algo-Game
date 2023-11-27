@@ -21,6 +21,7 @@ var globals = {
     deckTop: undefined,
     selectedCard: 0,
     myGuessValue: 0,
+    calloutActive: false,
 };
 
 export {
@@ -28,13 +29,18 @@ export {
 };
 
 $(document).ready(function() {
+    // JQUERY ELEMENTS CACHE
     const readyButton = $('#ready-button');
+    const attackButton = $('.attack');
+    const holdButton = $('.hold');
+
     const me = $('#me');
     const enemy = $('#enemy');
+    const readyCount = $('#ready-count');
 
     const roomKey = $('#room-key').html();
     globals.username = $('#me').html();
-    const numberOfPlayersReady = parseInt($('#ready-count').html());
+    const numberOfPlayersReady = parseInt(readyCount.html());
     
     if(numberOfPlayersReady == 1) {
         enemy.addClass('player-ready');
@@ -60,7 +66,7 @@ $(document).ready(function() {
 
     // want to refactor this later, looks very ugly
     globals.socket.on('readyUpdate', (data) => {
-        $('#ready-count').html(data.readyCount);
+        readyCount.html(data.readyCount);
 
         var youUser = data.userList[0];
 
@@ -114,11 +120,7 @@ $(document).ready(function() {
     });
 
     globals.socket.on('highlightCard', (data) => {
-        let myCardDivs = document.querySelectorAll('.my-card');
-
-        myCardDivs[globals.selectedCard].classList.remove('selected');
-        globals.selectedCard = data.index;
-        myCardDivs[globals.selectedCard].classList.add('selected');
+        Helpers.addHighlightTo(data.index);
         
         CalloutHandler.displayCallout(globals.selectedCard, myHand[globals.selectedCard].getColor(), buttonValue);
     });
@@ -139,10 +141,10 @@ $(document).ready(function() {
 
             $(enemyCardDivs[index]).html(globals.myGuessValue);
             $(enemyCardDivs[index]).addClass('open');
-            $('.attack').addClass('decision-inactive');
-            $('.hold').removeClass('decision-inactive');
+            attackButton.addClass('decision-inactive');
+            holdButton.removeClass('decision-inactive');
 
-            Animations.flipCardAnimation($($('.enemy-card')[index]), enemyHand[index]);
+            Animations.flipCardAnimation($(enemyCardDivs[index]), enemyHand[index]);
         } else {
             $(myCardDivs[index]).removeClass('closed');
             $(myCardDivs[index]).addClass('open');
@@ -188,7 +190,7 @@ $(document).ready(function() {
         if(!globals.myTurn) {
             myHand.splice(insertIndex, 0, cardToInsert);           
             CardDivManager.createAndAnimateCardDiv(cardToInsert, insertIndex, 'my', 'open');
-            Helpers.closeCard(insertIndex);
+            Helpers.closeCardWithDelay(insertIndex, 500);
             Helpers.removeHighlightFrom($('.enemy-card')[globals.selectedCard]);
 
             Helpers.applyTransitionToEnemyTurn();
