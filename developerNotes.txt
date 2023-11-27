@@ -6,17 +6,8 @@ CHAT:
 1. To Improve:
    -> For server.js, adding a RoutesHandler could seem resourceful. 
 
-[Ian] - [20-11-23 ; 16:41]
-   -> [Edit by Ian] For the above, instead of making a modal after the game ends, just send them back to the main lobby where they can press \
-      Ready again to play again. I have reset the players ready status on the server side and client side after game starts. so just sending \
-      them back to the lobby will be enough.
-
 [Ian] - [23-11-23 ; 0007Hrs]
    -> Almost modularized play.js completely. yet to modularize socket.io.
-
-[Ian] - [27-11-23 ; 0041Hrs]
-   -> Test the hold feature for all cases possible. Make sure there are no animation nor logic bugs.
-   -> Add an animation on win and animation on loss. Send back to main lobby after animation is finished.
 
 [Ian] - [27-11-23 ; 0044Hrs]
    -> Chat so lonely :(
@@ -27,7 +18,10 @@ CHAT:
    -> Break css into multiple files and remove unnecessary lines and merge classes that have similar properties.
    -> Try to modularize play.js a bit more, reduce number of lines in main file.
    -> Add confetti on win (decide between https://www.npmjs.com/package/js-confetti or https://confetti.js.org/#)
-   -> Add particles.js for the background instead. (to see if it looks any good)
+
+[Ian] - [27-11-23 ; 2033Hrs]
+   -> Need to revamp the design for lobby and create room page.
+   -> Pick appropriate background.
 }
 
 
