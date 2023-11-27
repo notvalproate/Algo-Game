@@ -50,6 +50,9 @@ $(document).ready(function() {
 
     Animations.initAnimations();
     
+    // JOIN LOBBY TRANSITION
+    Helpers.applyJoinLobbyTransition();
+
     // SOCKET.IO ONS AND EMITS
 
     globals.socket = io({

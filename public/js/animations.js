@@ -67,6 +67,7 @@ function playWinLoseAnimation(hand) {
     }, 1200);
 }
 
+
 function flipCardAnimation(cardDiv, algoCard) {
     cardDiv.playKeyframe({
         name: `flip-${algoCard.getColor()}-card`,
