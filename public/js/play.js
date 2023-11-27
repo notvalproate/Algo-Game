@@ -210,18 +210,22 @@ $(document).ready(function() {
     globals.socket.on('gameEnded', (data) => {
         var wonGame = data.wonGame;
 
+        //Helpers.applyBackToLobbyTransition();
         // Send back to the lobby instead after playing a win or lose animation
         if(wonGame) {
-            console.log('nice you win');
+            Animations.playWinLoseAnimation($('.enemy-card'));
         } else {
-            console.log('loser');
+            Animations.playWinLoseAnimation($('.my-card'));
         }
+
+        Helpers.showResultModal(wonGame);
     });
 
 
     // EVENT LISTENERS
 
     Helpers.addReadyButtonEventListener();
+    Helpers.addReturnButtonEventListener();
     Helpers.addDecisionsEventListener();
     Helpers.addButtonEventListeners();
 });

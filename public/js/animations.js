@@ -55,6 +55,16 @@ async function defineDrawAnimation(cardDiv, card, translateVector) {
     }
 }
 
+function playWinLoseAnimation(hand) {
+    setTimeout(() => {
+        hand.addClass('correct');
+    }, 600);
+
+    setTimeout(() => {
+        hand.removeClass('correct');
+    }, 1200);
+}
+
 function flipCardAnimation(cardDiv, algoCard) {
     cardDiv.playKeyframe({
         name: `flip-${algoCard.getColor()}-card`,
@@ -135,5 +145,6 @@ export {
     flipCardAnimation,
     hoverCalloutAnimation,
     highlightFadeOutTo,
+    playWinLoseAnimation,
     initAnimations
 };

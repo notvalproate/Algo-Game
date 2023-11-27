@@ -6,6 +6,9 @@ const dealtCard = $('#dealt-card');
 const attackButton = $('.attack');
 const holdButton = $('.hold');
 
+const gameResult = $('.game-result');
+const resultModal = $('.modal-game-result');
+
 // MISC HELPERS
 
 function invertColor(color){
@@ -41,6 +44,14 @@ function addReadyButtonEventListener() {
         }
         globals.socket.emit('readyConfirmation', { ready: globals.ready });
     });
+}
+
+function addReturnButtonEventListener() {
+    $('#return-button').click(() => {
+        resultModal.removeClass('modal-in');
+        
+        applyBackToLobbyTransition();
+    })
 }
 
 function addButtonEventListeners() {
@@ -99,7 +110,7 @@ function applyGameStartTransition() {
     $("footer").addClass("footer-out");
     $(".lobby").addClass("fade-out");
 
-    setInterval(() => {
+    setTimeout(() => {
         $("header").addClass("display-none");
         $("footer").addClass("display-none");
         $(".lobby").addClass("display-none");
@@ -109,6 +120,24 @@ function applyGameStartTransition() {
         globals.ready = false;
         $('#enemy').removeClass('player-ready');
         $('#me').removeClass('player-ready');
+        $('#ready-count').html('0');
+    }, 1400);
+}
+
+function applyBackToLobbyTransition() {
+    $("header").removeClass("display-none");
+    $("footer").removeClass("display-none");
+    $(".lobby").removeClass("display-none");
+
+    setTimeout(() => {
+        $(".desk-wrapper").removeClass("fade-in");
+    }, 1000);
+
+    setTimeout(() => {
+        $("header").removeClass("header-out");
+        $("footer").removeClass("footer-out");
+        $(".lobby").removeClass("fade-out");
+        resultModal.addClass('display-none');
     }, 1400);
 }
 
@@ -158,11 +187,26 @@ function removeHighlightFrom(cardDiv) {
     $(cardDiv).removeClass('selected');
 }
 
+function showResultModal(wonGame) {
+    if(wonGame) {
+        gameResult.html('YOU WIN');
+    } else {
+        gameResult.html('YOU LOSE');
+    }
+
+    resultModal.removeClass('display-none');
+
+    setTimeout(() => {
+        resultModal.addClass('modal-in');
+    }, 1600);
+}
+
 export {
     invertColor,
     setDeckTopDiv,
 
     addReadyButtonEventListener,
+    addReturnButtonEventListener,
     addButtonEventListeners,
     addDecisionsEventListener,
 
@@ -175,4 +219,6 @@ export {
     closeCardWithDelay,
     addHighlightTo,
     removeHighlightFrom,
+
+    showResultModal,
 }
