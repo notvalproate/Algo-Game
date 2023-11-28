@@ -306,7 +306,7 @@ footer {
     align-items: center;
     transform: scale(50%);
     opacity: 0%;
-    transition: 0.8s cubic-bezier(.36,-0.23,.1,1.01);
+    transition: 0.8s cubic-bezier(.36,.0,.1,1.01);
 }
 
 .fade-in {

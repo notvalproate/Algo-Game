@@ -17,7 +17,6 @@ CHAT:
       re-draws every frame.
    -> Break css into multiple files and remove unnecessary lines and merge classes that have similar properties.
    -> Try to modularize play.js a bit more, reduce number of lines in main file.
-   -> Add confetti on win (decide between https://www.npmjs.com/package/js-confetti or https://confetti.js.org/#)
 
 [Ian] - [27-11-23 ; 2033Hrs]
    -> Need to revamp the design for lobby and create room page.
