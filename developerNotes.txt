@@ -13,8 +13,6 @@ CHAT:
    -> Chat so lonely :(
 
 [Ian] - [27-11-23 ; 0918Hrs]
-   -> Optimize some of the glowing effects by using a ::after psuedo element with opacity change, rather than box-shadow transition to avoid \
-      re-draws every frame.
    -> Break css into multiple files and remove unnecessary lines and merge classes that have similar properties.
    -> Try to modularize play.js a bit more, reduce number of lines in main file.
 
@@ -27,7 +25,6 @@ CHAT:
    V1.0 GOALS:
       -> Fully added sound effects. Touch up some animations and transitions here and there.
       -> Different UI/Colors for the login and lobby page.
-      -> All features implemented.
       -> Handle disconnects better and handle reconnects. Same socket allowed to reconnect and have 3 players in a room.
       -> Deploy with helmet, compression, permissions policy.
 }

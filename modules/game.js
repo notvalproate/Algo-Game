@@ -12,6 +12,8 @@ class Game {
         
         this.players[0].hand.push(...sortPlayerHand(this.deck.splice(0,4)));
         this.players[1].hand.push(...sortPlayerHand(this.deck.splice(0,4)));
+
+        this.ended = false;
     }
 
     insertDeckTopToActiveUser() {
@@ -56,6 +58,8 @@ class Game {
 
             if(this.players[enemyUserIndex].openCount === this.players[enemyUserIndex].hand.length) {
                 wonGame = true;
+                this.ended = true;
+                console.log('game ended is true');
             }
 
             return [true, 0, deckTopValue, wonGame];
@@ -103,6 +107,10 @@ class Game {
     getHiddenAndVisibleDeckTop() {
         const deckTop = this.getDeckTop();
         return [new AlgoCard(null, deckTop.getColor()), new AlgoCard(deckTop.getNumber(), deckTop.getColor())];
+    }
+
+    getGameEndStatus() {
+        return this.ended;
     }
 
 }; 

@@ -74,6 +74,9 @@ class Room {
     }
 
     getActiveTurn(username) {
+        if(this.game === undefined) {
+            return false;
+        }
         return this.game.getActiveTurn(username);
     }
 

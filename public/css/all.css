@@ -604,12 +604,35 @@ footer {
     text-shadow: 3px 3px 5px black;
 }
 
+.game-status {
+    font-size: 3vh;
+    font-weight: 600;
+    color: white;
+    text-shadow: 2px 2px 4px black;
+}
+
 .modal-in {
     opacity: 100%;
     transform: scale(100%);
 }
 
 .return-button {
-    height: 8vh;
-    width: 25vh;
+    font-family: 'Urbanist', sans-serif;
+    color: white;
+    font-size: 130%;
+    text-shadow: 1px 1px 2px black;
+    box-shadow: 0px 0px 5px black;
+    border-radius: 10px;
+    border: 2px white solid;
+    background: none;
+    height: 9vh;
+    width: 27vh;
+    transition: 0.3s ease;
+}
+
+.return-button:hover {
+    background-color: white;
+    color: black;
+    text-shadow: none;
+    cursor: pointer;
 }

@@ -51,7 +51,7 @@ app.get('/:roomKey/play', (req, res) => {
 
 
 // POST routes
-app.post('/play', (req, res) => {
+app.post('/', (req, res) => {
     const roomKey = req.body.roomKey;
     const username = req.body.username;
     const roomToJoin = roomsHandler.getRoom(roomKey);
@@ -74,7 +74,7 @@ io.on('connection', (socket) => {
     var socketHandler = new SocketHandler(socket, username, roomKey);
     
     socketHandler.connectToGameRoom();
-    
+
     socket.on('disconnect', () => {
         socketHandler.disconnectSocket();
     });

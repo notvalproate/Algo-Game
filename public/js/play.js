@@ -36,6 +36,7 @@ $(document).ready(function() {
 
     const me = $('#me');
     const enemy = $('#enemy');
+    let enemyUsername = enemy.html();
     const readyCount = $('#ready-count');
 
     const roomKey = $('#room-key').html();
@@ -62,9 +63,13 @@ $(document).ready(function() {
         }
     });
 
+    globals.socket.on('disconnect', () => {
+        window.location.href = window.location.href;
+    });
+
     globals.socket.on('lobbyUpdate', (data) => {
         const usernames = data.usernames;
-        Helpers.setEnemyUsername(usernames);
+        enemyUsername = Helpers.setEnemyUsername(usernames);
     });
 
     // want to refactor this later, looks very ugly
@@ -211,18 +216,28 @@ $(document).ready(function() {
     })
 
     globals.socket.on('gameEnded', (data) => {
-        var wonGame = data.wonGame;
+        let wonGame = data.wonGame;
 
-        //Helpers.applyBackToLobbyTransition();
-        // Send back to the lobby instead after playing a win or lose animation
+        if(data.enemyDisconnect) {
+            $('.game-status').html('Enemy has disconnected!');
+            Helpers.showResultModal(wonGame);
+            return;
+        }
+
         if(wonGame) {
             Animations.playWinLoseAnimation($('.enemy-card'));
+            $('.game-status').html(`You guessed all of ${enemyUsername}'s cards!`);
         } else {
             Animations.playWinLoseAnimation($('.my-card'));
+            $('.game-status').html(`${enemyUsername} guessed all your cards!`);
         }
 
         Helpers.showResultModal(wonGame);
     });
+
+    globals.socket.on('rejected', () => {
+        console.log('reconnect not allowed');
+    })
 
 
     // EVENT LISTENERS

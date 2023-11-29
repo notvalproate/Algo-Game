@@ -100,6 +100,8 @@ function setEnemyUsername(usernames) {
     
     $('#enemy').html(enemyUser);
     $('#enemy-username').html(enemyUser);
+
+    return enemyUser;
 }
 
 
@@ -146,6 +148,7 @@ function applyBackToLobbyTransition() {
         $("footer").removeClass("footer-out");
         $(".lobby").removeClass("fade-out");
         resultModal.addClass('display-none');
+        $('.enemy-disconnect').html('');
     }, 1400);
 }
 
