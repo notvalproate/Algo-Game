@@ -6,14 +6,36 @@ const { deepCopy } = require('./algoCard.js');
 
 class Game {
     constructor(player1, player2) {
-        this.players = [ { username: player1, hand: [], openCount: 0 }, { username: player2, hand: [], openCount: 0} ];
+        this.players = [ 
+            { 
+                username: player1, 
+                hand: [], 
+                stats: {
+                    openCount: 0,
+                    totalGuesses: 0,
+                    correctGuesses: 0,
+                    correctGuessRate: 0,
+                    timesStayed: 0,
+                }
+            }, 
+            {
+                username: player2, 
+                hand: [],
+                stats: {
+                    openCount: 0,
+                    totalGuesses: 0,
+                    correctGuesses: 0,
+                    correctGuessRate: 0,
+                    timesStayed: 0,
+                }
+
+            }
+        ];
         this.deck = getShuffledDeck(24);
         this.activeTurn = Math.floor(Math.random() * 2);
         
         this.players[0].hand.push(...sortPlayerHand(this.deck.splice(0,4)));
         this.players[1].hand.push(...sortPlayerHand(this.deck.splice(0,4)));
-
-        this.ended = false;
     }
 
     insertDeckTopToActiveUser() {
@@ -51,22 +73,29 @@ class Game {
     makeGuess(target, value) {
         const enemyUserIndex = 1 - this.activeTurn;
         const deckTopValue = this.getDeckTop().getNumber();
-        var wonGame = false;
+        let wonGame = false;
 
-        if(this.players[enemyUserIndex].hand[target].getNumber() === value) {
-            this.players[enemyUserIndex].openCount++;
+        const thisPlayer = this.players[this.activeTurn];
+        const enemyPlayer = this.players[enemyUserIndex];
 
-            if(this.players[enemyUserIndex].openCount === this.players[enemyUserIndex].hand.length) {
+        thisPlayer.stats.totalGuesses++;
+
+        if(enemyPlayer.hand[target].getNumber() === value) {
+            thisPlayer.stats.correctGuesses++;
+            enemyPlayer.stats.openCount++;
+
+            if(enemyPlayer.stats.openCount === enemyPlayer.hand.length) {
+                thisPlayer.stats.correctGuessRate = this.getCorrectGuessRate(thisPlayer);
+                enemyPlayer.stats.correctGuessRate = this.getCorrectGuessRate(enemyPlayer);
+
                 wonGame = true;
-                this.ended = true;
-                console.log('game ended is true');
             }
 
             return [true, 0, deckTopValue, wonGame];
         }
     
         const indexInsertedAt = this.insertDeckTopToActiveUser();
-        this.players[this.activeTurn].openCount++;
+        this.players[this.activeTurn].stats.openCount++;
         
         this.switchTurns();
 
@@ -74,6 +103,8 @@ class Game {
     }
 
     holdDeckTop() {
+        this.players[this.activeTurn].stats.timesStayed++;
+
         const insertIndex = this.insertDeckTopToActiveUser();
 
         this.switchTurns();
@@ -113,6 +144,20 @@ class Game {
         return this.ended;
     }
 
+    getCorrectGuessRate(player) {
+        return Math.round(player.stats.correctGuesses * 10000.0 / player.stats.totalGuesses) / 100;
+    }
+    
+    getStats(username) {
+        let thisPlayerStats = this.players[0].stats;
+        let enemyPlayerStats = this.players[1].stats;
+
+        if(this.players[0].username !== username) {
+            [thisPlayerStats, enemyPlayerStats] = [enemyPlayerStats, thisPlayerStats];
+        }
+
+        return [thisPlayerStats, enemyPlayerStats];
+    } 
 }; 
 
 module.exports = {

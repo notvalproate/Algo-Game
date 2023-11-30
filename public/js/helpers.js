@@ -100,6 +100,7 @@ function setEnemyUsername(usernames) {
     
     $('#enemy').html(enemyUser);
     $('#enemy-username').html(enemyUser);
+    $('#enemy-hth').html(enemyUser);
 
     return enemyUser;
 }

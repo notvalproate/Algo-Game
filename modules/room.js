@@ -84,6 +84,10 @@ class Room {
         return this.game.getHiddenAndVisibleDeckTop();
     }
 
+    getStats(username) {
+        return this.game.getStats(username);
+    }
+
     // DEBUG
 
     displayRoom() {

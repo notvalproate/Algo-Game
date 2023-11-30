@@ -34,7 +34,9 @@ class SocketHandler {
 
     disconnectSocket() {
         if(this.room.game !== undefined) {
-            this.socket.broadcast.to(this.roomKey).emit('gameEnded', { wonGame: true, enemyDisconnect: true });
+            const [winnerStats, loserStats] = this.room.getStats(this.username);
+
+            this.socket.broadcast.to(this.roomKey).emit('gameEnded', { wonGame: true, enemyDisconnect: true, stats: winnerStats });
             this.room.game = undefined;
         }
 
@@ -116,8 +118,10 @@ class SocketHandler {
             this.socket.broadcast.to(this.roomKey).emit('correctMove', { yourTurn: false, guessTarget: data.guessTarget } );
 
             if(wonGame) {
-                this.socket.emit('gameEnded', { wonGame: true, enemyDisconnect: false });
-                this.socket.broadcast.to(this.roomKey).emit('gameEnded', { wonGame: false, enemyDisconnect: false } );
+                const [winnerStats, loserStats] = this.room.getStats(this.username);
+
+                this.socket.emit('gameEnded', { wonGame: true, enemyDisconnect: false, stats: winnerStats });
+                this.socket.broadcast.to(this.roomKey).emit('gameEnded', { wonGame: false, enemyDisconnect: false, stats: loserStats } );
                 this.room.game = undefined;
             }
         } else {

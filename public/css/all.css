@@ -591,7 +591,7 @@ footer {
     backdrop-filter: blur(20px);
     display: flex;
     flex-direction: column;
-    row-gap: 3vh;
+    row-gap: 2.5vh;
     align-items: center;
     justify-content: center;
     transition: 0.5s cubic-bezier(.42,0,.04,.99);
@@ -635,4 +635,13 @@ footer {
     color: black;
     text-shadow: none;
     cursor: pointer;
+}
+
+/* STATS PART OF MODAL  */
+
+.game-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 30vh;
 }
