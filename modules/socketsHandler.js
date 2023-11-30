@@ -33,11 +33,10 @@ class SocketHandler {
 
 
     disconnectSocket() {
-        if(this.room.game !== undefined) {
+        if(this.room.getGameRunning()) {
             const [winnerStats, loserStats] = this.room.getStats(this.username);
 
             this.socket.broadcast.to(this.roomKey).emit('gameEnded', { wonGame: true, enemyDisconnect: true, stats: winnerStats });
-            this.room.game = undefined;
         }
 
         const destroyed = SocketHandler.roomsHandler.disconnectFromRoom(this.username, this.roomKey);
@@ -122,7 +121,7 @@ class SocketHandler {
 
                 this.socket.emit('gameEnded', { wonGame: true, enemyDisconnect: false, stats: winnerStats });
                 this.socket.broadcast.to(this.roomKey).emit('gameEnded', { wonGame: false, enemyDisconnect: false, stats: loserStats } );
-                this.room.game = undefined;
+                this.room.resetGame();
             }
         } else {
             const [hiddenDeckTop, visibleDeckTop] =  this.room.getHiddenAndVisibleDeckTop();

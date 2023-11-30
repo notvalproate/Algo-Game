@@ -13,6 +13,9 @@ class Room {
 
     addUser(username) {
         this.users.push({ username: username, ready: false });
+        if(this.users.length === 2) {
+            this.game = new Game(this.users[0].username, this.users[1].username);
+        }
         this.displayRoom();
     }
 
@@ -48,7 +51,6 @@ class Room {
         if(this.users.length === 2) { this.numberOfPlayersReady += this.users[1].ready; }
 
         if(this.numberOfPlayersReady === 2) {
-            this.game = new Game(this.users[0].username, this.users[1].username);
             return true;
         }
 
@@ -57,6 +59,10 @@ class Room {
 
     resetReadyStatus() {
         this.users[0].ready = this.users[1].ready = false;
+    }
+
+    resetGame() {
+        this.game.resetGame();
     }
 
     // GETTERS
@@ -86,6 +92,10 @@ class Room {
 
     getStats(username) {
         return this.game.getStats(username);
+    }
+
+    getGameRunning() {
+        return this.game.getGameRunning();
     }
 
     // DEBUG

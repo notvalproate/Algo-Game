@@ -16,6 +16,8 @@ class Game {
                     correctGuesses: 0,
                     correctGuessRate: 0,
                     timesStayed: 0,
+                    wins: 0,
+                    losses: 0,
                 }
             }, 
             {
@@ -27,6 +29,8 @@ class Game {
                     correctGuesses: 0,
                     correctGuessRate: 0,
                     timesStayed: 0,
+                    wins: 0,
+                    losses: 0,
                 }
 
             }
@@ -36,6 +40,8 @@ class Game {
         
         this.players[0].hand.push(...sortPlayerHand(this.deck.splice(0,4)));
         this.players[1].hand.push(...sortPlayerHand(this.deck.splice(0,4)));
+
+        this.running = false;
     }
 
     insertDeckTopToActiveUser() {
@@ -85,10 +91,13 @@ class Game {
             enemyPlayer.stats.openCount++;
 
             if(enemyPlayer.stats.openCount === enemyPlayer.hand.length) {
+                thisPlayer.stats.wins++;
+                enemyPlayer.stats.losses++;
                 thisPlayer.stats.correctGuessRate = this.getCorrectGuessRate(thisPlayer);
                 enemyPlayer.stats.correctGuessRate = this.getCorrectGuessRate(enemyPlayer);
 
                 wonGame = true;
+                this.running = false;
             }
 
             return [true, 0, deckTopValue, wonGame];
@@ -121,6 +130,8 @@ class Game {
             [yourHand, enemyHand] = [enemyHand, yourHand];
         }
 
+        this.running = true;
+
         return [yourHand, enemyHand, yourTurn];
     }
 
@@ -145,7 +156,10 @@ class Game {
     }
 
     getCorrectGuessRate(player) {
-        return Math.round(player.stats.correctGuesses * 10000.0 / player.stats.totalGuesses) / 100;
+        if(player.stats.totalGuesses === 0) {
+            return 0;
+        }
+        return player.stats.correctGuesses * 100.0 / player.stats.totalGuesses;
     }
     
     getStats(username) {
@@ -158,6 +172,52 @@ class Game {
 
         return [thisPlayerStats, enemyPlayerStats];
     } 
+
+    getGameRunning() {
+        return this.running;
+    }
+
+    resetGame() {
+        const player1 = this.players[0].username;
+        const player1wins = this.players[0].stats.wins;
+        const player2 = this.players[1].username;        
+        const player2wins = this.players[1].stats.wins;
+
+        this.players = [ 
+            { 
+                username: player1,
+                hand: [],
+                stats: {
+                    openCount: 0,
+                    totalGuesses: 0,
+                    correctGuesses: 0,
+                    correctGuessRate: 0,
+                    timesStayed: 0,
+                    wins: player1wins,
+                    losses: player2wins,
+                }
+            }, 
+            {
+                username: player2,
+                hand: [],
+                stats: {
+                    openCount: 0,
+                    totalGuesses: 0,
+                    correctGuesses: 0,
+                    correctGuessRate: 0,
+                    timesStayed: 0,
+                    wins: player2wins,
+                    losses: player1wins,
+                }
+            }
+        ];
+
+        this.deck = getShuffledDeck(24);
+        this.activeTurn = Math.floor(Math.random() * 2);
+        
+        this.players[0].hand.push(...sortPlayerHand(this.deck.splice(0,4)));
+        this.players[1].hand.push(...sortPlayerHand(this.deck.splice(0,4)));
+    }
 }; 
 
 module.exports = {

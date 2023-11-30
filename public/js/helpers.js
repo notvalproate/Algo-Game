@@ -100,9 +100,26 @@ function setEnemyUsername(usernames) {
     
     $('#enemy').html(enemyUser);
     $('#enemy-username').html(enemyUser);
-    $('#enemy-hth').html(enemyUser);
+    $('#enemy-user-hth').html(enemyUser);
 
     return enemyUser;
+}
+
+const guessCount = $('#guess-count');
+const correcGuesses = $('#correct-guesses');
+const guessRate = $('#guess-rate');
+const stayCount = $('#stay-count');
+const myWinCount = $('#my-win-count');
+const enemyWinCount = $('#enemy-win-count');
+
+function setStatsSection(stats) {
+    guessCount.html(stats.totalGuesses);
+    correcGuesses.html(stats.correctGuesses);
+    guessRate.html(`${stats.correctGuessRate}%`);
+    stayCount.html(stats.timesStayed);
+    myWinCount.html(stats.wins);
+    enemyWinCount.html(stats.losses);
+
 }
 
 
@@ -269,6 +286,7 @@ export {
     addDecisionsEventListener,
 
     setEnemyUsername,
+    setStatsSection,
 
     applyJoinLobbyTransition,
     applyGameStartTransition,

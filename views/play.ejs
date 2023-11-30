@@ -70,27 +70,30 @@
 <section class="modal-game-result display-none">
     <h1 class="game-result"></h1>
     <span class="game-status"></span>
-    <div class="game-stats">
-        <div class="stat">
-            <span class="stat-info">TOTAL GUESSES:</span>
-            <span class="stat-info">CORRECT GUESSES:</span>
-            <span class="stat-info">CORRECT GUESS RATE:</span>
-            <span class="stat-info">TIMES STAYED:</span>
+    <div class="stats-section">
+        <span class="stats-title">GAME STATISTICS</span>
+        <div class="game-stats">
+            <div class="stat">
+                <span class="stat-info">TOTAL GUESSES:</span>
+                <span class="stat-info">CORRECT GUESSES:</span>
+                <span class="stat-info">CORRECT GUESS RATE:</span>
+                <span class="stat-info">TIMES STAYED:</span>
+            </div>
+            <div class="stat-values">
+                <span class="stat-info" id="guess-count"></span>
+                <span class="stat-info" id="correct-guesses"></span>
+                <span class="stat-info" id="guess-rate"></span>
+                <span class="stat-info" id="stay-count"></span>
+            </div>
+        </div>      
+        <div class="head-to-head">
+            <span class="title-hth">HEAD TO HEAD</span>
+            <div class="players-wins">
+                <div class="my-hth"><%= username %>: <span id="my-win-count">0</span></div>
+                <div class="enemy-hth"><span id="enemy-user-hth"><%= enemyUsername %></span>: <span id="enemy-win-count">0</span></div>
+            </div>
         </div>
-        <div class="stat-value">
-            <span class="stat-info" id="guess-count"></span>
-            <span class="stat-info" id="correct-guesses"></span>
-            <span class="stat-info" id="guess-rate"></span>
-            <span class="stat-info" id="stay-count"></span>
-        </div>
-    </div>
-    <div class="head-to-head">
-        <span class="title-head-to-head">HEAD TO HEAD</span>
-        <div class="players-wins">
-            <div class="my-hth"><%= username %>: <span class="my-win-count">0</span></div>
-            <div class="enemy-hth"><%= enemyUsername %>: <span class="enemy-win-count">0</span></div>
-        </div>
-    </div>
+    </div>  
     <button class="return-button" id="return-button">
         RETURN TO LOBBY
     </button>

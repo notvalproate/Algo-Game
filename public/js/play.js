@@ -218,6 +218,8 @@ $(document).ready(function() {
     globals.socket.on('gameEnded', (data) => {
         let wonGame = data.wonGame;
 
+        Helpers.setStatsSection(data.stats);
+
         if(data.enemyDisconnect) {
             $('.game-status').html('Enemy has disconnected!');
             Helpers.showResultModal(wonGame);
