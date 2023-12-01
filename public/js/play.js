@@ -244,6 +244,7 @@ $(document).ready(function() {
 
     // EVENT LISTENERS
 
+    Helpers.addCopyKeyButtonEventListener(roomKey);
     Helpers.addReadyButtonEventListener();
     Helpers.addReturnButtonEventListener();
     Helpers.addDecisionsEventListener();

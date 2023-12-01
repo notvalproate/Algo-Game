@@ -1,13 +1,18 @@
 <%- include('./partials/_header'); %>
 
+<div class="main-bg fade-in"></div>
+
 <header class="header-footer header-out">
-    <h1 class="title">Lobby</h1>
+    <h1 class="title"><span class="serif-title">game<span class="lobby-title">lobby</span></span></h1>
 </header>
 
 <section class="lobby fade-out">
-    <div class="key">
-        <img src="icons/key_logo.png" alt="Key">
-        <h2 id="room-key"><%= roomKey %></h2>
+    <div class="key" id="copy-key">
+        <div class="key-wrapper">
+            <img src="icons/key_logo.png" alt="Key">
+            <h2 id="room-key"><%= roomKey %></h2>
+        </div>
+        <span class="copy-link">COPY INVITE</span>
     </div>
     <div class="player-display">
         <div class="players" id="me"><%= username %></div>
@@ -18,14 +23,12 @@
         </div>
         <div class="players" id="enemy"><%= enemyUsername %></div>
     </div>
-    <button class="button ready-button" id="ready-button">
-        READY 
-        <span id="ready-count"><%= numberOfPlayersReady %></span>
-        /2
+    <button class="white-button" id="ready-button">
+        READY <span id="ready-count"><%=numberOfPlayersReady%></span>/2
     </button>
 </section>
 
-<section class="desk-wrapper">
+<section class="desk-wrapper display-none">
     <section class="desk">
         <div class="hand-container enemy-hand-container">
             <h2 class="username" id="enemy-username"><%= enemyUsername %></h2>

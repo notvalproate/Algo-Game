@@ -35,6 +35,18 @@ function setDeckTopDiv(card) {
 
 // EVENT LISTENER HELPERS
 
+function addCopyKeyButtonEventListener(roomKey) {
+    let clipboard = new ClipboardJS('#copy-key', {
+        text: function() {
+            return `https://playalgo.com/${roomKey}/play`;
+        }
+    });
+
+    clipboard.on('success', (e) => {
+        e.clearSelection();
+    });
+}
+
 function addReadyButtonEventListener() {
     $('#ready-button').click(() => {
         if(!globals.ready) {
@@ -134,22 +146,30 @@ function applyJoinLobbyTransition() {
 }
 
 function applyGameStartTransition() {
-    $("header").addClass("header-out");
-    $("footer").addClass("footer-out");
     $(".lobby").addClass("fade-out");
+    $(".desk-wrapper").removeClass("display-none");
 
     setTimeout(() => {
+        $("header").addClass("header-out");
+        $("footer").addClass("footer-out");
+    }, 1000);
+
+    setTimeout(() => {
+        $('.main-bg').removeClass('fade-in');
+    }, 1500);
+
+    setTimeout(() => {
+        $(".lobby").addClass("display-none");
         $("header").addClass("display-none");
         $("footer").addClass("display-none");
-        $(".lobby").addClass("display-none");
 
         $(".desk-wrapper").addClass("fade-in");
-            
+        
         globals.ready = false;
         $('#enemy').removeClass('player-ready');
         $('#me').removeClass('player-ready');
         $('#ready-count').html('0');
-    }, 1400);
+    }, 2300);
 }
 
 function applyBackToLobbyTransition() {
@@ -159,6 +179,7 @@ function applyBackToLobbyTransition() {
 
     setTimeout(() => {
         $(".desk-wrapper").removeClass("fade-in");
+        $('.main-bg').addClass('fade-in');
     }, 1000);
 
     setTimeout(() => {
@@ -166,6 +187,7 @@ function applyBackToLobbyTransition() {
         $("footer").removeClass("footer-out");
         $(".lobby").removeClass("fade-out");
         resultModal.addClass('display-none');
+        $(".desk-wrapper").addClass("display-none");
         $('.enemy-disconnect').html('');
     }, 1400);
 }
@@ -280,6 +302,7 @@ export {
     invertColor,
     setDeckTopDiv,
 
+    addCopyKeyButtonEventListener,
     addReadyButtonEventListener,
     addReturnButtonEventListener,
     addButtonEventListeners,
