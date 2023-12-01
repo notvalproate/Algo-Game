@@ -123,6 +123,8 @@ const guessRate = $('#guess-rate');
 const stayCount = $('#stay-count');
 const myWinCount = $('#my-win-count');
 const enemyWinCount = $('#enemy-win-count');
+const myCounter = $('#my-counter');
+const enemyCounter = $('#enemy-counter');
 
 function setStatsSection(stats) {
     guessCount.html(stats.totalGuesses);
@@ -132,6 +134,16 @@ function setStatsSection(stats) {
     myWinCount.html(stats.wins);
     enemyWinCount.html(stats.losses);
 
+    if(stats.wins > stats.losses) {
+        myCounter.addClass('game-won');
+        enemyCounter.addClass('game-lost');
+    } else if (stats.wins < stats.losses) {
+        myCounter.addClass('game-lost');
+        enemyCounter.addClass('game-won');
+    } else {
+        myCounter.addClass('tie');
+        enemyCounter.addClass('tie');
+    }
 }
 
 
@@ -162,6 +174,8 @@ function applyGameStartTransition() {
         $(".lobby").addClass("display-none");
         $("header").addClass("display-none");
         $("footer").addClass("display-none");
+
+        $("#ready-button").removeClass('ready-status');
 
         $(".desk-wrapper").addClass("fade-in");
         
@@ -286,8 +300,10 @@ function displayConfetti(wonGame) {
 function showResultModal(wonGame) {
     if(wonGame) {
         gameResult.html('YOU WIN');
+        gameResult.addClass('game-won');
     } else {
         gameResult.html('YOU LOSE');
+        gameResult.addClass('game-lost');
     }
 
     resultModal.removeClass('display-none');
