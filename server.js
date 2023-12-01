@@ -102,6 +102,10 @@ io.on('connection', (socket) => {
     socketHandler.emitLobbyUpdate();
 });
 
+// Handle 404 Not Found
+app.use((req, res) => {
+    res.status(404).render('404');
+});
 
 // Run Server using the http socket server created.
 socket_server.listen(PORT, () => {
