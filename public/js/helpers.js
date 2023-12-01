@@ -133,6 +133,14 @@ function setStatsSection(stats) {
     stayCount.html(stats.timesStayed);
     myWinCount.html(stats.wins);
     enemyWinCount.html(stats.losses);
+    
+    myCounter.removeClass('game-won');
+    myCounter.removeClass('game-lost');
+    myCounter.removeClass('tie');
+
+    enemyCounter.removeClass('game-won');
+    enemyCounter.removeClass('game-lost');
+    enemyCounter.removeClass('tie');
 
     if(stats.wins > stats.losses) {
         myCounter.addClass('game-won');
