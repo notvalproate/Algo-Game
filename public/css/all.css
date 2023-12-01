@@ -10,6 +10,9 @@
 /* Gotu Font */
 @import url('https://fonts.googleapis.com/css2?family=Gotu&display=swap');
 
+/* Josefin Slab Serif */
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@300&display=swap');
+
 :root{
     --backgroundColour: #1f1f1f;
     --headerFooterColor: #2f2f2f;
@@ -18,9 +21,9 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: var(--backgroundColour);
+    background-color: var(--backgroundColour);  
     color: #b0b0b0;
-    overflow-x: hidden;
+    overflow: hidden;
     font-family: 'Gruppo', sans-serif;
 }
 
@@ -64,29 +67,30 @@ input {
 }
 
 header {
-    position: fixed;
     top: 0;
-    width: 100%;
-    height: 10vh;
-    padding: 1vh;
-    background-color: var(--headerFooterColor);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    transition: 0.8s cubic-bezier(.36,-0.23,.1,1.01) 0.6s;
+    border-bottom: 2px white solid;
 }
 
 footer {
-    position: fixed;
     bottom: 0;
+    border-top: 2px white solid;
+}
+
+.header-footer {
+    position: fixed;
     width: 100%;
-    height: 10vh;
-    background-color: var(--headerFooterColor);
+    height: 14vh;
+
     display: flex;
     justify-content: center;
     align-items: center;
+    backdrop-filter: blur(25px);
+
+    color: white;
+    text-shadow: 1px 1px 2px black;
+    box-shadow: 0px 0px 7px black;
+    align-items: center;
+    background-color: rgba(0,0,0,0.2);
     transition: 0.8s cubic-bezier(.36,-0.23,.1,1.01) 0.6s;
 }
 
@@ -105,6 +109,19 @@ footer {
 
 /* index.ejs page stuff */
 
+.main-bg {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../images/bg.jpg');
+    background-repeat: repeat;
+
+    opacity: 0%;
+    transform: scale(130%);
+
+    transition: 1s cubic-bezier(.36,-0.23,.1,1.01) 0.3s;
+}
+
 .login-box {
     width: 100%;
     height: 100vh;
@@ -117,11 +134,23 @@ footer {
 .login {
     max-width: 40rem;
     width: 60%;
-    height: 50%;
-    background-color: var(--headerFooterColor);
-    padding: 4rem 3rem;
+    padding: 3rem;
     border-radius: 10px;
     text-align: center;
+
+    font-family: 'Urbanist', sans-serif;
+    color: white;
+    text-shadow: 1px 1px 2px black;
+    box-shadow: 0px 0px 7px black;
+    border-radius: 10px;
+    border: 2px white solid;
+    background-color: rgba(0,0,0,0.2);
+    backdrop-filter: blur(25px);
+
+    opacity: 0%;
+    transform: scale(60%);
+
+    transition: 1s cubic-bezier(.36,-0.23,.1,1.01) 0.9s;
 }
 
 .box {
@@ -134,31 +163,56 @@ footer {
     justify-content: space-around;
 }
 
-.title {
-    font-size: 3rem;
-}
-
-.button {
-    font-family: 'Urbanist', sans-serif;
-    font-weight: 600;
-    width: 40%;
-    height: 3rem;
-    background-color: rgb(200, 200, 200);
-    border: none;
+.input-box {
+    font-family: 'Gruppo', sans-serif;
+    color: white;
     font-size: 130%;
+    box-shadow: 0px 0px 7px black;
     border-radius: 10px;
-    outline: none;
-    margin: 4rem 0;
-    cursor: pointer;
-    box-shadow: yellow 3px 3px;
-    transition: 0.6s cubic-bezier(.36,-0.23,.1,1.01);
+    border: 1px white solid;
+    background-color: rgba(0, 0, 0, 0.72);
+    height: 4vh;
+    padding-left: 15px;
 }
 
-.button:hover {
-    transform: scale(1.05);
-    background-color: yellow !important;
-    box-shadow: none;
+.serif-title {
+    position: relative;
+    font-size: 6rem;
+    font-weight: 400;
+    font-family: 'Josefin Slab', serif;
+}
+
+.basic-title {
+    bottom: 0;
+    right: -10%;
+    position: absolute;
+    font-size: 1.5rem;
+    font-family: 'Gruppo', sans-serif;
+}
+
+.white-button {
+    font-family: 'Urbanist', sans-serif;
+    color: white;
+    font-size: 2.5vh;
+    text-shadow: 1px 1px 2px black;
+    box-shadow: 0px 0px 7px black;
+    border-radius: 10px;
+    border: 2px white solid;
+    background-color: rgba(0,0,0,0.2);
+    transition: 0.3s ease;
+}
+
+.white-button:hover {
+    background-color: white;
+    color: black;
+    text-shadow: none;
     cursor: pointer;
+}
+
+#playButton {
+    margin-top: 4vh;
+    height: 8vh;
+    width: 24vh;
 }
 
 .alert-box {
@@ -171,14 +225,20 @@ footer {
 }
 
 .full-alert {
+    margin-top: 4vh;
     width: 100%;
     height: auto;
-    background-color: #ffff00bb;
-    color: #090909;
-    border-radius: 7px;
     display: flex;
     justify-content: center;
     align-items: center;
+    
+    font-family: 'Gruppo', sans-serif;
+    font-size: 1.5vh;
+    color: white;
+    text-shadow: 1px 1px 2px black;
+    box-shadow: 0px 0px 7px black;
+    border-radius: 10px;
+    border: 2px yellow solid;
 }
 
 
@@ -616,25 +676,9 @@ footer {
     transform: scale(100%);
 }
 
-.return-button {
-    font-family: 'Urbanist', sans-serif;
-    color: white;
-    font-size: 130%;
-    text-shadow: 1px 1px 2px black;
-    box-shadow: 0px 0px 7px black;
-    border-radius: 10px;
-    border: 2px white solid;
-    background: none;
+#return-button {
     height: 9vh;
     width: 27vh;
-    transition: 0.3s ease;
-}
-
-.return-button:hover {
-    background-color: white;
-    color: black;
-    text-shadow: none;
-    cursor: pointer;
 }
 
 /* STATS PART OF MODAL  */
@@ -647,10 +691,10 @@ footer {
     text-shadow: 1px 1px 2px black;
     box-shadow: 0px 0px 7px black;
     align-items: center;
-    row-gap: 2vh;
     padding: 2vh;
     border-radius: 10px;
     border: 2px white solid;
+    background-color: rgba(0,0,0,0.2);
 }
 
 .stats-title {
@@ -663,6 +707,7 @@ footer {
     justify-content: space-between;
     align-items: center;
     width: 35vh;
+    margin-top: 1.5vh;
 }
 
 .stat {
@@ -681,20 +726,36 @@ footer {
     display: flex;
     flex-direction: column;
     align-items: center;
-    row-gap: 1vh;
     width: 100%;
+    margin-top: 3vh;
 }
 
 .title-hth {
     font-size: 2.5vh;
 }
 
-.players-wins {
+.hth-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1vh;
     font-size: 2.6vh;
     width: 100%;
+}
+
+.players-names {
     display: flex;
     flex-direction: column;
-    row-gap: 1vh;
-    justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+}
+
+.players-wins {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.white-hr {
+    width: 6vh;
+    border: 1px solid white;
+    box-shadow: 0px 0px 7px black;
 }

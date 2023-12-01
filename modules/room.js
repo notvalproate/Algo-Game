@@ -95,6 +95,9 @@ class Room {
     }
 
     getGameRunning() {
+        if(this.game === undefined) {
+            return false;
+        }
         return this.game.getGameRunning();
     }
 

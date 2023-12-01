@@ -1,6 +1,6 @@
 <%- include('./partials/_header'); %>
 
-<header class="header-out">
+<header class="header-footer header-out">
     <h1 class="title">Lobby</h1>
 </header>
 
@@ -72,6 +72,7 @@
     <span class="game-status"></span>
     <div class="stats-section">
         <span class="stats-title">GAME STATISTICS</span>
+        <hr class="white-hr">
         <div class="game-stats">
             <div class="stat">
                 <span class="stat-info">TOTAL GUESSES:</span>
@@ -88,18 +89,25 @@
         </div>      
         <div class="head-to-head">
             <span class="title-hth">HEAD TO HEAD</span>
-            <div class="players-wins">
-                <div class="my-hth"><%= username %>: <span id="my-win-count">0</span></div>
-                <div class="enemy-hth"><span id="enemy-user-hth"><%= enemyUsername %></span>: <span id="enemy-win-count">0</span></div>
+            <hr class="white-hr">
+            <div class="hth-wrapper">
+                <div class="players-names">
+                    <div class="my-hth"><%= username %>:</div>
+                    <div class="enemy-hth"><span id="enemy-user-hth"><%= enemyUsername %></span>:</div>
+                </div>
+                <div class="players-wins">
+                    <div><span id="my-win-count">0</span> Wins</div>
+                    <div><span id="enemy-win-count">0</span> Wins</div>
+                </div>
             </div>
         </div>
-    </div>  
-    <button class="return-button" id="return-button">
+    </div>
+    <button class="white-button" id="return-button">
         RETURN TO LOBBY
     </button>
 </section>
 
-<footer class="footer-out">
+<footer class="header-footer footer-out">
     <h3>&copy; 2023 - ALGO</h3>
 </footer>
 

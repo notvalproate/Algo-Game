@@ -35,8 +35,9 @@ class SocketHandler {
     disconnectSocket() {
         if(this.room.getGameRunning()) {
             const [winnerStats, loserStats] = this.room.getStats(this.username);
+            loserStats.wins++;
 
-            this.socket.broadcast.to(this.roomKey).emit('gameEnded', { wonGame: true, enemyDisconnect: true, stats: winnerStats });
+            this.socket.broadcast.to(this.roomKey).emit('gameEnded', { wonGame: true, enemyDisconnect: true, stats: loserStats });
             
             logWithTime(`[-] Game ended in room [${this.roomKey}]!!!`);
         }
