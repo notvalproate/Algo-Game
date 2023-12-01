@@ -129,7 +129,7 @@ const enemyCounter = $('#enemy-counter');
 function setStatsSection(stats) {
     guessCount.html(stats.totalGuesses);
     correcGuesses.html(stats.correctGuesses);
-    guessRate.html(`${stats.correctGuessRate}%`);
+    guessRate.html(`${stats.correctGuessRate.toFixed(2)}%`);
     stayCount.html(stats.timesStayed);
     myWinCount.html(stats.wins);
     enemyWinCount.html(stats.losses);
