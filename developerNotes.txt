@@ -4,28 +4,20 @@ CHAT:
 
 [Manoj] - [19-11-23 ; 0227Hrs]
 1. To Improve:
-   -> For server.js, adding a RoutesHandler could seem resourceful. 
-
-[Ian] - [23-11-23 ; 0007Hrs]
-   -> Almost modularized play.js completely. yet to modularize socket.io.
-
-[Ian] - [27-11-23 ; 0044Hrs]
-   -> Chat so lonely :(
+   -> For server.js, adding a RoutesHandler could seem resourceful.
 
 [Ian] - [27-11-23 ; 0918Hrs]
    -> Break css into multiple files and remove unnecessary lines and merge classes that have similar properties.
-   -> Try to modularize play.js a bit more, reduce number of lines in main file.
 
-[Ian] - [27-11-23 ; 2033Hrs]
-   -> Need to revamp the design for lobby and create room page.
-   -> Pick appropriate background.
+[Ian] - [2-12-23 ; 0952Hrs]
+   -> Final testing period for first release. check for all sorts of bugs. Try to break the website on purpose and find vulnerabilities.
+   -> Add sound effects and get ready for deployment.
+
 }
 
 {
    V1.0 GOALS:
-      -> Fully added sound effects. Touch up some animations and transitions here and there.
-      -> Different UI/Colors for the login and lobby page.
-      -> Handle disconnects better and handle reconnects. Same socket allowed to reconnect and have 3 players in a room.
+      -> Fully added sound effects.
       -> Deploy with helmet, compression, permissions policy.
 }
 
