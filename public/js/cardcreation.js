@@ -61,6 +61,8 @@ function updateEnemyHandEventListeners(pos) {
         const cardDiv = $(cardDivsInHand[i]);
         
         if(cardDiv.hasClass('open')) {
+            console.log('open card');
+            cardDiv.off('click');
             continue;
         }
 
@@ -80,7 +82,14 @@ function updateEnemyHandEventListeners(pos) {
     }
 }
 
+function removeEventListenerFromEnemyCard(index) {
+    const card = $('.enemy-card')[index];
+    $(card).off('click');
+    $(card).addClass('no-pointer-events');
+}
+
 export {
     createInitialHands,
     createAndAnimateCardDiv,
+    removeEventListenerFromEnemyCard,
 }

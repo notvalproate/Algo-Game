@@ -412,3 +412,13 @@
 .losing {
     text-shadow: 0px 0px 10px rgb(255, 60, 0);
 }
+
+.fade-out {
+    opacity: 0%;
+    transform: scale(130%);
+} /* JS Controlled Class*/
+
+.fade-in {
+    opacity: 100%;
+    transform: scale(100%);
+} /* JS Controlled Class*/

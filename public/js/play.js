@@ -151,6 +151,7 @@ $(document).ready(function() {
             $(enemyCardDivs[index]).addClass('open');
             attackButton.addClass('decision-inactive');
             holdButton.removeClass('decision-inactive');
+            CardDivManager.removeEventListenerFromEnemyCard(index);
 
             Animations.flipCardAnimation($(enemyCardDivs[index]), enemyHand[index]);
         } else {
@@ -180,6 +181,7 @@ $(document).ready(function() {
             cardToInsert.setNumber(data.value);
             enemyHand.splice(insertIndex, 0, cardToInsert);
             CardDivManager.createAndAnimateCardDiv(cardToInsert, insertIndex, 'enemy', 'open');
+            CardDivManager.removeEventListenerFromEnemyCard(insertIndex);
             CalloutHandler.removeCallout();
 
             Helpers.applyTransitionToMyTurn();
