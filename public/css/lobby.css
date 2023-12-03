@@ -1,0 +1,153 @@
+.lobby {
+    position: fixed;
+    box-sizing: border-box;
+    padding: 14vh 0;
+    width: 100vw;
+    height: 100vh;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    text-shadow: 1px 1px 2px black;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.55);
+    transition: 0.8s cubic-bezier(.36,-0.23,.1,1.01) 0.6s;
+}
+
+.lobby-title {
+    bottom: 0;
+    right: -10%;
+    position: absolute;
+    font-size: 1.5rem;
+    font-family: 'Gruppo', sans-serif;
+}
+
+.key{
+    font-family: 'Gruppo', sans-serif;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    row-gap: 1vh;
+    height: 8vh;
+    min-width: 24vh;
+}
+
+.key:hover {
+    background-color: white;
+    color: black;
+    text-shadow: none;
+    cursor: pointer;
+}
+
+.key-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    column-gap: 1vh;
+}
+
+.key-wrapper img{
+    position: relative;
+    width: 3vh;
+    transform: translateY(10%);
+}
+
+.key-wrapper h2 {
+    font-size: 4vh;
+}
+
+.copy-link {
+    font-family: 'Urbanist', sans-serif;
+    font-size: 1.5vh;
+}
+
+.player-display{
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.players{
+    color: #b0b0b0;
+    font-size: 4.2rem;
+    width: 30%;
+    transition: 0.8s cubic-bezier(.42,0,.04,.99);
+    text-align: center;
+    word-wrap: break-word;
+}
+
+.player-ready {
+    color: yellow;
+    transform: scale(1.15);
+    text-shadow: yellow 0px 0px 30px;
+} /* JS controlled Class */
+
+#ready-button {
+    height: 8vh;
+    width: 24vh;
+}
+
+.versus{
+    font-family: 'Urbanist', sans-serif;
+    transform: scale(0.65);
+    width: 180px;
+    height: 200px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    color: yellow;
+    text-shadow: yellow 0px 0px 10px;
+}
+
+.versus-block{
+    background-color: yellow;
+    width: 100px;
+    height: 8px;
+    transform: rotate(-55deg); 
+}
+
+.vvv{
+    transform: translate(-30px,15px);
+    font-size: 70px;
+}
+
+.sss{
+    transform: translate(30px,-15px);
+    font-size: 70px;
+}
+
+.ready-button{
+    width: 200px;
+    height: 80px;
+    margin: 1rem 0;
+}
+
+.ready-status {
+    box-shadow: 0px 0px 20px yellow;
+    background-color: #ffffff;
+    color: #000000;
+    text-shadow: none;
+    transition: 0.4s ease;
+} /* JS controlled Class */
+
+
+@media only screen and (max-width: 768px) {
+    .player-display {
+        flex-direction: column;
+    }
+
+    .players {
+        width: 100%;
+        display: block;
+    }
+}

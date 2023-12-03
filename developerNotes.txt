@@ -9,7 +9,7 @@ CHAT:
 [Ian] - [27-11-23 ; 0918Hrs]
    -> Break css into multiple files and remove unnecessary lines and merge classes that have similar properties.
 
-[Ian] - [2-12-23 ; 0952Hrs]
+[Ian] - [2-12-23 ; 0955Hrs]
    -> Final testing period for first release. check for all sorts of bugs. Try to break the website on purpose and find vulnerabilities.
    -> Add sound effects and get ready for deployment.
 

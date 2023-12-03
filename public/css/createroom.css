@@ -1,0 +1,120 @@
+label {
+    font-family: 'Gruppo', sans-serif;
+    font-size: 2.5vh;
+    padding: 0.5rem 0;
+}
+
+input {
+    font-family: 'Gruppo', sans-serif;
+    color: white;
+    font-size: 130%;
+    box-shadow: 0px 0px 7px black;
+    border-radius: 10px;
+    border: 1px white solid;
+    background-color: rgba(0, 0, 0, 0.72);
+    height: 4vh;
+    padding-left: 15px;
+}
+
+.create-title {
+    font-size: 5vh;
+}
+
+.serif-title {
+    position: relative;
+    font-size: 6rem;
+    font-weight: 400;
+    font-family: 'Josefin Slab', serif;
+}
+
+.basic-title {
+    bottom: 0;
+    right: -10%;
+    position: absolute;
+    font-size: 1.5rem;
+    font-family: 'Gruppo', sans-serif;
+}
+
+#playButton {
+    margin-top: 4vh;
+    height: 8vh;
+    width: 24vh;
+}
+
+
+.login-box {
+    width: 100%;
+    height: 100vh;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.login {
+    width: 30%;
+    padding: 3rem;
+    border-radius: 10px;
+    text-align: center;
+
+    font-family: 'Urbanist', sans-serif;
+    text-shadow: 1px 1px 2px black;
+    box-shadow: 0px 0px 7px black;
+    border-radius: 10px;
+    border: 2px white solid;
+    background-color: rgba(0,0,0,0.85);
+
+    opacity: 0%;
+    transform: scale(70%);
+
+    transition: 0.8s cubic-bezier(.42,0,.04,.99);
+}
+
+.box {
+    width: 100%;
+    height: 100%;
+    padding: 0.5rem 0;
+    text-align: left;
+
+    display: flex;
+    flex-direction: column;
+}
+
+.alert-box {
+    width: 100%;
+    height: 2rem;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.full-alert {
+    margin-top: 4vh;
+    width: 100%;
+    height: auto;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    font-family: 'Gruppo', sans-serif;
+    font-size: 2.5vh;
+    padding: 1vh;
+    color: white;
+    text-shadow: 1px 1px 2px black;
+    box-shadow: 0px 0px 7px black;
+    border-radius: 10px;
+    border: 2px yellow solid;
+}
+
+.fade-out {
+    opacity: 0%;
+    transform: scale(130%);
+} /* JS Controlled Class*/
+
+.fade-in {
+    opacity: 100%;
+    transform: scale(100%);
+} /* JS Controlled Class*/

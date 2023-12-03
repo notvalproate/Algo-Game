@@ -1,0 +1,414 @@
+/* Cards Desk */
+.desk-wrapper {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    row-gap: 2vh;
+    justify-content: flex-start;
+    align-items: center;
+    transform: scale(70%);
+    opacity: 0%;
+    transition: 0.8s cubic-bezier(.36,.0,.1,1.01);
+}
+
+.username {
+    transform: scale(65%);
+    font-size: 5vh;
+    font-weight: 400;
+    font-family: 'Gruppo', sans-serif;
+    transition: 0.5s cubic-bezier(.42,0,.04,.99);
+}
+
+.desk {
+    background-color: var(--backgroundColor);
+    margin-top: 3.5vh;
+    height: 80vh;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    row-gap: 3vh;
+    justify-content: flex-start;
+    align-items: center;
+    font-family: 'Urbanist', sans-serif;
+}
+
+.hand {
+    width: auto;
+    gap: 15px;
+    padding: 0px 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    transition: 0.3s linear;
+}
+
+#my-hand {
+    pointer-events: none;
+}
+
+.draw-pile {
+    position: relative;
+    padding: 20px;
+    background-color: var(--backgroundColor);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.dealt-card-class {
+    z-index: 10 !important;
+}
+
+.dealt-card-class:hover {
+    cursor: default !important;
+}
+
+.card{
+    position: relative;
+    padding-top: 11vh;
+    height: 17vh;
+    width: 11vh;
+    z-index: 30;
+    text-align: center;
+    font-size: 4vh;
+    border-radius: 1.2vh;
+    font-weight: 600;
+    box-sizing: border-box;
+    user-select: none;
+    transition: 
+    box-shadow 0.6s cubic-bezier(.36, -0.23, .1, 1.01), 
+    padding-top 0.4s cubic-bezier(.36, -0.23, .1, 1.01),
+    font-size 0.4s cubic-bezier(.36, -0.23, .1, 1.01);
+}
+
+.card:hover {
+    cursor: pointer;
+}
+
+.open {
+    padding-top: 2vh;
+    font-size: 11vh;
+} /*JS Controlled Class*/
+
+.closed {
+    align-items: flex-end;
+} /*JS Controlled Class*/
+
+.selected {
+    box-shadow: 0px 0px 20px yellow;
+} /*JS Controlled Class*/
+
+.correct {
+    box-shadow: 0px 0px 40px rgb(34, 255, 0);
+} /*JS Controlled Class*/
+
+.wrong {
+    box-shadow: 0px 0px 40px rgb(255, 60, 0);
+} /*JS Controlled Class*/
+
+.highlight-dealt-card {
+    box-shadow: 0px 0px 30px rgb(108, 201, 255);
+}
+
+/* Picking */
+
+.guess-array {
+    z-index: 999;
+    height: 7vh;
+    display: flex;
+    justify-content: center;
+    transition: 0.5s cubic-bezier(.42,0,.04,.99);
+    user-select: none;
+}
+
+.guess-button {
+    box-sizing: border-box;
+    font-family: 'Urbanist', sans-serif;
+    -webkit-border-radius: 10;
+    -moz-border-radius: 10;
+    border: none;
+    border-radius: 1vh;
+    color: #000000;
+    width: 8vh;
+    height: 8vh;
+    margin: 0 8px;
+    font-size: 4vh;
+    font-weight: 600;
+    background: #ffffff;
+    text-decoration: none;
+    transition: 0.2s linear;
+}
+
+.guess-button:hover {
+    cursor: pointer;
+    background: #d6d6d6;
+    text-decoration: none;
+}
+
+.guess-array-inactive {
+    transform: scale(50%);
+    opacity: 50%;
+    transform-origin: 50% 0;
+    pointer-events: none;
+}
+
+.guess-button-selected {
+    box-shadow: 0px 0px 20px rgb(108, 201, 255);
+}
+
+.hand-container {
+    border-radius: 20px;
+    padding-left: 2vh;
+    padding-right: 2vh;
+    height: 30vh;
+    width: auto;
+    display: flex;
+    box-sizing: border-box;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+}
+
+.my-hand-container {
+    padding-bottom: 1vh;
+    padding-top: 2vh;
+}
+
+.enemy-hand-container {
+    padding-top: 1vh;
+    padding-bottom: 2vh;
+}
+
+.player-turn {
+    transform: scale(100%);
+    color: yellow;
+    text-shadow: 0px 0px 20px yellow;
+}
+
+.guess-callout {
+    top: 0;
+    left: 0;
+    position: absolute;
+    padding: 2vh;
+    height: 4vh;   
+    width: 4vh;
+    border-radius: 0.5vh;
+    box-sizing: border-box;
+    font-size: 2vh;
+    font-weight: 600;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    z-index: 999;
+    transform: translate(calc(5.5vh - 50%), -110%);
+}
+
+.black {
+    color: white;
+    background-color: black;
+}
+
+.white {
+    color: black;
+    background-color: white;
+}
+
+.no-pointer-events {
+    pointer-events: none;
+}
+
+.visibility-hidden {
+    visibility: hidden;
+} /* JS Controlled Class */
+
+
+/* ATTACK AND HOLD */
+
+.decision-wrapper {
+    position: absolute;
+    top: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translate(0%, -50%);
+    cursor: pointer;
+    transition: 0.4s cubic-bezier(.42,0,.04,.99);
+}
+
+.decision-wrapper:hover {
+    transform: translate(0%, -50%) scale(120%);
+}
+
+.decision-image {
+    width: 11vh;
+    height: 11vh;
+}
+
+.attack {
+    left: -100%;
+}
+
+.attack:hover {
+    filter: drop-shadow(0px 0px 20px #ff3a3a);
+}
+
+.hold {
+    right: -100%;
+}
+
+.hold:hover {
+    filter: drop-shadow(0px 0px 20px rgb(108, 201, 255));
+}
+
+.hold .decision-text {
+    margin-top: 5px;
+}
+
+.decision-inactive {
+    pointer-events: none;
+    opacity: 50%;
+    transform: translate(0%, -50%) scale(90%);
+}
+
+.decision-fade-away {
+    opacity: 0%;
+    transform: translate(0%, -50%) scale(80%);
+}
+
+/* GAME RESULT MODAL  */
+
+.modal-game-result {    
+    z-index: 999;
+    font-family: 'Urbanist', sans-serif;
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    flex-direction: column;
+    row-gap: 2.5vh;
+    align-items: center;
+    justify-content: center;
+    transition: 0.5s cubic-bezier(.42,0,.04,.99);
+    opacity: 0%;
+    transform: scale(120%);
+}
+
+.game-result {
+    color: white;
+    font-size: 8vh;
+    text-shadow: 3px 3px 5px black;
+}
+
+.game-won {
+    text-shadow: 0px 0px 30px rgb(34, 255, 0);
+}
+
+.game-lost {
+    text-shadow: 0px 0px 30px rgb(255, 60, 0);
+}
+
+.game-status {
+    font-size: 3vh;
+    font-weight: 600;
+    color: white;
+    text-shadow: 2px 2px 4px black;
+}
+
+.modal-in {
+    opacity: 100%;
+    transform: scale(100%);
+}
+
+#return-button {
+    height: 9vh;
+    width: 27vh;
+}
+
+/* STATS PART OF MODAL  */
+.stats-section {
+    font-family: 'Urbanist', sans-serif;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    text-shadow: 1px 1px 2px black;
+    box-shadow: 0px 0px 7px black;
+    align-items: center;
+    padding: 2vh;
+    border-radius: 10px;
+    border: 2px white solid;
+    background-color: rgba(0,0,0,0.2);
+}
+
+.stats-title {
+    font-size: 2.5vh;
+}
+
+.game-stats {
+    font-size: 2vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 35vh;
+    margin-top: 1.5vh;
+}
+
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.stat-values {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.head-to-head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-top: 3vh;
+}
+
+.title-hth {
+    font-size: 2.5vh;
+}
+
+.hth-wrapper {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1vh;
+    font-size: 2.6vh;
+    width: 100%;
+}
+
+.players-names {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.players-wins {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.tie {
+    text-shadow: 0px 0px 10px rgb(108, 201, 255);
+}
+
+.winning {
+    text-shadow: 0px 0px 10px rgb(34, 255, 0);
+}
+
+.losing {
+    text-shadow: 0px 0px 10px rgb(255, 60, 0);
+}

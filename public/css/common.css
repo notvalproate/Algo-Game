@@ -1,0 +1,113 @@
+/* Gruppo Font */
+@import url('https://fonts.googleapis.com/css2?family=Gruppo&display=swap'); /* Using this currently */
+
+/* Urbanist Font */
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100;0,200;0,300;0,600;0,700;1,100;1,200;1,300;1,600;1,900&display=swap');
+
+/* MuseoModerno Font */
+@import url('https://fonts.googleapis.com/css2?family=MuseoModerno:ital,wght@0,100;0,200;0,300;0,400;0,600;1,100;1,200;1,300;1,400;1,600&display=swap');
+
+/* Gotu Font */
+@import url('https://fonts.googleapis.com/css2?family=Gotu&display=swap');
+
+/* Josefin Slab Serif */
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Slab:wght@300&display=swap');
+
+:root{
+    --backgroundColour: #1f1f1f;
+    --headerFooterColor: #2f2f2f;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--backgroundColour);
+    color: white;
+    overflow: hidden;
+    font-family: 'Gruppo', sans-serif;
+}
+
+header {
+    top: 0;
+    border-bottom: 2px white solid;
+}
+
+footer {
+    bottom: 0;
+    border-top: 2px white solid;
+}
+
+.header-footer {
+    z-index: 30;
+    position: fixed;
+    width: 100%;
+    height: 14vh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    text-shadow: 1px 1px 2px black;
+    box-shadow: 0px 0px 7px black;
+    background-color: rgba(0, 0, 0, 0.85);
+    transition: 0.8s cubic-bezier(.42,0,.04,.99);
+}
+
+.header-out {
+    transform: translateY(-100%);
+} /* JS Controlled Class*/
+
+.footer-out {
+    transform: translateY(100%);
+} /* JS Controlled Class*/
+
+.display-none {
+    display: none !important;
+} /* JS Controlled Class*/
+
+
+.main-bg {
+    z-index: -999;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-image: url('../images/bg.jpg');
+    background-repeat: repeat;
+
+    opacity: 0%;
+    transform: scale(130%);
+
+    transition: 0.8s cubic-bezier(.42,0,.04,.99) 0.3s;
+}
+
+.white-button {
+    font-family: 'Urbanist', sans-serif;
+    color: white;
+    font-size: 2.5vh;
+    text-shadow: 1px 1px 2px black;
+    box-shadow: 0px 0px 7px black;
+    border-radius: 10px;
+    border: 2px white solid;
+    background-color: rgba(0,0,0,0.2);
+    transition: 0.3s ease;
+}
+
+.white-button:hover {
+    background-color: white;
+    color: black;
+    text-shadow: none;
+    cursor: pointer;
+}
+
+/* GENERICS  */
+
+.white-hr {
+    width: 6vh;
+    border: 1px solid white;
+    box-shadow: 0px 0px 7px black;
+}

@@ -1,0 +1,34 @@
+.not-found {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0, 0, 0, 0.85);
+}
+
+.oops-wrapper {
+    font-family: 'Urbanist', sans-serif;
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    row-gap: 5vh;
+}
+
+.oops {
+    font-size: 20vh;
+}
+
+.redirect-text {
+    font-size: 2vh;
+}
+
+.click-here {
+    text-decoration: none;
+    color: yellow;
+}
