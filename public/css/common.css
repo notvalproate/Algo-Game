@@ -58,6 +58,24 @@ footer {
     transition: 0.8s cubic-bezier(.42,0,.04,.99);
 }
 
+.footer-content-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 2vh;
+    row-gap: 2vh;
+}
+
+.footer-content-wrapper a {
+    color: white;
+}
+
+.how-to-link {
+    font-weight: 600;
+    font-size: 3.5vh;
+}
+
 .header-out {
     transform: translateY(-100%);
 } /* JS Controlled Class*/
