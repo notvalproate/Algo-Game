@@ -49,6 +49,9 @@ app.get('/:roomKey/play', (req, res) => {
     }
 });
 
+app.get('/howtoplay', (req, res) => {
+    res.render('howto');
+});
 
 // POST routes
 app.post('/', (req, res) => {

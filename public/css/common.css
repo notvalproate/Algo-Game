@@ -30,6 +30,7 @@ body {
     color: white;
     overflow: hidden;
     font-family: 'Gruppo', sans-serif;
+    scroll-behavior: smooth;
 }
 
 header {
@@ -92,8 +93,8 @@ footer {
 .main-bg {
     z-index: -999;
     position: absolute;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 200%;
     background-image: url('../images/bg.jpg');
     background-repeat: repeat;
 
