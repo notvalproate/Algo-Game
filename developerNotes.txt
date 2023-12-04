@@ -8,6 +8,10 @@ CHAT:
 [Ian] - [4-12-23 ; 1711Hrs]
    -> Try to combine the css classes, if not, also fine. Test once by combining all css files and minifying them into one file.
 
+[Ian] - [4-12-23 ; 2350Hrs]
+   -> Handle case when same username joins the lobby.
+   -> Prevent white spaces being used as username and room key.
+
 }
 
 {
