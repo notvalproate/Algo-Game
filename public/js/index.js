@@ -12,6 +12,13 @@ $(document).ready(function() {
 });
 
 $('#playButton').on('click', (event) => {
+    const username = $('#username').val();
+    const roomKey = $('#roomKey').val();
+
+    if(username === '' || roomKey === '') {
+        return;
+    }
+    
     event.preventDefault();
 
     $('.login').removeClass('fade-in');
@@ -24,4 +31,16 @@ $('#playButton').on('click', (event) => {
     setTimeout(() => {
       $('#playForm').submit();
     }, 1500);
+});
+
+$('#username').on('keypress', (e) => {
+    if (e.which == 32) {
+        return false;
+    }
+});
+
+$('#roomKey').on('keypress', (e) => {
+    if (e.which == 32) {
+        return false;
+    }
 });

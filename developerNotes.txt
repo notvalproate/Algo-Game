@@ -10,7 +10,6 @@ CHAT:
 
 [Ian] - [4-12-23 ; 2350Hrs]
    -> Handle case when same username joins the lobby.
-   -> Prevent white spaces being used as username and room key.
 
 }
 
