@@ -25,6 +25,13 @@ class Room {
         this.numberOfPlayersReady = this.users[0].ready + 0;
     }
 
+    usernameInRoom(username) {
+        if(this.users[0].username === username) {
+            return true;
+        }
+        return false;
+    }
+
     // GAME SETUP
 
     getGameSetup(username) {

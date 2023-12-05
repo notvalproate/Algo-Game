@@ -26,11 +26,11 @@
             <button class="white-button" id="playButton">PLAY</button>
         </form> 
 
-        <% if(full) {%>
+        <% if(alert) {%>
             <div class="full-alert">
                 <h4>
                     <span><i class="fa-solid fa-triangle-exclamation" style="color: yellow;"></i></span>
-                    &nbsp;&nbsp;The lobby you tried to join is already FULL !
+                    &nbsp;&nbsp;<%= alertMsg %>
                 </h4>
             </div>
         <% } %>

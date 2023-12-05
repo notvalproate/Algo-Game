@@ -34,7 +34,7 @@ app.set('views', path.join(__dirname, '/views'));
 
 // GET routes
 app.get('/', (req, res) => {
-    res.render('index', { roomKey: undefined, full: false });
+    res.render('index', { roomKey: undefined, alert: false, alertMsg: '' });
 });
 
 
@@ -43,9 +43,9 @@ app.get('/:roomKey/play', (req, res) => {
     const roomToJoin = roomsHandler.getRoom(roomKey);
 
     if(roomToJoin === undefined || roomToJoin.getUsers().length < 2) {
-        res.render('index', { roomKey: roomKey, full: false });
+        res.render('index', { roomKey: roomKey, alert: false, alertMsg: '' });
     } else {
-        res.render('index', { roomKey: undefined, full: true });
+        res.render('index', { roomKey: undefined, alert: true, alertMsg: 'The lobby you tried to join is already FULL!' });
     }
 });
 
@@ -62,9 +62,13 @@ app.post('/', (req, res) => {
     if(roomToJoin === undefined) {
         res.render('play', { roomKey: roomKey, username: username, enemyUsername: '...' , numberOfPlayersReady: 0});
     } else if(roomToJoin.users.length == 1) {
-        res.render('play', { roomKey: roomKey, username: username, enemyUsername: roomToJoin.getUsers()[0].username , numberOfPlayersReady: roomToJoin.getReadyCount() });
+        if(roomToJoin.usernameInRoom(username)) {
+            res.render('index', { roomKey: undefined, alert: true, alertMsg: `The username \"${username}\" is already in use in this lobby!` });
+        } else {
+            res.render('play', { roomKey: roomKey, username: username, enemyUsername: roomToJoin.getUsers()[0].username , numberOfPlayersReady: roomToJoin.getReadyCount() });
+        }
     } else {
-        res.render('index', { roomKey: undefined, full: true });
+        res.render('index', { roomKey: undefined, alert: true, alertMsg: 'The lobby you tried to join is already FULL!' });
     }
 });
 
