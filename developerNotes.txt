@@ -8,9 +8,10 @@ CHAT:
 [Ian] - [4-12-23 ; 1711Hrs]
    -> Try to combine the css classes, if not, also fine. Test once by combining all css files and minifying them into one file.
 
-[Ian] - [4-12-23 ; 2350Hrs]
-   -> Handle case when same username joins the lobby.
-
+[Ian] - [5-12-23 ; 1844Hrs]
+   -> Kick people from lobby if alone in lobby for too long.
+   -> People in front-end js can edit and add code hence make unnecessary socket emits that may break/crash server. Add game-state safeguards
+      to only allow 'expected' emits from the client.
 }
 
 {
