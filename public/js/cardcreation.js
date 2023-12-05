@@ -61,7 +61,6 @@ function updateEnemyHandEventListeners(pos) {
         const cardDiv = $(cardDivsInHand[i]);
         
         if(cardDiv.hasClass('open')) {
-            console.log('open card');
             cardDiv.off('click');
             continue;
         }

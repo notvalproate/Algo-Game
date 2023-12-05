@@ -59,11 +59,21 @@ app.post('/', (req, res) => {
     const username = req.body.username;
     const roomToJoin = roomsHandler.getRoom(roomKey);
 
+    if(roomKey.length === 0 || username.length === 0) {
+        res.render('index', { roomKey: undefined, alert: true, alertMsg: `The username or room key entered was invalid!` });
+        return;
+    }
+
+    if(roomKey.indexOf(' ') >= 0 || username.indexOf(' ') >= 0) {
+        res.render('index', { roomKey: undefined, alert: true, alertMsg: `The username or room key entered was invalid!` });
+        return;
+    }
+
     if(roomToJoin === undefined) {
         res.render('play', { roomKey: roomKey, username: username, enemyUsername: '...' , numberOfPlayersReady: 0});
     } else if(roomToJoin.users.length == 1) {
         if(roomToJoin.usernameInRoom(username)) {
-            res.render('index', { roomKey: undefined, alert: true, alertMsg: `The username \"${username}\" is already in use in this lobby!` });
+            res.render('index', { roomKey: roomKey, alert: true, alertMsg: `The username \"${username}\" is already in use in this lobby!` });
         } else {
             res.render('play', { roomKey: roomKey, username: username, enemyUsername: roomToJoin.getUsers()[0].username , numberOfPlayersReady: roomToJoin.getReadyCount() });
         }
