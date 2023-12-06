@@ -1,122 +1,123 @@
 <%- include('./partials/_header'); %>
 
-<div class="main-bg fade-in"></div>
+<div class="wrapper">
+    <div class="main-bg fade-in"></div>
 
-<header class="header-footer header-out">
-    <h1 class="title"><span class="serif-title">game<span class="lobby-title">lobby</span></span></h1>
-</header>
-
-<section class="lobby fade-out">
-    <div class="white-button key" id="copy-key">
-        <div class="key-wrapper">
-            <img src="icons/key_logo.png" alt="Key">
-            <h2 id="room-key"><%= roomKey %></h2>
-        </div>
-        <span class="copy-link">COPY INVITE</span>
-    </div>
-    <div class="player-display">
-        <div class="players" id="me"><%= username %></div>
-        <div class="versus">
-            <h1 class="vvv">V</h1>
-            <div class="versus-block"></div>
-            <h1 class="sss">S</h1>
-        </div>
-        <div class="players" id="enemy"><%= enemyUsername %></div>
-    </div>
-    <button class="white-button" id="ready-button">
-        READY <span id="ready-count"><%=numberOfPlayersReady%></span>/2
-    </button>
-</section>
-
-<section class="desk-wrapper display-none">
-    <section class="desk">
-        <div class="hand-container enemy-hand-container">
-            <h2 class="username" id="enemy-username"><%= enemyUsername %></h2>
-            <div class="hand" id="enemy-hand">
+    <header class="header-footer header-out">
+        <h1 class="title"><span class="serif-title">game<span class="lobby-title">lobby</span></span></h1>
+    </header>
+    
+    <section class="lobby fade-out">
+        <div class="white-button key" id="copy-key">
+            <div class="key-wrapper">
+                <img src="icons/key_logo.png" alt="Key">
+                <h2 id="room-key"><%= roomKey %></h2>
             </div>
+            <span class="copy-link">COPY INVITE</span>
         </div>
-
-        <div class="draw-pile">
-            <div class="decision-wrapper attack decision-inactive decision-fade-away">
-                <img src="/images/sword.png" alt="sword" class="decision-image">
-                <span class="decision-text">ATTACK</span>
+        <div class="player-display">
+            <div class="players" id="me"><%= username %></div>
+            <div class="versus">
+                <h1 class="vvv">V</h1>
+                <div class="versus-block"></div>
+                <h1 class="sss">S</h1>
             </div>
-            <div class="card open dealt-card-class" id="dealt-card"></div>
-            <div class="decision-wrapper hold decision-inactive decision-fade-away">
-                <img src="/images/stay.png" alt="stay" class="decision-image">
-                <span class="decision-text">STAY</span>
-            </div>
+            <div class="players" id="enemy"><%= enemyUsername %></div>
         </div>
-
-        <div class="hand-container my-hand-container">
-            <div class="hand" id="my-hand">
-            </div>
-            <h2 class="username" id="my-username"><%= username %></h2>
-        </div>
+        <button class="white-button" id="ready-button">
+            READY <span id="ready-count"><%=numberOfPlayersReady%></span>/2
+        </button>
     </section>
-    <section class="guess-array">
-        <button class="guess-button">0</button>
-        <button class="guess-button">1</button>
-        <button class="guess-button">2</button>
-        <button class="guess-button">3</button>
-        <button class="guess-button">4</button>
-        <button class="guess-button">5</button>
-        <button class="guess-button">6</button>
-        <button class="guess-button">7</button>
-        <button class="guess-button">8</button>
-        <button class="guess-button">9</button>
-        <button class="guess-button">10</button>
-        <button class="guess-button">11</button>
+    
+    <section class="desk-wrapper display-none">
+        <section class="desk">
+            <div class="hand-container enemy-hand-container">
+                <h2 class="username" id="enemy-username"><%= enemyUsername %></h2>
+                <div class="hand" id="enemy-hand">
+                </div>
+            </div>
+    
+            <div class="draw-pile">
+                <div class="decision-wrapper attack decision-inactive decision-fade-away">
+                    <img src="/images/sword.png" alt="sword" class="decision-image">
+                    <span class="decision-text">ATTACK</span>
+                </div>
+                <div class="card open dealt-card-class" id="dealt-card"></div>
+                <div class="decision-wrapper hold decision-inactive decision-fade-away">
+                    <img src="/images/stay.png" alt="stay" class="decision-image">
+                    <span class="decision-text">STAY</span>
+                </div>
+            </div>
+    
+            <div class="hand-container my-hand-container">
+                <div class="hand" id="my-hand">
+                </div>
+                <h2 class="username" id="my-username"><%= username %></h2>
+            </div>
+        </section>
+        <section class="guess-array">
+            <button class="guess-button">0</button>
+            <button class="guess-button">1</button>
+            <button class="guess-button">2</button>
+            <button class="guess-button">3</button>
+            <button class="guess-button">4</button>
+            <button class="guess-button">5</button>
+            <button class="guess-button">6</button>
+            <button class="guess-button">7</button>
+            <button class="guess-button">8</button>
+            <button class="guess-button">9</button>
+            <button class="guess-button">10</button>
+            <button class="guess-button">11</button>
+        </section>
     </section>
-</section>
-
-<section class="modal-game-result display-none">
-    <h1 class="game-result"></h1>
-    <span class="game-status"></span>
-    <div class="stats-section">
-        <span class="stats-title">GAME STATISTICS</span>
-        <hr class="white-hr">
-        <div class="game-stats">
-            <div class="stat">
-                <span class="stat-info">TOTAL GUESSES:</span>
-                <span class="stat-info">CORRECT GUESSES:</span>
-                <span class="stat-info">CORRECT GUESS RATE:</span>
-                <span class="stat-info">TIMES STAYED:</span>
-            </div>
-            <div class="stat-values">
-                <span class="stat-info" id="guess-count"></span>
-                <span class="stat-info" id="correct-guesses"></span>
-                <span class="stat-info" id="guess-rate"></span>
-                <span class="stat-info" id="stay-count"></span>
-            </div>
-        </div>      
-        <div class="head-to-head">
-            <span class="title-hth">HEAD TO HEAD</span>
+    
+    <section class="modal-game-result display-none">
+        <h1 class="game-result"></h1>
+        <span class="game-status"></span>
+        <div class="stats-section">
+            <span class="stats-title">GAME STATISTICS</span>
             <hr class="white-hr">
-            <div class="hth-wrapper">
-                <div class="players-names">
-                    <div class="my-hth"><%= username %>:</div>
-                    <div class="enemy-hth"><span id="enemy-user-hth"><%= enemyUsername %></span>:</div>
+            <div class="game-stats">
+                <div class="stat">
+                    <span class="stat-info">TOTAL GUESSES:</span>
+                    <span class="stat-info">CORRECT GUESSES:</span>
+                    <span class="stat-info">CORRECT GUESS RATE:</span>
+                    <span class="stat-info">TIMES STAYED:</span>
                 </div>
-                <div class="players-wins">
-                    <div id="my-counter"><span id="my-win-count"></span> Wins</div>
-                    <div id="enemy-counter"><span id="enemy-win-count"></span> Wins</div>
+                <div class="stat-values">
+                    <span class="stat-info" id="guess-count"></span>
+                    <span class="stat-info" id="correct-guesses"></span>
+                    <span class="stat-info" id="guess-rate"></span>
+                    <span class="stat-info" id="stay-count"></span>
+                </div>
+            </div>      
+            <div class="head-to-head">
+                <span class="title-hth">HEAD TO HEAD</span>
+                <hr class="white-hr">
+                <div class="hth-wrapper">
+                    <div class="players-names">
+                        <div class="my-hth"><%= username %>:</div>
+                        <div class="enemy-hth"><span id="enemy-user-hth"><%= enemyUsername %></span>:</div>
+                    </div>
+                    <div class="players-wins">
+                        <div id="my-counter"><span id="my-win-count"></span> Wins</div>
+                        <div id="enemy-counter"><span id="enemy-win-count"></span> Wins</div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <button class="white-button" id="return-button">
-        RETURN TO LOBBY
-    </button>
-</section>
-
-<footer class="header-footer footer-out">
-    <div class="footer-content-wrapper">
-        <a href="/howtoplay" target="_blank" class="how-to-link">How To Play?</a>
-        <span class="github-link">Contribute to the GitHub Project over <a href="https://github.com/notvalproate/Algo-Game" target="_blank">here!</a></span>
-    </div>
-</footer>
-
+        <button class="white-button" id="return-button">
+            RETURN TO LOBBY
+        </button>
+    </section>
+    
+    <footer class="header-footer footer-out">
+        <div class="footer-content-wrapper">
+            <a href="/howtoplay" target="_blank" class="how-to-link">How To Play?</a>
+            <span class="github-link">Contribute to the GitHub Project over <a href="https://github.com/notvalproate/Algo-Game" target="_blank">here!</a></span>
+        </div>
+    </footer>
+</div>
 
 <!-- Scripts -->
 <script src="/js/browserifyBundles/algoCardBundle.js"></script>

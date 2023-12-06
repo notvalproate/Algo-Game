@@ -1,13 +1,17 @@
 <%- include('./partials/_header'); %>
 
-<div class="main-bg fade-in"></div>
+<div class="wrapper">
+    
+    <div class="main-bg fade-in"></div>
+    
+    <section class="not-found">
+        <div class="oops-wrapper">
+            <span class="oops">Oops...</span>
+            <span class="redirect-text">Error: 404: We couldn't find the page you requested. <a href="https://playalgo.com/" class="click-here">Click Here</a> to go back.</span>
+        </div>
+        <h1 class="title"><span class="serif-title">algo<span class="basic-title">Basic</span></span></h1>
+    </section>
 
-<section class="not-found">
-    <div class="oops-wrapper">
-        <span class="oops">Oops...</span>
-        <span class="redirect-text">Error: 404: We couldn't find the page you requested. <a href="https://playalgo.com/" class="click-here">Click Here</a> to go back.</span>
-    </div>
-    <h1 class="title"><span class="serif-title">algo<span class="basic-title">Basic</span></span></h1>
-</section>
+</div>
 
 <%- include('./partials/_footer'); %>
