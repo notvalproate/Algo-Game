@@ -33,14 +33,14 @@ $('#playButton').on('click', (event) => {
     }, 1500);
 });
 
-$('#username').on('keypress', (e) => {
-    if (e.which == 32) {
-        return false;
-    }
+$('#username').on('input', (e) => {
+    e.target.value = removeSpaces(e.target.value);
 });
 
-$('#roomKey').on('keypress', (e) => {
-    if (e.which == 32) {
-        return false;
-    }
+$('#roomKey').on('input', (e) => {
+    e.target.value = removeSpaces(e.target.value);
 });
+
+function removeSpaces(str){
+    return str.replace(/ /g, '');
+}
