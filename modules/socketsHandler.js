@@ -20,7 +20,7 @@ class SocketHandler {
 
 
     connectToGameRoom() {
-        const roomWasCreated = SocketHandler.roomsHandler.connectToRoom(this.roomKey, this.username);
+        const roomWasCreated = SocketHandler.roomsHandler.connectToRoom(this.roomKey, this.username, this.socket);
         this.room = SocketHandler.roomsHandler.getRoom(this.roomKey);
 
         if(roomWasCreated) {

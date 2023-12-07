@@ -3,23 +3,29 @@ const Room = require('./room.js')
 class RoomListHandler {
     constructor() {
         this.roomsList = []
+        this.lobbyTimeout = 120000;
+
+        setInterval(() => {
+            this.checkRoomsForInactivity();
+        }, 30000);
     };
 
-    connectToRoom(roomKey, username) {
+    connectToRoom(roomKey, username, socket) {
         const room = this.getRoom(roomKey);
 
         if (room === undefined) {
-            this.createRoom(roomKey, username);
+            this.createRoom(roomKey, username, socket);
             return true;
         } else {
-            room.addUser(username);
+            room.addUser(username, socket);
         }
 
         return false;
     }
 
-    createRoom(roomKey, username) {
+    createRoom(roomKey, username, socket) {
         this.roomsList.push(new Room(roomKey, username));
+        this.roomsList[this.roomsList.length - 1].setSocket(0, socket);
 
         this.roomsList[this.roomsList.length - 1].displayRoom();
     }
@@ -41,6 +47,17 @@ class RoomListHandler {
         }
 
         return false;
+    }
+
+    checkRoomsForInactivity() {
+        console.log('Checking rooms with inactivity');
+        for(let i = 0; i < this.roomsList.length; i++) {
+            if(this.roomsList[i].getTimeSinceAlone() >= this.lobbyTimeout) {
+                // this.destroyRoom(this.roomsList[i].roomKey);
+                // Some how destroy the room and redirect the remaining user to the main page or something some socket emit? idk.
+                console.log('Found room with inactivity');
+            }
+        }
     }
 
     getRoom(roomKey) {

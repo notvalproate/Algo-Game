@@ -5,22 +5,26 @@ class Room {
 
     constructor(roomKey, username) {
         this.roomKey = roomKey;
-        this.users = [ { username: username, ready: false } ];
+        this.timeWhenAlone = Date.now();
+        this.users = [ { username: username, ready: false, socket: undefined } ];
         this.numberOfPlayersReady = 0;
 
         this.game = undefined;
     } 
 
-    addUser(username) {
-        this.users.push({ username: username, ready: false });
-        if(this.users.length === 2) {
-            this.game = new Game(this.users[0].username, this.users[1].username);
-        }
+    addUser(username, socket) {
+        this.users.push({ username: username, ready: false, socket: undefined });
+        this.timeWhenAlone = 0;
+
+        this.setSocket(1, socket);
+
+        this.game = new Game(this.users[0].username, this.users[1].username);
         this.displayRoom();
     }
 
     removeUser(username) {
         const index = this.users.findIndex(user => user.username === username);
+        this.timeWhenAlone = Date.now();
         this.users.splice(index, 1);
         this.numberOfPlayersReady = this.users[0].ready + 0;
     }
@@ -49,6 +53,10 @@ class Room {
     }
 
     // SETTERS
+
+    setSocket(index, socket) {
+        this.users[index].socket = socket;
+    }
 
     setReady(username, readyStatus) {
         const index = this.users.findIndex(user => user.username === username);
@@ -79,7 +87,12 @@ class Room {
     }
 
     getUsers() {
-        return this.users;
+        let users = [];
+        for(let i = 0; i < this.users.length; i++) {
+            users.push({ username: this.users[i].username, ready: this.users[i].ready });
+        }
+
+        return users;
     }
 
     getReadyCount() {
@@ -106,6 +119,14 @@ class Room {
             return false;
         }
         return this.game.getGameRunning();
+    }
+
+    getTimeSinceAlone() {
+        if(this.timeWhenAlone === 0) {
+            return 0;
+        } else {
+            return Date.now() - this.timeWhenAlone;
+        }
     }
 
     // DEBUG
