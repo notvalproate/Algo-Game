@@ -142,6 +142,10 @@ class SocketHandler {
     }
 
     handleHold() {
+        if(!this.room.getActiveTurn(this.username)) {
+            return;
+        }
+        
         const insertIndex = this.room.holdDeckTop();
         const [hiddenDeckTop, visibleDeckTop] =  this.room.getHiddenAndVisibleDeckTop();
 

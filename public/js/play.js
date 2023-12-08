@@ -243,6 +243,10 @@ $(document).ready(function() {
         console.log('reconnect not allowed');
     })
 
+    globals.socket.on('afk-warning', () => {
+        window.location.href = '/afk';
+    })
+
 
     // EVENT LISTENERS
 

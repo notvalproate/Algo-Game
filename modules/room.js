@@ -5,7 +5,7 @@ class Room {
 
     constructor(roomKey, username) {
         this.roomKey = roomKey;
-        this.timeWhenAlone = Date.now();
+        this.lastInteraction = Date.now();
         this.users = [ { username: username, ready: false, socket: undefined } ];
         this.numberOfPlayersReady = 0;
 
@@ -14,7 +14,7 @@ class Room {
 
     addUser(username, socket) {
         this.users.push({ username: username, ready: false, socket: undefined });
-        this.timeWhenAlone = 0;
+        this.lastInteraction = Date.now();
 
         this.setSocket(1, socket);
 
@@ -24,7 +24,7 @@ class Room {
 
     removeUser(username) {
         const index = this.users.findIndex(user => user.username === username);
-        this.timeWhenAlone = Date.now();
+        this.lastInteraction = Date.now();
         this.users.splice(index, 1);
         this.numberOfPlayersReady = this.users[0].ready + 0;
     }
@@ -59,6 +59,7 @@ class Room {
     }
 
     setReady(username, readyStatus) {
+        this.lastInteraction = Date.now();
         const index = this.users.findIndex(user => user.username === username);
         this.users[index].ready = readyStatus;
 
@@ -100,6 +101,8 @@ class Room {
     }
 
     getActiveTurn(username) {
+        this.lastInteraction = Date.now();
+
         if(this.game === undefined) {
             return false;
         }
@@ -111,6 +114,7 @@ class Room {
     }
 
     getStats(username) {
+        this.lastInteraction = Date.now();
         return this.game.getStats(username);
     }
 
@@ -121,11 +125,21 @@ class Room {
         return this.game.getGameRunning();
     }
 
-    getTimeSinceAlone() {
-        if(this.timeWhenAlone === 0) {
+    getTimeSinceLastInteraction() {
+        if(this.lastInteraction === 0) {
             return 0;
         } else {
-            return Date.now() - this.timeWhenAlone;
+            return Date.now() - this.lastInteraction;
+        }
+    }
+
+    // EMITS
+
+    emitAfk() {
+        if(this.game.getGameRunningStatus()) {
+            this.users[this.game.getActiveTurnIndex()].socket.emit('afk-warning');
+        } else { 
+            this.users[0].socket.emit('afk-warning');
         }
     }
 

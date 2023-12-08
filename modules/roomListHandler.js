@@ -3,7 +3,7 @@ const Room = require('./room.js')
 class RoomListHandler {
     constructor() {
         this.roomsList = []
-        this.lobbyTimeout = 120000;
+        this.lobbyTimeout = 150000;
 
         setInterval(() => {
             this.checkRoomsForInactivity();
@@ -50,12 +50,9 @@ class RoomListHandler {
     }
 
     checkRoomsForInactivity() {
-        console.log('Checking rooms with inactivity');
         for(let i = 0; i < this.roomsList.length; i++) {
-            if(this.roomsList[i].getTimeSinceAlone() >= this.lobbyTimeout) {
-                // this.destroyRoom(this.roomsList[i].roomKey);
-                // Some how destroy the room and redirect the remaining user to the main page or something some socket emit? idk.
-                console.log('Found room with inactivity');
+            if(this.roomsList[i].getTimeSinceLastInteraction() >= this.lobbyTimeout) {
+                this.roomsList[i].emitAfk();
             }
         }
     }

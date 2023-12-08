@@ -37,7 +37,6 @@ app.get('/', (req, res) => {
     res.render('index', { roomKey: undefined, alert: false, alertMsg: '' });
 });
 
-
 app.get('/:roomKey/play', (req, res) => {
     const roomKey = req.params.roomKey;
     const roomToJoin = roomsHandler.getRoom(roomKey);
@@ -52,6 +51,10 @@ app.get('/:roomKey/play', (req, res) => {
 app.get('/howtoplay', (req, res) => {
     res.render('howto');
 });
+
+app.get('/afk', (req, res) => {
+    res.render('index', { roomKey: undefined, alert: true, alertMsg: `You have been kicked for inactivity!` });
+})
 
 // POST routes
 app.post('/', (req, res) => {
@@ -81,6 +84,7 @@ app.post('/', (req, res) => {
         res.render('index', { roomKey: undefined, alert: true, alertMsg: 'The lobby you tried to join is already FULL!' });
     }
 });
+
 
 // Socket routes
 io.on('connection', (socket) => {

@@ -142,6 +142,10 @@ class Game {
         return false;
     }
 
+    getActiveTurnIndex() {
+        return this.activeTurn;
+    }
+
     getDeckTop() {
         return this.deck[0];
     }
@@ -151,8 +155,8 @@ class Game {
         return [new AlgoCard(null, deckTop.getColor()), new AlgoCard(deckTop.getNumber(), deckTop.getColor())];
     }
 
-    getGameEndStatus() {
-        return this.ended;
+    getGameRunningStatus() {
+        return this.running;
     }
 
     getCorrectGuessRate(player) {
