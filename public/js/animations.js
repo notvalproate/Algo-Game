@@ -1,6 +1,7 @@
 // Module that handles all the animations
 
 import * as Helpers from './helpers.js';
+import * as Sounds from './audio.js';
 
 async function drawCardAnimation(cardDiv, card) {
     const dealtCardOffset = $('#dealt-card').offset();
@@ -61,6 +62,10 @@ function playWinLoseAnimation(hand) {
     setTimeout(() => {
         hand.addClass('correct');
     }, 600);
+
+    setTimeout(() => {
+        Sounds.playWinSound();
+    }, 800);
 
     setTimeout(() => {
         hand.removeClass('correct');

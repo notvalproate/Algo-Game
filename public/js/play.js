@@ -3,6 +3,7 @@ const { ObjectArray_to_AlgoCardArray } = require("algoCard");
 
 // IMPORTS
 import * as Animations from './animations.js';
+import * as Sounds from './audio.js';
 import * as CardDivManager from './cardcreation.js';
 import * as Helpers from './helpers.js';
 import * as CalloutHandler from './callout.js';
@@ -50,6 +51,7 @@ $(document).ready(function() {
     window.history.pushState(null, '', `/${roomKey}/play`);
 
     Animations.initAnimations();
+    Sounds.initAudio();
     
     // JOIN LOBBY TRANSITION
     Helpers.applyJoinLobbyTransition();
@@ -144,6 +146,8 @@ $(document).ready(function() {
         var enemyCardDivs = $('.enemy-card');
         let myCardDivs = $('.my-card');
 
+        Sounds.playCorrectSound();
+
         if(globals.myTurn) {
             Animations.highlightFadeOutTo('correct', enemyCardDivs[index])
 
@@ -167,6 +171,8 @@ $(document).ready(function() {
         const insertIndex = data.insertIndex;
         let cardToInsert = globals.deckTop;
         globals.myTurn = data.yourTurn;
+
+        Sounds.playWrongSound();
 
         if(!globals.myTurn) {
             Animations.highlightFadeOutTo('wrong', $('.enemy-card')[globals.selectedCard]);
