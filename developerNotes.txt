@@ -2,16 +2,12 @@
 
 CHAT:
 
-[Ian] - [2-12-23 ; 0955Hrs]
-   -> Add sound effects and get ready for deployment.
-
-[Ian] - [4-12-23 ; 1711Hrs]
-   -> Try to combine the css classes, if not, also fine. Test once by combining all css files and minifying them into one file.
+[Ian] - [9-12-23 ; 1130Hrs]
+   -> Get Ready for deployment. Try to minify and bundle the JS and CSS. 
 }
 
 {
    V1.0 GOALS:
-      -> Fully added sound effects.
       -> Deploy with helmet, compression, permissions policy.
 }
 
