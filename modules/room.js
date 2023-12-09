@@ -136,11 +136,13 @@ class Room {
     // EMITS
 
     emitAfk() {
-        if(this.game.getGameRunningStatus()) {
-            this.users[this.game.getActiveTurnIndex()].socket.emit('afk-warning');
-        } else { 
-            this.users[0].socket.emit('afk-warning');
+        if(this.game) {
+            if(this.game.getGameRunningStatus()) {
+                this.users[this.game.getActiveTurnIndex()].socket.emit('afk-warning');
+                return;
+            }
         }
+        this.users[0].socket.emit('afk-warning');
     }
 
     // DEBUG

@@ -1,5 +1,4 @@
-const { AlgoCard } = require("algoCard");
-const { ObjectArray_to_AlgoCardArray } = require("algoCard");
+import { AlgoCard, ObjectArray_to_AlgoCardArray } from '../../modules/algoCard.js';
 
 // IMPORTS
 import * as Animations from './animations.js';
