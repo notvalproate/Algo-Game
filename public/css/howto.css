@@ -7,6 +7,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 100%;
 }
 
 .title-wrapper {
@@ -24,4 +25,14 @@
 
 .title-logo {
     transform: translateY(-20%) scale(0.5);
+}
+
+.sorry {
+    text-align: center;
+    width: 50%;
+}
+
+.tut-here {
+    color: white;
+    text-shadow: 0px 0px 5px yellow;
 }
