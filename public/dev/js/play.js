@@ -1,7 +1,5 @@
 import { AlgoCard, ObjectArray_to_AlgoCardArray } from './browserifyBundles/algoCardBundle.js';
 
-// import { AlgoCard, ObjectArray_to_AlgoCardArray } from '../../../modules/algoCard.js'; // (Only Production)
-
 // IMPORTS
 import * as Animations from './animations.js';
 import * as Sounds from './audio.js';
