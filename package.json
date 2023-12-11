@@ -4,8 +4,9 @@
   "description": "Recreation of the japanese game called Algo Basic as a webapp.",
   "main": "index.js",
   "scripts": {
+    "build": "npx webpack",
     "devstart": "nodemon server.js",
-    "sass-dev": "sass ./public/dev/scss/styles.scss ./public/dev/css/styles.css"
+    "sass-dev": "sass --watch ./public/dev/scss/styles.scss ./public/dev/css/styles.css"
   },
   "keywords": [],
   "author": "",

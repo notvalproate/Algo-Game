@@ -24,12 +24,22 @@ touch .env
 ```
 notepad .env
 ```
+# Build
+- To compile scss in watch mode:
+```bash
+npm run sass-dev
+```
 
-## Run the server:
+- To build the static files with webpack:
+```bash
+npm run build
+```
+The built files are generated and output in the dist folder in the root directory. The contents can be moved into the public/prod folder to serve the newly built files.
+# Run the server:
 ```bash
 npm run devstart
 ```
 
-## License
+# License
 
 This project is licensed under the [GNU GPLv3 License](https://www.gnu.org/licenses/gpl-3.0.en.html).
