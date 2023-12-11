@@ -14,7 +14,7 @@ Algo-Game is a web-app project that brings the Japanese card game Algo Basic to 
 ```bash
 npm install
 ```
-- Create a .env file and specify the variable PORT (in all caps) to listen to:
+- Create a .env file and specify the variables as given in the .env.example file:
 
 ### UNIX
 ```bash
