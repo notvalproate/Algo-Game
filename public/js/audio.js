@@ -2,19 +2,14 @@
 
 var correctSound = undefined;
 var wrongSound = undefined;
-var winSound = undefined;
 
 function initAudio() {
     correctSound = new Howl({
-        src: ['/sounds/ding.ogg'],
+        src: ['/assets/sounds/ding.ogg'],
     });
 
     wrongSound = new Howl({
-        src: ['/sounds/wrong.ogg'],
-    });
-
-    winSound = new Howl({
-        src: ['/sounds/win.ogg'],
+        src: ['/assets/sounds/wrong.ogg'],
     });
 }
 
@@ -26,14 +21,9 @@ function playWrongSound() {
     wrongSound.play();
 }
 
-function playWinSound() {
-    winSound.play();
-}
-
 export {
     initAudio,
     
     playCorrectSound,
     playWrongSound,
-    playWinSound,
 }

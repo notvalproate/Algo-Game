@@ -9,36 +9,36 @@ $(document).ready(function() {
     setTimeout(() => {
         $('.login').addClass('fade-in');
     }, 1400);
-});
-
-$('#playButton').on('click', (event) => {
-    const username = $('#username').val();
-    const roomKey = $('#roomKey').val();
-
-    if(username === '' || roomKey === '') {
-        return;
-    }
     
-    event.preventDefault();
+    $('#username').on('input', (e) => {
+        e.target.value = removeSpaces(e.target.value);
+    });
 
-    $('.login').removeClass('fade-in');
+    $('#roomKey').on('input', (e) => {
+        e.target.value = removeSpaces(e.target.value);
+    });
 
-    setTimeout(() => {
-        $('header').addClass('header-out');
-        $('footer').addClass('footer-out');
-    }, 400);
+    $('#playButton').on('click', (event) => {
+        const usernameVal = $('#username').val();
+        const roomKeyVal = $('#roomKey').val();
     
-    setTimeout(() => {
-      $('#playForm').submit();
-    }, 1500);
-});
-
-$('#username').on('input', (e) => {
-    e.target.value = removeSpaces(e.target.value);
-});
-
-$('#roomKey').on('input', (e) => {
-    e.target.value = removeSpaces(e.target.value);
+        if(usernameVal === '' || roomKeyVal === '') {
+            return;
+        }
+        
+        event.preventDefault();
+    
+        $('.login').removeClass('fade-in');
+    
+        setTimeout(() => {
+            $('header').addClass('header-out');
+            $('footer').addClass('footer-out');
+        }, 400);
+        
+        setTimeout(() => {
+          $('#playForm').submit();
+        }, 1500);
+    });
 });
 
 function removeSpaces(str){
