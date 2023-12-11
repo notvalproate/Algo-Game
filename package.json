@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "devstart": "nodemon server.js",
-    "sass-build": "sass ./public/scss/styles.scss ./public/css/styles.css"
+    "sass-dev": "sass ./public/dev/scss/styles.scss ./public/dev/css/styles.css"
   },
   "keywords": [],
   "author": "",

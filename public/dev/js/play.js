@@ -1,4 +1,6 @@
-import { AlgoCard, ObjectArray_to_AlgoCardArray } from '../../modules/algoCard.js';
+import { AlgoCard, ObjectArray_to_AlgoCardArray } from './browserifyBundles/algoCardBundle.js';
+
+// import { AlgoCard, ObjectArray_to_AlgoCardArray } from '../../../modules/algoCard.js'; // (Only Production)
 
 // IMPORTS
 import * as Animations from './animations.js';
@@ -7,9 +9,9 @@ import * as CardDivManager from './cardcreation.js';
 import * as Helpers from './helpers.js';
 import * as CalloutHandler from './callout.js';
 
-// SCSS For Webpack
+// SCSS For Webpack (Only Production)
 
-import '../scss/styles.scss';
+//import '../scss/styles.scss';
 
 
 var myHand = [];

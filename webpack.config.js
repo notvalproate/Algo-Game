@@ -6,8 +6,8 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 module.exports = {
     mode: 'production',
     entry: {
-        "play": "./public/js/play.js",
-        "index": "./public/js/index.js",
+        "play": "./public/dev/js/play.js",
+        "index": "./public/dev/js/index.js",
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
