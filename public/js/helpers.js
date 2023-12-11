@@ -306,6 +306,9 @@ function displayConfetti(wonGame) {
 }
 
 function showResultModal(wonGame) {
+    gameResult.removeClass('game-won');
+    gameResult.removeClass('game-lost');
+
     if(wonGame) {
         gameResult.html('YOU WIN');
         gameResult.addClass('game-won');

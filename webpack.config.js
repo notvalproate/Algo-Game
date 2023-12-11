@@ -1,18 +1,37 @@
 const path = require('path');
 const TerserPlugin = require("terser-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 
 module.exports = {
     mode: 'production',
-    entry: [
-        "./public/js/play.js"
-    ],
+    entry: {
+        "play": "./public/js/play.js",
+        "index": "./public/js/index.js",
+    },
     output: {
-        filename: 'main.js',
         path: path.resolve(__dirname, 'dist'),
+        filename: '[name].js',
+    },
+    module: {
+        rules: [
+            {
+                test: /\.scss$/i,
+                exclude: /node_modules/,
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+            }
+        ]
     },
     optimization: {
         minimize: true,
-        minimizer: [new TerserPlugin()],
+        minimizer: [
+            new TerserPlugin(),
+            new CssMinimizerPlugin(),
+        ],
     },
-    plugins: [new TerserPlugin()],
+    plugins: [
+        new TerserPlugin(), 
+        new MiniCssExtractPlugin({ 
+            filename: 'styles.css'
+        })],
 };

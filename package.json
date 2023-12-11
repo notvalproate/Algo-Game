@@ -4,7 +4,8 @@
   "description": "Recreation of the japanese game called Algo Basic as a webapp.",
   "main": "index.js",
   "scripts": {
-    "devstart": "nodemon server.js"
+    "devstart": "nodemon server.js",
+    "sass-build": "sass ./public/scss/styles.scss ./public/css/styles.css"
   },
   "keywords": [],
   "author": "",
@@ -18,7 +19,12 @@
   },
   "devDependencies": {
     "browserify": "^17.0.0",
+    "css-loader": "^6.8.1",
+    "css-minimizer-webpack-plugin": "^5.0.1",
+    "mini-css-extract-plugin": "^2.7.6",
     "nodemon": "^3.0.1",
+    "sass": "^1.69.5",
+    "sass-loader": "^13.3.2",
     "terser-webpack-plugin": "^5.3.9",
     "webpack": "^5.89.0",
     "webpack-cli": "^5.1.4"

@@ -7,6 +7,10 @@ import * as CardDivManager from './cardcreation.js';
 import * as Helpers from './helpers.js';
 import * as CalloutHandler from './callout.js';
 
+// SCSS For Webpack
+
+import '../scss/styles.scss';
+
 
 var myHand = [];
 var enemyHand = [];
