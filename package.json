@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "npx webpack",
+    "dev": "concurrently --kill-others \"npm run devstart\" \"npm run sass-dev\"",
     "devstart": "nodemon server.js",
     "sass-dev": "sass --watch ./public/dev/scss/styles.scss ./public/dev/css/styles.css"
   },
@@ -20,6 +21,7 @@
   },
   "devDependencies": {
     "browserify": "^17.0.0",
+    "concurrently": "^8.2.2",
     "css-loader": "^6.8.1",
     "css-minimizer-webpack-plugin": "^5.0.1",
     "mini-css-extract-plugin": "^2.7.6",
