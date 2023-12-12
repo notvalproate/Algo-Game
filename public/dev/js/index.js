@@ -1,3 +1,5 @@
+import * as LanguageHandler from './language.js';
+
 $(document).ready(function() {
     $('.main-bg').addClass('fade-in');
 
@@ -41,32 +43,10 @@ $(document).ready(function() {
     });
 
     // LANGUAGE STUFF - LATER TO BE PUT INTO SEPERATE MODULE
+
+    LanguageHandler.addLanguageEventListeners();
     
-    let languageModal = $('#language-modal');
-
-    $('#language-button').click(() => {
-        languageModal.removeClass('display-none');
-
-        setTimeout(() => {
-            languageModal.addClass('language-modal-fade-in');
-        }, 50);
-    });
-
-    $('#enOption').click(() => {
-        languageModal.removeClass('language-modal-fade-in');
-
-        setTimeout(() => {
-            languageModal.addClass('display-none');
-        }, 500);
-    })
-
-    $('#jpOption').click(() => {
-        languageModal.removeClass('language-modal-fade-in');
-
-        setTimeout(() => {
-            languageModal.addClass('display-none');
-        }, 500);
-    })
+    console.log(localStorage.lang);
 });
 
 function removeSpaces(str){
