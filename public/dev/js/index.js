@@ -45,8 +45,7 @@ $(document).ready(function() {
     // LANGUAGE STUFF - LATER TO BE PUT INTO SEPERATE MODULE
 
     LanguageHandler.addLanguageEventListeners();
-    
-    console.log(localStorage.lang);
+    LanguageHandler.checkAndSetPageLanguage();
 });
 
 function removeSpaces(str){
