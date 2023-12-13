@@ -38,7 +38,7 @@ function checkAndSetPageLanguage() {
 }
 
 function setPageLanguage(lang) {
-    fetch(`../../assets/languages/${lang}.json`)
+    fetch(`/assets/languages/${lang}.json`)
         .then(response => response.json())
         .then((json) => {
             const langContent = json.content;
