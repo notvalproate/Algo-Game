@@ -2,13 +2,18 @@
 
 CHAT:
 
-[Ian] - [9-12-23 ; 1130Hrs]
-   -> Get Ready for deployment. Try to minify and bundle the JS and CSS. 
+[Ian] - [13-12-23 ; 2253Hrs]
+   -> Figure out how to use the dynamic translation part of the JSON.
+   -> Finally create a dev branch and have main branch use production code.
+   
 }
 
 {
    V1.0 GOALS:
       -> Deploy with helmet, compression, permissions policy.
+
+   Other Goals:
+      -> Volume Slider.
 }
 
 
