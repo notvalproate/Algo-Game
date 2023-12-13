@@ -21,5 +21,14 @@
             "hth": "HEAD TO HEAD",
             "winsText": "Wins",
             "returnButton": "ロビーへ戻る"
+        },
+    "dynamic":
+        {
+            "gameWon": "YOU WIN",
+            "gameLost": "YOU LOSE",
+
+            "disconnectStatus": "Enemy has disconnected!",
+            "wonStatus": "You guessed all of <enemy>'s cards!",
+            "lostStatus": "<enemy> guessed all your cards!"
         }
 }
