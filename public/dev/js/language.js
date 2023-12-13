@@ -29,7 +29,7 @@ function addLanguageEventListeners() {
 function checkAndSetPageLanguage() {
     const lang = localStorage.getItem('lang');
 
-    if(lang === null) {
+    if(lang === null || lang === 'en') {
         return;
     }
 

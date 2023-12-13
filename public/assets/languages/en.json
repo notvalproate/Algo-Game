@@ -8,6 +8,18 @@
             "howToPlay": "How To Play?",
             "contrib": "Contribute to the GitHub Project over",
             "here": "here!",
-            "selectLang": "SELECT LANGUAGE"
+            "selectLang": "SELECT LANGUAGE",
+            "copyInvite": "COPY INVITE",
+            "readyText": "READY",
+            "attackText": "ATTACK",
+            "stayText": "STAY",
+            "statsTitle": "GAME STATISTICS",
+            "totalGuesses": "TOTAL GUESSES:",
+            "correctGuesses": "CORRECT GUESSES:",
+            "guessRate": "CORRECT GUESS RATE:",
+            "timesStayed": "TIMES STAYED:",
+            "hth": "HEAD TO HEAD",
+            "winsText": "Wins",
+            "returnButton": "RETURN TO LOBBY"
         }
 }

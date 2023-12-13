@@ -8,6 +8,18 @@
             "howToPlay": "遊び方？",
             "contrib": "このオープンソースプロジェクトにコントリビュートしたい方は",
             "here": "こちらへ！",
-            "selectLang": "言語を選択"
+            "selectLang": "言語を選択",
+            "copyInvite": "COPY INVITE",
+            "readyText": "READY",
+            "attackText": "ATTACK",
+            "stayText": "STAY",
+            "statsTitle": "GAME STATISTICS",
+            "totalGuesses": "TOTAL GUESSES:",
+            "correctGuesses": "CORRECT GUESSES:",
+            "guessRate": "CORRECT GUESS RATE:",
+            "timesStayed": "TIMES STAYED:",
+            "hth": "HEAD TO HEAD",
+            "winsText": "Wins",
+            "returnButton": "RETURN TO LOBBY"
         }
 }

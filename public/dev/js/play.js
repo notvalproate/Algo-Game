@@ -6,6 +6,7 @@ import * as Sounds from './audio.js';
 import * as CardDivManager from './cardcreation.js';
 import * as Helpers from './helpers.js';
 import * as CalloutHandler from './callout.js';
+import * as LanguageHandler from './language.js';
 
 // SCSS For Webpack (Only Production)
 
@@ -264,4 +265,7 @@ $(document).ready(function() {
     Helpers.addReturnButtonEventListener();
     Helpers.addDecisionsEventListener();
     Helpers.addButtonEventListeners();
+
+    LanguageHandler.addLanguageEventListeners();
+    LanguageHandler.checkAndSetPageLanguage();
 });

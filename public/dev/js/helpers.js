@@ -59,7 +59,7 @@ function addReadyButtonEventListener() {
 }
 
 function addReturnButtonEventListener() {
-    $('#return-button').click(() => {
+    $('#returnButton').click(() => {
         resultModal.removeClass('modal-in');
         
         applyBackToLobbyTransition();

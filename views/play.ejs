@@ -13,7 +13,7 @@
                 <img src="/assets/images/key.png" alt="Key">
                 <h2 id="room-key"><%= roomKey %></h2>
             </div>
-            <span class="copy-link">COPY INVITE</span>
+            <span class="copy-link" id="copyInvite">COPY INVITE</span>
         </div>
         <div class="player-display">
             <div class="players" id="me"><%= username %></div>
@@ -25,7 +25,7 @@
             <div class="players" id="enemy"><%= enemyUsername %></div>
         </div>
         <button class="white-button" id="ready-button">
-            READY <span id="ready-count"><%=numberOfPlayersReady%></span>/2
+            <span id="readyText">READY</span> <span id="ready-count"><%=numberOfPlayersReady%></span>/2
         </button>
     </section>
     
@@ -40,12 +40,12 @@
             <div class="draw-pile">
                 <div class="decision-wrapper attack decision-inactive decision-fade-away">
                     <img src="/assets/images/sword.png" alt="sword" class="decision-image">
-                    <span class="decision-text">ATTACK</span>
+                    <span class="decision-text" id="attackText">ATTACK</span>
                 </div>
                 <div class="card open dealt-card-class" id="dealt-card"></div>
                 <div class="decision-wrapper hold decision-inactive decision-fade-away">
                     <img src="/assets/images/stay.png" alt="stay" class="decision-image">
-                    <span class="decision-text">STAY</span>
+                    <span class="decision-text" id="stayText">STAY</span>
                 </div>
             </div>
     
@@ -75,14 +75,14 @@
         <h1 class="game-result"></h1>
         <span class="game-status"></span>
         <div class="stats-section">
-            <span class="stats-title">GAME STATISTICS</span>
+            <span class="stats-title" id="statsTitle">GAME STATISTICS</span>
             <hr class="white-hr">
             <div class="game-stats">
                 <div class="stat">
-                    <span class="stat-info">TOTAL GUESSES:</span>
-                    <span class="stat-info">CORRECT GUESSES:</span>
-                    <span class="stat-info">CORRECT GUESS RATE:</span>
-                    <span class="stat-info">TIMES STAYED:</span>
+                    <span class="stat-info" id="totalGuesses">TOTAL GUESSES:</span>
+                    <span class="stat-info" id="correctGuesses">CORRECT GUESSES:</span>
+                    <span class="stat-info" id="guessRate">CORRECT GUESS RATE:</span>
+                    <span class="stat-info" id="timesStayed">TIMES STAYED:</span>
                 </div>
                 <div class="stat-values">
                     <span class="stat-info" id="guess-count"></span>
@@ -92,7 +92,7 @@
                 </div>
             </div>      
             <div class="head-to-head">
-                <span class="title-hth">HEAD TO HEAD</span>
+                <span class="title-hth" id="hth">HEAD TO HEAD</span>
                 <hr class="white-hr">
                 <div class="hth-wrapper">
                     <div class="players-names">
@@ -100,23 +100,42 @@
                         <div class="enemy-hth"><span id="enemy-user-hth"><%= enemyUsername %></span>:</div>
                     </div>
                     <div class="players-wins">
-                        <div id="my-counter"><span id="my-win-count"></span> Wins</div>
-                        <div id="enemy-counter"><span id="enemy-win-count"></span> Wins</div>
+                        <div id="my-counter"><span id="my-win-count"></span> <span id="winsText">Wins</span></div>
+                        <div id="enemy-counter"><span id="enemy-win-count"></span> <span id="winsText">Wins</span></div>
                     </div>
                 </div>
             </div>
         </div>
-        <button class="white-button" id="return-button">
+        <button class="white-button" id="returnButton">
             RETURN TO LOBBY
         </button>
     </section>
     
     <footer class="header-footer footer-out">
         <div class="footer-content-wrapper">
-            <a href="/howtoplay" target="_blank" class="how-to-link">How To Play?</a>
-            <span class="github-link">Contribute to the GitHub Project over <a href="https://github.com/notvalproate/Algo-Game" target="_blank">here!</a></span>
+            <a href="/howtoplay" target="_blank" class="how-to-link" id="howToPlay">How To Play?</a>
+            <span class="github-link" id="contrib">Contribute to the GitHub Project over <a href="https://github.com/notvalproate/Algo-Game" target="_blank">here!</a></span>
+            <div class="white-button language-setting" id="language-button">
+                <i class="fa-solid fa-language"></i>
+            </div>
         </div>
     </footer>
+
+    <div class="language-modal display-none" id="language-modal">
+        <div class="language-wrapper">
+            <span class="select-lang" id="selectLang">SELECT LANGUAGE</span>
+            <hr class="white-hr">
+            <ul class="lang-options">
+                <li class="white-button lang-option" id="enOption">
+                    English
+                </li>
+                <li class="white-button lang-option" id="jaOption">
+                    日本語
+                </li>
+            </ul>
+        </div>
+    </div>
+
 </div>
 
 <!-- Scripts -->
