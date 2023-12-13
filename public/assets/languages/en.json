@@ -19,7 +19,8 @@
             "guessRate": "CORRECT GUESS RATE:",
             "timesStayed": "TIMES STAYED:",
             "hth": "HEAD TO HEAD",
-            "winsText": "Wins",
+            "winsText1": "Wins",
+            "winsText2": "Wins",
             "returnButton": "RETURN TO LOBBY"
         },
     "dynamic":

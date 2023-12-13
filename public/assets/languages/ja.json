@@ -19,7 +19,8 @@
             "guessRate": "正答率:",
             "timesStayed": "ステイした数:",
             "hth": "勝利数",
-            "winsText": "回",
+            "winsText1": "回",
+            "winsText2": "回",
             "returnButton": "ロビーへ戻る"
         },
     "dynamic":
