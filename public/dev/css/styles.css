@@ -158,9 +158,13 @@ footer {
   border: 2px solid white;
   border-radius: 10px;
   font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .language-modal .language-wrapper .select-lang {
   font-family: "Urbanist", sans-serif;
+  text-align: center;
   font-size: 4vh;
 }
 .language-modal .language-wrapper .lang-options {
