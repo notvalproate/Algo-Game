@@ -30,7 +30,6 @@ function checkAndSetPageLanguage() {
     const lang = localStorage.getItem('lang');
 
     if(lang === null) {
-        setPageLanguage('en');
         return;
     }
 
