@@ -240,13 +240,11 @@ $(document).ready(function() {
 
         if(wonGame) {
             Animations.playWinLoseAnimation($('.enemy-card'));
-            $('.game-status').html(`You guessed all of ${enemyUsername}'s cards!`);
         } else {
             Animations.playWinLoseAnimation($('.my-card'));
-            $('.game-status').html(`${enemyUsername} guessed all your cards!`);
         }
 
-        Helpers.showResultModal(wonGame);
+        Helpers.showResultModal(wonGame, enemyUsername);
     });
 
     globals.socket.on('rejected', () => {

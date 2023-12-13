@@ -7,6 +7,7 @@ const attackButton = $('.attack');
 const holdButton = $('.hold');
 
 const gameResult = $('.game-result');
+const gameStatus = $('.game-status');
 const resultModal = $('.modal-game-result');
 
 // MISC HELPERS
@@ -305,15 +306,17 @@ function displayConfetti(wonGame) {
     })();
 }
 
-function showResultModal(wonGame) {
+function showResultModal(wonGame, enemyUsername) {
     gameResult.removeClass('game-won');
     gameResult.removeClass('game-lost');
 
     if(wonGame) {
         gameResult.html('YOU WIN');
+        gameStatus.html(`You guessed all of ${enemyUsername}'s cards!`);
         gameResult.addClass('game-won');
     } else {
         gameResult.html('YOU LOSE');
+        gameStatus.html(`${enemyUsername} guessed all your cards!`);
         gameResult.addClass('game-lost');
     }
 
