@@ -43,7 +43,9 @@ function setPageLanguage(lang) {
         .then((json) => {
             const langContent = json.content;
 
-            console.log(langContent);
+            for(let [key, value] of Object.entries(langContent)) {
+                $(`#${key}`).html(value);
+            }
         });
 }
 

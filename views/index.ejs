@@ -10,15 +10,15 @@
 
     <div class="login-box">
         <div class="login">
-            <h2 class="create-title">CREATE ROOM</h2>
+            <h2 class="create-title" id="createTitle">CREATE ROOM</h2>
             <hr class="white-hr">
             <form id="playForm" action="/" method="POST">
                 <div class="box">
-                    <label>Username</label>
+                    <label id="userLabel">Username</label>
                     <input class="input-box" type="text" name="username" id="username" required>
                 </div>
                 <div class="box">
-                    <label>Room Key</label>
+                    <label id="roomLabel">Room Key</label>
                     <% if(roomKey === undefined) {%>
                         <input class="input-box" type="text" name="roomKey" id="roomKey" required>
                     <% } else { %>
@@ -41,7 +41,7 @@
 
     <footer class="header-footer footer-out">
         <div class="footer-content-wrapper">
-            <a href="/howtoplay" target="_blank" class="how-to-link">How To Play?</a>
+            <a href="/howtoplay" target="_blank" class="how-to-link" id="howToPlay">How To Play?</a>
             <span class="github-link">Contribute to the GitHub Project over <a href="https://github.com/notvalproate/Algo-Game" target="_blank">here!</a></span>
             <div class="white-button language-setting" id="language-button">
                 <i class="fa-solid fa-language"></i>
@@ -51,7 +51,7 @@
 
     <div class="language-modal display-none" id="language-modal">
         <div class="language-wrapper">
-            <span class="select-lang">SELECT LANGUAGE</span>
+            <span class="select-lang" id="selectLang">SELECT LANGUAGE</span>
             <hr class="white-hr">
             <ul class="lang-options">
                 <li class="white-button lang-option" id="enOption">

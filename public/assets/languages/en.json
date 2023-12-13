@@ -1,13 +1,11 @@
 {
     "content": 
         {
-            "createRoom": "CREATE ROOM",
-            "username": "Username",
-            "roomKey": "Room Key",
-            "play": "PLAY",
+            "createTitle": "CREATE ROOM",
+            "userLabel": "Username",
+            "roomLabel": "Room Key",
+            "playButton": "PLAY",
             "howToPlay": "How To Play?",
-            "contrib": "Contribute to the Github Project over ",
-            "here": "here!",
             "selectLang": "SELECT LANGUAGE"
         }
 }
