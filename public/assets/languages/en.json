@@ -6,6 +6,8 @@
             "roomLabel": "Room Key",
             "playButton": "PLAY",
             "howToPlay": "How To Play?",
+            "contrib": "Contribute to the GitHub Project over",
+            "here": "here!",
             "selectLang": "SELECT LANGUAGE"
         }
 }

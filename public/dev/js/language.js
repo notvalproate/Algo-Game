@@ -44,6 +44,12 @@ function setPageLanguage(lang) {
             const langContent = json.content;
 
             for(let [key, value] of Object.entries(langContent)) {
+                if(key === 'here') {
+                    continue;
+                }
+                if(key === 'contrib') {
+                    value = `${value} <a href="https://github.com/notvalproate/Algo-Game" target="_blank">${langContent.here}</a>`;
+                }
                 $(`#${key}`).html(value);
             }
         });
