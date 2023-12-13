@@ -9,10 +9,10 @@
             "contrib": "このオープンソースプロジェクトにコントリビュートしたい方は",
             "here": "こちらへ！",
             "selectLang": "言語を選択",
-            "copyInvite": "COPY INVITE",
-            "readyText": "READY",
-            "attackText": "ATTACK",
-            "stayText": "STAY",
+            "copyInvite": "リンクをコピー",
+            "readyText": "準備",
+            "attackText": "アタック",
+            "stayText": "ステイ",
             "statsTitle": "GAME STATISTICS",
             "totalGuesses": "TOTAL GUESSES:",
             "correctGuesses": "CORRECT GUESSES:",
@@ -20,6 +20,6 @@
             "timesStayed": "TIMES STAYED:",
             "hth": "HEAD TO HEAD",
             "winsText": "Wins",
-            "returnButton": "RETURN TO LOBBY"
+            "returnButton": "ロビーへ戻る"
         }
 }
