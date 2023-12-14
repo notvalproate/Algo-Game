@@ -41,8 +41,13 @@
             column-gap: 2vh;
             margin-top: 2vh;
 
-            .fa-solid {
-                font-size: 3vh;
+            .volume-icon-wrapper {
+                width: 3vh;
+                height: 3vh;
+
+                .fa-solid {
+                    font-size: 3vh;
+                }
             }
             
             /*********** Generated and modified using https://range-input-css.netlify.app/ ************/

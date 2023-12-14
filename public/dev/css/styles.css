@@ -765,7 +765,11 @@ input {
   /* slider track */
   /* slider thumb */
 }
-.settings-modal .settings-wrapper .volume-wrapper .fa-solid {
+.settings-modal .settings-wrapper .volume-wrapper .volume-icon-wrapper {
+  width: 3vh;
+  height: 3vh;
+}
+.settings-modal .settings-wrapper .volume-wrapper .volume-icon-wrapper .fa-solid {
   font-size: 3vh;
 }
 .settings-modal .settings-wrapper .volume-wrapper input[type=range] {
