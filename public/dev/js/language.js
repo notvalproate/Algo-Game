@@ -3,7 +3,7 @@ const languageModal = $('#language-modal');
 const supportedLanguages = ['en', 'ja'];
 
 function addLanguageEventListeners() {
-    $('#language-button').click(() => {
+    $('#languageButton').click(() => {
         languageModal.removeClass('display-none');
     
         setTimeout(() => {

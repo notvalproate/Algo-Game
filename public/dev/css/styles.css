@@ -123,7 +123,7 @@ footer {
   box-shadow: 0px 0px 7px black;
 }
 
-.language-setting {
+.setting {
   position: absolute;
   right: 3.5vh;
   top: 50%;
@@ -134,7 +134,7 @@ footer {
   justify-content: center;
   align-items: center;
 }
-.language-setting .fa-solid {
+.setting .fa-solid {
   font-size: 4vh !important;
 }
 
@@ -710,6 +710,58 @@ input {
   opacity: 100%;
   transform: scale(100%);
 } /* JS Controlled Class*/
+#settingsButton {
+  top: auto;
+  bottom: 3.5vh;
+  transform: none;
+}
+
+.settings-modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.8);
+  transform: scale(130%);
+  opacity: 0%;
+  transition: 0.4s cubic-bezier(0.42, 0, 0.04, 0.99);
+}
+.settings-modal .settings-wrapper {
+  padding: 4vh 4vh 2vh;
+  border: 2px solid white;
+  border-radius: 10px;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.settings-modal .settings-wrapper .select-lang {
+  font-family: "Urbanist", sans-serif;
+  font-size: 4vh;
+}
+.settings-modal .settings-wrapper .lang-options {
+  list-style: none;
+  font-size: 2.5vh;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1vh;
+  align-items: center;
+}
+.settings-modal .settings-wrapper .lang-options .lang-option {
+  padding: 2vh 10vh;
+}
+
+.settings-modal-fade-in {
+  transform: scale(100%);
+  opacity: 100%;
+}
+
 .modal-game-result {
   z-index: 999;
   font-family: "Urbanist", sans-serif;

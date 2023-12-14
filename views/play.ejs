@@ -55,6 +55,7 @@
                 <h2 class="username" id="my-username"><%= username %></h2>
             </div>
         </section>
+
         <section class="guess-array">
             <button class="guess-button">0</button>
             <button class="guess-button">1</button>
@@ -69,7 +70,30 @@
             <button class="guess-button">10</button>
             <button class="guess-button">11</button>
         </section>
+
+        <div class="white-button setting" id="settingsButton">
+            <i class="fa-solid fa-gear"></i>
+        </div>
     </section>
+
+    <div class="settings-modal display-none" id="settings-modal">
+        <div class="settings-wrapper">
+
+
+            <span class="select-lang">SELECT LANGUAGE</span>
+            <hr class="white-hr">
+            <ul class="lang-options">
+                <li class="white-button lang-option">
+                    English
+                </li>
+                <li class="white-button lang-option">
+                    日本語
+                </li>
+            </ul>
+
+            
+        </div>
+    </div>
     
     <section class="modal-game-result display-none">
         <h1 class="game-result"></h1>
@@ -115,7 +139,7 @@
         <div class="footer-content-wrapper">
             <a href="/howtoplay" target="_blank" class="how-to-link" id="howToPlay">How To Play?</a>
             <span class="github-link" id="contrib">Contribute to the GitHub Project over <a href="https://github.com/notvalproate/Algo-Game" target="_blank">here!</a></span>
-            <div class="white-button setting" id="language-button">
+            <div class="white-button setting" id="languageButton">
                 <i class="fa-solid fa-language"></i>
             </div>
         </div>

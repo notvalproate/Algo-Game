@@ -7,6 +7,7 @@ import * as CardDivManager from './cardcreation.js';
 import * as Helpers from './helpers.js';
 import * as CalloutHandler from './callout.js';
 import * as LanguageHandler from './language.js';
+import * as Settings from './settings.js';
 
 // SCSS For Webpack (Only Production)
 
@@ -266,4 +267,6 @@ $(document).ready(function() {
 
     LanguageHandler.addLanguageEventListeners();
     LanguageHandler.checkAndSetPageLanguage();
+
+    Settings.addSettingsEventListener();
 });

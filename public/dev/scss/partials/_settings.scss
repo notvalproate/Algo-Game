@@ -1,0 +1,50 @@
+.settings-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    z-index: 999;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba($color: #000000, $alpha: 0.8);
+    transform: scale(130%);
+    opacity: 0%;
+    transition: 0.4s cubic-bezier(.42,0,.04,.99);
+
+    .settings-wrapper {
+        padding: 4vh 4vh 2vh;
+        border: 2px solid white;
+        border-radius: 10px;
+        font-weight: 600;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        .select-lang {
+            font-family: 'Urbanist', sans-serif;
+            font-size: 4vh;
+        }
+
+        .lang-options {
+            list-style: none;
+            font-size: 2.5vh;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            row-gap: 1vh;
+            align-items: center;
+
+            .lang-option {
+                padding: 2vh 10vh;
+            }
+        }
+    }
+}
+
+.settings-modal-fade-in {
+    transform: scale(100%);
+    opacity: 100%;
+}
