@@ -24,7 +24,7 @@ function addSettingsEventListener() {
         }, 500);
     });
 
-    volumeSlider.on('pointerup', () => {
+    volumeSlider.on('pointerup touchend', () => {
         const volume = volumeSlider.val();
         localStorage.setItem('volume', JSON.stringify({volume: volume}));
         volumeStatus = getVolumeStatusFromVolume(volume);
