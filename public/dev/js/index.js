@@ -23,6 +23,8 @@ $(document).ready(function() {
     $('#playButton').on('click', (event) => {
         const usernameVal = $('#username').val();
         const roomKeyVal = $('#roomKey').val();
+
+        localStorage.setItem('prevUsername', usernameVal);
     
         if(usernameVal === '' || roomKeyVal === '') {
             return;
@@ -41,6 +43,13 @@ $(document).ready(function() {
           $('#playForm').submit();
         }, 1500);
     });
+
+    // SET PREVIOUS PUT USERNAME
+    const prevUsername = localStorage.getItem('prevUsername');
+
+    if(prevUsername !== null) {
+        $('#username').val(prevUsername);
+    }
 
     // LANGUAGE STUFF - LATER TO BE PUT INTO SEPERATE MODULE
 
