@@ -342,6 +342,7 @@ function showResultModal(wonGame, enemyUsername, disconnect) {
         gameResult.html(winText);
         gameStatus.html(wonStatus.replace('<enemy>', enemyUsername));
         gameResult.addClass('game-won');
+        displayConfetti(wonGame);
     } else {
         gameResult.html(loseText);
         gameStatus.html(lostStatus.replace('<enemy>', enemyUsername));
@@ -352,7 +353,6 @@ function showResultModal(wonGame, enemyUsername, disconnect) {
 
     setTimeout(() => {
         resultModal.addClass('modal-in');
-        displayConfetti(wonGame);
     }, 1600);
 }
 
