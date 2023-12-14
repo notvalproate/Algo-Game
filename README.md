@@ -39,7 +39,7 @@ The built files are generated and output in the dist folder in the root director
 ```bash
 npm run dev
 ```
-This runs the server with concurrently compiling sass to css. To run the server without concurrently compiling scss:
+The above command runs the server with concurrently compiling sass to css. To run the server without concurrently compiling scss:
 ```bash
 npm run devstart
 ```
