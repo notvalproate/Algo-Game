@@ -1,7 +1,7 @@
 .modal-game-result {    
     z-index: 999;
     font-family: 'Urbanist', sans-serif;
-    height: 100vh;
+    height: 100svh;
     width: 100vw;
     position: absolute;
     top: 0;
@@ -9,7 +9,7 @@
     background-color: rgba(0, 0, 0, 0.85);
     display: flex;
     flex-direction: column;
-    row-gap: 2.5vh;
+    row-gap: 2.5svh;
     align-items: center;
     justify-content: center;
     transition: 0.5s cubic-bezier(.42,0,.04,.99);
@@ -19,7 +19,7 @@
 
 .game-result {
     color: white;
-    font-size: 8vh;
+    font-size: 8svh;
     text-shadow: 3px 3px 5px black;
 }
 
@@ -32,7 +32,7 @@
 }
 
 .game-status {
-    font-size: 3vh;
+    font-size: 3svh;
     font-weight: 600;
     color: white;
     text-shadow: 2px 2px 4px black;
@@ -47,23 +47,23 @@
     text-shadow: 1px 1px 2px black;
     box-shadow: 0px 0px 7px black;
     align-items: center;
-    padding: 2vh;
+    padding: 2svh;
     border-radius: 10px;
     border: 2px white solid;
     background-color: rgba(0,0,0,0.2);
 }
 
 .stats-title {
-    font-size: 2.5vh;
+    font-size: 2.5svh;
 }
 
 .game-stats {
-    font-size: 2vh;
+    font-size: 2svh;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 35vh;
-    margin-top: 1.5vh;
+    width: 35svh;
+    margin-top: 1.5svh;
 }
 
 .stat {
@@ -83,18 +83,18 @@
     flex-direction: column;
     align-items: center;
     width: 100%;
-    margin-top: 3vh;
+    margin-top: 3svh;
 }
 
 .title-hth {
-    font-size: 2.5vh;
+    font-size: 2.5svh;
 }
 
 .hth-wrapper {
     display: flex;
     justify-content: space-between;
-    margin-top: 1vh;
-    font-size: 2.6vh;
+    margin-top: 1svh;
+    font-size: 2.6svh;
     width: 100%;
 }
 
@@ -123,8 +123,8 @@
 }
 
 #returnButton {
-    height: 9vh;
-    width: 27vh;
+    height: 9svh;
+    width: 27svh;
 }
 
 .modal-in {

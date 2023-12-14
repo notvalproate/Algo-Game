@@ -8,14 +8,14 @@
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 100svh;
     background-color: rgba($color: #000000, $alpha: 0.8);
     transform: scale(130%);
     opacity: 0%;
     transition: 0.4s cubic-bezier(.42,0,.04,.99);
 
     .settings-wrapper {
-        padding: 4vh 4vh 2vh;
+        padding: 4svh 4svh 2svh;
         border: 2px solid white;
         border-radius: 10px;
         font-weight: 600;
@@ -25,28 +25,28 @@
 
         .settings-title {
             font-family: 'Urbanist', sans-serif;
-            font-size: 4vh;
+            font-size: 4svh;
         }
 
         #closeButton {
-            margin-top: 3vh;
-            height: 5vh;
-            width: 15vh;
+            margin-top: 3svh;
+            height: 5svh;
+            width: 15svh;
         }
 
         .volume-wrapper {
             display: flex;
             align-items: center;
             justify-content: center;
-            column-gap: 2vh;
-            margin-top: 2vh;
+            column-gap: 2svh;
+            margin-top: 2svh;
 
             .volume-icon-wrapper {
-                width: 3vh;
-                height: 3vh;
+                width: 3svh;
+                height: 3svh;
 
                 .fa-solid {
-                    font-size: 3vh;
+                    font-size: 3svh;
                 }
             }
             
@@ -58,7 +58,7 @@
                 appearance: none;
                 background: transparent;
                 cursor: pointer;
-                width: 30vh;
+                width: 30svh;
                 border: none;
                 box-shadow: none;
             }
@@ -73,19 +73,19 @@
             input[type="range"]::-webkit-slider-runnable-track {
                 background-color: #ffffff;
                 border-radius: 10px;
-                height: 1vh;
+                height: 1svh;
             }
             
             /* slider thumb */
             input[type="range"]::-webkit-slider-thumb {
                 -webkit-appearance: none; 
                 appearance: none;
-                margin-top: -0.5vh; 
+                margin-top: -0.5svh; 
                 background-color: white;
                 box-shadow: 0px 0px 5px black;
                 border-radius: 50px;
-                height: 2vh;
-                width: 2vh;
+                height: 2svh;
+                width: 2svh;
             }
             
             input[type="range"]:focus::-webkit-slider-thumb {

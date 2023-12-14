@@ -27,7 +27,7 @@ body {
 
 .wrapper {
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
   overflow: hidden;
   position: relative;
   color: white;
@@ -48,7 +48,7 @@ footer {
   z-index: 30;
   position: fixed;
   width: 100%;
-  height: 14vh;
+  height: 14svh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -63,8 +63,8 @@ footer {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-size: 2vh;
-  row-gap: 2vh;
+  font-size: 2svh;
+  row-gap: 2svh;
 }
 
 .footer-content-wrapper a {
@@ -73,7 +73,7 @@ footer {
 
 .how-to-link {
   font-weight: 600;
-  font-size: 3.5vh;
+  font-size: 3.5svh;
 }
 
 .header-out {
@@ -89,7 +89,7 @@ footer {
   z-index: -999;
   position: absolute;
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
   background-image: url("../../assets/images/bg.jpg");
   background-repeat: repeat;
   opacity: 0%;
@@ -100,7 +100,7 @@ footer {
 .white-button {
   font-family: "Urbanist", sans-serif;
   color: white;
-  font-size: 2.5vh;
+  font-size: 2.5svh;
   text-shadow: 1px 1px 2px black;
   box-shadow: 0px 0px 7px black;
   border-radius: 10px;
@@ -118,24 +118,24 @@ footer {
 
 /* GENERICS  */
 .white-hr {
-  width: 6vh;
+  width: 6svh;
   border: 1px solid white;
   box-shadow: 0px 0px 7px black;
 }
 
 .setting {
   position: absolute;
-  right: 3.5vh;
+  right: 3.5svh;
   top: 50%;
-  width: 7vh;
-  height: 7vh;
+  width: 7svh;
+  height: 7svh;
   transform: translateY(-50%);
   display: flex;
   justify-content: center;
   align-items: center;
 }
 .setting .fa-solid {
-  font-size: 4vh !important;
+  font-size: 4svh !important;
 }
 
 .language-modal {
@@ -147,14 +147,14 @@ footer {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
   background-color: rgba(0, 0, 0, 0.8);
   transform: scale(130%);
   opacity: 0%;
   transition: 0.4s cubic-bezier(0.42, 0, 0.04, 0.99);
 }
 .language-modal .language-wrapper {
-  padding: 4vh 4vh 2vh;
+  padding: 4svh 4svh 2svh;
   border: 2px solid white;
   border-radius: 10px;
   font-weight: 600;
@@ -164,19 +164,19 @@ footer {
 }
 .language-modal .language-wrapper .select-lang {
   font-family: "Urbanist", sans-serif;
-  font-size: 4vh;
+  font-size: 4svh;
 }
 .language-modal .language-wrapper .lang-options {
   list-style: none;
-  font-size: 2.5vh;
+  font-size: 2.5svh;
   padding: 0;
   display: flex;
   flex-direction: column;
-  row-gap: 1vh;
+  row-gap: 1svh;
   align-items: center;
 }
 .language-modal .language-wrapper .lang-options .lang-option {
-  padding: 2vh 10vh;
+  padding: 2svh 10svh;
 }
 
 .language-modal-fade-in {
@@ -186,7 +186,7 @@ footer {
 
 label {
   font-family: "Gruppo", sans-serif;
-  font-size: 2.5vh;
+  font-size: 2.5svh;
   padding: 0.5rem 0;
 }
 
@@ -198,12 +198,12 @@ input {
   border-radius: 10px;
   border: 1px white solid;
   background-color: rgba(0, 0, 0, 0.72);
-  height: 4vh;
+  height: 4svh;
   padding-left: 15px;
 }
 
 .create-title {
-  font-size: 5vh;
+  font-size: 5svh;
 }
 
 .serif-title {
@@ -222,14 +222,14 @@ input {
 }
 
 #playButton {
-  margin-top: 4vh;
-  height: 8vh;
-  width: 24vh;
+  margin-top: 4svh;
+  height: 8svh;
+  width: 24svh;
 }
 
 .login-box {
   width: 100%;
-  height: 100vh;
+  height: 100svh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -270,15 +270,15 @@ input {
 }
 
 .full-alert {
-  margin-top: 4vh;
+  margin-top: 4svh;
   width: 100%;
   height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
   font-family: "Gruppo", sans-serif;
-  font-size: 2.5vh;
-  padding: 1vh;
+  font-size: 2.5svh;
+  padding: 1svh;
   color: white;
   text-shadow: 1px 1px 2px black;
   box-shadow: 0px 0px 7px black;
@@ -297,9 +297,9 @@ input {
 .lobby {
   position: fixed;
   box-sizing: border-box;
-  padding: 14vh 0;
+  padding: 14svh 0;
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -323,9 +323,9 @@ input {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  row-gap: 1vh;
-  height: 8vh;
-  min-width: 24vh;
+  row-gap: 1svh;
+  height: 8svh;
+  min-width: 24svh;
 }
 
 .key:hover {
@@ -339,22 +339,22 @@ input {
   display: flex;
   justify-content: center;
   align-items: center;
-  column-gap: 1vh;
+  column-gap: 1svh;
 }
 
 .key-wrapper img {
   position: relative;
-  width: 3vh;
+  width: 3svh;
   transform: translateY(10%);
 }
 
 .key-wrapper h2 {
-  font-size: 4vh;
+  font-size: 4svh;
 }
 
 .copy-link {
   font-family: "Urbanist", sans-serif;
-  font-size: 1.5vh;
+  font-size: 1.5svh;
 }
 
 .player-display {
@@ -367,7 +367,7 @@ input {
 
 .players {
   color: #b0b0b0;
-  font-size: 4.2rem;
+  font-size: 6vh;
   width: 30%;
   transition: 0.8s cubic-bezier(0.42, 0, 0.04, 0.99);
   text-align: center;
@@ -380,8 +380,8 @@ input {
   text-shadow: yellow 0px 0px 30px;
 } /* JS controlled Class */
 #ready-button {
-  height: 8vh;
-  width: 24vh;
+  height: 8svh;
+  width: 24svh;
 }
 
 .versus {
@@ -437,11 +437,11 @@ input {
 }
 /* Cards Desk */
 .desk-wrapper {
-  height: 100vh;
+  height: 100svh;
   width: 100vw;
   display: flex;
   flex-direction: column;
-  row-gap: 2vh;
+  row-gap: 2svh;
   justify-content: flex-start;
   align-items: center;
   transform: scale(70%);
@@ -451,7 +451,7 @@ input {
 
 .username {
   transform: scale(65%);
-  font-size: 5vh;
+  font-size: 5svh;
   font-weight: 400;
   font-family: "Gruppo", sans-serif;
   transition: 0.5s cubic-bezier(0.42, 0, 0.04, 0.99);
@@ -459,12 +459,12 @@ input {
 
 .desk {
   background-color: var(--backgroundColor);
-  margin-top: 3.5vh;
-  height: 80vh;
+  margin-top: 3.5svh;
+  height: 80svh;
   width: 80%;
   display: flex;
   flex-direction: column;
-  row-gap: 3vh;
+  row-gap: 3svh;
   justify-content: flex-start;
   align-items: center;
   font-family: "Urbanist", sans-serif;
@@ -503,13 +503,13 @@ input {
 
 .card {
   position: relative;
-  padding-top: 11vh;
-  height: 17vh;
-  width: 11vh;
+  padding-top: 11svh;
+  height: 17svh;
+  width: 11svh;
   z-index: 30;
   text-align: center;
-  font-size: 4vh;
-  border-radius: 1.2vh;
+  font-size: 4svh;
+  border-radius: 1.2svh;
   font-weight: 600;
   box-sizing: border-box;
   user-select: none;
@@ -521,8 +521,8 @@ input {
 }
 
 .open {
-  padding-top: 2vh;
-  font-size: 11vh;
+  padding-top: 2svh;
+  font-size: 11svh;
 } /*JS Controlled Class*/
 .closed {
   align-items: flex-end;
@@ -543,7 +543,7 @@ input {
 /* Picking */
 .guess-array {
   z-index: 999;
-  height: 7vh;
+  height: 7svh;
   display: flex;
   justify-content: center;
   transition: 0.5s cubic-bezier(0.42, 0, 0.04, 0.99);
@@ -556,12 +556,12 @@ input {
   -webkit-border-radius: 10;
   -moz-border-radius: 10;
   border: none;
-  border-radius: 1vh;
+  border-radius: 1svh;
   color: #000000;
-  width: 8vh;
-  height: 8vh;
+  width: 8svh;
+  height: 8svh;
   margin: 0 8px;
-  font-size: 4vh;
+  font-size: 4svh;
   font-weight: 600;
   background: #ffffff;
   text-decoration: none;
@@ -587,9 +587,9 @@ input {
 
 .hand-container {
   border-radius: 20px;
-  padding-left: 2vh;
-  padding-right: 2vh;
-  height: 30vh;
+  padding-left: 2svh;
+  padding-right: 2svh;
+  height: 30svh;
   width: auto;
   display: flex;
   box-sizing: border-box;
@@ -599,13 +599,13 @@ input {
 }
 
 .my-hand-container {
-  padding-bottom: 1vh;
-  padding-top: 2vh;
+  padding-bottom: 1svh;
+  padding-top: 2svh;
 }
 
 .enemy-hand-container {
-  padding-top: 1vh;
-  padding-bottom: 2vh;
+  padding-top: 1svh;
+  padding-bottom: 2svh;
 }
 
 .player-turn {
@@ -618,18 +618,18 @@ input {
   top: 0;
   left: 0;
   position: absolute;
-  padding: 2vh;
-  height: 4vh;
-  width: 4vh;
-  border-radius: 0.5vh;
+  padding: 2svh;
+  height: 4svh;
+  width: 4svh;
+  border-radius: 0.5svh;
   box-sizing: border-box;
-  font-size: 2vh;
+  font-size: 2svh;
   font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 999;
-  transform: translate(calc(5.5vh - 50%), -110%);
+  transform: translate(calc(5.5svh - 50%), -110%);
 }
 
 .black {
@@ -666,8 +666,8 @@ input {
 }
 
 .decision-image {
-  width: 11vh;
-  height: 11vh;
+  width: 11svh;
+  height: 11svh;
 }
 
 .attack {
@@ -712,7 +712,7 @@ input {
 } /* JS Controlled Class*/
 #settingsButton {
   top: auto;
-  bottom: 3.5vh;
+  bottom: 3.5svh;
   transform: none;
 }
 
@@ -725,14 +725,14 @@ input {
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100svh;
   background-color: rgba(0, 0, 0, 0.8);
   transform: scale(130%);
   opacity: 0%;
   transition: 0.4s cubic-bezier(0.42, 0, 0.04, 0.99);
 }
 .settings-modal .settings-wrapper {
-  padding: 4vh 4vh 2vh;
+  padding: 4svh 4svh 2svh;
   border: 2px solid white;
   border-radius: 10px;
   font-weight: 600;
@@ -742,19 +742,19 @@ input {
 }
 .settings-modal .settings-wrapper .settings-title {
   font-family: "Urbanist", sans-serif;
-  font-size: 4vh;
+  font-size: 4svh;
 }
 .settings-modal .settings-wrapper #closeButton {
-  margin-top: 3vh;
-  height: 5vh;
-  width: 15vh;
+  margin-top: 3svh;
+  height: 5svh;
+  width: 15svh;
 }
 .settings-modal .settings-wrapper .volume-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
-  column-gap: 2vh;
-  margin-top: 2vh;
+  column-gap: 2svh;
+  margin-top: 2svh;
   /*********** Generated and modified using https://range-input-css.netlify.app/ ************/
   /*********** Baseline, reset styles ***********/
   /* Removes default focus */
@@ -766,11 +766,11 @@ input {
   /* slider thumb */
 }
 .settings-modal .settings-wrapper .volume-wrapper .volume-icon-wrapper {
-  width: 3vh;
-  height: 3vh;
+  width: 3svh;
+  height: 3svh;
 }
 .settings-modal .settings-wrapper .volume-wrapper .volume-icon-wrapper .fa-solid {
-  font-size: 3vh;
+  font-size: 3svh;
 }
 .settings-modal .settings-wrapper .volume-wrapper input[type=range] {
   padding: 0;
@@ -778,7 +778,7 @@ input {
   appearance: none;
   background: transparent;
   cursor: pointer;
-  width: 30vh;
+  width: 30svh;
   border: none;
   box-shadow: none;
 }
@@ -788,17 +788,17 @@ input {
 .settings-modal .settings-wrapper .volume-wrapper input[type=range]::-webkit-slider-runnable-track {
   background-color: #ffffff;
   border-radius: 10px;
-  height: 1vh;
+  height: 1svh;
 }
 .settings-modal .settings-wrapper .volume-wrapper input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
-  margin-top: -0.5vh;
+  margin-top: -0.5svh;
   background-color: white;
   box-shadow: 0px 0px 5px black;
   border-radius: 50px;
-  height: 2vh;
-  width: 2vh;
+  height: 2svh;
+  width: 2svh;
 }
 .settings-modal .settings-wrapper .volume-wrapper input[type=range]:focus::-webkit-slider-thumb {
   outline: 3px solid #ffffff;
@@ -829,7 +829,7 @@ input {
 .modal-game-result {
   z-index: 999;
   font-family: "Urbanist", sans-serif;
-  height: 100vh;
+  height: 100svh;
   width: 100vw;
   position: absolute;
   top: 0;
@@ -837,7 +837,7 @@ input {
   background-color: rgba(0, 0, 0, 0.85);
   display: flex;
   flex-direction: column;
-  row-gap: 2.5vh;
+  row-gap: 2.5svh;
   align-items: center;
   justify-content: center;
   transition: 0.5s cubic-bezier(0.42, 0, 0.04, 0.99);
@@ -847,7 +847,7 @@ input {
 
 .game-result {
   color: white;
-  font-size: 8vh;
+  font-size: 8svh;
   text-shadow: 3px 3px 5px black;
 }
 
@@ -860,7 +860,7 @@ input {
 }
 
 .game-status {
-  font-size: 3vh;
+  font-size: 3svh;
   font-weight: 600;
   color: white;
   text-shadow: 2px 2px 4px black;
@@ -875,23 +875,23 @@ input {
   text-shadow: 1px 1px 2px black;
   box-shadow: 0px 0px 7px black;
   align-items: center;
-  padding: 2vh;
+  padding: 2svh;
   border-radius: 10px;
   border: 2px white solid;
   background-color: rgba(0, 0, 0, 0.2);
 }
 
 .stats-title {
-  font-size: 2.5vh;
+  font-size: 2.5svh;
 }
 
 .game-stats {
-  font-size: 2vh;
+  font-size: 2svh;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 35vh;
-  margin-top: 1.5vh;
+  width: 35svh;
+  margin-top: 1.5svh;
 }
 
 .stat {
@@ -911,18 +911,18 @@ input {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  margin-top: 3vh;
+  margin-top: 3svh;
 }
 
 .title-hth {
-  font-size: 2.5vh;
+  font-size: 2.5svh;
 }
 
 .hth-wrapper {
   display: flex;
   justify-content: space-between;
-  margin-top: 1vh;
-  font-size: 2.6vh;
+  margin-top: 1svh;
+  font-size: 2.6svh;
   width: 100%;
 }
 
@@ -951,8 +951,8 @@ input {
 }
 
 #returnButton {
-  height: 9vh;
-  width: 27vh;
+  height: 9svh;
+  width: 27svh;
 }
 
 .modal-in {
@@ -982,7 +982,7 @@ input {
 .how-to-title {
   font-family: "Urbanist", sans-serif;
   font-weight: 600;
-  font-size: 8vh;
+  font-size: 8svh;
 }
 
 .title-logo {
@@ -1004,7 +1004,7 @@ input {
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-  height: 100vh;
+  height: 100svh;
   width: 100vw;
   background-color: rgba(0, 0, 0, 0.85);
 }
@@ -1015,15 +1015,15 @@ input {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  row-gap: 5vh;
+  row-gap: 5svh;
 }
 
 .oops {
-  font-size: 20vh;
+  font-size: 20svh;
 }
 
 .redirect-text {
-  font-size: 2vh;
+  font-size: 2svh;
 }
 
 .click-here {

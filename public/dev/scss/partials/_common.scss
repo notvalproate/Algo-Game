@@ -32,7 +32,7 @@ body {
 
 .wrapper {
     width: 100vw;
-    height: 100vh;
+    height: 100svh;
     overflow: hidden;
     position: relative;
     color: white;
@@ -53,7 +53,7 @@ footer {
     z-index: 30;
     position: fixed;
     width: 100%;
-    height: 14vh;
+    height: 14svh;
 
     display: flex;
     justify-content: center;
@@ -70,8 +70,8 @@ footer {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-size: 2vh;
-    row-gap: 2vh;
+    font-size: 2svh;
+    row-gap: 2svh;
 }
 
 .footer-content-wrapper a {
@@ -80,7 +80,7 @@ footer {
 
 .how-to-link {
     font-weight: 600;
-    font-size: 3.5vh;
+    font-size: 3.5svh;
 }
 
 .header-out {
@@ -100,7 +100,7 @@ footer {
     z-index: -999;
     position: absolute;
     width: 100vw;
-    height: 100vh;
+    height: 100svh;
     background-image: url('../../assets/images/bg.jpg');
     background-repeat: repeat;
 
@@ -113,7 +113,7 @@ footer {
 .white-button {
     font-family: 'Urbanist', sans-serif;
     color: white;
-    font-size: 2.5vh;
+    font-size: 2.5svh;
     text-shadow: 1px 1px 2px black;
     box-shadow: 0px 0px 7px black;
     border-radius: 10px;
@@ -132,17 +132,17 @@ footer {
 /* GENERICS  */
 
 .white-hr {
-    width: 6vh;
+    width: 6svh;
     border: 1px solid white;
     box-shadow: 0px 0px 7px black;
 }
 
 .setting {
     position: absolute;
-    right: 3.5vh;
+    right: 3.5svh;
     top: 50%;
-    width: 7vh;
-    height: 7vh;
+    width: 7svh;
+    height: 7svh;
     transform: translateY(-50%);
 
     display: flex;
@@ -150,6 +150,6 @@ footer {
     align-items: center;
 
     .fa-solid {
-        font-size: 4vh !important;
+        font-size: 4svh !important;
     }
 }

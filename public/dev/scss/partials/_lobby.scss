@@ -1,9 +1,9 @@
 .lobby {
     position: fixed;
     box-sizing: border-box;
-    padding: 14vh 0;
+    padding: 14svh 0;
     width: 100vw;
-    height: 100vh;
+    height: 100svh;
 
     display: flex;
     flex-direction: column;
@@ -31,9 +31,9 @@
     align-items: center;
     justify-content: center;
 
-    row-gap: 1vh;
-    height: 8vh;
-    min-width: 24vh;
+    row-gap: 1svh;
+    height: 8svh;
+    min-width: 24svh;
 }
 
 .key:hover {
@@ -48,22 +48,22 @@
     justify-content: center;
     align-items: center;
 
-    column-gap: 1vh;
+    column-gap: 1svh;
 }
 
 .key-wrapper img{
     position: relative;
-    width: 3vh;
+    width: 3svh;
     transform: translateY(10%);
 }
 
 .key-wrapper h2 {
-    font-size: 4vh;
+    font-size: 4svh;
 }
 
 .copy-link {
     font-family: 'Urbanist', sans-serif;
-    font-size: 1.5vh;
+    font-size: 1.5svh;
 }
 
 .player-display{
@@ -77,7 +77,7 @@
 
 .players{
     color: #b0b0b0;
-    font-size: 4.2rem;
+    font-size: 7vh;
     width: 30%;
     transition: 0.8s cubic-bezier(.42,0,.04,.99);
     text-align: center;
@@ -91,8 +91,8 @@
 } /* JS controlled Class */
 
 #ready-button {
-    height: 8vh;
-    width: 24vh;
+    height: 8svh;
+    width: 24svh;
 }
 
 .versus{

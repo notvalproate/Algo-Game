@@ -8,14 +8,14 @@
     top: 0;
     left: 0;
     width: 100vw;
-    height: 100vh;
+    height: 100svh;
     background-color: rgba($color: #000000, $alpha: 0.8);
     transform: scale(130%);
     opacity: 0%;
     transition: 0.4s cubic-bezier(.42,0,.04,.99);
 
     .language-wrapper {
-        padding: 4vh 4vh 2vh;
+        padding: 4svh 4svh 2svh;
         border: 2px solid white;
         border-radius: 10px;
         font-weight: 600;
@@ -25,20 +25,20 @@
 
         .select-lang {
             font-family: 'Urbanist', sans-serif;
-            font-size: 4vh;
+            font-size: 4svh;
         }
 
         .lang-options {
             list-style: none;
-            font-size: 2.5vh;
+            font-size: 2.5svh;
             padding: 0;
             display: flex;
             flex-direction: column;
-            row-gap: 1vh;
+            row-gap: 1svh;
             align-items: center;
 
             .lang-option {
-                padding: 2vh 10vh;
+                padding: 2svh 10svh;
             }
         }
     }

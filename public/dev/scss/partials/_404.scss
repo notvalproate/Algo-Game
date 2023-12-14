@@ -4,7 +4,7 @@
     align-items: center;
     justify-content: space-around;
 
-    height: 100vh;
+    height: 100svh;
     width: 100vw;
     background-color: rgba(0, 0, 0, 0.85);
 }
@@ -17,15 +17,15 @@
     justify-content: center;
     align-items: center;
 
-    row-gap: 5vh;
+    row-gap: 5svh;
 }
 
 .oops {
-    font-size: 20vh;
+    font-size: 20svh;
 }
 
 .redirect-text {
-    font-size: 2vh;
+    font-size: 2svh;
 }
 
 .click-here {
