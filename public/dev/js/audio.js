@@ -21,9 +21,18 @@ function playWrongSound() {
     wrongSound.play();
 }
 
+function setSoundsVolume(volume) {
+    const clamped = Math.min(volume, 100) / 100;
+    
+    correctSound.volume(clamped);
+    wrongSound.volume(clamped);
+}
+
 export {
     initAudio,
     
     playCorrectSound,
     playWrongSound,
+
+    setSoundsVolume,
 }

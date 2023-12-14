@@ -48,6 +48,7 @@
             /*********** Generated and modified using https://range-input-css.netlify.app/ ************/
             /*********** Baseline, reset styles ***********/
             input[type="range"] {
+                padding: 0;
                 -webkit-appearance: none;
                 appearance: none;
                 background: transparent;

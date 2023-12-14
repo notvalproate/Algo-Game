@@ -769,6 +769,7 @@ input {
   font-size: 3vh;
 }
 .settings-modal .settings-wrapper .volume-wrapper input[type=range] {
+  padding: 0;
   -webkit-appearance: none;
   appearance: none;
   background: transparent;
