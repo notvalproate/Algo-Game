@@ -21,7 +21,9 @@
             "hth": "勝利数",
             "winsText1": "回",
             "winsText2": "回",
-            "returnButton": "ロビーへ戻る"
+            "returnButton": "ロビーへ戻る",
+            "settingsTitle": "設定",
+            "closeButton": "終了"
         },
     "dynamic":
         {

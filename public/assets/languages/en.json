@@ -21,7 +21,9 @@
             "hth": "HEAD TO HEAD",
             "winsText1": "Wins",
             "winsText2": "Wins",
-            "returnButton": "RETURN TO LOBBY"
+            "returnButton": "RETURN TO LOBBY",
+            "settingsTitle": "SETTINGS",
+            "closeButton": "CLOSE"
         },
     "dynamic":
         {
