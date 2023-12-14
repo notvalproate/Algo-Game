@@ -2,7 +2,7 @@ const languageModal = $('#language-modal');
 
 const supportedLanguages = ['en', 'ja'];
 
-function addLanguageEventListeners(eventListener) {
+function addLanguageEventListeners(tempFunction) {
     $('#languageButton').click(() => {
         languageModal.removeClass('display-none');
     
@@ -15,7 +15,15 @@ function addLanguageEventListeners(eventListener) {
         const lang = supportedLanguages[i];
 
         $(`#${lang}Option`).click(() => {
-            eventListener(languageModal, lang);
+            localStorage.setItem('lang', lang);
+            setPageLanguage(lang);
+
+            languageModal.removeClass('language-modal-fade-in');
+            setTimeout(() => {
+                languageModal.addClass('display-none');
+            }, 500);
+
+            tempFunction();
         });
     }
 }
@@ -51,5 +59,4 @@ function setPageLanguage(lang) {
 export {
     addLanguageEventListeners,
     checkAndSetPageLanguage,
-    setPageLanguage,
 }

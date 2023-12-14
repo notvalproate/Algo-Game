@@ -44,15 +44,7 @@ $(document).ready(function() {
 
     // LANGUAGE STUFF - LATER TO BE PUT INTO SEPERATE MODULE
 
-    LanguageHandler.addLanguageEventListeners((languageModal, lang) => {
-        localStorage.setItem('lang', lang);
-        LanguageHandler.setPageLanguage(lang);
-
-        languageModal.removeClass('language-modal-fade-in');
-        setTimeout(() => {
-            languageModal.addClass('display-none');
-        }, 500);
-    });
+    LanguageHandler.addLanguageEventListeners(() => {});
     LanguageHandler.checkAndSetPageLanguage();
 });
 

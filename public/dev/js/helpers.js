@@ -315,7 +315,7 @@ function displayConfetti(wonGame) {
 function setModalTranslations() {
     let lang = localStorage.getItem('lang');
 
-    if(lang !== null && lang !== 'en') {
+    if(lang !== null) {
         fetch(`/assets/languages/${lang}.json`)
             .then(response => response.json())
             .then((json) => {

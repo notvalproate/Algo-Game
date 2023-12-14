@@ -266,18 +266,7 @@ $(document).ready(function() {
 
     Helpers.setModalTranslations();
 
-    LanguageHandler.addLanguageEventListeners((languageModal, lang) => {
-        localStorage.setItem('lang', lang);
-        LanguageHandler.setPageLanguage(lang);
-
-        languageModal.removeClass('language-modal-fade-in');
-        setTimeout(() => {
-            languageModal.addClass('display-none');
-        }, 500);
-
-        Helpers.setModalTranslations();
-    });
-    
+    LanguageHandler.addLanguageEventListeners(Helpers.setModalTranslations);
     LanguageHandler.checkAndSetPageLanguage();
 
     Settings.addSettingsEventListener();
