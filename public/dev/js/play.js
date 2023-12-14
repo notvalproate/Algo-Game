@@ -234,8 +234,7 @@ $(document).ready(function() {
         Helpers.setStatsSection(data.stats);
 
         if(data.enemyDisconnect) {
-            $('.game-status').html('Enemy has disconnected!');
-            Helpers.showResultModal(wonGame);
+            Helpers.showResultModal(wonGame, enemyUsername, true);
             return;
         }
 
@@ -245,7 +244,7 @@ $(document).ready(function() {
             Animations.playWinLoseAnimation($('.my-card'));
         }
 
-        Helpers.showResultModal(wonGame, enemyUsername);
+        Helpers.showResultModal(wonGame, enemyUsername, false);
     });
 
     globals.socket.on('rejected', () => {
@@ -264,6 +263,8 @@ $(document).ready(function() {
     Helpers.addReturnButtonEventListener();
     Helpers.addDecisionsEventListener();
     Helpers.addButtonEventListeners();
+
+    Helpers.setModalTranslations();
 
     LanguageHandler.addLanguageEventListeners();
     LanguageHandler.checkAndSetPageLanguage();

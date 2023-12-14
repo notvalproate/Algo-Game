@@ -7,6 +7,7 @@ CHAT:
    -> Finally create a dev branch and have main branch use production code.
    -> Replace vh with svh.
    -> Change styles for Mobile at last.
+   -> Save recent username on client.
    
 }
 

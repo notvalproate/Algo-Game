@@ -10,6 +10,12 @@ const gameResult = $('.game-result');
 const gameStatus = $('.game-status');
 const resultModal = $('.modal-game-result');
 
+let winText = "YOU WIN";
+let loseText = "YOU LOSE";
+let disconnectText = "Enemy has disconnected!";
+let wonStatus = "You guessed all of <enemy>'s cards!";
+let lostStatus = "<enemy> guessed all your cards!";
+
 // MISC HELPERS
 
 function invertColor(color){
@@ -306,17 +312,39 @@ function displayConfetti(wonGame) {
     })();
 }
 
-function showResultModal(wonGame, enemyUsername) {
+function setModalTranslations() {
+    let lang = localStorage.getItem('lang');
+
+    if(lang !== null && lang !== 'en') {
+        fetch(`/assets/languages/${lang}.json`)
+            .then(response => response.json())
+            .then((json) => {
+                const langContent = json.dynamic;
+                
+                winText = langContent.gameWon;
+                loseText = langContent.gameLost;
+                disconnectText = langContent.disconnectStatus;
+                wonStatus = langContent.wonStatus;
+                lostStatus = langContent.lostStatus;
+            });
+    }
+}
+
+function showResultModal(wonGame, enemyUsername, disconnect) {
     gameResult.removeClass('game-won');
     gameResult.removeClass('game-lost');
 
-    if(wonGame) {
-        gameResult.html('YOU WIN');
-        gameStatus.html(`You guessed all of ${enemyUsername}'s cards!`);
+    if(disconnect) {
+        gameResult.html(winText);
+        gameStatus.html(disconnectText);
+        gameResult.addClass('game-won');
+    } else if(wonGame) {
+        gameResult.html(winText);
+        gameStatus.html(wonStatus.replace('<enemy>', enemyUsername));
         gameResult.addClass('game-won');
     } else {
-        gameResult.html('YOU LOSE');
-        gameStatus.html(`${enemyUsername} guessed all your cards!`);
+        gameResult.html(loseText);
+        gameStatus.html(lostStatus.replace('<enemy>', enemyUsername));
         gameResult.addClass('game-lost');
     }
 
@@ -340,6 +368,7 @@ export {
 
     setEnemyUsername,
     setStatsSection,
+    setModalTranslations,
 
     applyJoinLobbyTransition,
     applyGameStartTransition,
