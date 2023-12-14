@@ -136,3 +136,20 @@ footer {
     border: 1px solid white;
     box-shadow: 0px 0px 7px black;
 }
+
+.setting {
+    position: absolute;
+    right: 3.5vh;
+    top: 50%;
+    width: 7vh;
+    height: 7vh;
+    transform: translateY(-50%);
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .fa-solid {
+        font-size: 4vh !important;
+    }
+}
