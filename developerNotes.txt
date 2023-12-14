@@ -5,6 +5,8 @@ CHAT:
 [Ian] - [13-12-23 ; 2253Hrs]
    -> Figure out how to use the dynamic translation part of the JSON.
    -> Finally create a dev branch and have main branch use production code.
+   -> Replace vh with svh.
+   -> Change styles for Mobile at last.
    
 }
 
