@@ -459,13 +459,13 @@ input {
   text-shadow: none;
   transition: 0.4s ease;
 } /* JS controlled Class */
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1024px) {
   .player-display {
     flex-direction: column;
   }
   .players {
+    font-size: 5vh;
     width: 100%;
-    display: block;
   }
 }
 /* Cards Desk */
