@@ -227,13 +227,13 @@ label {
 input {
   font-family: "Gruppo", sans-serif;
   color: white;
-  font-size: 130%;
+  font-size: 2.5svh;
   box-shadow: 0px 0px 7px black;
-  border-radius: 10px;
+  border-radius: 1vh;
   border: 1px white solid;
   background-color: rgba(0, 0, 0, 0.72);
   height: 4svh;
-  padding-left: 15px;
+  padding-left: 1.5vh;
 }
 
 .create-title {
@@ -289,7 +289,7 @@ input {
 .box {
   width: 100%;
   height: 100%;
-  padding: 0.5rem 0;
+  padding: 1svh 0;
   text-align: left;
   display: flex;
   flex-direction: column;
