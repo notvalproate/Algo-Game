@@ -64,7 +64,9 @@ footer {
   justify-content: center;
   align-items: center;
   font-size: 2svh;
+  text-align: center;
   row-gap: 2svh;
+  padding: 0 2vh;
 }
 
 .footer-content-wrapper a {
@@ -138,6 +140,16 @@ footer {
   font-size: 4svh !important;
 }
 
+@media only screen and (max-width: 1024px) {
+  .footer-content-wrapper {
+    font-size: 1.6svh;
+    row-gap: 0.5svh;
+  }
+  .how-to-link {
+    font-weight: 600;
+    font-size: 3svh;
+  }
+}
 .language-modal {
   display: flex;
   justify-content: center;
@@ -184,6 +196,28 @@ footer {
   opacity: 100%;
 }
 
+@media only screen and (max-width: 1024px) {
+  #languageButton {
+    border-radius: 1svh;
+    width: 4svh;
+    height: 4svh;
+    top: 2svh;
+    right: 2svh;
+    transform: none;
+  }
+  #languageButton .fa-solid {
+    font-size: 2.5svh !important;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .language-modal .language-wrapper {
+    padding: 3svh 3svh 2svh;
+  }
+  .language-modal .language-wrapper .select-lang {
+    font-family: "Urbanist", sans-serif;
+    font-size: 3svh;
+  }
+}
 label {
   font-family: "Gruppo", sans-serif;
   font-size: 2.5svh;
@@ -208,7 +242,7 @@ input {
 
 .serif-title {
   position: relative;
-  font-size: 6rem;
+  font-size: 11svh;
   font-weight: 400;
   font-family: "Josefin Slab", serif;
 }
@@ -217,7 +251,7 @@ input {
   bottom: 0;
   right: -10%;
   position: absolute;
-  font-size: 1.5rem;
+  font-size: 2.75svh;
   font-family: "Gruppo", sans-serif;
 }
 
@@ -237,8 +271,8 @@ input {
 }
 
 .login {
-  width: 30%;
-  padding: 3rem;
+  min-width: 30%;
+  padding: 5vh;
   border-radius: 10px;
   text-align: center;
   font-family: "Urbanist", sans-serif;
@@ -294,6 +328,14 @@ input {
   opacity: 100%;
   transform: scale(100%);
 } /* JS Controlled Class*/
+@media only screen and (max-width: 768px) {
+  .login {
+    padding: 3vh;
+  }
+  .create-title {
+    font-size: 3.5svh;
+  }
+}
 .lobby {
   position: fixed;
   box-sizing: border-box;

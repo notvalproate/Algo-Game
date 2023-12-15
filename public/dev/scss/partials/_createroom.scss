@@ -22,7 +22,7 @@ input {
 
 .serif-title {
     position: relative;
-    font-size: 6rem;
+    font-size: 11svh;
     font-weight: 400;
     font-family: 'Josefin Slab', serif;
 }
@@ -31,7 +31,7 @@ input {
     bottom: 0;
     right: -10%;
     position: absolute;
-    font-size: 1.5rem;
+    font-size: 2.75svh;
     font-family: 'Gruppo', sans-serif;
 }
 
@@ -53,8 +53,8 @@ input {
 }
 
 .login {
-    width: 30%;
-    padding: 3rem;
+    min-width: 30%;
+    padding: 5vh;
     border-radius: 10px;
     text-align: center;
 
@@ -118,3 +118,13 @@ input {
     opacity: 100%;
     transform: scale(100%);
 } /* JS Controlled Class*/
+
+@media only screen and (max-width: 768px) {
+    .login {
+        padding: 3vh;
+    }
+
+    .create-title {
+        font-size: 3.5svh;
+    }
+}
