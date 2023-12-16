@@ -29,13 +29,13 @@
     flex-direction: column;
     row-gap: 3svh;
     justify-content: flex-start;
-    align-items: center;
+    align-items: center;    
     font-family: 'Urbanist', sans-serif;
 }
 
 .hand {
     width: auto;
-    gap: 15px;
+    gap: 1vh;
     padding: 0px 20px;
     display: flex;
     justify-content: space-around;
@@ -300,25 +300,27 @@
     }
 
     .hand-container {
+        width: 100%;
         padding: 0;
     }
 
     .hand {
-        column-gap: 0;
+        width: 95%;
         flex-wrap: wrap;
+        justify-content: center;
     }
 
     .card {
-        padding-top: 6.5svh;
-        height: 10svh;
-        width: 6.5svh;
-        font-size: 2.35svh;
-        border-radius: 0.7svh;
+        padding-top: 12vw;
+        height: 18.5vw;
+        width: 12vw;
+        font-size: 4.3vw;
+        border-radius: 1.28vw;
     }
     
     .open {
-        padding-top: 1.17svh;
-        font-size: 6.5svh;
+        padding-top: 2.15vw;
+        font-size: 12vw;
     }
 
     .guess-callout {
@@ -337,11 +339,11 @@
     }
 
     .attack {
-        left: -120%;
+        left: -110%;
     }
 
     .hold {
-        right: -120%;
+        right: -110%;
     }
 }
 
