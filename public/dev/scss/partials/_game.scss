@@ -319,26 +319,19 @@
     }
 }
 
-@keyframes calloutAnimMob {
-    0% {
-        transform: translate(calc(2.75vh - 50%), -110%),
-    }
-    50% {
-        transform: translate(calc(2.75vh - 50%), -140%),
-    }
-    100% {
-        transform: translate(calc(2.75vh - 50%), -110%),
+@mixin calloutAnimMixin($name, $xval) {
+    @keyframes #{$name} {
+        0% {
+            transform: translate(calc($xval - 50%), -110%),
+        }
+        50% {
+            transform: translate(calc($xval - 50%), -140%),
+        }
+        100% {
+            transform: translate(calc($xval - 50%), -110%),
+        }
     }
 }
 
-@keyframes calloutAnim {
-    0% {
-        transform: translate(calc(5.5vh - 50%), -110%),
-    }
-    50% {
-        transform: translate(calc(5.5vh - 50%), -140%),
-    }
-    100% {
-        transform: translate(calc(5.5vh - 50%), -110%),
-    }
-}
+@include calloutAnimMixin(calloutAnim, 5.5vh);
+@include calloutAnimMixin(calloutAnimMob, 2.75vh);

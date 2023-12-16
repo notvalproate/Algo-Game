@@ -772,17 +772,6 @@ input {
     animation: calloutAnimMob 2s cubic-bezier(0.48, 0.01, 0.49, 0.99) infinite;
   }
 }
-@keyframes calloutAnimMob {
-  0% {
-    transform: translate(calc(2.75vh - 50%), -110%);
-  }
-  50% {
-    transform: translate(calc(2.75vh - 50%), -140%);
-  }
-  100% {
-    transform: translate(calc(2.75vh - 50%), -110%);
-  }
-}
 @keyframes calloutAnim {
   0% {
     transform: translate(calc(5.5vh - 50%), -110%);
@@ -792,6 +781,17 @@ input {
   }
   100% {
     transform: translate(calc(5.5vh - 50%), -110%);
+  }
+}
+@keyframes calloutAnimMob {
+  0% {
+    transform: translate(calc(2.75vh - 50%), -110%);
+  }
+  50% {
+    transform: translate(calc(2.75vh - 50%), -140%);
+  }
+  100% {
+    transform: translate(calc(2.75vh - 50%), -110%);
   }
 }
 .settings-modal {
