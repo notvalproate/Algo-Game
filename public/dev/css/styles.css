@@ -662,7 +662,7 @@ input {
   align-items: center;
   justify-content: center;
   z-index: 999;
-  transform: translate(calc(5.5svh - 50%), -110%);
+  animation: calloutAnim 2s cubic-bezier(0.48, 0.01, 0.49, 0.99) infinite;
 }
 
 .black {
@@ -749,6 +749,51 @@ input {
   transform: none;
 }
 
+@media only screen and (max-width: 1024px) {
+  .card {
+    padding-top: 5.5svh;
+    height: 8.5svh;
+    width: 5.5svh;
+    font-size: 2svh;
+    border-radius: 0.6svh;
+    font-weight: 600;
+  }
+  .open {
+    padding-top: 1svh;
+    font-size: 5.5svh;
+  }
+  .guess-callout {
+    padding: 1.25svh;
+    height: 2.5svh;
+    width: 2.5svh;
+    border-radius: 0.32svh;
+    font-size: 1.25svh;
+    font-weight: 600;
+    animation: calloutAnimMob 2s cubic-bezier(0.48, 0.01, 0.49, 0.99) infinite;
+  }
+}
+@keyframes calloutAnimMob {
+  0% {
+    transform: translate(calc(2.75vh - 50%), -110%);
+  }
+  50% {
+    transform: translate(calc(2.75vh - 50%), -140%);
+  }
+  100% {
+    transform: translate(calc(2.75vh - 50%), -110%);
+  }
+}
+@keyframes calloutAnim {
+  0% {
+    transform: translate(calc(5.5vh - 50%), -110%);
+  }
+  50% {
+    transform: translate(calc(5.5vh - 50%), -140%);
+  }
+  100% {
+    transform: translate(calc(5.5vh - 50%), -110%);
+  }
+}
 .settings-modal {
   display: flex;
   justify-content: center;
