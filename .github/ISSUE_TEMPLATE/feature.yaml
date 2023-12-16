@@ -38,4 +38,3 @@ body:
         - 'No'
     validations:
       required: true
-# This template was generated with [Issue Forms Creator](https://issue-forms-creator.netlify.app)
