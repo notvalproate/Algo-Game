@@ -137,7 +137,7 @@ class Room {
 
     emitAfk() {
         if(this.game) {
-            if(this.game.getGameRunningStatus()) {
+            if(this.game.getGameRunning()) {
                 this.users[this.game.getActiveTurnIndex()].socket.emit('afk-warning');
                 return;
             }

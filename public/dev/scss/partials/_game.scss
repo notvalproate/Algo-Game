@@ -294,18 +294,31 @@
 }
 
 @media only screen and (max-width: 1024px) {
-    .card{
-        padding-top: 5.5svh;
-        height: 8.5svh;
-        width: 5.5svh;
-        font-size: 2svh;
-        border-radius: 0.6svh;
-        font-weight: 600;
+    .desk {
+        height: auto;
+        width: 100%;
+    }
+
+    .hand-container {
+        padding: 0;
+    }
+
+    .hand {
+        column-gap: 0;
+        flex-wrap: wrap;
+    }
+
+    .card {
+        padding-top: 6.5svh;
+        height: 10svh;
+        width: 6.5svh;
+        font-size: 2.35svh;
+        border-radius: 0.7svh;
     }
     
     .open {
-        padding-top: 1svh;
-        font-size: 5.5svh;
+        padding-top: 1.17svh;
+        font-size: 6.5svh;
     }
 
     .guess-callout {
@@ -316,6 +329,19 @@
         font-size: 1.25svh;
         font-weight: 600;
         animation: calloutAnimMob 2s cubic-bezier(.48,.01,.49,.99) infinite;
+    }
+
+    .decision-image {
+        width: 8vh;
+        height: 8svh;
+    }
+
+    .attack {
+        left: -120%;
+    }
+
+    .hold {
+        right: -120%;
     }
 }
 

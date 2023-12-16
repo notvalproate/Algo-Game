@@ -38,6 +38,7 @@ class SocketHandler {
             loserStats.wins++;
 
             this.socket.broadcast.to(this.roomKey).emit('gameEnded', { wonGame: true, enemyDisconnect: true, stats: loserStats });
+            this.room.resetGame();
             
             logWithTime(`[-] Game ended in room [${this.roomKey}]!!!`);
         }
