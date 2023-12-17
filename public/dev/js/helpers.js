@@ -271,23 +271,15 @@ function removeHighlightFrom(cardDiv) {
     $(cardDiv).removeClass('selected');
 }
 
-function displayConfetti(wonGame) {
+function displayConfetti() {
     const end = Date.now() + 8 * 1000;
     let colors = ["#ffffff"];
     let originY = 0;
     let angleL = -30;
     let angleR = -150;
 
-    if(wonGame) {
-        colors.push("#00bb00");
-        colors.push("#e0c331");
-    } else {
-        colors.push("#bb0000");
-        colors.push("#ff7575");
-        originY = 0.9;
-        angleL = 60;
-        angleR = 120;
-    }
+    colors.push("#00bb00");
+    colors.push("#e0c331");
     
     (function frame() {
       confetti({
@@ -356,7 +348,9 @@ function showResultModal(wonGame, enemyUsername, disconnect) {
 
     setTimeout(() => {
         resultModal.addClass('modal-in');
-        displayConfetti(wonGame);
+        if (wonGame) {
+            displayConfetti();
+        }
     }, 1600);
 }
 
