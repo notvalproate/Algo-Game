@@ -4,9 +4,8 @@ CHAT:
 
 [Ian] - [14-12-23 ; 2259Hrs]
    -> Finally create a dev branch and have main branch use production code.
-   -> Change styles for Mobile at last.
    -> Create test branch and create new VM to test it on oracle.
-   
+   -> Handle case where deck gets empty.
 }
 
 {

@@ -1,0 +1,62 @@
+name: 🐛Bug
+description: Create a report to help us improve.
+title: '[🐛Bug] '
+labels: 'bug' 
+body:
+  - type: textarea
+    id: desc
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of what the bug is
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps To Reproduce
+      description: Steps to reproduce the behavior
+      value: |-
+        E.g.
+        1. Go to '...'
+        2. Click on '...'
+        3. Scroll down to '...'
+        4. See Error
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected Behavior
+      description: A clear and concise description of what you expected to happen
+    validations:
+      required: true
+  - type: textarea
+    id: ss
+    attributes:
+      label: Screenshots
+      description: If applicable, add screenshots to help explain your problem
+  - type: textarea
+    id: info
+    attributes:
+      label: Device Information
+      description: (Optional)
+      value: |-
+        - Device:
+        - OS:
+        - Browser:
+        - version:
+  - type: input
+    id: add
+    attributes:
+      label: Additional context
+      description: Add any other context about the problem here
+  - type: dropdown
+    id: drop
+    attributes:
+      label: Are you working on this issue?
+      options:
+        - 'Yes'
+        - 'No'
+    validations:
+      required: true
+# This template was generated with [Issue Forms Creator](https://issue-forms-creator.netlify.app)

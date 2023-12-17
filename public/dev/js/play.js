@@ -117,8 +117,10 @@ $(document).ready(function() {
         Helpers.applyGameStartTransition();
 
         globals.myTurn = data.yourTurn;
+        globals.selectedCard = 0;
         globals.deckTop = new AlgoCard(data.deckTop.number, data.deckTop.color);
         Helpers.setDeckTopDiv(globals.deckTop);
+        Helpers.setActionsInactive();
 
         $('#my-hand').html('');
         $('#enemy-hand').html('');

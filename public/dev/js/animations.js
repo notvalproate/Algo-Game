@@ -77,15 +77,6 @@ function flipCardAnimation(cardDiv, algoCard) {
     });
 }
 
-function hoverCalloutAnimation(callout) {
-    callout.playKeyframe({
-        name: 'hover-callout',
-        duration: '2s',
-        timingFunction: 'cubic-bezier(.48,.01,.49,.99)',
-        iterationCount: 'infinite',
-    }); 
-}
-
 function highlightFadeOutTo(state, cardDiv) {
     $(cardDiv).removeClass('selected');
     $(cardDiv).addClass(state);
@@ -128,25 +119,11 @@ async function initAnimations() {
             'transform': 'rotateY(0deg)'
         }
     });
-
-    $.keyframe.define({
-        name: 'hover-callout',
-        '0%': {
-            'transform': `translate(calc(5.5vh - 50%), -110%)`,
-        },
-        '50%': {
-            'transform': `translate(calc(5.5vh - 50%), -140%)`,
-        },
-        '100%': {
-            'transform': `translate(calc(5.5vh - 50%), -110%)`,
-        }
-    });
 }
 
 export {
     drawCardAnimation,
     flipCardAnimation,
-    hoverCalloutAnimation,
     highlightFadeOutTo,
     playWinLoseAnimation,
     initAnimations

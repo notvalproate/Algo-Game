@@ -19,7 +19,7 @@
     bottom: 0;
     right: -10%;
     position: absolute;
-    font-size: 1.5rem;
+    font-size: 2.75svh;
     font-family: 'Gruppo', sans-serif;
 }
 
@@ -68,7 +68,6 @@
 
 .player-display{
     width: 100%;
-
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -141,13 +140,13 @@
 } /* JS controlled Class */
 
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1024px) {
     .player-display {
         flex-direction: column;
     }
 
     .players {
+        font-size: 5vh;
         width: 100%;
-        display: block;
     }
 }

@@ -7,13 +7,13 @@ label {
 input {
     font-family: 'Gruppo', sans-serif;
     color: white;
-    font-size: 130%;
+    font-size: 2.5svh;
     box-shadow: 0px 0px 7px black;
-    border-radius: 10px;
+    border-radius: 1vh;
     border: 1px white solid;
     background-color: rgba(0, 0, 0, 0.72);
     height: 4svh;
-    padding-left: 15px;
+    padding-left: 1.5vh;
 }
 
 .create-title {
@@ -22,7 +22,7 @@ input {
 
 .serif-title {
     position: relative;
-    font-size: 6rem;
+    font-size: 11svh;
     font-weight: 400;
     font-family: 'Josefin Slab', serif;
 }
@@ -31,7 +31,7 @@ input {
     bottom: 0;
     right: -10%;
     position: absolute;
-    font-size: 1.5rem;
+    font-size: 2.75svh;
     font-family: 'Gruppo', sans-serif;
 }
 
@@ -43,7 +43,7 @@ input {
 
 
 .login-box {
-    width: 100%;
+    width: 100vw;
     height: 100svh;
     
     display: flex;
@@ -53,8 +53,10 @@ input {
 }
 
 .login {
-    width: 30%;
-    padding: 3rem;
+    min-width: 30%;
+    max-width: 90vw;
+    box-sizing: border-box;
+    padding: 5vh;
     border-radius: 10px;
     text-align: center;
 
@@ -74,34 +76,21 @@ input {
 .box {
     width: 100%;
     height: 100%;
-    padding: 0.5rem 0;
+    padding: 1svh 0;
     text-align: left;
 
     display: flex;
     flex-direction: column;
 }
 
-.alert-box {
-    width: 100%;
-    height: 2rem;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 .full-alert {
     margin-top: 4svh;
+    padding: 1vh;
+    box-sizing: border-box;
     width: 100%;
-    height: auto;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
     
     font-family: 'Gruppo', sans-serif;
     font-size: 2.5svh;
-    padding: 1svh;
     color: white;
     text-shadow: 1px 1px 2px black;
     box-shadow: 0px 0px 7px black;
@@ -118,3 +107,13 @@ input {
     opacity: 100%;
     transform: scale(100%);
 } /* JS Controlled Class*/
+
+@media only screen and (max-width: 768px) {
+    .login {
+        padding: 3vh;
+    }
+
+    .create-title {
+        font-size: 3.5svh;
+    }
+}

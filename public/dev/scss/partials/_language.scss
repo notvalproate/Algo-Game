@@ -48,3 +48,31 @@
     transform: scale(100%);
     opacity: 100%;
 }
+
+@media only screen and (max-width: 1024px) {
+    #languageButton {
+        border-radius: 1svh;
+        width: 4svh;
+        height: 4svh;
+        top: 2svh;
+        right: 2svh;
+        transform: none;
+
+        .fa-solid {
+            font-size: 2.5svh !important;
+        }
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .language-modal {
+        .language-wrapper {
+            padding: 3svh 3svh 2svh;
+    
+            .select-lang {
+                font-family: 'Urbanist', sans-serif;
+                font-size: 3svh;
+            }
+        }
+    }
+}

@@ -64,7 +64,9 @@ footer {
   justify-content: center;
   align-items: center;
   font-size: 2svh;
+  text-align: center;
   row-gap: 2svh;
+  padding: 0 2vh;
 }
 
 .footer-content-wrapper a {
@@ -138,6 +140,16 @@ footer {
   font-size: 4svh !important;
 }
 
+@media only screen and (max-width: 1024px) {
+  .footer-content-wrapper {
+    font-size: 1.6svh;
+    row-gap: 0.5svh;
+  }
+  .how-to-link {
+    font-weight: 600;
+    font-size: 3svh;
+  }
+}
 .language-modal {
   display: flex;
   justify-content: center;
@@ -184,6 +196,28 @@ footer {
   opacity: 100%;
 }
 
+@media only screen and (max-width: 1024px) {
+  #languageButton {
+    border-radius: 1svh;
+    width: 4svh;
+    height: 4svh;
+    top: 2svh;
+    right: 2svh;
+    transform: none;
+  }
+  #languageButton .fa-solid {
+    font-size: 2.5svh !important;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .language-modal .language-wrapper {
+    padding: 3svh 3svh 2svh;
+  }
+  .language-modal .language-wrapper .select-lang {
+    font-family: "Urbanist", sans-serif;
+    font-size: 3svh;
+  }
+}
 label {
   font-family: "Gruppo", sans-serif;
   font-size: 2.5svh;
@@ -193,13 +227,13 @@ label {
 input {
   font-family: "Gruppo", sans-serif;
   color: white;
-  font-size: 130%;
+  font-size: 2.5svh;
   box-shadow: 0px 0px 7px black;
-  border-radius: 10px;
+  border-radius: 1vh;
   border: 1px white solid;
   background-color: rgba(0, 0, 0, 0.72);
   height: 4svh;
-  padding-left: 15px;
+  padding-left: 1.5vh;
 }
 
 .create-title {
@@ -208,7 +242,7 @@ input {
 
 .serif-title {
   position: relative;
-  font-size: 6rem;
+  font-size: 11svh;
   font-weight: 400;
   font-family: "Josefin Slab", serif;
 }
@@ -217,7 +251,7 @@ input {
   bottom: 0;
   right: -10%;
   position: absolute;
-  font-size: 1.5rem;
+  font-size: 2.75svh;
   font-family: "Gruppo", sans-serif;
 }
 
@@ -228,7 +262,7 @@ input {
 }
 
 .login-box {
-  width: 100%;
+  width: 100vw;
   height: 100svh;
   display: flex;
   flex-direction: column;
@@ -237,8 +271,10 @@ input {
 }
 
 .login {
-  width: 30%;
-  padding: 3rem;
+  min-width: 30%;
+  max-width: 90vw;
+  box-sizing: border-box;
+  padding: 5vh;
   border-radius: 10px;
   text-align: center;
   font-family: "Urbanist", sans-serif;
@@ -255,30 +291,19 @@ input {
 .box {
   width: 100%;
   height: 100%;
-  padding: 0.5rem 0;
+  padding: 1svh 0;
   text-align: left;
   display: flex;
   flex-direction: column;
 }
 
-.alert-box {
-  width: 100%;
-  height: 2rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .full-alert {
   margin-top: 4svh;
+  padding: 1vh;
+  box-sizing: border-box;
   width: 100%;
-  height: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   font-family: "Gruppo", sans-serif;
   font-size: 2.5svh;
-  padding: 1svh;
   color: white;
   text-shadow: 1px 1px 2px black;
   box-shadow: 0px 0px 7px black;
@@ -294,6 +319,14 @@ input {
   opacity: 100%;
   transform: scale(100%);
 } /* JS Controlled Class*/
+@media only screen and (max-width: 768px) {
+  .login {
+    padding: 3vh;
+  }
+  .create-title {
+    font-size: 3.5svh;
+  }
+}
 .lobby {
   position: fixed;
   box-sizing: border-box;
@@ -313,7 +346,7 @@ input {
   bottom: 0;
   right: -10%;
   position: absolute;
-  font-size: 1.5rem;
+  font-size: 2.75svh;
   font-family: "Gruppo", sans-serif;
 }
 
@@ -426,13 +459,13 @@ input {
   text-shadow: none;
   transition: 0.4s ease;
 } /* JS controlled Class */
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 1024px) {
   .player-display {
     flex-direction: column;
   }
   .players {
+    font-size: 5vh;
     width: 100%;
-    display: block;
   }
 }
 /* Cards Desk */
@@ -472,7 +505,7 @@ input {
 
 .hand {
   width: auto;
-  gap: 15px;
+  gap: 1vh;
   padding: 0px 20px;
   display: flex;
   justify-content: space-around;
@@ -568,12 +601,6 @@ input {
   transition: 0.2s linear;
 }
 
-.guess-button:hover {
-  cursor: pointer;
-  background: #d6d6d6;
-  text-decoration: none;
-}
-
 .guess-array-inactive {
   transform: scale(50%);
   opacity: 50%;
@@ -629,7 +656,7 @@ input {
   align-items: center;
   justify-content: center;
   z-index: 999;
-  transform: translate(calc(5.5svh - 50%), -110%);
+  animation: calloutAnim 2s cubic-bezier(0.48, 0.01, 0.49, 0.99) infinite;
 }
 
 .black {
@@ -661,10 +688,6 @@ input {
   transition: 0.4s cubic-bezier(0.42, 0, 0.04, 0.99);
 }
 
-.decision-wrapper:hover {
-  transform: translate(0%, -50%) scale(120%);
-}
-
 .decision-image {
   width: 11svh;
   height: 11svh;
@@ -674,16 +697,8 @@ input {
   left: -100%;
 }
 
-.attack:hover {
-  filter: drop-shadow(0px 0px 20px #ff3a3a);
-}
-
 .hold {
   right: -100%;
-}
-
-.hold:hover {
-  filter: drop-shadow(0px 0px 20px rgb(108, 201, 255));
 }
 
 .hold .decision-text {
@@ -716,6 +731,171 @@ input {
   transform: none;
 }
 
+@media only screen and (min-width: 1025px) {
+  .decision-wrapper:hover {
+    transform: translate(0%, -50%) scale(120%);
+  }
+  .attack:hover {
+    filter: drop-shadow(0px 0px 20px #ff3a3a);
+  }
+  .hold:hover {
+    filter: drop-shadow(0px 0px 20px rgb(108, 201, 255));
+  }
+  .guess-button:hover {
+    cursor: pointer;
+    background: #d6d6d6;
+    text-decoration: none;
+  }
+}
+@media only screen and (max-width: 1024px) {
+  .desk {
+    height: auto;
+    width: 100%;
+  }
+  .desk-wrapper {
+    row-gap: 1svh;
+    justify-content: center;
+  }
+  .hand-container {
+    height: auto;
+    justify-content: center;
+    row-gap: 1svh;
+    width: 100%;
+    padding: 0;
+  }
+  .hand {
+    width: 95%;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .card {
+    padding-top: 10vw;
+    height: 15.4vw;
+    width: 10vw;
+    font-size: 3.63vw;
+    border-radius: 1.05vw;
+  }
+  .open {
+    padding-top: 1.8vw;
+    font-size: 10vw;
+  }
+  .guess-callout {
+    padding: 1.875vw;
+    height: 3.75vw;
+    width: 3.75vw;
+    border-radius: 0.48vw;
+    font-size: 1.875vw;
+    animation: calloutAnimPad 2s cubic-bezier(0.48, 0.01, 0.49, 0.99) infinite;
+  }
+  .attack {
+    left: -130%;
+    filter: drop-shadow(0px 0px 20px #ff3a3a);
+  }
+  .hold {
+    right: -130%;
+    filter: drop-shadow(0px 0px 20px rgb(108, 201, 255));
+  }
+  .decision-image {
+    width: 10svh;
+    height: 10svh;
+  }
+  .decision-text {
+    font-size: 2svh;
+  }
+  .decision-inactive {
+    filter: none;
+  }
+  .guess-array {
+    max-width: 90%;
+    flex-wrap: wrap;
+    row-gap: 0.6svh;
+    height: auto;
+  }
+  .guess-button {
+    border-radius: 1vw;
+    width: 6vw;
+    height: 6vw;
+    font-size: 3vw;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .hand-container {
+    row-gap: 2svh;
+  }
+  .desk-wrapper {
+    row-gap: 2svh;
+  }
+  .card {
+    padding-top: 12vw;
+    height: 18.5vw;
+    width: 12vw;
+    font-size: 4.3vw;
+    border-radius: 1.28vw;
+  }
+  .open {
+    padding-top: 2.15vw;
+    font-size: 12vw;
+  }
+  .guess-callout {
+    padding: 2.5vw;
+    height: 5vw;
+    width: 5vw;
+    border-radius: 0.64vw;
+    font-size: 2.5vw;
+    animation: calloutAnimMob 2s cubic-bezier(0.48, 0.01, 0.49, 0.99) infinite;
+  }
+  .decision-image {
+    width: 8vh;
+    height: 8svh;
+  }
+  .attack {
+    left: -110%;
+  }
+  .hold {
+    right: -110%;
+  }
+  .guess-array {
+    row-gap: 1svh;
+  }
+  .guess-button {
+    width: 8vw;
+    height: 8vw;
+    font-size: 4vw;
+  }
+}
+@keyframes calloutAnim {
+  0% {
+    transform: translate(calc(5.5svh - 50%), -110%);
+  }
+  50% {
+    transform: translate(calc(5.5svh - 50%), -140%);
+  }
+  100% {
+    transform: translate(calc(5.5svh - 50%), -110%);
+  }
+}
+@keyframes calloutAnimMob {
+  0% {
+    transform: translate(calc(6vw - 50%), -110%);
+  }
+  50% {
+    transform: translate(calc(6vw - 50%), -140%);
+  }
+  100% {
+    transform: translate(calc(6vw - 50%), -110%);
+  }
+}
+@keyframes calloutAnimPad {
+  0% {
+    transform: translate(calc(5vw - 50%), -110%);
+  }
+  50% {
+    transform: translate(calc(5vw - 50%), -140%);
+  }
+  100% {
+    transform: translate(calc(5vw - 50%), -110%);
+  }
+}
 .settings-modal {
   display: flex;
   justify-content: center;
@@ -732,6 +912,8 @@ input {
   transition: 0.4s cubic-bezier(0.42, 0, 0.04, 0.99);
 }
 .settings-modal .settings-wrapper {
+  max-width: 90vw;
+  box-sizing: border-box;
   padding: 4svh 4svh 2svh;
   border: 2px solid white;
   border-radius: 10px;
@@ -826,6 +1008,33 @@ input {
   opacity: 100%;
 }
 
+@media only screen and (max-width: 1024px) {
+  #settingsButton {
+    border-radius: 1.5vw;
+    width: 6vw;
+    height: 6vw;
+    top: auto;
+    bottom: 2vw;
+    right: 2vw;
+    transform: none;
+  }
+  #settingsButton .fa-solid {
+    font-size: 4vw !important;
+  }
+}
+@media only screen and (max-width: 767px) {
+  #settingsButton {
+    border-radius: 2vw;
+    width: 10vw;
+    height: 10vw;
+    top: 3vw;
+    right: 3vw;
+    transform: none;
+  }
+  #settingsButton .fa-solid {
+    font-size: 6vw !important;
+  }
+}
 .modal-game-result {
   z-index: 999;
   font-family: "Urbanist", sans-serif;

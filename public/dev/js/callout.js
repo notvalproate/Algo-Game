@@ -19,8 +19,6 @@ function displayCallout(index, color, value) {
         $($('.my-card')[index]).prepend(calloutDiv);
         
         globals.calloutActive = true;
-
-        Animations.hoverCalloutAnimation(calloutDiv);
     }
 }
 

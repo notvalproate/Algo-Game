@@ -71,7 +71,9 @@ footer {
     justify-content: center;
     align-items: center;
     font-size: 2svh;
+    text-align: center;
     row-gap: 2svh;
+    padding: 0 2vh;
 }
 
 .footer-content-wrapper a {
@@ -152,4 +154,17 @@ footer {
     .fa-solid {
         font-size: 4svh !important;
     }
+}
+
+
+@media only screen and (max-width: 1024px) {
+    .footer-content-wrapper {
+        font-size: 1.6svh;
+        row-gap: 0.5svh;
+    }
+
+    .how-to-link {
+        font-weight: 600;
+        font-size: 3svh;
+    } 
 }

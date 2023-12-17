@@ -155,10 +155,6 @@ class Game {
         return [new AlgoCard(null, deckTop.getColor()), new AlgoCard(deckTop.getNumber(), deckTop.getColor())];
     }
 
-    getGameRunningStatus() {
-        return this.running;
-    }
-
     getCorrectGuessRate(player) {
         if(player.stats.totalGuesses === 0) {
             return 0;
@@ -221,6 +217,8 @@ class Game {
         
         this.players[0].hand.push(...sortPlayerHand(this.deck.splice(0,4)));
         this.players[1].hand.push(...sortPlayerHand(this.deck.splice(0,4)));
+
+        this.running = false;
     }
 }; 
 
