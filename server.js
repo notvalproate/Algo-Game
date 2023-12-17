@@ -27,7 +27,6 @@ const socket_server = https.createServer(
         {
                 key: fs.readFileSync('./ssl/key.pem'),
                 cert: fs.readFileSync('./ssl/cert.pem'),
-                // ca: fs.readFileSync('./ssl/chain.pem'), INCLUDE THIS LINE IF YOU ALSO HAVE THE CHAIN FILE
         }
         , app
 );
