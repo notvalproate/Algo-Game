@@ -301,10 +301,15 @@
         width: 100%;
     }
 
+    .desk-wrapper {
+        row-gap: 1svh;
+        justify-content: center;
+    }
+
     .hand-container {
         height: auto;
         justify-content: center;
-        row-gap: 2svh;
+        row-gap: 1svh;
         width: 100%;
         padding: 0;
     }
@@ -315,8 +320,73 @@
         justify-content: center;
     }
 
+    .card {
+        padding-top: 10vw;
+        height: 15.4vw;
+        width: 10vw;
+        font-size: 3.63vw;
+        border-radius: 1.05vw;
+    }
+    
+    .open {
+        padding-top: 1.8vw;
+        font-size: 10vw;
+    }
+
+    .guess-callout {
+        padding: 1.875vw;
+        height: 3.75vw;
+        width: 3.75vw;
+        border-radius: 0.48vw;
+        font-size: 1.875vw;
+        animation: calloutAnimPad 2s cubic-bezier(.48,.01,.49,.99) infinite;
+    }
+
+    .attack {
+        left: -130%;
+        filter: drop-shadow(0px 0px 20px #ff3a3a);
+    }
+    
+    .hold {
+        right: -130%;
+        filter: drop-shadow(0px 0px 20px rgb(108, 201, 255));
+    }
+
+    .decision-image {
+        width: 10svh;
+        height: 10svh;
+    }
+
+    .decision-text {
+        font-size: 2svh;
+    }
+
+    .decision-inactive {
+        filter: none;
+    }
+
+    .guess-array {
+        max-width: 90%;
+        flex-wrap: wrap;
+        row-gap: 0.6svh;
+        height: auto;
+    }
+    
+    .guess-button {
+        border-radius: 1vw;
+        width: 6vw;
+        height: 6vw;
+        font-size: 3vw;
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    .hand-container {
+        row-gap: 2svh;
+    }
+
     .desk-wrapper {
-        justify-content: center;
+        row-gap: 2svh;
     }
 
     .card {
@@ -348,30 +418,19 @@
 
     .attack {
         left: -110%;
-        filter: drop-shadow(0px 0px 20px #ff3a3a);
     }
 
     .hold {
         right: -110%;
-        filter: drop-shadow(0px 0px 20px rgb(108, 201, 255));
-    }
-
-    .decision-inactive {
-        filter: none;
     }
 
     .guess-array {
-        max-width: 90%;
-        flex-wrap: wrap;
         row-gap: 1svh;
-        height: auto;
     }
     
     .guess-button {
-        border-radius: 1vw;
         width: 8vw;
         height: 8vw;
-        margin: 0 1vw;
         font-size: 4vw;
     }
 }
@@ -392,3 +451,4 @@
 
 @include calloutAnimMixin(calloutAnim, 5.5svh);
 @include calloutAnimMixin(calloutAnimMob, 6vw);
+@include calloutAnimMixin(calloutAnimPad, 5vw);

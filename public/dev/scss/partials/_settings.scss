@@ -128,6 +128,22 @@
 
 @media only screen and (max-width: 1024px) {
     #settingsButton {
+        border-radius: 1.5vw;
+        width: 6vw;
+        height: 6vw;
+        top: auto;
+        bottom: 2vw;
+        right: 2vw;
+        transform: none;
+
+        .fa-solid {
+            font-size: 4vw !important;
+        }
+    } 
+}
+
+@media only screen and (max-width: 767px) {
+    #settingsButton {
         border-radius: 2vw;
         width: 10vw;
         height: 10vw;
