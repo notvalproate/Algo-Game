@@ -2,6 +2,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
+
+const https = require('https');
+const fs = require('fs');
+const helmet = require('helmet');
+const permissionsPolicy = require("permissions-policy");
+const compression = require('compression');
+
 require('dotenv').config();
 
 
@@ -16,13 +23,42 @@ const PORT = process.env.PORT;
 
 // Server Setup
 const app = express();
-const socket_server = require('http').Server(app);
+const socket_server = https.createServer(
+        {
+                key: fs.readFileSync('./ssl/key.pem'),
+                cert: fs.readFileSync('./ssl/cert.pem'),
+                // ca: fs.readFileSync('./ssl/chain.pem'), INCLUDE THIS LINE IF YOU ALSO HAVE THE CHAIN FILE
+        }
+        , app
+);
 const io = require('socket.io')(socket_server);
 
 
 var roomsHandler = new RoomListHandler();
 
+
 // Middleware
+app.disable('x-powered-by');
+app.use(helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: [
+          "'self'",
+          'https://cdn.jsdelivr.net',
+          'https://kit.fontawesome.com',
+          'https://cdnjs.cloudflare.com',
+        ],
+        connectSrc: ["'self'", 'https://ka-f.fontawesome.com'],
+      },
+    }
+}));
+app.use(permissionsPolicy({
+    features: {
+        fullscreen: ["self"],
+    },
+}));	
+app.use(compression());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static(path.join(__dirname, '/public')));
 

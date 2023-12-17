@@ -19,7 +19,7 @@ class Room {
         this.setSocket(1, socket);
 
         this.game = new Game(this.users[0].username, this.users[1].username);
-        this.displayRoom();
+        // this.displayRoom();
     }
 
     removeUser(username) {

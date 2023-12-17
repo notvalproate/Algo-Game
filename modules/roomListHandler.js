@@ -27,7 +27,7 @@ class RoomListHandler {
         this.roomsList.push(new Room(roomKey, username));
         this.roomsList[this.roomsList.length - 1].setSocket(0, socket);
 
-        this.roomsList[this.roomsList.length - 1].displayRoom();
+        // this.roomsList[this.roomsList.length - 1].displayRoom();
     }
 
     destroyRoom(roomKey) {
