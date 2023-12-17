@@ -15,6 +15,8 @@
     transition: 0.4s cubic-bezier(.42,0,.04,.99);
 
     .settings-wrapper {
+        max-width: 90vw;
+        box-sizing: border-box;
         padding: 4svh 4svh 2svh;
         border: 2px solid white;
         border-radius: 10px;
@@ -121,4 +123,20 @@
 .settings-modal-fade-in {
     transform: scale(100%);
     opacity: 100%;
+}
+
+
+@media only screen and (max-width: 1024px) {
+    #settingsButton {
+        border-radius: 2vw;
+        width: 12vw;
+        height: 12vw;
+        top: 3vw;
+        right: 3vw;
+        transform: none;
+
+        .fa-solid {
+            font-size: 8vw !important;
+        }
+    } 
 }

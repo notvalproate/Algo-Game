@@ -4,10 +4,9 @@ CHAT:
 
 [Ian] - [14-12-23 ; 2259Hrs]
    -> Finally create a dev branch and have main branch use production code.
-   -> Change styles for Mobile at last.
    -> Create test branch and create new VM to test it on oracle.
-   -> On game end, add inactive move for the attack symbol. Bug: Player can send invalid selected card value as it is not reset between rounds in the same lobby. To recreate: Start a game with two people. Play a few turns. On P1's turn, select a card with index higher than 3. Then make P2 disconnect. P2 reconnects and starts a new round in same lobby. If the first turn is still P1's turn, the attack button is still highlighted and on clicking it sends some index above 4 (that was chosen in previous round) and causes server to crash.
    -> Same username able to join if both click play at the same time.
+   -> Handle case where deck gets empty.
 }
 
 {

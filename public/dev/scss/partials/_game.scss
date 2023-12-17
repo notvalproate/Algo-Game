@@ -302,6 +302,9 @@
     }
 
     .hand-container {
+        height: auto;
+        justify-content: center;
+        row-gap: 2svh;
         width: 100%;
         padding: 0;
     }
@@ -309,6 +312,10 @@
     .hand {
         width: 95%;
         flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .desk-wrapper {
         justify-content: center;
     }
 

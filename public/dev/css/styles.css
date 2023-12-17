@@ -754,12 +754,18 @@ input {
     width: 100%;
   }
   .hand-container {
+    height: auto;
+    justify-content: center;
+    row-gap: 2svh;
     width: 100%;
     padding: 0;
   }
   .hand {
     width: 95%;
     flex-wrap: wrap;
+    justify-content: center;
+  }
+  .desk-wrapper {
     justify-content: center;
   }
   .card {
@@ -835,6 +841,8 @@ input {
   transition: 0.4s cubic-bezier(0.42, 0, 0.04, 0.99);
 }
 .settings-modal .settings-wrapper {
+  max-width: 90vw;
+  box-sizing: border-box;
   padding: 4svh 4svh 2svh;
   border: 2px solid white;
   border-radius: 10px;
@@ -929,6 +937,19 @@ input {
   opacity: 100%;
 }
 
+@media only screen and (max-width: 1024px) {
+  #settingsButton {
+    border-radius: 2vw;
+    width: 12vw;
+    height: 12vw;
+    top: 3vw;
+    right: 3vw;
+    transform: none;
+  }
+  #settingsButton .fa-solid {
+    font-size: 8vw !important;
+  }
+}
 .modal-game-result {
   z-index: 999;
   font-family: "Urbanist", sans-serif;

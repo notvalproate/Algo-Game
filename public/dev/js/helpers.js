@@ -234,6 +234,10 @@ function applyTransitionToEnemyTurn() {
     guessArray.addClass('guess-array-inactive');
     dealtCard.removeClass('highlight-dealt-card');
     decisionWrapper.addClass('decision-fade-away');
+    setActionsInactive();
+}
+
+function setActionsInactive() {
     attackButton.addClass('decision-inactive');
     holdButton.addClass('decision-inactive');
 }
@@ -369,6 +373,7 @@ export {
     setEnemyUsername,
     setStatsSection,
     setModalTranslations,
+    setActionsInactive,
 
     applyJoinLobbyTransition,
     applyGameStartTransition,
