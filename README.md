@@ -2,6 +2,8 @@
 
 Algo-Game is a web-app project that brings the Japanese card game Algo Basic to a digital platform, allowing players to engage in multiplayer matches. Players can enter a unique room key and username to join a lobby and start playing against each other.
 
+Play it here on https://playalgo.com
+
 ## Setup Guide
 See [SETUP.md](https://github.com/notvalproate/Algo-Game/blob/main/SETUP.md)
 
