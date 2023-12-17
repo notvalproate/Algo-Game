@@ -50,7 +50,7 @@ npm run sass-dev
 npm run dev
 ```
 2. Open your browser and go to the link output in the console to open the website. e.g. if the PORT given was 3000, go to http://localhost:3000/
-3. To see css of js changes after any changes made to the scss files, reload the page.
+3. To view css or js changes after any changes made to the scss files, reload the page.
 ## Links
 - [CONTRIBUTING.md](https://github.com/notvalproate/Algo-Game/blob/main/CONTRIBUTING.md)
 - [README.md](https://github.com/notvalproate/Algo-Game/blob/main/README.md)
