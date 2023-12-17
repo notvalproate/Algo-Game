@@ -326,12 +326,11 @@
     }
 
     .guess-callout {
-        padding: 1.25svh;
-        height: 2.5svh;   
-        width: 2.5svh;
-        border-radius: 0.32svh;
-        font-size: 1.25svh;
-        font-weight: 600;
+        padding: 2.5vw;
+        height: 5vw;
+        width: 5vw;
+        border-radius: 0.64vw;
+        font-size: 2.5vw;
         animation: calloutAnimMob 2s cubic-bezier(.48,.01,.49,.99) infinite;
     }
 
@@ -369,5 +368,5 @@
     }
 }
 
-@include calloutAnimMixin(calloutAnim, 5.5vh);
-@include calloutAnimMixin(calloutAnimMob, 2.75vh);
+@include calloutAnimMixin(calloutAnim, 5.5svh);
+@include calloutAnimMixin(calloutAnimMob, 6vw);

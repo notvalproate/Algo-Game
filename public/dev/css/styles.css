@@ -774,12 +774,11 @@ input {
     font-size: 12vw;
   }
   .guess-callout {
-    padding: 1.25svh;
-    height: 2.5svh;
-    width: 2.5svh;
-    border-radius: 0.32svh;
-    font-size: 1.25svh;
-    font-weight: 600;
+    padding: 2.5vw;
+    height: 5vw;
+    width: 5vw;
+    border-radius: 0.64vw;
+    font-size: 2.5vw;
     animation: calloutAnimMob 2s cubic-bezier(0.48, 0.01, 0.49, 0.99) infinite;
   }
   .decision-image {
@@ -800,24 +799,24 @@ input {
 }
 @keyframes calloutAnim {
   0% {
-    transform: translate(calc(5.5vh - 50%), -110%);
+    transform: translate(calc(5.5svh - 50%), -110%);
   }
   50% {
-    transform: translate(calc(5.5vh - 50%), -140%);
+    transform: translate(calc(5.5svh - 50%), -140%);
   }
   100% {
-    transform: translate(calc(5.5vh - 50%), -110%);
+    transform: translate(calc(5.5svh - 50%), -110%);
   }
 }
 @keyframes calloutAnimMob {
   0% {
-    transform: translate(calc(2.75vh - 50%), -110%);
+    transform: translate(calc(6vw - 50%), -110%);
   }
   50% {
-    transform: translate(calc(2.75vh - 50%), -140%);
+    transform: translate(calc(6vw - 50%), -140%);
   }
   100% {
-    transform: translate(calc(2.75vh - 50%), -110%);
+    transform: translate(calc(6vw - 50%), -110%);
   }
 }
 .settings-modal {
