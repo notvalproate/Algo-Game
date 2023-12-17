@@ -694,10 +694,6 @@ input {
   transition: 0.4s cubic-bezier(0.42, 0, 0.04, 0.99);
 }
 
-.decision-wrapper:hover {
-  transform: translate(0%, -50%) scale(120%);
-}
-
 .decision-image {
   width: 11svh;
   height: 11svh;
@@ -707,16 +703,8 @@ input {
   left: -100%;
 }
 
-.attack:hover {
-  filter: drop-shadow(0px 0px 20px #ff3a3a);
-}
-
 .hold {
   right: -100%;
-}
-
-.hold:hover {
-  filter: drop-shadow(0px 0px 20px rgb(108, 201, 255));
 }
 
 .hold .decision-text {
@@ -749,6 +737,17 @@ input {
   transform: none;
 }
 
+@media only screen and (min-width: 1025px) {
+  .decision-wrapper:hover {
+    transform: translate(0%, -50%) scale(120%);
+  }
+  .attack:hover {
+    filter: drop-shadow(0px 0px 20px #ff3a3a);
+  }
+  .hold:hover {
+    filter: drop-shadow(0px 0px 20px rgb(108, 201, 255));
+  }
+}
 @media only screen and (max-width: 1024px) {
   .desk {
     height: auto;
@@ -789,9 +788,14 @@ input {
   }
   .attack {
     left: -110%;
+    filter: drop-shadow(0px 0px 20px #ff3a3a);
   }
   .hold {
     right: -110%;
+    filter: drop-shadow(0px 0px 20px rgb(108, 201, 255));
+  }
+  .decision-inactive {
+    filter: none;
   }
 }
 @keyframes calloutAnim {
