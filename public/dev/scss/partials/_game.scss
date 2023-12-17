@@ -139,12 +139,6 @@
     transition: 0.2s linear;
 }
 
-.guess-button:hover {
-    cursor: pointer;
-    background: #d6d6d6;
-    text-decoration: none;
-}
-
 .guess-array-inactive {
     transform: scale(50%);
     opacity: 50%;
@@ -293,6 +287,12 @@
     .hold:hover {
         filter: drop-shadow(0px 0px 20px rgb(108, 201, 255));
     }
+
+    .guess-button:hover {
+        cursor: pointer;
+        background: #d6d6d6;
+        text-decoration: none;
+    }
 }
 
 @media only screen and (max-width: 1024px) {
@@ -358,6 +358,21 @@
 
     .decision-inactive {
         filter: none;
+    }
+
+    .guess-array {
+        max-width: 90%;
+        flex-wrap: wrap;
+        row-gap: 1svh;
+        height: auto;
+    }
+    
+    .guess-button {
+        border-radius: 1vw;
+        width: 8vw;
+        height: 8vw;
+        margin: 0 1vw;
+        font-size: 4vw;
     }
 }
 

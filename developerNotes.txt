@@ -5,7 +5,6 @@ CHAT:
 [Ian] - [14-12-23 ; 2259Hrs]
    -> Finally create a dev branch and have main branch use production code.
    -> Create test branch and create new VM to test it on oracle.
-   -> Same username able to join if both click play at the same time.
    -> Handle case where deck gets empty.
 }
 
