@@ -10,7 +10,6 @@ const SocketHandler = require("./modules/socketsHandler.js");
 
 // If you dont have the .env file (since it is in .gitignore), create a .env file and set port to what you wish.
 const PORT = process.env.PORT;
-console.log("The port is", process.env.PORT);
 
 // Server Setup
 const app = express();
