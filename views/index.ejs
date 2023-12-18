@@ -15,14 +15,14 @@
             <form id="playForm" action="/" method="POST">
                 <div class="box">
                     <label id="userLabel">Username</label>
-                    <input class="input-box" type="text" name="username" id="username" autocomplete="off" required>
+                    <input class="input-box" type="text" name="username" id="username" autocomplete="off" maxlength="16" required>
                 </div>
                 <div class="box">
                     <label id="roomLabel">Room Key</label>
                     <% if(roomKey === undefined) {%>
-                        <input class="input-box" type="text" name="roomKey" id="roomKey" autocomplete="off" required>
+                        <input class="input-box" type="text" name="roomKey" id="roomKey" autocomplete="off" maxlength="8" required>
                     <% } else { %>
-                        <input class="input-box" value="<%= roomKey %>" type="text" name="roomKey" id="roomKey" autocomplete="off" required>
+                        <input class="input-box" value="<%= roomKey %>" type="text" name="roomKey" id="roomKey" autocomplete="off" maxlength="8" required>
                     <% } %>
                 </div>
                 <button class="white-button" id="playButton">PLAY</button>
