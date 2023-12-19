@@ -1,5 +1,5 @@
 ## Description
-_Provide a description about the changes that you made. Also provide a reference link to the issue that this PR is solving_
+_Provide a small description about the solution you are proposing with this PR. Also provide a reference link to the issue that this PR is solving_
 
 ## Changes Made
 _Provide a summary about the changes that you made and why you made them_
