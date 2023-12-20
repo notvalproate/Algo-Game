@@ -6,6 +6,7 @@
   "scripts": {
     "build": "npx webpack",
     "start": "node server.js",
+    "format": "npx prettier --write .",
     "dev": "concurrently --kill-others \"npm run devstart\" \"npm run sass-dev\"",
     "devstart": "nodemon server.js",
     "sass-dev": "sass --watch ./public/dev/scss/styles.scss ./public/dev/css/styles.css"
@@ -27,6 +28,7 @@
     "css-minimizer-webpack-plugin": "^5.0.1",
     "mini-css-extract-plugin": "^2.7.6",
     "nodemon": "^3.0.1",
+    "prettier": "3.1.1",
     "sass": "^1.69.5",
     "sass-loader": "^13.3.2",
     "terser-webpack-plugin": "^5.3.9",
