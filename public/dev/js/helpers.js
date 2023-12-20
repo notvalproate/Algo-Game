@@ -2,13 +2,13 @@
 
 import { globals } from "./play.js";
 
-const dealtCard = $('#dealt-card');
-const attackButton = $('.attack');
-const holdButton = $('.hold');
+const dealtCard = $("#dealt-card");
+const attackButton = $(".attack");
+const holdButton = $(".hold");
 
-const gameResult = $('.game-result');
-const gameStatus = $('.game-status');
-const resultModal = $('.modal-game-result');
+const gameResult = $(".game-result");
+const gameStatus = $(".game-status");
+const resultModal = $(".modal-game-result");
 
 let winText = "YOU WIN";
 let loseText = "YOU LOSE";
@@ -18,18 +18,18 @@ let lostStatus = "<enemy> guessed all your cards!";
 
 // MISC HELPERS
 
-function invertColor(color){
-    if(color == 'black'){
-        return 'white';
+function invertColor(color) {
+    if (color == "black") {
+        return "white";
     }
-    return 'black';
+    return "black";
 }
 
 function setDeckTopDiv(card) {
     const cardNumber = card.getNumber();
     const cardColor = card.getColor();
 
-    if(cardNumber !== null) {
+    if (cardNumber !== null) {
         dealtCard.html(cardNumber);
     } else {
         dealtCard.html("");
@@ -39,51 +39,56 @@ function setDeckTopDiv(card) {
     dealtCard.addClass(cardColor);
 }
 
-
 // EVENT LISTENER HELPERS
 
 function addCopyKeyButtonEventListener(roomKey) {
-    let clipboard = new ClipboardJS('#copy-key', {
-        text: function() {
+    let clipboard = new ClipboardJS("#copy-key", {
+        text: function () {
             return `https://playalgo.com/${roomKey}/play`;
-        }
+        },
     });
 
-    clipboard.on('success', (e) => {
+    clipboard.on("success", (e) => {
         e.clearSelection();
     });
 }
 
 function addReadyButtonEventListener() {
-    $('#ready-button').click(() => {
-        if(!globals.ready) {
+    $("#ready-button").click(() => {
+        if (!globals.ready) {
             globals.ready = true;
         } else {
             globals.ready = false;
         }
-        globals.socket.emit('readyConfirmation', { ready: globals.ready });
+        globals.socket.emit("readyConfirmation", { ready: globals.ready });
     });
 }
 
 function addReturnButtonEventListener() {
-    $('#returnButton').click(() => {
-        resultModal.removeClass('modal-in');
-        
+    $("#returnButton").click(() => {
+        resultModal.removeClass("modal-in");
+
         applyBackToLobbyTransition();
-    })
+    });
 }
 
 function addButtonEventListeners() {
-    const buttons = $('.guess-button');
+    const buttons = $(".guess-button");
 
-    for(let i = 0; i < 12; i++) {
+    for (let i = 0; i < 12; i++) {
         $(buttons[i]).click(() => {
-            if(globals.myTurn) {
-                $(buttons[globals.myGuessValue]).removeClass('guess-button-selected');
+            if (globals.myTurn) {
+                $(buttons[globals.myGuessValue]).removeClass(
+                    "guess-button-selected"
+                );
                 globals.myGuessValue = i;
-                $(buttons[globals.myGuessValue]).addClass('guess-button-selected');
+                $(buttons[globals.myGuessValue]).addClass(
+                    "guess-button-selected"
+                );
 
-                globals.socket.emit('buttonClicked', { buttonValue: globals.myGuessValue });
+                globals.socket.emit("buttonClicked", {
+                    buttonValue: globals.myGuessValue,
+                });
             }
         });
     }
@@ -91,47 +96,49 @@ function addButtonEventListeners() {
 
 function addDecisionsEventListener() {
     attackButton.click(() => {
-        if(globals.myTurn) {
-            globals.socket.emit('attackMove', { guessTarget: globals.selectedCard, guessValue: globals.myGuessValue });
+        if (globals.myTurn) {
+            globals.socket.emit("attackMove", {
+                guessTarget: globals.selectedCard,
+                guessValue: globals.myGuessValue,
+            });
         }
     });
 
     holdButton.click(() => {
-        if(globals.myTurn) {
-            globals.socket.emit('holdMove');
+        if (globals.myTurn) {
+            globals.socket.emit("holdMove");
         }
     });
 }
-
 
 // DATA SETTINGS HELPERS
 
 function setEnemyUsername(usernames) {
     let enemyUser = usernames[0];
-    if(enemyUser === globals.username) {
+    if (enemyUser === globals.username) {
         enemyUser = usernames[1];
     }
 
-    if(enemyUser === null) {
-        $('#enemy').html('...');
+    if (enemyUser === null) {
+        $("#enemy").html("...");
         return;
     }
-    
-    $('#enemy').html(enemyUser);
-    $('#enemy-username').html(enemyUser);
-    $('#enemy-user-hth').html(enemyUser);
+
+    $("#enemy").html(enemyUser);
+    $("#enemy-username").html(enemyUser);
+    $("#enemy-user-hth").html(enemyUser);
 
     return enemyUser;
 }
 
-const guessCount = $('#guess-count');
-const correcGuesses = $('#correct-guesses');
-const guessRate = $('#guess-rate');
-const stayCount = $('#stay-count');
-const myWinCount = $('#my-win-count');
-const enemyWinCount = $('#enemy-win-count');
-const myCounter = $('#my-counter');
-const enemyCounter = $('#enemy-counter');
+const guessCount = $("#guess-count");
+const correcGuesses = $("#correct-guesses");
+const guessRate = $("#guess-rate");
+const stayCount = $("#stay-count");
+const myWinCount = $("#my-win-count");
+const enemyWinCount = $("#enemy-win-count");
+const myCounter = $("#my-counter");
+const enemyCounter = $("#enemy-counter");
 
 function setStatsSection(stats) {
     guessCount.html(stats.totalGuesses);
@@ -140,27 +147,26 @@ function setStatsSection(stats) {
     stayCount.html(stats.timesStayed);
     myWinCount.html(stats.wins);
     enemyWinCount.html(stats.losses);
-    
-    myCounter.removeClass('game-won');
-    myCounter.removeClass('game-lost');
-    myCounter.removeClass('tie');
 
-    enemyCounter.removeClass('game-won');
-    enemyCounter.removeClass('game-lost');
-    enemyCounter.removeClass('tie');
+    myCounter.removeClass("game-won");
+    myCounter.removeClass("game-lost");
+    myCounter.removeClass("tie");
 
-    if(stats.wins > stats.losses) {
-        myCounter.addClass('game-won');
-        enemyCounter.addClass('game-lost');
+    enemyCounter.removeClass("game-won");
+    enemyCounter.removeClass("game-lost");
+    enemyCounter.removeClass("tie");
+
+    if (stats.wins > stats.losses) {
+        myCounter.addClass("game-won");
+        enemyCounter.addClass("game-lost");
     } else if (stats.wins < stats.losses) {
-        myCounter.addClass('game-lost');
-        enemyCounter.addClass('game-won');
+        myCounter.addClass("game-lost");
+        enemyCounter.addClass("game-won");
     } else {
-        myCounter.addClass('tie');
-        enemyCounter.addClass('tie');
+        myCounter.addClass("tie");
+        enemyCounter.addClass("tie");
     }
 }
-
 
 // CSS CLASS MANAGING HELPERS
 
@@ -182,7 +188,7 @@ function applyGameStartTransition() {
     }, 1000);
 
     setTimeout(() => {
-        $('.main-bg').removeClass('fade-in');
+        $(".main-bg").removeClass("fade-in");
     }, 1500);
 
     setTimeout(() => {
@@ -190,14 +196,14 @@ function applyGameStartTransition() {
         $("header").addClass("display-none");
         $("footer").addClass("display-none");
 
-        $("#ready-button").removeClass('ready-status');
+        $("#ready-button").removeClass("ready-status");
 
         $(".desk-wrapper").addClass("fade-in");
-        
+
         globals.ready = false;
-        $('#enemy').removeClass('player-ready');
-        $('#me').removeClass('player-ready');
-        $('#ready-count').html('0');
+        $("#enemy").removeClass("player-ready");
+        $("#me").removeClass("player-ready");
+        $("#ready-count").html("0");
     }, 2300);
 }
 
@@ -208,67 +214,67 @@ function applyBackToLobbyTransition() {
 
     setTimeout(() => {
         $(".desk-wrapper").removeClass("fade-in");
-        $('.main-bg').addClass('fade-in');
+        $(".main-bg").addClass("fade-in");
     }, 1000);
 
     setTimeout(() => {
         $("header").removeClass("header-out");
         $("footer").removeClass("footer-out");
         $(".lobby").removeClass("fade-out");
-        resultModal.addClass('display-none');
+        resultModal.addClass("display-none");
         $(".desk-wrapper").addClass("display-none");
-        $('.enemy-disconnect').html('');
+        $(".enemy-disconnect").html("");
     }, 1400);
 }
 
-const myUsername = $('#my-username');
-const enemyUsername = $('#enemy-username');
-const enemyHandCont = $('.enemy-hand-container');
-const guessArray = $('.guess-array');
-const decisionWrapper = $('.decision-wrapper');
+const myUsername = $("#my-username");
+const enemyUsername = $("#enemy-username");
+const enemyHandCont = $(".enemy-hand-container");
+const guessArray = $(".guess-array");
+const decisionWrapper = $(".decision-wrapper");
 
 function applyTransitionToEnemyTurn() {
-    myUsername.removeClass('player-turn');
-    enemyUsername.addClass('player-turn');
-    enemyHandCont.addClass('no-pointer-events');
-    guessArray.addClass('guess-array-inactive');
-    dealtCard.removeClass('highlight-dealt-card');
-    decisionWrapper.addClass('decision-fade-away');
+    myUsername.removeClass("player-turn");
+    enemyUsername.addClass("player-turn");
+    enemyHandCont.addClass("no-pointer-events");
+    guessArray.addClass("guess-array-inactive");
+    dealtCard.removeClass("highlight-dealt-card");
+    decisionWrapper.addClass("decision-fade-away");
     setActionsInactive();
 }
 
 function setActionsInactive() {
-    attackButton.addClass('decision-inactive');
-    holdButton.addClass('decision-inactive');
+    attackButton.addClass("decision-inactive");
+    holdButton.addClass("decision-inactive");
 }
 
 function applyTransitionToMyTurn() {
-    myUsername.addClass('player-turn');
-    enemyUsername.removeClass('player-turn');
-    enemyHandCont.removeClass('no-pointer-events');
-    guessArray.removeClass('guess-array-inactive');
-    dealtCard.addClass('highlight-dealt-card');
-    decisionWrapper.removeClass('decision-fade-away');
+    myUsername.addClass("player-turn");
+    enemyUsername.removeClass("player-turn");
+    enemyHandCont.removeClass("no-pointer-events");
+    guessArray.removeClass("guess-array-inactive");
+    dealtCard.addClass("highlight-dealt-card");
+    decisionWrapper.removeClass("decision-fade-away");
 }
 
 function closeCardWithDelay(index, delay) {
-    const cardToClose = $($('.my-card')[index]);
+    const cardToClose = $($(".my-card")[index]);
     setTimeout(() => {
-        cardToClose.addClass('closed');
-        cardToClose.removeClass('open');
+        cardToClose.addClass("closed");
+        cardToClose.removeClass("open");
     }, delay);
 }
 
 function addHighlightTo(index) {
-    let myCardDivs = $('.my-card');
+    let myCardDivs = $(".my-card");
 
-    $(myCardDivs[globals.selectedCard]).removeClass('selected');
+    $(myCardDivs[globals.selectedCard]).removeClass("selected");
     globals.selectedCard = index;
-    $(myCardDivs[globals.selectedCard]).addClass('selected');
+    $(myCardDivs[globals.selectedCard]).addClass("selected");
 }
 
 function removeHighlightFrom(cardDiv) {
-    $(cardDiv).removeClass('selected');
+    $(cardDiv).removeClass("selected");
 }
 
 function displayConfetti() {
@@ -280,43 +286,43 @@ function displayConfetti() {
 
     colors.push("#00bb00");
     colors.push("#e0c331");
-    
+
     (function frame() {
-      confetti({
-        zIndex: 999,
-        particleCount: 2,
-        angle: angleL,
-        spread: 60,
-        origin: { x: 0, y: originY },
-        colors: colors,
-        startVelocity: 90,
-      });
-    
-      confetti({
-        zIndex: 999,
-        particleCount: 2,
-        angle: angleR,
-        spread: 60,
-        origin: { x: 1, y: originY },
-        colors: colors,
-        startVelocity: 90,
-      });
-    
-      if (Date.now() < end) {
-        requestAnimationFrame(frame);
-      }
+        confetti({
+            zIndex: 999,
+            particleCount: 2,
+            angle: angleL,
+            spread: 60,
+            origin: { x: 0, y: originY },
+            colors: colors,
+            startVelocity: 90,
+        });
+
+        confetti({
+            zIndex: 999,
+            particleCount: 2,
+            angle: angleR,
+            spread: 60,
+            origin: { x: 1, y: originY },
+            colors: colors,
+            startVelocity: 90,
+        });
+
+        if (Date.now() < end) {
+            requestAnimationFrame(frame);
+        }
     })();
 }
 
 function setModalTranslations() {
-    let lang = localStorage.getItem('lang');
+    let lang = localStorage.getItem("lang");
 
-    if(lang !== null) {
+    if (lang !== null) {
         fetch(`/assets/languages/${lang}.json`)
-            .then(response => response.json())
+            .then((response) => response.json())
             .then((json) => {
                 const langContent = json.dynamic;
-                
+
                 winText = langContent.gameWon;
                 loseText = langContent.gameLost;
                 disconnectText = langContent.disconnectStatus;
@@ -327,27 +333,27 @@ function setModalTranslations() {
 }
 
 function showResultModal(wonGame, enemyUsername, disconnect) {
-    gameResult.removeClass('game-won');
-    gameResult.removeClass('game-lost');
+    gameResult.removeClass("game-won");
+    gameResult.removeClass("game-lost");
 
-    if(disconnect) {
+    if (disconnect) {
         gameResult.html(winText);
         gameStatus.html(disconnectText);
-        gameResult.addClass('game-won');
-    } else if(wonGame) {
+        gameResult.addClass("game-won");
+    } else if (wonGame) {
         gameResult.html(winText);
-        gameStatus.html(wonStatus.replace('<enemy>', enemyUsername));
-        gameResult.addClass('game-won');
+        gameStatus.html(wonStatus.replace("<enemy>", enemyUsername));
+        gameResult.addClass("game-won");
     } else {
         gameResult.html(loseText);
-        gameStatus.html(lostStatus.replace('<enemy>', enemyUsername));
-        gameResult.addClass('game-lost');
+        gameStatus.html(lostStatus.replace("<enemy>", enemyUsername));
+        gameResult.addClass("game-lost");
     }
 
-    resultModal.removeClass('display-none');
+    resultModal.removeClass("display-none");
 
     setTimeout(() => {
-        resultModal.addClass('modal-in');
+        resultModal.addClass("modal-in");
         if (wonGame) {
             displayConfetti();
         }
@@ -357,26 +363,21 @@ function showResultModal(wonGame, enemyUsername, disconnect) {
 export {
     invertColor,
     setDeckTopDiv,
-
     addCopyKeyButtonEventListener,
     addReadyButtonEventListener,
     addReturnButtonEventListener,
     addButtonEventListeners,
     addDecisionsEventListener,
-
     setEnemyUsername,
     setStatsSection,
     setModalTranslations,
     setActionsInactive,
-
     applyJoinLobbyTransition,
     applyGameStartTransition,
     applyTransitionToEnemyTurn,
     applyTransitionToMyTurn,
-
     closeCardWithDelay,
     addHighlightTo,
     removeHighlightFrom,
-
     showResultModal,
-}
+};

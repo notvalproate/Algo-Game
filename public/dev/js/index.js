@@ -1,54 +1,54 @@
-import * as LanguageHandler from './language.js';
+import * as LanguageHandler from "./language.js";
 
-$(document).ready(function() {
-    $('.main-bg').addClass('fade-in');
+$(document).ready(function () {
+    $(".main-bg").addClass("fade-in");
 
     setTimeout(() => {
-        $('header').removeClass('header-out');
-        $('footer').removeClass('footer-out');
+        $("header").removeClass("header-out");
+        $("footer").removeClass("footer-out");
     }, 1000);
 
     setTimeout(() => {
-        $('.login').addClass('fade-in');
+        $(".login").addClass("fade-in");
     }, 1400);
-    
-    $('#username').on('input', (e) => {
+
+    $("#username").on("input", (e) => {
         e.target.value = removeSpaces(e.target.value);
     });
 
-    $('#roomKey').on('input', (e) => {
+    $("#roomKey").on("input", (e) => {
         e.target.value = removeSpaces(e.target.value);
     });
 
-    $('#playButton').on('click', (event) => {
-        const usernameVal = $('#username').val();
-        const roomKeyVal = $('#roomKey').val();
+    $("#playButton").on("click", (event) => {
+        const usernameVal = $("#username").val();
+        const roomKeyVal = $("#roomKey").val();
 
-        localStorage.setItem('prevUsername', usernameVal);
-    
-        if(usernameVal === '' || roomKeyVal === '') {
+        localStorage.setItem("prevUsername", usernameVal);
+
+        if (usernameVal === "" || roomKeyVal === "") {
             return;
         }
-        
+
         event.preventDefault();
-    
-        $('.login').removeClass('fade-in');
-    
+
+        $(".login").removeClass("fade-in");
+
         setTimeout(() => {
-            $('header').addClass('header-out');
-            $('footer').addClass('footer-out');
+            $("header").addClass("header-out");
+            $("footer").addClass("footer-out");
         }, 400);
-        
+
         setTimeout(() => {
-          $('#playForm').submit();
+            $("#playForm").submit();
         }, 1500);
     });
 
     // SET PREVIOUS PUT USERNAME
-    const prevUsername = localStorage.getItem('prevUsername');
+    const prevUsername = localStorage.getItem("prevUsername");
 
-    if(prevUsername !== null) {
-        $('#username').val(prevUsername);
+    if (prevUsername !== null) {
+        $("#username").val(prevUsername);
     }
 
     // LANGUAGE STUFF - LATER TO BE PUT INTO SEPERATE MODULE
@@ -57,6 +57,6 @@ $(document).ready(function() {
     LanguageHandler.checkAndSetPageLanguage();
 });
 
-function removeSpaces(str){
-    return str.replace(/ /g, '');
+function removeSpaces(str) {
+    return str.replace(/ /g, "");
 }

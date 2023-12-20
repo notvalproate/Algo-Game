@@ -1,4 +1,4 @@
-const { Game } = require('./game.js');
+const { Game } = require("./game.js");
 
 class Room {
     // LOBBY SETUP
@@ -6,14 +6,18 @@ class Room {
     constructor(roomKey, username) {
         this.roomKey = roomKey;
         this.lastInteraction = Date.now();
-        this.users = [ { username: username, ready: false, socket: undefined } ];
+        this.users = [{ username: username, ready: false, socket: undefined }];
         this.numberOfPlayersReady = 0;
 
         this.game = undefined;
-    } 
+    }
 
     addUser(username, socket) {
-        this.users.push({ username: username, ready: false, socket: undefined });
+        this.users.push({
+            username: username,
+            ready: false,
+            socket: undefined,
+        });
         this.lastInteraction = Date.now();
 
         this.setSocket(1, socket);
@@ -23,14 +27,16 @@ class Room {
     }
 
     removeUser(username) {
-        const index = this.users.findIndex(user => user.username === username);
+        const index = this.users.findIndex(
+            (user) => user.username === username
+        );
         this.lastInteraction = Date.now();
         this.users.splice(index, 1);
         this.numberOfPlayersReady = this.users[0].ready + 0;
     }
 
     usernameInRoom(username) {
-        if(this.users[0].username === username) {
+        if (this.users[0].username === username) {
             return true;
         }
         return false;
@@ -60,13 +66,17 @@ class Room {
 
     setReady(username, readyStatus) {
         this.lastInteraction = Date.now();
-        const index = this.users.findIndex(user => user.username === username);
+        const index = this.users.findIndex(
+            (user) => user.username === username
+        );
         this.users[index].ready = readyStatus;
 
         this.numberOfPlayersReady = this.users[0].ready + 0;
-        if(this.users.length === 2) { this.numberOfPlayersReady += this.users[1].ready; }
+        if (this.users.length === 2) {
+            this.numberOfPlayersReady += this.users[1].ready;
+        }
 
-        if(this.numberOfPlayersReady === 2) {
+        if (this.numberOfPlayersReady === 2) {
             return true;
         }
 
@@ -89,8 +99,11 @@ class Room {
 
     getUsers() {
         let users = [];
-        for(let i = 0; i < this.users.length; i++) {
-            users.push({ username: this.users[i].username, ready: this.users[i].ready });
+        for (let i = 0; i < this.users.length; i++) {
+            users.push({
+                username: this.users[i].username,
+                ready: this.users[i].ready,
+            });
         }
 
         return users;
@@ -103,7 +116,7 @@ class Room {
     getActiveTurn(username) {
         this.lastInteraction = Date.now();
 
-        if(this.game === undefined) {
+        if (this.game === undefined) {
             return false;
         }
         return this.game.getActiveTurn(username);
@@ -119,14 +132,14 @@ class Room {
     }
 
     getGameRunning() {
-        if(this.game === undefined) {
+        if (this.game === undefined) {
             return false;
         }
         return this.game.getGameRunning();
     }
 
     getTimeSinceLastInteraction() {
-        if(this.lastInteraction === 0) {
+        if (this.lastInteraction === 0) {
             return 0;
         } else {
             return Date.now() - this.lastInteraction;
@@ -136,27 +149,32 @@ class Room {
     // EMITS
 
     emitAfk() {
-        if(this.game) {
-            if(this.game.getGameRunning()) {
-                this.users[this.game.getActiveTurnIndex()].socket.emit('afk-warning');
+        if (this.game) {
+            if (this.game.getGameRunning()) {
+                this.users[this.game.getActiveTurnIndex()].socket.emit(
+                    "afk-warning"
+                );
                 return;
             }
         }
-        this.users[0].socket.emit('afk-warning');
+        this.users[0].socket.emit("afk-warning");
     }
 
     // DEBUG
 
     displayRoom() {
         var logString = `\n[ROOM: ${this.roomKey}]\n - Users:\n`;
-        for(var i = 0; i < this.users.length; i++) {
-            logString += `  ${i+1}. ` + this.users[i].username + `\n  Ready: ${this.users[i].ready}\n  Hand: ${this.users[i].hand}\n`;
+        for (var i = 0; i < this.users.length; i++) {
+            logString +=
+                `  ${i + 1}. ` +
+                this.users[i].username +
+                `\n  Ready: ${this.users[i].ready}\n  Hand: ${this.users[i].hand}\n`;
         }
         logString += `\n - Ready Count: ${this.numberOfPlayersReady}\n`;
-        logString += ` - Current Deck: ${this.deck}\n[END OF ROOM]\n`
+        logString += ` - Current Deck: ${this.deck}\n[END OF ROOM]\n`;
 
         console.log(logString);
     }
 }
 
-module.exports = Room
+module.exports = Room;

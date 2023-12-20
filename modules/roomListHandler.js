@@ -1,14 +1,14 @@
-const Room = require('./room.js')
+const Room = require("./room.js");
 
 class RoomListHandler {
     constructor() {
-        this.roomsList = []
+        this.roomsList = [];
         this.lobbyTimeout = 150000;
 
         setInterval(() => {
             this.checkRoomsForInactivity();
         }, 30000);
-    };
+    }
 
     connectToRoom(roomKey, username, socket) {
         const room = this.getRoom(roomKey);
@@ -31,18 +31,19 @@ class RoomListHandler {
     }
 
     destroyRoom(roomKey) {
-        const index = this.roomsList.findIndex(room => room.getRoomKey() === roomKey);
+        const index = this.roomsList.findIndex(
+            (room) => room.getRoomKey() === roomKey
+        );
         this.roomsList.splice(index, 1);
     }
 
     disconnectFromRoom(username, roomKey) {
         const room = this.getRoom(roomKey);
-        
-        if(room.getUsers().length === 1) {
+
+        if (room.getUsers().length === 1) {
             this.destroyRoom(roomKey);
             return true;
-        }
-        else {
+        } else {
             room.removeUser(username);
         }
 
@@ -50,8 +51,11 @@ class RoomListHandler {
     }
 
     checkRoomsForInactivity() {
-        for(let i = 0; i < this.roomsList.length; i++) {
-            if(this.roomsList[i].getTimeSinceLastInteraction() >= this.lobbyTimeout) {
+        for (let i = 0; i < this.roomsList.length; i++) {
+            if (
+                this.roomsList[i].getTimeSinceLastInteraction() >=
+                this.lobbyTimeout
+            ) {
                 this.roomsList[i].emitAfk();
             }
         }
@@ -60,6 +64,6 @@ class RoomListHandler {
     getRoom(roomKey) {
         return this.roomsList.find((room) => room.getRoomKey() === roomKey);
     }
-};
+}
 
-module.exports = RoomListHandler
+module.exports = RoomListHandler;

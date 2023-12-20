@@ -5,11 +5,11 @@ var wrongSound = undefined;
 
 function initAudio() {
     correctSound = new Howl({
-        src: ['/assets/sounds/ding.ogg'],
+        src: ["/assets/sounds/ding.ogg"],
     });
 
     wrongSound = new Howl({
-        src: ['/assets/sounds/wrong.ogg'],
+        src: ["/assets/sounds/wrong.ogg"],
     });
 }
 
@@ -23,16 +23,9 @@ function playWrongSound() {
 
 function setSoundsVolume(volume) {
     const clamped = Math.min(volume, 100) / 100;
-    
+
     correctSound.volume(clamped);
     wrongSound.volume(clamped);
 }
 
-export {
-    initAudio,
-    
-    playCorrectSound,
-    playWrongSound,
-
-    setSoundsVolume,
-}
+export { initAudio, playCorrectSound, playWrongSound, setSoundsVolume };

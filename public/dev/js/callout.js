@@ -1,23 +1,23 @@
 // Module that handles the callout display
 
-import * as Animations from './animations.js';
-import { globals } from './play.js';
+import * as Animations from "./animations.js";
+import { globals } from "./play.js";
 
 let calloutDiv = undefined;
 
 function displayCallout(index, color, value) {
-    if(!globals.myTurn) {
-        if(globals.calloutActive) {
+    if (!globals.myTurn) {
+        if (globals.calloutActive) {
             calloutDiv.remove();
         }
 
-        calloutDiv = $('<div>');
-        calloutDiv.addClass('guess-callout');
+        calloutDiv = $("<div>");
+        calloutDiv.addClass("guess-callout");
         calloutDiv.addClass(color);
         calloutDiv.html(value);
 
-        $($('.my-card')[index]).prepend(calloutDiv);
-        
+        $($(".my-card")[index]).prepend(calloutDiv);
+
         globals.calloutActive = true;
     }
 }
@@ -31,9 +31,4 @@ function updateCallout(value) {
     calloutDiv.html(value);
 }
 
-export {
-    displayCallout,
-    removeCallout,
-    updateCallout,
-}
-
+export { displayCallout, removeCallout, updateCallout };

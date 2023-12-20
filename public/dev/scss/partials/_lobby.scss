@@ -12,7 +12,7 @@
     text-shadow: 1px 1px 2px black;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.55);
-    transition: 0.8s cubic-bezier(.36,-0.23,.1,1.01) 0.6s;
+    transition: 0.8s cubic-bezier(0.36, -0.23, 0.1, 1.01) 0.6s;
 }
 
 .lobby-title {
@@ -20,11 +20,11 @@
     right: -10%;
     position: absolute;
     font-size: 2.75svh;
-    font-family: 'Gruppo', sans-serif;
+    font-family: "Gruppo", sans-serif;
 }
 
-.key{
-    font-family: 'Gruppo', sans-serif;
+.key {
+    font-family: "Gruppo", sans-serif;
 
     display: flex;
     flex-direction: column;
@@ -51,7 +51,7 @@
     column-gap: 1svh;
 }
 
-.key-wrapper img{
+.key-wrapper img {
     position: relative;
     width: 3svh;
     transform: translateY(10%);
@@ -62,11 +62,11 @@
 }
 
 .copy-link {
-    font-family: 'Urbanist', sans-serif;
+    font-family: "Urbanist", sans-serif;
     font-size: 1.5svh;
 }
 
-.player-display{
+.player-display {
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -74,11 +74,11 @@
     align-items: center;
 }
 
-.players{
+.players {
     color: #b0b0b0;
     font-size: 7vh;
     width: 30%;
-    transition: 0.8s cubic-bezier(.42,0,.04,.99);
+    transition: 0.8s cubic-bezier(0.42, 0, 0.04, 0.99);
     text-align: center;
     word-wrap: break-word;
 }
@@ -94,8 +94,8 @@
     width: 24svh;
 }
 
-.versus{
-    font-family: 'Urbanist', sans-serif;
+.versus {
+    font-family: "Urbanist", sans-serif;
     transform: scale(0.65);
     width: 180px;
     height: 200px;
@@ -108,24 +108,24 @@
     text-shadow: yellow 0px 0px 10px;
 }
 
-.versus-block{
+.versus-block {
     background-color: yellow;
     width: 100px;
     height: 8px;
-    transform: rotate(-55deg); 
+    transform: rotate(-55deg);
 }
 
-.vvv{
-    transform: translate(-30px,15px);
+.vvv {
+    transform: translate(-30px, 15px);
     font-size: 70px;
 }
 
-.sss{
-    transform: translate(30px,-15px);
+.sss {
+    transform: translate(30px, -15px);
     font-size: 70px;
 }
 
-.ready-button{
+.ready-button {
     width: 200px;
     height: 80px;
     margin: 1rem 0;
@@ -138,7 +138,6 @@
     text-shadow: none;
     transition: 0.4s ease;
 } /* JS controlled Class */
-
 
 @media only screen and (max-width: 1024px) {
     .player-display {

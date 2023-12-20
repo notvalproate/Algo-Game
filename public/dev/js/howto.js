@@ -1,5 +1,5 @@
 $(document).ready(() => {
-    $('body').css({
-        'overflow' : 'visible'
-    })
-})
+    $("body").css({
+        overflow: "visible",
+    });
+});

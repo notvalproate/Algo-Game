@@ -7,6 +7,7 @@
     "build": "npx webpack",
     "start": "node server.js",
     "format": "npx prettier --write .",
+    "check-format": "npx prettier --check .",
     "dev": "concurrently --kill-others \"npm run devstart\" \"npm run sass-dev\"",
     "devstart": "nodemon server.js",
     "sass-dev": "sass --watch ./public/dev/scss/styles.scss ./public/dev/css/styles.css"
