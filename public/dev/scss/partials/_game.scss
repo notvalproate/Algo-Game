@@ -9,15 +9,15 @@
     align-items: center;
     transform: scale(70%);
     opacity: 0%;
-    transition: 0.8s cubic-bezier(.36,.0,.1,1.01);
+    transition: 0.8s cubic-bezier(0.36, 0, 0.1, 1.01);
 }
 
 .username {
     transform: scale(65%);
     font-size: 5svh;
     font-weight: 400;
-    font-family: 'Gruppo', sans-serif;
-    transition: 0.5s cubic-bezier(.42,0,.04,.99);
+    font-family: "Gruppo", sans-serif;
+    transition: 0.5s cubic-bezier(0.42, 0, 0.04, 0.99);
 }
 
 .desk {
@@ -29,8 +29,8 @@
     flex-direction: column;
     row-gap: 3svh;
     justify-content: flex-start;
-    align-items: center;    
-    font-family: 'Urbanist', sans-serif;
+    align-items: center;
+    font-family: "Urbanist", sans-serif;
 }
 
 .hand {
@@ -64,7 +64,7 @@
     cursor: default !important;
 }
 
-.card{
+.card {
     position: relative;
     padding-top: 11svh;
     height: 17svh;
@@ -76,10 +76,10 @@
     font-weight: 600;
     box-sizing: border-box;
     user-select: none;
-    transition: 
-    box-shadow 0.6s cubic-bezier(.36, -0.23, .1, 1.01), 
-    padding-top 0.4s cubic-bezier(.36, -0.23, .1, 1.01),
-    font-size 0.4s cubic-bezier(.36, -0.23, .1, 1.01);
+    transition:
+        box-shadow 0.6s cubic-bezier(0.36, -0.23, 0.1, 1.01),
+        padding-top 0.4s cubic-bezier(0.36, -0.23, 0.1, 1.01),
+        font-size 0.4s cubic-bezier(0.36, -0.23, 0.1, 1.01);
 }
 
 .card:hover {
@@ -117,13 +117,13 @@
     height: 7svh;
     display: flex;
     justify-content: center;
-    transition: 0.5s cubic-bezier(.42,0,.04,.99);
+    transition: 0.5s cubic-bezier(0.42, 0, 0.04, 0.99);
     user-select: none;
 }
 
 .guess-button {
     box-sizing: border-box;
-    font-family: 'Urbanist', sans-serif;
+    font-family: "Urbanist", sans-serif;
     -webkit-border-radius: 10;
     -moz-border-radius: 10;
     border: none;
@@ -184,17 +184,17 @@
     left: 0;
     position: absolute;
     padding: 2svh;
-    height: 4svh;   
+    height: 4svh;
     width: 4svh;
     border-radius: 0.5svh;
     box-sizing: border-box;
     font-size: 2svh;
     font-weight: 600;
     display: flex;
-    align-items:center;
+    align-items: center;
     justify-content: center;
     z-index: 999;
-    animation: calloutAnim 2s cubic-bezier(.48,.01,.49,.99) infinite;
+    animation: calloutAnim 2s cubic-bezier(0.48, 0.01, 0.49, 0.99) infinite;
 }
 
 .black {
@@ -215,7 +215,6 @@
     visibility: hidden;
 } /* JS Controlled Class */
 
-
 /* ATTACK AND HOLD */
 
 .decision-wrapper {
@@ -226,7 +225,7 @@
     align-items: center;
     transform: translate(0%, -50%);
     cursor: pointer;
-    transition: 0.4s cubic-bezier(.42,0,.04,.99);
+    transition: 0.4s cubic-bezier(0.42, 0, 0.04, 0.99);
 }
 
 .decision-image {
@@ -327,7 +326,7 @@
         font-size: 3.63vw;
         border-radius: 1.05vw;
     }
-    
+
     .open {
         padding-top: 1.8vw;
         font-size: 10vw;
@@ -339,14 +338,15 @@
         width: 3.75vw;
         border-radius: 0.48vw;
         font-size: 1.875vw;
-        animation: calloutAnimPad 2s cubic-bezier(.48,.01,.49,.99) infinite;
+        animation: calloutAnimPad 2s cubic-bezier(0.48, 0.01, 0.49, 0.99)
+            infinite;
     }
 
     .attack {
         left: -130%;
         filter: drop-shadow(0px 0px 20px #ff3a3a);
     }
-    
+
     .hold {
         right: -130%;
         filter: drop-shadow(0px 0px 20px rgb(108, 201, 255));
@@ -371,7 +371,7 @@
         row-gap: 0.6svh;
         height: auto;
     }
-    
+
     .guess-button {
         border-radius: 1vw;
         width: 6vw;
@@ -396,7 +396,7 @@
         font-size: 4.3vw;
         border-radius: 1.28vw;
     }
-    
+
     .open {
         padding-top: 2.15vw;
         font-size: 12vw;
@@ -408,7 +408,8 @@
         width: 5vw;
         border-radius: 0.64vw;
         font-size: 2.5vw;
-        animation: calloutAnimMob 2s cubic-bezier(.48,.01,.49,.99) infinite;
+        animation: calloutAnimMob 2s cubic-bezier(0.48, 0.01, 0.49, 0.99)
+            infinite;
     }
 
     .decision-image {
@@ -427,7 +428,7 @@
     .guess-array {
         row-gap: 1svh;
     }
-    
+
     .guess-button {
         width: 8vw;
         height: 8vw;
@@ -438,13 +439,13 @@
 @mixin calloutAnimMixin($name, $xval) {
     @keyframes #{$name} {
         0% {
-            transform: translate(calc($xval - 50%), -110%),
+            transform: translate(calc($xval - 50%), -110%);
         }
         50% {
-            transform: translate(calc($xval - 50%), -140%),
+            transform: translate(calc($xval - 50%), -140%);
         }
         100% {
-            transform: translate(calc($xval - 50%), -110%),
+            transform: translate(calc($xval - 50%), -110%);
         }
     }
 }

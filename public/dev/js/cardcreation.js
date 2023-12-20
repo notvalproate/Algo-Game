@@ -1,15 +1,15 @@
 // Module that handles all card div creation
 
-import { globals } from './play.js';
-import * as Animations from './animations.js';
+import { globals } from "./play.js";
+import * as Animations from "./animations.js";
 
 function createInitialHands(myHand, enemyHand) {
-    for(let i = 0; i < myHand.length; i++) {
-        createAndAnimateCardDiv(myHand[i], i, 'my', 'closed');
+    for (let i = 0; i < myHand.length; i++) {
+        createAndAnimateCardDiv(myHand[i], i, "my", "closed");
     }
 
-    for(let i = 0; i < enemyHand.length; i++) {
-        createAndAnimateCardDiv(enemyHand[i], i, 'enemy', 'closed');
+    for (let i = 0; i < enemyHand.length; i++) {
+        createAndAnimateCardDiv(enemyHand[i], i, "enemy", "closed");
     }
 }
 
@@ -18,7 +18,7 @@ function createAndAnimateCardDiv(card, pos, hand, state) {
 
     addCardDivToHand(cardDiv, pos, hand);
 
-    if(hand === 'enemy') {
+    if (hand === "enemy") {
         updateEnemyHandEventListeners(pos);
     }
 
@@ -26,7 +26,7 @@ function createAndAnimateCardDiv(card, pos, hand, state) {
 }
 
 function createCardDiv(card, state) {
-    const cardDiv = $('<div>');
+    const cardDiv = $("<div>");
     cardDiv.addClass("card");
     cardDiv.addClass(state);
     cardDiv.addClass(card.getColor());
@@ -41,10 +41,10 @@ function addCardDivToHand(cardDiv, pos, hand) {
 
     cardDiv.addClass(`${hand}-card`);
 
-    if(pos === numOfCards) {
-        let parentDiv = $('#my-hand');
-        if(hand === 'enemy') {
-            parentDiv = $('#enemy-hand');
+    if (pos === numOfCards) {
+        let parentDiv = $("#my-hand");
+        if (hand === "enemy") {
+            parentDiv = $("#enemy-hand");
         }
         parentDiv.append(cardDiv);
     } else {
@@ -52,43 +52,47 @@ function addCardDivToHand(cardDiv, pos, hand) {
     }
 }
 
-const attackButton = $('.attack');
+const attackButton = $(".attack");
 
 function updateEnemyHandEventListeners(pos) {
     const cardDivsInHand = $(".enemy-card");
 
-    for(let i = pos; i < cardDivsInHand.length; i++) {
+    for (let i = pos; i < cardDivsInHand.length; i++) {
         const cardDiv = $(cardDivsInHand[i]);
-        
-        if(cardDiv.hasClass('open')) {
-            cardDiv.off('click');
+
+        if (cardDiv.hasClass("open")) {
+            cardDiv.off("click");
             continue;
         }
 
         cardDiv.click(() => {
-            if(globals.myTurn) {
-                const selectedCardDiv = $($(".enemy-card")[globals.selectedCard]);
+            if (globals.myTurn) {
+                const selectedCardDiv = $(
+                    $(".enemy-card")[globals.selectedCard]
+                );
 
-                selectedCardDiv.removeClass('selected');
-                cardDiv.addClass('selected');
-    
+                selectedCardDiv.removeClass("selected");
+                cardDiv.addClass("selected");
+
                 globals.selectedCard = i;
-                globals.socket.emit("selectCard", { guessTarget: globals.selectedCard });
+                globals.socket.emit("selectCard", {
+                    guessTarget: globals.selectedCard,
+                });
 
-                attackButton.removeClass('decision-inactive');
+                attackButton.removeClass("decision-inactive");
             }
-        })
+        });
     }
 }
 
 function removeEventListenerFromEnemyCard(index) {
-    const card = $('.enemy-card')[index];
-    $(card).off('click');
-    $(card).addClass('no-pointer-events');
+    const card = $(".enemy-card")[index];
+    $(card).off("click");
+    $(card).addClass("no-pointer-events");
 }
 
 export {
     createInitialHands,
     createAndAnimateCardDiv,
     removeEventListenerFromEnemyCard,
-}
+};

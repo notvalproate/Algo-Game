@@ -1,18 +1,20 @@
-import { AlgoCard, ObjectArray_to_AlgoCardArray } from './browserifyBundles/algoCardBundle.js';
+import {
+    AlgoCard,
+    ObjectArray_to_AlgoCardArray,
+} from "./browserifyBundles/algoCardBundle.js";
 
 // IMPORTS
-import * as Animations from './animations.js';
-import * as Sounds from './audio.js';
-import * as CardDivManager from './cardcreation.js';
-import * as Helpers from './helpers.js';
-import * as CalloutHandler from './callout.js';
-import * as LanguageHandler from './language.js';
-import * as Settings from './settings.js';
+import * as Animations from "./animations.js";
+import * as Sounds from "./audio.js";
+import * as CardDivManager from "./cardcreation.js";
+import * as Helpers from "./helpers.js";
+import * as CalloutHandler from "./callout.js";
+import * as LanguageHandler from "./language.js";
+import * as Settings from "./settings.js";
 
 // SCSS For Webpack (Only Production)
 
 //import '../scss/styles.scss';
-
 
 var myHand = [];
 var enemyHand = [];
@@ -30,34 +32,32 @@ var globals = {
     calloutActive: false,
 };
 
-export {
-    globals
-};
+export { globals };
 
-$(document).ready(function() {
+$(document).ready(function () {
     // JQUERY ELEMENTS CACHE
-    const readyButton = $('#ready-button');
-    const attackButton = $('.attack');
-    const holdButton = $('.hold');
+    const readyButton = $("#ready-button");
+    const attackButton = $(".attack");
+    const holdButton = $(".hold");
 
-    const me = $('#me');
-    const enemy = $('#enemy');
+    const me = $("#me");
+    const enemy = $("#enemy");
     let enemyUsername = enemy.html();
-    const readyCount = $('#ready-count');
+    const readyCount = $("#ready-count");
 
-    const roomKey = $('#room-key').html();
-    globals.username = $('#me').html();
+    const roomKey = $("#room-key").html();
+    globals.username = $("#me").html();
     const numberOfPlayersReady = parseInt(readyCount.html());
-    
-    if(numberOfPlayersReady == 1) {
-        enemy.addClass('player-ready');
+
+    if (numberOfPlayersReady == 1) {
+        enemy.addClass("player-ready");
     }
 
-    window.history.pushState(null, '', `/${roomKey}/play`);
+    window.history.pushState(null, "", `/${roomKey}/play`);
 
     Animations.initAnimations();
     Sounds.initAudio();
-    
+
     // JOIN LOBBY TRANSITION
     Helpers.applyJoinLobbyTransition();
 
@@ -67,53 +67,50 @@ $(document).ready(function() {
         query: {
             username: globals.username,
             roomKey: roomKey,
-        }
+        },
     });
 
-    globals.socket.on('disconnect', () => {
+    globals.socket.on("disconnect", () => {
         window.location.href = window.location.href;
     });
 
-    globals.socket.on('lobbyUpdate', (data) => {
+    globals.socket.on("lobbyUpdate", (data) => {
         const usernames = data.usernames;
         enemyUsername = Helpers.setEnemyUsername(usernames);
     });
 
     // want to refactor this later, looks very ugly
-    globals.socket.on('readyUpdate', (data) => {
+    globals.socket.on("readyUpdate", (data) => {
         readyCount.html(data.readyCount);
 
         var youUser = data.userList[0];
 
-        if(data.userList.length !== 1) {
+        if (data.userList.length !== 1) {
             var enemyUser = data.userList[1];
 
-            if(youUser.username !== globals.username) {
+            if (youUser.username !== globals.username) {
                 [youUser, enemyUser] = [enemyUser, youUser];
             }
 
-            if(enemyUser.ready) {
-                enemy.addClass('player-ready');
-            }
-            else {
-                enemy.removeClass('player-ready');
+            if (enemyUser.ready) {
+                enemy.addClass("player-ready");
+            } else {
+                enemy.removeClass("player-ready");
             }
         } else {
-            enemy.removeClass('player-ready');
+            enemy.removeClass("player-ready");
         }
 
-        if(youUser.ready) {
-            me.addClass('player-ready');
-            readyButton.addClass('ready-status');
-        }
-        else {
-            me.removeClass('player-ready');
-            readyButton.removeClass('ready-status');
+        if (youUser.ready) {
+            me.addClass("player-ready");
+            readyButton.addClass("ready-status");
+        } else {
+            me.removeClass("player-ready");
+            readyButton.removeClass("ready-status");
         }
     });
 
-
-    globals.socket.on('startGame', (data) => {
+    globals.socket.on("startGame", (data) => {
         Helpers.applyGameStartTransition();
 
         globals.myTurn = data.yourTurn;
@@ -122,78 +119,104 @@ $(document).ready(function() {
         Helpers.setDeckTopDiv(globals.deckTop);
         Helpers.setActionsInactive();
 
-        $('#my-hand').html('');
-        $('#enemy-hand').html('');
+        $("#my-hand").html("");
+        $("#enemy-hand").html("");
         myHand = ObjectArray_to_AlgoCardArray(data.yourHand);
         enemyHand = ObjectArray_to_AlgoCardArray(data.enemyHand);
 
         CardDivManager.createInitialHands(myHand, enemyHand);
 
-        if(globals.myTurn) {
+        if (globals.myTurn) {
             Helpers.applyTransitionToMyTurn();
         } else {
             Helpers.applyTransitionToEnemyTurn();
         }
     });
 
-    globals.socket.on('highlightCard', (data) => {
+    globals.socket.on("highlightCard", (data) => {
         Helpers.addHighlightTo(data.index);
-        
-        CalloutHandler.displayCallout(globals.selectedCard, myHand[globals.selectedCard].getColor(), buttonValue);
+
+        CalloutHandler.displayCallout(
+            globals.selectedCard,
+            myHand[globals.selectedCard].getColor(),
+            buttonValue
+        );
     });
 
-    globals.socket.on('updateButtonValue', (data) => {
+    globals.socket.on("updateButtonValue", (data) => {
         buttonValue = data.buttonValue;
         CalloutHandler.updateCallout(buttonValue);
     });
 
-    globals.socket.on('correctMove', (data) => {
+    globals.socket.on("correctMove", (data) => {
         globals.myTurn = data.yourTurn;
         var index = data.guessTarget;
-        var enemyCardDivs = $('.enemy-card');
-        let myCardDivs = $('.my-card');
+        var enemyCardDivs = $(".enemy-card");
+        let myCardDivs = $(".my-card");
 
         Sounds.playCorrectSound();
 
-        if(globals.myTurn) {
-            Animations.highlightFadeOutTo('correct', enemyCardDivs[index])
+        if (globals.myTurn) {
+            Animations.highlightFadeOutTo("correct", enemyCardDivs[index]);
 
             $(enemyCardDivs[index]).html(globals.myGuessValue);
-            $(enemyCardDivs[index]).addClass('open');
-            attackButton.addClass('decision-inactive');
-            holdButton.removeClass('decision-inactive');
+            $(enemyCardDivs[index]).addClass("open");
+            attackButton.addClass("decision-inactive");
+            holdButton.removeClass("decision-inactive");
             CardDivManager.removeEventListenerFromEnemyCard(index);
 
-            Animations.flipCardAnimation($(enemyCardDivs[index]), enemyHand[index]);
+            Animations.flipCardAnimation(
+                $(enemyCardDivs[index]),
+                enemyHand[index]
+            );
         } else {
-            $(myCardDivs[index]).removeClass('closed');
-            $(myCardDivs[index]).addClass('open');
+            $(myCardDivs[index]).removeClass("closed");
+            $(myCardDivs[index]).addClass("open");
 
-            Animations.highlightFadeOutTo('correct', myCardDivs[index]);
+            Animations.highlightFadeOutTo("correct", myCardDivs[index]);
         }
     });
 
-    globals.socket.on('wrongMove', (data) => {
-        const nextDeckTop = new AlgoCard(data.nextDeckTop.number, data.nextDeckTop.color);
+    globals.socket.on("wrongMove", (data) => {
+        const nextDeckTop = new AlgoCard(
+            data.nextDeckTop.number,
+            data.nextDeckTop.color
+        );
         const insertIndex = data.insertIndex;
         let cardToInsert = globals.deckTop;
         globals.myTurn = data.yourTurn;
 
         Sounds.playWrongSound();
 
-        if(!globals.myTurn) {
-            Animations.highlightFadeOutTo('wrong', $('.enemy-card')[globals.selectedCard]);
+        if (!globals.myTurn) {
+            Animations.highlightFadeOutTo(
+                "wrong",
+                $(".enemy-card")[globals.selectedCard]
+            );
 
             myHand.splice(insertIndex, 0, cardToInsert);
-            CardDivManager.createAndAnimateCardDiv(cardToInsert, insertIndex, 'my', 'open');
-            
+            CardDivManager.createAndAnimateCardDiv(
+                cardToInsert,
+                insertIndex,
+                "my",
+                "open"
+            );
+
             Helpers.applyTransitionToEnemyTurn();
         } else {
-            Animations.highlightFadeOutTo('wrong', $('.my-card')[globals.selectedCard]);
+            Animations.highlightFadeOutTo(
+                "wrong",
+                $(".my-card")[globals.selectedCard]
+            );
 
             cardToInsert.setNumber(data.value);
             enemyHand.splice(insertIndex, 0, cardToInsert);
-            CardDivManager.createAndAnimateCardDiv(cardToInsert, insertIndex, 'enemy', 'open');
+            CardDivManager.createAndAnimateCardDiv(
+                cardToInsert,
+                insertIndex,
+                "enemy",
+                "open"
+            );
             CardDivManager.removeEventListenerFromEnemyCard(insertIndex);
             CalloutHandler.removeCallout();
 
@@ -204,59 +227,71 @@ $(document).ready(function() {
         globals.deckTop = nextDeckTop;
     });
 
-    globals.socket.on('cardHeld', (data) => {        
-        const nextDeckTop = new AlgoCard(data.nextDeckTop.number, data.nextDeckTop.color);
+    globals.socket.on("cardHeld", (data) => {
+        const nextDeckTop = new AlgoCard(
+            data.nextDeckTop.number,
+            data.nextDeckTop.color
+        );
         const insertIndex = data.insertIndex;
         const cardToInsert = globals.deckTop;
         globals.myTurn = data.yourTurn;
 
-        if(!globals.myTurn) {
-            myHand.splice(insertIndex, 0, cardToInsert);           
-            CardDivManager.createAndAnimateCardDiv(cardToInsert, insertIndex, 'my', 'open');
+        if (!globals.myTurn) {
+            myHand.splice(insertIndex, 0, cardToInsert);
+            CardDivManager.createAndAnimateCardDiv(
+                cardToInsert,
+                insertIndex,
+                "my",
+                "open"
+            );
             Helpers.closeCardWithDelay(insertIndex, 500);
-            Helpers.removeHighlightFrom($('.enemy-card')[globals.selectedCard]);
+            Helpers.removeHighlightFrom($(".enemy-card")[globals.selectedCard]);
 
             Helpers.applyTransitionToEnemyTurn();
-        } else {            
+        } else {
             enemyHand.splice(insertIndex, 0, cardToInsert);
-            CardDivManager.createAndAnimateCardDiv(cardToInsert, insertIndex, 'enemy', 'closed');
+            CardDivManager.createAndAnimateCardDiv(
+                cardToInsert,
+                insertIndex,
+                "enemy",
+                "closed"
+            );
             CalloutHandler.removeCallout();
-            Helpers.removeHighlightFrom($('.my-card')[globals.selectedCard]);
+            Helpers.removeHighlightFrom($(".my-card")[globals.selectedCard]);
 
             Helpers.applyTransitionToMyTurn();
         }
-        
+
         Helpers.setDeckTopDiv(nextDeckTop);
         globals.deckTop = nextDeckTop;
-    })
+    });
 
-    globals.socket.on('gameEnded', (data) => {
+    globals.socket.on("gameEnded", (data) => {
         let wonGame = data.wonGame;
 
         Helpers.setStatsSection(data.stats);
 
-        if(data.enemyDisconnect) {
+        if (data.enemyDisconnect) {
             Helpers.showResultModal(wonGame, enemyUsername, true);
             return;
         }
 
-        if(wonGame) {
-            Animations.playWinLoseAnimation($('.enemy-card'));
+        if (wonGame) {
+            Animations.playWinLoseAnimation($(".enemy-card"));
         } else {
-            Animations.playWinLoseAnimation($('.my-card'));
+            Animations.playWinLoseAnimation($(".my-card"));
         }
 
         Helpers.showResultModal(wonGame, enemyUsername, false);
     });
 
-    globals.socket.on('rejected', () => {
-        console.log('reconnect not allowed');
-    })
+    globals.socket.on("rejected", () => {
+        console.log("reconnect not allowed");
+    });
 
-    globals.socket.on('afk-warning', () => {
-        window.location.href = '/afk';
-    })
-
+    globals.socket.on("afk-warning", () => {
+        window.location.href = "/afk";
+    });
 
     // EVENT LISTENERS
 

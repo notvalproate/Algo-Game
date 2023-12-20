@@ -1,26 +1,26 @@
-const languageModal = $('#language-modal');
+const languageModal = $("#language-modal");
 
-const supportedLanguages = ['en', 'ja'];
+const supportedLanguages = ["en", "ja"];
 
 function addLanguageEventListeners(tempFunction) {
-    $('#languageButton').click(() => {
-        languageModal.removeClass('display-none');
-    
+    $("#languageButton").click(() => {
+        languageModal.removeClass("display-none");
+
         setTimeout(() => {
-            languageModal.addClass('language-modal-fade-in');
+            languageModal.addClass("language-modal-fade-in");
         }, 50);
     });
 
-    for(let i = 0; i < supportedLanguages.length; i++) {
+    for (let i = 0; i < supportedLanguages.length; i++) {
         const lang = supportedLanguages[i];
 
         $(`#${lang}Option`).click(() => {
-            localStorage.setItem('lang', lang);
+            localStorage.setItem("lang", lang);
             setPageLanguage(lang);
 
-            languageModal.removeClass('language-modal-fade-in');
+            languageModal.removeClass("language-modal-fade-in");
             setTimeout(() => {
-                languageModal.addClass('display-none');
+                languageModal.addClass("display-none");
             }, 500);
 
             tempFunction();
@@ -29,9 +29,9 @@ function addLanguageEventListeners(tempFunction) {
 }
 
 function checkAndSetPageLanguage() {
-    const lang = localStorage.getItem('lang');
+    const lang = localStorage.getItem("lang");
 
-    if(lang === null || lang === 'en') {
+    if (lang === null || lang === "en") {
         return;
     }
 
@@ -40,15 +40,15 @@ function checkAndSetPageLanguage() {
 
 function setPageLanguage(lang) {
     fetch(`/assets/languages/${lang}.json`)
-        .then(response => response.json())
+        .then((response) => response.json())
         .then((json) => {
             const langContent = json.content;
 
-            for(let [key, value] of Object.entries(langContent)) {
-                if(key === 'here') {
+            for (let [key, value] of Object.entries(langContent)) {
+                if (key === "here") {
                     continue;
                 }
-                if(key === 'contrib') {
+                if (key === "contrib") {
                     value = `${value} <a href="https://github.com/notvalproate/Algo-Game" target="_blank">${langContent.here}</a>`;
                 }
                 $(`#${key}`).html(value);
@@ -56,7 +56,4 @@ function setPageLanguage(lang) {
         });
 }
 
-export {
-    addLanguageEventListeners,
-    checkAndSetPageLanguage,
-}
+export { addLanguageEventListeners, checkAndSetPageLanguage };

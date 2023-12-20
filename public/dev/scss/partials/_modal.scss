@@ -1,6 +1,6 @@
-.modal-game-result {    
+.modal-game-result {
     z-index: 999;
-    font-family: 'Urbanist', sans-serif;
+    font-family: "Urbanist", sans-serif;
     height: 100svh;
     width: 100vw;
     position: absolute;
@@ -12,7 +12,7 @@
     row-gap: 2.5svh;
     align-items: center;
     justify-content: center;
-    transition: 0.5s cubic-bezier(.42,0,.04,.99);
+    transition: 0.5s cubic-bezier(0.42, 0, 0.04, 0.99);
     opacity: 0%;
     transform: scale(120%);
 }
@@ -39,7 +39,7 @@
 }
 
 .stats-section {
-    font-family: 'Urbanist', sans-serif;
+    font-family: "Urbanist", sans-serif;
     font-weight: 600;
     display: flex;
     flex-direction: column;
@@ -50,7 +50,7 @@
     padding: 2svh;
     border-radius: 10px;
     border: 2px white solid;
-    background-color: rgba(0,0,0,0.2);
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 .stats-title {

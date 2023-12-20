@@ -1,14 +1,14 @@
 class AlgoCard {
-    constructor (num_arg, color_arg) {
-        this.number = num_arg
-        this.color = color_arg
+    constructor(num_arg, color_arg) {
+        this.number = num_arg;
+        this.color = color_arg;
     }
 
-    getColor () {
+    getColor() {
         return this.color;
     }
 
-    getNumber () {
+    getNumber() {
         return this.number;
     }
 
@@ -20,7 +20,7 @@ class AlgoCard {
         this.color = color;
     }
 
-    generateRandomNumber (min=0, max) {
+    generateRandomNumber(min = 0, max) {
         return Math.floor(Math.random() * (max - min) + min);
     }
 
@@ -30,13 +30,10 @@ class AlgoCard {
 }
 
 function ObjectArray_to_AlgoCardArray(arr) {
-    for(var i = 0; i < arr.length; i++) {
+    for (var i = 0; i < arr.length; i++) {
         arr[i] = new AlgoCard(arr[i].number, arr[i].color);
     }
     return arr;
 }
 
-export {
-    AlgoCard,
-    ObjectArray_to_AlgoCardArray,
-}
+export { AlgoCard, ObjectArray_to_AlgoCardArray };

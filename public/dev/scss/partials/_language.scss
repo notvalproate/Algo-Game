@@ -12,7 +12,7 @@
     background-color: rgba($color: #000000, $alpha: 0.8);
     transform: scale(130%);
     opacity: 0%;
-    transition: 0.4s cubic-bezier(.42,0,.04,.99);
+    transition: 0.4s cubic-bezier(0.42, 0, 0.04, 0.99);
 
     .language-wrapper {
         padding: 4svh 4svh 2svh;
@@ -24,7 +24,7 @@
         align-items: center;
 
         .select-lang {
-            font-family: 'Urbanist', sans-serif;
+            font-family: "Urbanist", sans-serif;
             font-size: 4svh;
         }
 
@@ -68,9 +68,9 @@
     .language-modal {
         .language-wrapper {
             padding: 3svh 3svh 2svh;
-    
+
             .select-lang {
-                font-family: 'Urbanist', sans-serif;
+                font-family: "Urbanist", sans-serif;
                 font-size: 3svh;
             }
         }

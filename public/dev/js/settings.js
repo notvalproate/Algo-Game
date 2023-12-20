@@ -1,32 +1,32 @@
-import * as Sounds from './audio.js';
+import * as Sounds from "./audio.js";
 
-const settingsModal = $('#settings-modal');
-const volumeSlider = $('#volumeSlider');
-const volumeIcon = $('#volumeIcon');
+const settingsModal = $("#settings-modal");
+const volumeSlider = $("#volumeSlider");
+const volumeIcon = $("#volumeIcon");
 let volumeStatus = undefined;
 
 function addSettingsEventListener() {
     setInitialVolume();
 
-    $('#settingsButton').click(() => {
-        settingsModal.removeClass('display-none');
-    
+    $("#settingsButton").click(() => {
+        settingsModal.removeClass("display-none");
+
         setTimeout(() => {
-            settingsModal.addClass('settings-modal-fade-in');
+            settingsModal.addClass("settings-modal-fade-in");
         }, 50);
     });
 
-    $('#closeButton').click(() => {
-        settingsModal.removeClass('settings-modal-fade-in');
+    $("#closeButton").click(() => {
+        settingsModal.removeClass("settings-modal-fade-in");
 
         setTimeout(() => {
-            settingsModal.addClass('display-none');
+            settingsModal.addClass("display-none");
         }, 500);
     });
 
-    volumeSlider.on('pointerup touchend', () => {
+    volumeSlider.on("pointerup touchend", () => {
         const volume = volumeSlider.val();
-        localStorage.setItem('volume', JSON.stringify({volume: volume}));
+        localStorage.setItem("volume", JSON.stringify({ volume: volume }));
         volumeStatus = getVolumeStatusFromVolume(volume);
         setVolumeIcon();
 
@@ -36,45 +36,43 @@ function addSettingsEventListener() {
 }
 
 function setInitialVolume() {
-    let storedVolume = localStorage.getItem('volume');
-    
-    if(storedVolume === null) {
+    let storedVolume = localStorage.getItem("volume");
+
+    if (storedVolume === null) {
         volumeStatus = 2;
     } else {
         storedVolume = JSON.parse(storedVolume);
         volumeStatus = getVolumeStatusFromVolume(storedVolume.volume);
-        volumeSlider.attr('value', `${storedVolume.volume}`);
+        volumeSlider.attr("value", `${storedVolume.volume}`);
         Sounds.setSoundsVolume(storedVolume.volume);
         setVolumeIcon();
     }
 }
 
 function setVolumeIcon() {
-    volumeIcon.removeClass('fa-volume-high');
-    volumeIcon.removeClass('fa-volume-low');
-    volumeIcon.removeClass('fa-volume-xmark');
+    volumeIcon.removeClass("fa-volume-high");
+    volumeIcon.removeClass("fa-volume-low");
+    volumeIcon.removeClass("fa-volume-xmark");
 
-    if(volumeStatus === 0) {
-        volumeIcon.addClass('fa-volume-xmark');
+    if (volumeStatus === 0) {
+        volumeIcon.addClass("fa-volume-xmark");
     } else if (volumeStatus === 1) {
-        volumeIcon.addClass('fa-volume-low');
+        volumeIcon.addClass("fa-volume-low");
     } else {
-        volumeIcon.addClass('fa-volume-high');
+        volumeIcon.addClass("fa-volume-high");
     }
 }
 
 function getVolumeStatusFromVolume(volume) {
-    if(volume <= 0.1) {
+    if (volume <= 0.1) {
         return 0;
     }
 
-    if(volume <= 50) {
+    if (volume <= 50) {
         return 1;
-    } 
+    }
 
     return 2;
 }
 
-export {
-    addSettingsEventListener,
-}
+export { addSettingsEventListener };

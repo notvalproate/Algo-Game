@@ -38,7 +38,11 @@ app.get("/:roomKey/play", (req, res) => {
     if (roomToJoin === undefined || roomToJoin.getUsers().length < 2) {
         res.render("index", { roomKey: roomKey, alert: false, alertMsg: "" });
     } else {
-        res.render("index", { roomKey: undefined, alert: true, alertMsg: "The lobby you tried to join is already FULL!" });
+        res.render("index", {
+            roomKey: undefined,
+            alert: true,
+            alertMsg: "The lobby you tried to join is already FULL!",
+        });
     }
 });
 
@@ -47,7 +51,11 @@ app.get("/howtoplay", (req, res) => {
 });
 
 app.get("/afk", (req, res) => {
-    res.render("index", { roomKey: undefined, alert: true, alertMsg: `You have been kicked for inactivity!` });
+    res.render("index", {
+        roomKey: undefined,
+        alert: true,
+        alertMsg: `You have been kicked for inactivity!`,
+    });
 });
 
 // POST routes
@@ -57,25 +65,51 @@ app.post("/", (req, res) => {
     const roomToJoin = roomsHandler.getRoom(roomKey);
 
     if (roomKey.length === 0 || username.length === 0) {
-        res.render("index", { roomKey: undefined, alert: true, alertMsg: `The username or room key entered was invalid!` });
+        res.render("index", {
+            roomKey: undefined,
+            alert: true,
+            alertMsg: `The username or room key entered was invalid!`,
+        });
         return;
     }
 
     if (roomKey.indexOf(" ") >= 0 || username.indexOf(" ") >= 0) {
-        res.render("index", { roomKey: undefined, alert: true, alertMsg: `The username or room key entered was invalid!` });
+        res.render("index", {
+            roomKey: undefined,
+            alert: true,
+            alertMsg: `The username or room key entered was invalid!`,
+        });
         return;
     }
 
     if (roomToJoin === undefined) {
-        res.render("play", { roomKey: roomKey, username: username, enemyUsername: "...", numberOfPlayersReady: 0 });
+        res.render("play", {
+            roomKey: roomKey,
+            username: username,
+            enemyUsername: "...",
+            numberOfPlayersReady: 0,
+        });
     } else if (roomToJoin.users.length == 1) {
         if (roomToJoin.usernameInRoom(username)) {
-            res.render("index", { roomKey: roomKey, alert: true, alertMsg: `The username \"${username}\" is already in use in this lobby!` });
+            res.render("index", {
+                roomKey: roomKey,
+                alert: true,
+                alertMsg: `The username \"${username}\" is already in use in this lobby!`,
+            });
         } else {
-            res.render("play", { roomKey: roomKey, username: username, enemyUsername: roomToJoin.getUsers()[0].username, numberOfPlayersReady: roomToJoin.getReadyCount() });
+            res.render("play", {
+                roomKey: roomKey,
+                username: username,
+                enemyUsername: roomToJoin.getUsers()[0].username,
+                numberOfPlayersReady: roomToJoin.getReadyCount(),
+            });
         }
     } else {
-        res.render("index", { roomKey: undefined, alert: true, alertMsg: "The lobby you tried to join is already FULL!" });
+        res.render("index", {
+            roomKey: undefined,
+            alert: true,
+            alertMsg: "The lobby you tried to join is already FULL!",
+        });
     }
 });
 
