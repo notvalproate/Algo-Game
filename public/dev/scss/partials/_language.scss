@@ -38,6 +38,8 @@
             align-items: center;
 
             .lang-option {
+                box-sizing: border-box;
+                width: 100%;
                 padding: 2svh 10svh;
             }
         }
