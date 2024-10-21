@@ -2,14 +2,15 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
-require("dotenv").config();
 
 // Rooms modules
 const RoomListHandler = require("./modules/roomListHandler.js");
 const SocketHandler = require("./modules/socketsHandler.js");
 
 // If you dont have the .env file (since it is in .gitignore), create a .env file and set port to what you wish.
-const PORT = process.env.PORT;
+const env = require("./modules/environment.js");
+const PORT = env.app.PORT;
+const MODE = env.app.MODE;
 
 // Server Setup
 const app = express();
