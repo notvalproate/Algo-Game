@@ -14,7 +14,46 @@ const MODE = env.app.MODE;
 
 // Server Setup
 const app = express();
-const socket_server = require("http").Server(app);
+const socket_server = null;
+
+if (MODE === "development") {
+    require("http").Server(app);
+} else {
+    require('https').createServer(
+        {
+            key: fs.readFileSync('./ssl/key.pem'),
+            cert: fs.readFileSync('./ssl/cert.pem'),
+        },
+        app,
+    );
+
+    const helmet = require('helmet');
+    const permissionsPolicy = require("permissions-policy");
+    const compression = require('compression');
+
+    app.disable('x-powered-by');
+    app.use(helmet({
+        contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"],
+            scriptSrc: [
+            "'self'",
+            'https://cdn.jsdelivr.net',
+            'https://kit.fontawesome.com',
+            'https://cdnjs.cloudflare.com',
+            ],
+            connectSrc: ["'self'", 'https://ka-f.fontawesome.com'],
+        },
+        }
+    }));
+    app.use(permissionsPolicy({
+        features: {
+            fullscreen: ["self"],
+        },
+    }));
+    app.use(compression());
+}
+
 const io = require("socket.io")(socket_server);
 
 var roomsHandler = new RoomListHandler();
