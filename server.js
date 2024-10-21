@@ -14,12 +14,14 @@ const MODE = env.app.MODE;
 
 // Server Setup
 const app = express();
-const socket_server = null;
+let socket_server = null;
+
+console.log(MODE)
 
 if (MODE === "development") {
-    require("http").Server(app);
+    socket_server = require("http").Server(app);
 } else {
-    require('https').createServer(
+    socket_server = require('https').createServer(
         {
             key: fs.readFileSync('./ssl/key.pem'),
             cert: fs.readFileSync('./ssl/cert.pem'),
