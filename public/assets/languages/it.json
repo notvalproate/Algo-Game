@@ -1,0 +1,37 @@
+{
+    "content": 
+        {
+            "createTitle": "CREA STANZA",
+            "userLabel": "Nome",
+            "roomLabel": "Codice",
+            "playButton": "GIOCA",
+            "howToPlay": "Come si gioca?",
+            "contrib": "Per segnalare problemi o per contribuire al GitHub Project",
+            "here": "Clicca qui!",
+            "selectLang": "SELEZIONA LA LINGUA",
+            "copyInvite": "COPIA L'INVITO",
+            "readyText": "PRONTO",
+            "attackText": "ATTACCA",
+            "stayText": "FERMATI",
+            "statsTitle": "STATISTICHE DI GIOCO",
+            "totalGuesses": "RISPOSTE TOTALI:",
+            "correctGuesses": "RISPOSTE CORRETTE:",
+            "guessRate": "PERCENTUALE DI RISPOSTE CORRETTE:",
+            "timesStayed": "VOLTE IN CUI HAI FERMATO L'AZIONE DI GIOCO:",
+            "hth": "TESTA A TESTA",
+            "winsText1": "Vittorie",
+            "winsText2": "Vittorie",
+            "returnButton": "RITORNA ALLA LOBBY",
+            "settingsTitle": "IMPOSTAZIONI",
+            "closeButton": "CHIUDI"
+        },
+    "dynamic":
+        {
+            "gameWon": "HAI VINTO",
+            "gameLost": "HAI PERSO",
+
+            "disconnectStatus": "Il nemico si è disconnesso!",
+            "wonStatus": "Hai indovinato tutte le carte di <enemy>!",
+            "lostStatus": "<enemy> ha indovinato tutte le tue carte!"
+        }
+}
