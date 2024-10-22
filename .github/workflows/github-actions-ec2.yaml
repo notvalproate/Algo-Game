@@ -33,6 +33,7 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.AWS_KEY }}
           REMOTE_HOST: ${{ secrets.AWS_HOST }}
           REMOTE_USER: ${{ secrets.AWS_USERNAME }}
+          TARGET: ${{ secrets.TARGET_DIR }}
 
       - name: Executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@master

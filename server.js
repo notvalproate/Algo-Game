@@ -21,6 +21,8 @@ console.log(MODE)
 if (MODE === "development") {
     socket_server = require("http").Server(app);
 } else {
+    const fs = require('fs');
+
     socket_server = require('https').createServer(
         {
             key: fs.readFileSync('./ssl/key.pem'),
