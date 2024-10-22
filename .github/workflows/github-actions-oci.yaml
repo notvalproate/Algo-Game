@@ -14,35 +14,35 @@ jobs:
       - name: Checkout the repo to oracle
         uses: actions/checkout@v4
 
-      - name: Remove existing repo from Oracle VM
+      - name: Remove existing repo from Oracle VM and stop the processs
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.ORACLE_DNS }}
           username: ${{ secrets.ORACLE_USERNAME }}
           key: ${{ secrets.ORACLE_KEY }}
           script: |
+            sudo apt -y update
+            sudo npm install -g pm2
+            sudo pm2 stop server
+            sudo pm2 delete server
             sudo rm -rf Algo-Game
  
-      # - name: Deploy to Oracle
-      #   uses: easingthemes/ssh-deploy@main
-      #   env:
-      #     SSH_PRIVATE_KEY: ${{ secrets.ORACLE_KEY }}
-      #     REMOTE_HOST: ${{ secrets.ORACLE_DNS }}
-      #     REMOTE_USER: ${{ secrets.ORACLE_USERNAME }}
+      - name: Deploy to Oracle
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.ORACLE_KEY }}
+          REMOTE_HOST: ${{ secrets.ORACLE_DNS }}
+          REMOTE_USER: ${{ secrets.ORACLE_USERNAME }}
 
-      # - name: Executing remote ssh commands using ssh key
-      #   uses: appleboy/ssh-action@master
-      #   with:
-      #     host: ${{ secrets.ORACLE_DNS }}
-      #     username: ${{ secrets.ORACLE_USERNAME }}
-      #     key: ${{ secrets.ORACLE_KEY }}
-      #     script: |
-      #       sudo apt -y update
-      #       sudo npm install -g pm2
-      #       cd Algo-Game
-      #       touch .env
-      #       echo "${{ secrets.API_ENV }}" > .env
-      #       sudo npm install
-      #       sudo pm2 stop server
-      #       sudo pm2 delete server
-      #       sudo pm2 start --name="server" sudo -- node server.js
+      - name: Executing remote ssh commands using ssh key
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.ORACLE_DNS }}
+          username: ${{ secrets.ORACLE_USERNAME }}
+          key: ${{ secrets.ORACLE_KEY }}
+          script: |
+            cd Algo-Game
+            touch .env
+            echo "${{ secrets.API_ENV }}" > .env
+            sudo npm install
+            sudo pm2 start --name="server" sudo -- node server.js
