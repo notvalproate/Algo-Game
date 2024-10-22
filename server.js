@@ -16,9 +16,9 @@ const MODE = env.app.MODE;
 const app = express();
 let socket_server = null;
 
-console.log(MODE)
+const isProduction = MODE !== "development";
 
-if (MODE === "development") {
+if (!isProduction) {
     socket_server = require("http").Server(app);
 } else {
     const fs = require('fs');

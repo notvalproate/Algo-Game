@@ -10,7 +10,7 @@ module.exports = {
         index: "./public/dev/js/index.js",
     },
     output: {
-        path: path.resolve(__dirname, "dist"),
+        path: path.resolve(__dirname, "public/prod"),
         filename: "[name].js",
     },
     module: {
