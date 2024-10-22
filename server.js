@@ -72,7 +72,7 @@ app.set("views", path.join(__dirname, "/views"));
 
 // GET routes
 app.get("/", (req, res) => {
-    res.render("index", { roomKey: undefined, alert: false, alertMsg: "" });
+    res.render("index", { isProduction: isProduction, roomKey: undefined, alert: false, alertMsg: "" });
 });
 
 app.get("/:roomKey/play", (req, res) => {
@@ -80,9 +80,10 @@ app.get("/:roomKey/play", (req, res) => {
     const roomToJoin = roomsHandler.getRoom(roomKey);
 
     if (roomToJoin === undefined || roomToJoin.getUsers().length < 2) {
-        res.render("index", { roomKey: roomKey, alert: false, alertMsg: "" });
+        res.render("index", { isProduction: isProduction, roomKey: roomKey, alert: false, alertMsg: "" });
     } else {
         res.render("index", {
+            isProduction: isProduction,
             roomKey: undefined,
             alert: true,
             alertMsg: "The lobby you tried to join is already FULL!",
@@ -91,11 +92,12 @@ app.get("/:roomKey/play", (req, res) => {
 });
 
 app.get("/howtoplay", (req, res) => {
-    res.render("howto");
+    res.render("howto", { isProduction: isProduction });
 });
 
 app.get("/afk", (req, res) => {
     res.render("index", {
+        isProduction: isProduction,
         roomKey: undefined,
         alert: true,
         alertMsg: `You have been kicked for inactivity!`,
@@ -110,6 +112,7 @@ app.post("/", (req, res) => {
 
     if (roomKey.length === 0 || username.length === 0) {
         res.render("index", {
+            isProduction: isProduction,
             roomKey: undefined,
             alert: true,
             alertMsg: `The username or room key entered was invalid!`,
@@ -119,6 +122,7 @@ app.post("/", (req, res) => {
 
     if (roomKey.indexOf(" ") >= 0 || username.indexOf(" ") >= 0) {
         res.render("index", {
+            isProduction: isProduction,
             roomKey: undefined,
             alert: true,
             alertMsg: `The username or room key entered was invalid!`,
@@ -128,6 +132,7 @@ app.post("/", (req, res) => {
 
     if (roomToJoin === undefined) {
         res.render("play", {
+            isProduction: isProduction,
             roomKey: roomKey,
             username: username,
             enemyUsername: "...",
@@ -136,12 +141,14 @@ app.post("/", (req, res) => {
     } else if (roomToJoin.users.length == 1) {
         if (roomToJoin.usernameInRoom(username)) {
             res.render("index", {
+                isProduction: isProduction,
                 roomKey: roomKey,
                 alert: true,
                 alertMsg: `The username \"${username}\" is already in use in this lobby!`,
             });
         } else {
             res.render("play", {
+                isProduction: isProduction,
                 roomKey: roomKey,
                 username: username,
                 enemyUsername: roomToJoin.getUsers()[0].username,
@@ -150,6 +157,7 @@ app.post("/", (req, res) => {
         }
     } else {
         res.render("index", {
+            isProduction: isProduction,
             roomKey: undefined,
             alert: true,
             alertMsg: "The lobby you tried to join is already FULL!",

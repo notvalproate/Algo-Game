@@ -66,6 +66,6 @@
     </div>
 </div>
 
-<script type="module" src="/dev/js/index.js" charset="utf-8"></script>
+<script type="module" src="<%= isProduction ? '/prod/index.js' : '/dev/js/index.js' %>" charset="utf-8"></script>
 
 <%- include('./partials/_footer'); %>

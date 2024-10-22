@@ -181,6 +181,6 @@
 </div>
 
 <!-- Scripts -->
-<script src="/dev/js/play.js" type="module"></script>
+<script src="<%= isProduction ? '/prod/play.js' : '/dev/js/play.js' %>" type="module"></script>
 
 <%- include('./partials/_footer'); %>
