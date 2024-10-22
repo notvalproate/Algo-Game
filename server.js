@@ -2,18 +2,60 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const path = require("path");
-require("dotenv").config();
 
 // Rooms modules
 const RoomListHandler = require("./modules/roomListHandler.js");
 const SocketHandler = require("./modules/socketsHandler.js");
 
 // If you dont have the .env file (since it is in .gitignore), create a .env file and set port to what you wish.
-const PORT = process.env.PORT;
+const env = require("./modules/environment.js");
+const PORT = env.app.PORT;
+const MODE = env.app.MODE;
 
 // Server Setup
 const app = express();
-const socket_server = require("http").Server(app);
+let socket_server = null;
+
+console.log(MODE)
+
+if (MODE === "development") {
+    socket_server = require("http").Server(app);
+} else {
+    socket_server = require('https').createServer(
+        {
+            key: fs.readFileSync('./ssl/key.pem'),
+            cert: fs.readFileSync('./ssl/cert.pem'),
+        },
+        app,
+    );
+
+    const helmet = require('helmet');
+    const permissionsPolicy = require("permissions-policy");
+    const compression = require('compression');
+
+    app.disable('x-powered-by');
+    app.use(helmet({
+        contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"],
+            scriptSrc: [
+            "'self'",
+            'https://cdn.jsdelivr.net',
+            'https://kit.fontawesome.com',
+            'https://cdnjs.cloudflare.com',
+            ],
+            connectSrc: ["'self'", 'https://ka-f.fontawesome.com'],
+        },
+        }
+    }));
+    app.use(permissionsPolicy({
+        features: {
+            fullscreen: ["self"],
+        },
+    }));
+    app.use(compression());
+}
+
 const io = require("socket.io")(socket_server);
 
 var roomsHandler = new RoomListHandler();
