@@ -10,7 +10,7 @@ on:
 
 jobs:
   deploy:
-    name: Deploy riffly to Oracle on main branch push
+    name: Deploy Algo to Oracle on main branch push
     runs-on: ubuntu-latest
 
     steps:
