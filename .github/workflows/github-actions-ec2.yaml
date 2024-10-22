@@ -1,4 +1,4 @@
-name: Oracle-Deploy
+name: EC2-Deploy
 
 on:
   push:
@@ -7,19 +7,19 @@ on:
 
 jobs:
   deploy:
-    name: Deploy Algo to Oracle on main branch push
+    name: Deploy Algo to EC2 on main branch push
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout the repo to oracle
+      - name: Checkout the repo
         uses: actions/checkout@v4
 
-      - name: Remove existing repo from Oracle VM and stop the processs
+      - name: Remove existing repo from EC2 and stop the processs
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.ORACLE_DNS }}
-          username: ${{ secrets.ORACLE_USERNAME }}
-          key: ${{ secrets.ORACLE_KEY }}
+          host: ${{ secrets.AWS_HOST }}
+          username: ${{ secrets.AWS_USERNAME }}
+          key: ${{ secrets.AWS_KEY }}
           script: |
             sudo apt -y update
             sudo npm install -g pm2
@@ -27,19 +27,19 @@ jobs:
             sudo pm2 delete server
             sudo rm -rf Algo-Game
  
-      - name: Deploy to Oracle
+      - name: Deploy to AWS
         uses: easingthemes/ssh-deploy@main
         env:
-          SSH_PRIVATE_KEY: ${{ secrets.ORACLE_KEY }}
-          REMOTE_HOST: ${{ secrets.ORACLE_DNS }}
-          REMOTE_USER: ${{ secrets.ORACLE_USERNAME }}
+          SSH_PRIVATE_KEY: ${{ secrets.AWS_KEY }}
+          REMOTE_HOST: ${{ secrets.AWS_HOST }}
+          REMOTE_USER: ${{ secrets.AWS_USERNAME }}
 
       - name: Executing remote ssh commands using ssh key
         uses: appleboy/ssh-action@master
         with:
-          host: ${{ secrets.ORACLE_DNS }}
-          username: ${{ secrets.ORACLE_USERNAME }}
-          key: ${{ secrets.ORACLE_KEY }}
+          host: ${{ secrets.AWS_HOST }}
+          username: ${{ secrets.AWS_USERNAME }}
+          key: ${{ secrets.AWS_KEY }}
           script: |
             cd Algo-Game
             touch .env
