@@ -46,4 +46,5 @@ jobs:
             touch .env
             echo "${{ secrets.API_ENV }}" > .env
             sudo npm install
+            sudo npm run build
             sudo pm2 start --name="server" sudo -- node server.js

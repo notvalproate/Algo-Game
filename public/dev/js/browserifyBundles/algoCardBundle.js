@@ -2,6 +2,7 @@ class AlgoCard {
     constructor(num_arg, color_arg) {
         this.number = num_arg;
         this.color = color_arg;
+        this.open = false;
     }
 
     getColor() {

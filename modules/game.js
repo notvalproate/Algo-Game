@@ -86,8 +86,10 @@ class Game {
         thisPlayer.stats.totalGuesses++;
 
         if (enemyPlayer.hand[target].getNumber() === value) {
-            thisPlayer.stats.correctGuesses++;
-            enemyPlayer.stats.openCount++;
+            enemyPlayer.hand[target].open = true;
+
+            enemyPlayer.stats.openCount = this.getOpenCount(enemyPlayer.hand);
+            thisPlayer.stats.correctGuesses = enemyPlayer.stats.openCount;
 
             if (enemyPlayer.stats.openCount === enemyPlayer.hand.length) {
                 thisPlayer.stats.wins++;
@@ -184,6 +186,16 @@ class Game {
         }
 
         return [thisPlayerStats, enemyPlayerStats];
+    }
+
+    getOpenCount(hand) {
+        let count = 0;
+        for (let i = 0; i < hand.length; i++) {
+            if (hand[i].open) {
+                count++;
+            }
+        }
+        return count;
     }
 
     getGameRunning() {
