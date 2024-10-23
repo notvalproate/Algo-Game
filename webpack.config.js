@@ -8,6 +8,7 @@ module.exports = {
     entry: {
         play: "./public/dev/js/play.js",
         index: "./public/dev/js/index.js",
+        styles: "./public/dev/scss/styles.scss",
     },
     output: {
         path: path.resolve(__dirname, "public/prod"),
