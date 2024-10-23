@@ -1,6 +1,3 @@
-// Import scss to build for webpack
-import "../scss/styles.scss";
-
 import * as LanguageHandler from "./language.js";
 
 $(document).ready(function () {

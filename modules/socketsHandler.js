@@ -17,6 +17,15 @@ class SocketHandler {
     }
 
     connectToGameRoom() {
+        this.room = SocketHandler.roomsHandler.getRoom(this.roomKey);
+
+        if (this.room !== undefined) { 
+            if (this.room.users[0].username === this.username) {
+                console.log("came hereeeee");
+                return false;
+            }
+        }
+
         const roomWasCreated = SocketHandler.roomsHandler.connectToRoom(
             this.roomKey,
             this.username,
@@ -32,6 +41,8 @@ class SocketHandler {
         logWithTime(
             `[+] User [${this.username}] connected to lobby [${this.roomKey}]`
         );
+
+        return true;
     }
 
     disconnectSocket() {
@@ -221,6 +232,10 @@ class SocketHandler {
     }
 
     // io Emits
+    emitSameUsernameAlert() {
+        this.socket.emit("sameUsernameAlert");
+    }
+
     emitLobbyUpdate() {
         const userList = this.room.getUsers();
         let otherUser = null;
