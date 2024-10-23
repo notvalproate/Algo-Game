@@ -74,6 +74,10 @@ $(document).ready(function () {
         window.location.href = window.location.href;
     });
 
+    globals.socket.on("sameUsernameAlert", () => {
+        window.location.href = "/";
+    })
+
     globals.socket.on("lobbyUpdate", (data) => {
         const usernames = data.usernames;
         enemyUsername = Helpers.setEnemyUsername(usernames);

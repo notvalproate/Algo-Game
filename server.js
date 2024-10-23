@@ -108,7 +108,6 @@ app.get("/afk", (req, res) => {
 app.post("/", (req, res) => {
     const roomKey = req.body.roomKey;
     const username = req.body.username;
-    const roomToJoin = roomsHandler.getRoom(roomKey);
 
     if (roomKey.length === 0 || username.length === 0) {
         res.render("index", {
@@ -129,6 +128,8 @@ app.post("/", (req, res) => {
         });
         return;
     }
+
+    const roomToJoin = roomsHandler.getRoom(roomKey);
 
     if (roomToJoin === undefined) {
         res.render("play", {
@@ -173,7 +174,10 @@ io.on("connection", (socket) => {
     SocketHandler.init(io, roomsHandler);
     var socketHandler = new SocketHandler(socket, username, roomKey);
 
-    socketHandler.connectToGameRoom();
+    if(!socketHandler.connectToGameRoom()) {
+        socketHandler.emitSameUsernameAlert();
+        return;
+    }
 
     socket.on("disconnect", () => {
         socketHandler.disconnectSocket();
