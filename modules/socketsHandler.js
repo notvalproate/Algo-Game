@@ -190,6 +190,23 @@ class SocketHandler {
             const [hiddenDeckTop, visibleDeckTop] =
                 this.room.getHiddenAndVisibleDeckTop();
 
+            if (hiddenDeckTop === undefined) {
+                const [currUserStats, otherUserStats] = this.room.getStats(
+                    this.username
+                );
+
+                this.socket.emit("gameDraw", {
+                    stats: currUserStats,
+                });
+                this.socket.broadcast
+                    .to(this.roomKey)
+                    .emit("gameDraw", {
+                        stats: otherUserStats,
+                    });
+
+                this.room.resetGame();
+            }
+
             this.socket.emit("wrongMove", {
                 yourTurn: false,
                 value: deckTopValue,

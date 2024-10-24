@@ -159,6 +159,11 @@ class Game {
 
     getHiddenAndVisibleDeckTop() {
         const deckTop = this.getDeckTop();
+
+        if(deckTop === undefined) {
+            return [undefined, undefined];
+        }
+
         return [
             new AlgoCard(null, deckTop.getColor()),
             new AlgoCard(deckTop.getNumber(), deckTop.getColor()),
