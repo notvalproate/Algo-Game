@@ -43,7 +43,7 @@ class Game {
         this.running = false;
     }
 
-    insertDeckTopToActiveUser() {
+    insertDeckTopToActiveUser(open) {
         const cardToInsert = this.deck.splice(0, 1)[0];
         const activeUserHand = this.players[this.activeTurn].hand;
         var insertIndex = 0;
@@ -65,6 +65,10 @@ class Game {
             }
 
             break;
+        }
+
+        if(open) {
+            cardToInsert.open = true;
         }
 
         activeUserHand.splice(insertIndex, 0, cardToInsert);
@@ -106,8 +110,8 @@ class Game {
             return [true, 0, deckTopValue, wonGame];
         }
 
-        const indexInsertedAt = this.insertDeckTopToActiveUser();
-        this.players[this.activeTurn].stats.openCount++;
+        const indexInsertedAt = this.insertDeckTopToActiveUser(true);
+        thisPlayer.stats.openCount = this.getOpenCount(thisPlayer.hand);
 
         this.switchTurns();
 
@@ -117,7 +121,7 @@ class Game {
     holdDeckTop() {
         this.players[this.activeTurn].stats.timesStayed++;
 
-        const insertIndex = this.insertDeckTopToActiveUser();
+        const insertIndex = this.insertDeckTopToActiveUser(false);
 
         this.switchTurns();
 
