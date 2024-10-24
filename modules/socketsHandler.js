@@ -205,6 +205,9 @@ class SocketHandler {
                     });
 
                 this.room.resetGame();
+
+                logWithTime(`[-] Game ended in room [${this.roomKey}]!!!`);
+                return;
             }
 
             this.socket.emit("wrongMove", {
@@ -233,6 +236,26 @@ class SocketHandler {
         const insertIndex = this.room.holdDeckTop();
         const [hiddenDeckTop, visibleDeckTop] =
             this.room.getHiddenAndVisibleDeckTop();
+
+        if (hiddenDeckTop === undefined) {
+            const [currUserStats, otherUserStats] = this.room.getStats(
+                this.username
+            );
+
+            this.socket.emit("gameDraw", {
+                stats: currUserStats,
+            });
+            this.socket.broadcast
+                .to(this.roomKey)
+                .emit("gameDraw", {
+                    stats: otherUserStats,
+                });
+
+            this.room.resetGame();
+            
+            logWithTime(`[-] Game ended in room [${this.roomKey}]!!!`);
+            return;
+        }
 
         this.socket.emit("cardHeld", {
             yourTurn: false,
