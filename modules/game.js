@@ -107,7 +107,8 @@ class Game {
         }
 
         const indexInsertedAt = this.insertDeckTopToActiveUser();
-        this.players[this.activeTurn].stats.openCount++;
+        this.players[this.activeTurn].deck[indexInsertedAt].open = true;
+        this.players[this.activeTurn].openCount = this.getOpenCount(thisPlayer.deck)
 
         this.switchTurns();
 
