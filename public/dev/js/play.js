@@ -270,13 +270,21 @@ $(document).ready(function () {
         globals.deckTop = nextDeckTop;
     });
 
+    globals.socket.on("gameDraw", (data) => {
+        Helpers.setStatsSection(data.stats);
+        
+        Helpers.showResultModal(false, enemyUsername, false, true);
+        
+        Animations.playWinLoseAnimation($(".my-card"));
+    })
+
     globals.socket.on("gameEnded", (data) => {
         let wonGame = data.wonGame;
 
         Helpers.setStatsSection(data.stats);
 
         if (data.enemyDisconnect) {
-            Helpers.showResultModal(wonGame, enemyUsername, true);
+            Helpers.showResultModal(wonGame, enemyUsername, true, false);
             return;
         }
 
@@ -286,7 +294,7 @@ $(document).ready(function () {
             Animations.playWinLoseAnimation($(".my-card"));
         }
 
-        Helpers.showResultModal(wonGame, enemyUsername, false);
+        Helpers.showResultModal(wonGame, enemyUsername, false, false);
     });
 
     globals.socket.on("rejected", () => {

@@ -332,7 +332,7 @@ function setModalTranslations() {
     }
 }
 
-function showResultModal(wonGame, enemyUsername, disconnect) {
+function showResultModal(wonGame, enemyUsername, disconnect, draw) {
     gameResult.removeClass("game-won");
     gameResult.removeClass("game-lost");
 
