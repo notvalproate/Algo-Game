@@ -1075,6 +1075,10 @@ input {
   text-shadow: 0px 0px 30px rgb(255, 60, 0);
 }
 
+.game-draw {
+  text-shadow: 0px 0px 30px rgb(0, 166, 255);
+}
+
 .game-status {
   font-size: 3svh;
   font-weight: 600;

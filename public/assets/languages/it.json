@@ -29,9 +29,11 @@
         {
             "gameWon": "HAI VINTO",
             "gameLost": "HAI PERSO",
+            "gameDraw": "PAREGGIO",
 
             "disconnectStatus": "Il nemico si è disconnesso!",
             "wonStatus": "Hai indovinato tutte le carte di <enemy>!",
-            "lostStatus": "<enemy> ha indovinato tutte le tue carte!"
+            "lostStatus": "<enemy> ha indovinato tutte le tue carte!",
+            "drawStatus": "Nessuno ha indovinato tutte le carte!"
         }
 }

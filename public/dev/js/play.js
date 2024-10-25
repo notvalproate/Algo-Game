@@ -274,9 +274,9 @@ $(document).ready(function () {
         Helpers.setStatsSection(data.stats);
         
         Helpers.showResultModal(false, enemyUsername, false, true);
-        
-        Animations.playWinLoseAnimation($(".my-card"));
     })
+
+    console.log("NEW ME");
 
     globals.socket.on("gameEnded", (data) => {
         let wonGame = data.wonGame;
