@@ -198,12 +198,16 @@ class SocketHandler {
                 this.socket.emit("gameDraw", {
                     stats: currUserStats,
                     wasWrongGuess: true,
+                    deckTopValue: deckTopValue,
+                    insertIndex: insertIndex,
                 });
                 this.socket.broadcast
                     .to(this.roomKey)
                     .emit("gameDraw", {
                         stats: otherUserStats,
                         wasWrongGuess: true,
+                        deckTopValue: deckTopValue,
+                        insertIndex: insertIndex,
                     });
 
                 this.room.resetGame();
@@ -247,12 +251,16 @@ class SocketHandler {
             this.socket.emit("gameDraw", {
                 stats: currUserStats,
                 wasWrongGuess: false,
+                deckTopValue: undefined,
+                insertIndex: insertIndex,
             });
             this.socket.broadcast
                 .to(this.roomKey)
                 .emit("gameDraw", {
                     stats: otherUserStats,
                     wasWrongGuess: false,
+                    deckTopValue: undefined,
+                    insertIndex: insertIndex,
                 });
 
             this.room.resetGame();

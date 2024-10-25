@@ -279,6 +279,14 @@ function removeHighlightFrom(cardDiv) {
     $(cardDiv).removeClass("selected");
 }
 
+function hideDeckTopDiv() {
+    dealtCard.css("opacity", "0");
+}
+
+function showDeckTopDiv() {
+    dealtCard.css("opacity", "1");
+}
+
 function displayConfetti() {
     const end = Date.now() + 8 * 1000;
     let colors = ["#ffffff"];
@@ -387,5 +395,7 @@ export {
     closeCardWithDelay,
     addHighlightTo,
     removeHighlightFrom,
+    hideDeckTopDiv,
+    showDeckTopDiv,
     showResultModal,
 };

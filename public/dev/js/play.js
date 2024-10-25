@@ -115,6 +115,7 @@ $(document).ready(function () {
     });
 
     globals.socket.on("startGame", (data) => {
+        Helpers.showDeckTopDiv();
         Helpers.applyGameStartTransition();
 
         globals.myTurn = data.yourTurn;
@@ -272,6 +273,11 @@ $(document).ready(function () {
 
     globals.socket.on("gameDraw", (data) => {
         const wasWrongGuess = data.wasWrongGuess;
+        const insertIndex = data.insertIndex;
+        const deckTopValue = data.deckTopValue;
+        let cardToInsert = globals.deckTop;
+
+        Helpers.hideDeckTopDiv();
 
         if (wasWrongGuess) {
             Sounds.playWrongSound();
@@ -281,10 +287,27 @@ $(document).ready(function () {
                     "wrong",
                     $(".my-card")[globals.selectedCard]
                 );
+
+                cardToInsert.setNumber(deckTopValue);
+                enemyHand.splice(insertIndex, 0, cardToInsert);
+                CardDivManager.createAndAnimateCardDiv(
+                    cardToInsert,
+                    insertIndex,
+                    "enemy",
+                    "open"
+                );
             } else {
                 Animations.highlightFadeOutTo(
                     "wrong",
                     $(".enemy-card")[globals.selectedCard]
+                );
+
+                myHand.splice(insertIndex, 0, cardToInsert);
+                CardDivManager.createAndAnimateCardDiv(
+                    cardToInsert,
+                    insertIndex,
+                    "my",
+                    "open"
                 );
             }
         }
