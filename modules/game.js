@@ -110,8 +110,9 @@ class Game {
             return [true, 0, deckTopValue, wonGame];
         }
 
-        const indexInsertedAt = this.insertDeckTopToActiveUser(true);
-        thisPlayer.stats.openCount = this.getOpenCount(thisPlayer.hand);
+        const indexInsertedAt = this.insertDeckTopToActiveUser();
+        this.players[this.activeTurn].hand[indexInsertedAt].open = true;
+        this.players[this.activeTurn].openCount = this.getOpenCount(this.players[this.activeTurn].hand)
 
         this.switchTurns();
 
