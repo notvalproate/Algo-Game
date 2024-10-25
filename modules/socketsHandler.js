@@ -197,11 +197,13 @@ class SocketHandler {
 
                 this.socket.emit("gameDraw", {
                     stats: currUserStats,
+                    wasWrongGuess: true,
                 });
                 this.socket.broadcast
                     .to(this.roomKey)
                     .emit("gameDraw", {
                         stats: otherUserStats,
+                        wasWrongGuess: true,
                     });
 
                 this.room.resetGame();
@@ -244,11 +246,13 @@ class SocketHandler {
 
             this.socket.emit("gameDraw", {
                 stats: currUserStats,
+                wasWrongGuess: false,
             });
             this.socket.broadcast
                 .to(this.roomKey)
                 .emit("gameDraw", {
                     stats: otherUserStats,
+                    wasWrongGuess: false,
                 });
 
             this.room.resetGame();

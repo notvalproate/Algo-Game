@@ -325,8 +325,6 @@ function setModalTranslations() {
             .then((json) => {
                 const langContent = json.dynamic;
 
-                console.log("CAME HERE", langContent);
-
                 winText = langContent.gameWon;
                 loseText = langContent.gameLost;
                 drawText = langContent.gameDraw;

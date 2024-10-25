@@ -271,12 +271,28 @@ $(document).ready(function () {
     });
 
     globals.socket.on("gameDraw", (data) => {
+        const wasWrongGuess = data.wasWrongGuess;
+
+        if (wasWrongGuess) {
+            Sounds.playWrongSound();
+
+            if (!globals.myTurn) {
+                Animations.highlightFadeOutTo(
+                    "wrong",
+                    $(".my-card")[globals.selectedCard]
+                );
+            } else {
+                Animations.highlightFadeOutTo(
+                    "wrong",
+                    $(".enemy-card")[globals.selectedCard]
+                );
+            }
+        }
+
         Helpers.setStatsSection(data.stats);
         
         Helpers.showResultModal(false, enemyUsername, false, true);
     })
-
-    console.log("NEW ME");
 
     globals.socket.on("gameEnded", (data) => {
         let wonGame = data.wonGame;
