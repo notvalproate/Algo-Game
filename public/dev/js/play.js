@@ -115,6 +115,7 @@ $(document).ready(function () {
     });
 
     globals.socket.on("startGame", (data) => {
+        Helpers.showDeckTopDiv();
         Helpers.applyGameStartTransition();
 
         globals.myTurn = data.yourTurn;
@@ -270,13 +271,82 @@ $(document).ready(function () {
         globals.deckTop = nextDeckTop;
     });
 
+    globals.socket.on("gameDraw", (data) => {
+        const wasWrongGuess = data.wasWrongGuess;
+        const insertIndex = data.insertIndex;
+        const deckTopValue = data.deckTopValue;
+        let cardToInsert = globals.deckTop;
+
+        Helpers.hideDeckTopDiv();
+
+        if (wasWrongGuess) {
+            Sounds.playWrongSound();
+
+            if (!globals.myTurn) {
+                Animations.highlightFadeOutTo(
+                    "wrong",
+                    $(".my-card")[globals.selectedCard]
+                );
+
+                cardToInsert.setNumber(deckTopValue);
+                enemyHand.splice(insertIndex, 0, cardToInsert);
+                CardDivManager.createAndAnimateCardDiv(
+                    cardToInsert,
+                    insertIndex,
+                    "enemy",
+                    "open"
+                );
+                CalloutHandler.removeCallout();
+            } else {
+                Animations.highlightFadeOutTo(
+                    "wrong",
+                    $(".enemy-card")[globals.selectedCard]
+                );
+
+                myHand.splice(insertIndex, 0, cardToInsert);
+                CardDivManager.createAndAnimateCardDiv(
+                    cardToInsert,
+                    insertIndex,
+                    "my",
+                    "open"
+                );
+            }
+        } else {
+            if (!globals.myTurn) {
+                enemyHand.splice(insertIndex, 0, cardToInsert);
+                CardDivManager.createAndAnimateCardDiv(
+                    cardToInsert,
+                    insertIndex,
+                    "enemy",
+                    "closed"
+                );
+                CalloutHandler.removeCallout();
+                Helpers.removeHighlightFrom($(".my-card")[globals.selectedCard]);
+            } else {
+                myHand.splice(insertIndex, 0, cardToInsert);
+                CardDivManager.createAndAnimateCardDiv(
+                    cardToInsert,
+                    insertIndex,
+                    "my",
+                    "open"
+                );
+                Helpers.closeCardWithDelay(insertIndex, 500);
+                Helpers.removeHighlightFrom($(".enemy-card")[globals.selectedCard]);
+            }
+        }
+
+        Helpers.setStatsSection(data.stats);
+        
+        Helpers.showResultModal(false, enemyUsername, false, true);
+    })
+
     globals.socket.on("gameEnded", (data) => {
         let wonGame = data.wonGame;
 
         Helpers.setStatsSection(data.stats);
 
         if (data.enemyDisconnect) {
-            Helpers.showResultModal(wonGame, enemyUsername, true);
+            Helpers.showResultModal(wonGame, enemyUsername, true, false);
             return;
         }
 
@@ -286,7 +356,7 @@ $(document).ready(function () {
             Animations.playWinLoseAnimation($(".my-card"));
         }
 
-        Helpers.showResultModal(wonGame, enemyUsername, false);
+        Helpers.showResultModal(wonGame, enemyUsername, false, false);
     });
 
     globals.socket.on("rejected", () => {

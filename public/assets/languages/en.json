@@ -29,9 +29,11 @@
         {
             "gameWon": "YOU WIN",
             "gameLost": "YOU LOSE",
+            "gameDraw": "DRAW",
 
             "disconnectStatus": "Enemy has disconnected!",
             "wonStatus": "You guessed all of <enemy>'s cards!",
-            "lostStatus": "<enemy> guessed all your cards!"
+            "lostStatus": "<enemy> guessed all your cards!",
+            "drawStatus": "No one guessed all the cards!"
         }
 }

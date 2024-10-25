@@ -29,9 +29,11 @@
         {
             "gameWon": "勝利!",
             "gameLost": "敗北",
+            "gameDraw": "引き分け",
 
             "disconnectStatus": "相手の接続が切断されました!",
             "wonStatus": "<enemy>のカードを全て当てました!",
-            "lostStatus": "あなたのカードは<enemy>に全て当てられました!"
+            "lostStatus": "あなたのカードは<enemy>に全て当てられました!",
+            "drawStatus": "誰も全てのカードを当てられませんでした!"
         }
 }

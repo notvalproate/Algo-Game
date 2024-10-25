@@ -12,9 +12,11 @@ const resultModal = $(".modal-game-result");
 
 let winText = "YOU WIN";
 let loseText = "YOU LOSE";
+let drawText = "DRAW";
 let disconnectText = "Enemy has disconnected!";
 let wonStatus = "You guessed all of <enemy>'s cards!";
 let lostStatus = "<enemy> guessed all your cards!";
+let drawStatus = "No one guessed all the cards!";
 
 // MISC HELPERS
 
@@ -277,6 +279,14 @@ function removeHighlightFrom(cardDiv) {
     $(cardDiv).removeClass("selected");
 }
 
+function hideDeckTopDiv() {
+    dealtCard.css("opacity", "0");
+}
+
+function showDeckTopDiv() {
+    dealtCard.css("opacity", "1");
+}
+
 function displayConfetti() {
     const end = Date.now() + 8 * 1000;
     let colors = ["#ffffff"];
@@ -325,14 +335,16 @@ function setModalTranslations() {
 
                 winText = langContent.gameWon;
                 loseText = langContent.gameLost;
+                drawText = langContent.gameDraw;
                 disconnectText = langContent.disconnectStatus;
                 wonStatus = langContent.wonStatus;
                 lostStatus = langContent.lostStatus;
+                drawStatus = langContent.drawStatus;
             });
     }
 }
 
-function showResultModal(wonGame, enemyUsername, disconnect) {
+function showResultModal(wonGame, enemyUsername, disconnect, draw) {
     gameResult.removeClass("game-won");
     gameResult.removeClass("game-lost");
 
@@ -340,6 +352,10 @@ function showResultModal(wonGame, enemyUsername, disconnect) {
         gameResult.html(winText);
         gameStatus.html(disconnectText);
         gameResult.addClass("game-won");
+    } else if (draw) {
+        gameResult.html(drawText);
+        gameStatus.html(drawStatus);
+        gameResult.addClass("game-draw");
     } else if (wonGame) {
         gameResult.html(winText);
         gameStatus.html(wonStatus.replace("<enemy>", enemyUsername));
@@ -379,5 +395,7 @@ export {
     closeCardWithDelay,
     addHighlightTo,
     removeHighlightFrom,
+    hideDeckTopDiv,
+    showDeckTopDiv,
     showResultModal,
 };

@@ -43,7 +43,7 @@ class Game {
         this.running = false;
     }
 
-    insertDeckTopToActiveUser() {
+    insertDeckTopToActiveUser(open) {
         const cardToInsert = this.deck.splice(0, 1)[0];
         const activeUserHand = this.players[this.activeTurn].hand;
         var insertIndex = 0;
@@ -65,6 +65,10 @@ class Game {
             }
 
             break;
+        }
+
+        if(open) {
+            cardToInsert.open = true;
         }
 
         activeUserHand.splice(insertIndex, 0, cardToInsert);
@@ -118,7 +122,7 @@ class Game {
     holdDeckTop() {
         this.players[this.activeTurn].stats.timesStayed++;
 
-        const insertIndex = this.insertDeckTopToActiveUser();
+        const insertIndex = this.insertDeckTopToActiveUser(false);
 
         this.switchTurns();
 
@@ -160,6 +164,11 @@ class Game {
 
     getHiddenAndVisibleDeckTop() {
         const deckTop = this.getDeckTop();
+
+        if(deckTop === undefined) {
+            return [undefined, undefined];
+        }
+
         return [
             new AlgoCard(null, deckTop.getColor()),
             new AlgoCard(deckTop.getNumber(), deckTop.getColor()),
