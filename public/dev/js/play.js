@@ -296,6 +296,7 @@ $(document).ready(function () {
                     "enemy",
                     "open"
                 );
+                CalloutHandler.removeCallout();
             } else {
                 Animations.highlightFadeOutTo(
                     "wrong",
@@ -309,6 +310,28 @@ $(document).ready(function () {
                     "my",
                     "open"
                 );
+            }
+        } else {
+            if (!globals.myTurn) {
+                enemyHand.splice(insertIndex, 0, cardToInsert);
+                CardDivManager.createAndAnimateCardDiv(
+                    cardToInsert,
+                    insertIndex,
+                    "enemy",
+                    "closed"
+                );
+                CalloutHandler.removeCallout();
+                Helpers.removeHighlightFrom($(".my-card")[globals.selectedCard]);
+            } else {
+                myHand.splice(insertIndex, 0, cardToInsert);
+                CardDivManager.createAndAnimateCardDiv(
+                    cardToInsert,
+                    insertIndex,
+                    "my",
+                    "open"
+                );
+                Helpers.closeCardWithDelay(insertIndex, 500);
+                Helpers.removeHighlightFrom($(".enemy-card")[globals.selectedCard]);
             }
         }
 
