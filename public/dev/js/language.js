@@ -1,6 +1,6 @@
 const languageModal = $("#language-modal");
 
-const supportedLanguages = ["en", "it", "ja"];
+const supportedLanguages = ["de", "en", "it", "ja"];
 
 function addLanguageEventListeners(tempFunction) {
     $("#languageButton").click(() => {
