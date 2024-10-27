@@ -1,36 +1,39 @@
 {
-    "content": {
-        "createTitle": "NEUES SPIEL",
-        "userLabel": "Benutzername",
-        "roomLabel": "Spielnummmer",
-        "playButton": "Spielen",
-        "howToPlay": "Spielanleitung",
-        "contrib": "Probleme zu melden oder zum GitHub-Projekt zu beitragen,",
-        "here": "könnten Sie hier klicken!",
-        "selectLang": "SPRACHE WÄHLEN",
-        "copyInvite": "EINLADUNGSLINK KOPIEREN",
-        "readyText": "BEREIT",
-        "attackText": "ANGREIFEN",
-        "stayText": "BLEIBEN",
-        "statsTitle": "SPIELERGEBNIS",
-        "totalGuesses": "MAL ANGEGRIFFEN:",
-        "correctGuesses": "MAL ERFOLGREICH ANGEGRIFFEN:",
-        "guessRate": "PROTZENTZAHL DES RICHTIGEN ANGRIFFS:",
-        "timesStayed": "MAL GEBLIEBEN:",
-        "hth": "SgS-Info",
-        "winsText1": "Sieg(e)",
-        "winsText2": "Sieg(e)",
-        "returnButton": "ZURÜCK ZUM MENÜ",
-        "settingsTitle": "EINSTELLUNG",
-        "closeButton": "ZURÜCK"
-    },
-    "dynamic": {
-        "gameWon": "GEWONNEN",
-        "gameLost": "VERLOREN",
-        "gameDraw": "UNENTSCHIEDEN",
-        "disconnectStatus": "Gegner hat das Spiel verlassen!",
-        "wonStatus": "Alle <enemy>s Karte erfolgreich angegriffen!",
-        "lostStatus": "<enemy> griff alle Karte erfolgreich an!",
-        "drawStatus": "Niemand konnte alle Gegnerkarte erfolgreich angreifen!"
-    }
+    "content":
+        {
+            "createTitle": "NEUES SPIEL",
+            "userLabel": "Benutzername",
+            "roomLabel": "Spielnummmer",
+            "playButton": "Spielen",
+            "howToPlay": "Spielanleitung",
+            "contrib": "Probleme zu melden oder zum GitHub-Projekt zu beitragen,",
+            "here": "könnten Sie hier klicken!",
+            "selectLang": "SPRACHE WÄHLEN",
+            "copyInvite": "EINLADUNGSLINK KOPIEREN",
+            "readyText": "BEREIT",
+            "attackText": "ANGREIFEN",
+            "stayText": "BLEIBEN",
+            "statsTitle": "SPIELERGEBNIS",
+            "totalGuesses": "MAL ANGEGRIFFEN:",
+            "correctGuesses": "MAL ERFOLGREICH ANGEGRIFFEN:",
+            "guessRate": "PROTZENTZAHL DES RICHTIGEN ANGRIFFS:",
+            "timesStayed": "MAL GEBLIEBEN:",
+            "hth": "SgS-Info",
+            "winsText1": "Sieg(e)",
+            "winsText2": "Sieg(e)",
+            "returnButton": "ZURÜCK ZUM MENÜ",
+            "settingsTitle": "EINSTELLUNG",
+            "closeButton": "ZURÜCK"
+        },
+    "dynamic":
+        {
+            "gameWon": "GEWONNEN",
+            "gameLost": "VERLOREN",
+            "gameDraw": "UNENTSCHIEDEN",
+                
+            "disconnectStatus": "Gegner hat das Spiel verlassen!",
+            "wonStatus": "Alle <enemy>s Karte erfolgreich angegriffen!",
+            "lostStatus": "<enemy> griff alle Karte erfolgreich an!",
+            "drawStatus": "Niemand konnte alle Gegnerkarte erfolgreich angreifen!"
+        }
 }
